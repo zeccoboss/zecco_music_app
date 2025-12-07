@@ -1,0 +1,7 @@
+body {
+	background-color: black;
+	color: aliceblue;
+	place-content: center;
+	place-items: center;
+	height: 100vh;
+}
