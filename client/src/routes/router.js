@@ -9,6 +9,10 @@ const routes = {
 	"/login": "login",
 };
 
+function pushHistory(path) {
+	history.pushState({}, "", path);
+}
+
 function navigate(path) {
 	const main = document.querySelector("main");
 	const mainSections = main.querySelectorAll("section");
@@ -20,11 +24,11 @@ function navigate(path) {
 
 	if (routes[path] === "login") {
 		navigateLogin();
-		history.pushState({}, "", path);
+		pushHistory(path);
 	} else if (routes[path] === "signup") {
 		// console.log("signup");
 		navigateSignup();
-		history.pushState({}, "", path);
+		pushHistory(path);
 	} else {
 		const id = `${routes[path]}-section`;
 
@@ -35,7 +39,7 @@ function navigate(path) {
 			? foundSection.classList.add("active_section")
 			: notFoundSection.classList.add("active_section");
 
-		history.pushState({}, "", path);
+		pushHistory(path);
 	}
 }
 
@@ -52,4 +56,4 @@ const router = () => {
 	document.addEventListener("DOMContentLoaded", handleLocation);
 };
 
-export { navigate, router };
+export { navigate, router, pushHistory };

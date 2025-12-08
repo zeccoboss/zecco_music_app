@@ -1,3 +1,5 @@
+import LoginForm from "../fragments/LoginForm.js";
+import SignpForm from "../fragments/SignpForm.js";
 import CreateElement from "../utils/CreateElement.js";
 
 const ExtraContent = () => {
@@ -6,7 +8,7 @@ const ExtraContent = () => {
 	extraContent.setId("extra-content");
 	extraContent.addClass("extra_content");
 
-	extraContent.setInnerHTML("<h2>Extra Content</h2>");
+	extraContent.getElement().append(LoginForm(), SignpForm());
 
 	return extraContent.getElement();
 };

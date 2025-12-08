@@ -6,9 +6,14 @@ const Overlay = () => {
 	overlay.addClass("overlay");
 
 	overlay.setInnerHTML(`
-		<div class="overlay_spinner"></div>
-		<p>Loading...</p>
+		<div id="spiner_wrapper">
+			<div class="overlay_spinner_one"></div>
+			<div class="overlay_spinner_two"></div>
+		</div>
+		
+		<p class="overlay_p">Loading...</p>
 	`);
+
 	return overlay.getElement();
 };
 

@@ -1,4 +1,7 @@
-import { preventLinksBehaviour } from "../events/preventLinksBehaviour.js";
+import {
+	preventFormBehaviour,
+	preventLinksBehaviour,
+} from "../events/preventPageRefresh.js";
 import { router } from "../routes/router.js";
 
 const initApp = (message) => {
@@ -6,6 +9,7 @@ const initApp = (message) => {
 
 	router();
 	preventLinksBehaviour();
+	preventFormBehaviour();
 };
 
 export { initApp };

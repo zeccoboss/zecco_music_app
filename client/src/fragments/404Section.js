@@ -14,6 +14,14 @@ const NotFoundSection = () => {
 
 	notFoundSection.setInnerHTML(htmlContent);
 
+	notFoundSection.style(`
+		display: flex;
+		place-content: center;
+		font-family: Verdana, Geneva, Tahoma, sans-serif;
+		padding-top: 3rem;
+		color: hsla(0, 80%, 80%);
+	`);
+
 	//
 	return notFoundSection.getElement();
 };

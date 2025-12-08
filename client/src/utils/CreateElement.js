@@ -6,6 +6,10 @@ class CreateElement {
 		this.element.innerText = innerText ? innerText : "";
 	}
 
+	append(elArray) {
+		this.element.append(...Array.from(elArray));
+	}
+
 	addEvent(eventType, eventFunction) {
 		this.element.addEventListener(`${eventType}`, eventFunction);
 	}

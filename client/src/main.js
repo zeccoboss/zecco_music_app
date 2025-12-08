@@ -19,12 +19,12 @@ const renderApp = (app) => {
 		ExtraContent()
 	);
 
-	document.addEventListener(
-		"DOMContentLoaded",
-		initApp("Starting Application...")
-	);
-
 	console.log("");
 };
 
 renderApp(document.querySelector("#app"));
+
+document.addEventListener(
+	"DOMContentLoaded",
+	initApp("Starting Application...")
+);

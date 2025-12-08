@@ -1,14 +1,20 @@
+import { navigationSpinner } from "../core/loadingSpinner.js";
+
 const navigateLogin = () => {
 	const extraContent = document.querySelector(".extra_content");
 	const overlay = document.querySelector(".overlay");
+	const signupForm = document.querySelector(".signup_form");
+	const loginForm = document.querySelector(".login_form");
 
+	extraContent.classList.remove("show_extra_content");
 	overlay.classList.add("show_overlay");
 
-	setTimeout(() => {
-		overlay.classList.remove("show_overlay");
-		extraContent.classList.add("show_extra_content");
-		extraContent.innerHTML = "Login";
-	}, 1000);
+	const formsToRender = [
+		{ render: false, element: signupForm },
+		{ render: true, element: loginForm },
+	];
+
+	navigationSpinner(overlay, extraContent, 1000, formsToRender);
 };
 
 export default navigateLogin;

@@ -1,5 +1,6 @@
 import { mobleScreen } from "../core/screenBreakePoints.js";
 import { navigateSearch } from "../events/navigateSearch.js";
+import { pushHistory } from "../routes/router.js";
 // import navigateSignup from "../events/navigateSignup.js";
 import CreateElement from "../utils/CreateElement.js";
 import { magnifierSvg, musicIconSvg } from "../utils/SVG_ICONS.js";
@@ -24,7 +25,7 @@ const Header = () => {
 				<a href="/signup">Sign Up</a>
 			</button>
 			<button class="header_signin_btn">
-				<a href="/login">Sign In</a>
+				<a href="/login">Login</a>
 			</button>
 		</div>
 	`;
@@ -33,8 +34,6 @@ const Header = () => {
 
 	const headerSVGs = header.getChildren("svg", "el");
 	const musicIcon = header.getChild(".bi-music-note", "class");
-	// const loginBtn = header.getChild(".bi-music-note", "class");
-	// const signupBtn = header.getChild(".bi-music-note", "class");
 
 	if (mobleScreen.matches) {
 		headerSVGs.forEach((svg) => {
@@ -56,15 +55,10 @@ const Header = () => {
 	searchInput.addEventListener("input", (e) => {
 		navigateSearch();
 		const searchValue = e.target.value;
+		pushHistory("/search");
 
 		console.log(searchValue);
 	});
-
-	// loginBtn.addEventListener("click", (_e) => {});
-
-	// signupBtn.addEventListener("click", (_e) => {
-	// 	navigateSignup();
-	// });
 
 	// return header element
 	return header.getElement();
