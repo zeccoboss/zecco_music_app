@@ -1,0 +1,39 @@
+2d34a216-cc13-45f9-a4b2-d145f7acfb9d	24122025	09:36:27	ReferenceError	user_name_or_email is not defined
+
+0e3e96f5-82e5-40f6-a6b7-d4e8d08277e6	24122025	09:47:30	TypeError	Cannot destructure property 'username' of 'req.body' as it is undefined.
+
+29cf9a27-59fa-4a96-b144-15ed3a43cd7c	24122025	09:52:12	SyntaxError	Unexpected token ''', ..."assword": '123edre'
+"... is not valid JSON
+
+001e9957-17cf-41c5-8486-ae8e4bea96eb	24122025	09:52:28	ReferenceError	user_name_or_email is not defined
+
+19224a56-f88f-453a-809e-804196356777	24122025	09:53:42	ReferenceError	nanoid is not defined
+
+b3416c58-f583-4b0f-b41c-7f06eedb0b4b	24122025	09:54:16	TypeError	nanoid is not a function
+
+61d9b1aa-596b-4967-9385-a0f742a9d1ae	24122025	09:54:21	TypeError	nanoid is not a function
+
+ae445345-d39d-4862-8413-f1d840348b57	24122025	09:54:48	TypeError	nanoid is not a function
+
+386e9b0a-2c5e-4cb1-bae6-9fb3044432ba	24122025	09:55:18	TypeError	nanoid is not a function
+
+cf2df714-2f48-4809-b437-bbebcd6eb7f0	24122025	09:55:20	TypeError	nanoid is not a function
+
+1a1185bb-f034-40ca-999b-1673165e3883	24122025	09:55:43	TypeError	nanoid is not a function
+
+ac0e74c6-11c3-4bcb-a7f9-917fd7d7eafa	24122025	09:56:33	TypeError	nanoid is not a function
+
+749b61e3-7bfd-4d4c-b558-ccaebc9d79bb	24122025	09:57:31	TypeError	The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+
+a6e3feee-f6d9-4b88-89ba-1445cc8d11e9	24122025	09:59:23	TypeError	The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+
+2f4cf6f1-1f9d-429f-a360-b6bd9f7da81a	24122025	10:01:01	TypeError	The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+
+4dfbc13b-a62e-4f6a-8b69-b88cff13d1b9	24122025	10:04:59	TypeError	The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+
+783cc6dc-76dc-49f9-8ea3-48578787ea0e	24122025	10:06:22	ReferenceError	usersDB is not defined
+
+56ce2c16-812a-43c3-8747-4876ca5b8998	24122025	10:07:03	ReferenceError	userDB is not defined
+
+8996761a-0dfa-4fab-b4cc-5a4910e554f6	24122025	11:28:31	SyntaxError	Expected double-quoted property name in JSON at position 53 (line 5 column 1)
+

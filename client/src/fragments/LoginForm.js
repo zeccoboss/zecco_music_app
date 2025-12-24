@@ -18,7 +18,7 @@ const LoginForm = () => {
 			<p class="lg_p">Don't have accout ? <a href="/signup">Sign up</a></p>
 			<a href="/password" class="lg_frgt_pwd_lnk">Fogotten passaword ?</a>	
 		</div>
-
+	
 		<button type="submit" id="lg-submit-btn" class="lg_submit_btn">Login
 		</button>
 	`;

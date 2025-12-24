@@ -1,4 +1,5 @@
 import CreateElement from "../utils/CreateElement.js";
+import loadingImg from "../images/loading_img.jpg";
 
 const Overlay = () => {
 	// Create element
@@ -6,12 +7,10 @@ const Overlay = () => {
 	overlay.addClass("overlay");
 
 	overlay.setInnerHTML(`
-		<div id="spiner_wrapper">
-			<div class="overlay_spinner_one"></div>
-			<div class="overlay_spinner_two"></div>
+		<div class="overlay_logo_container">
+			<img src="${loadingImg}" alt="" height="300" width="300" class="overlay_logo"/>
 		</div>
 		
-		<p class="overlay_p">Loading...</p>
 	`);
 
 	return overlay.getElement();

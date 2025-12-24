@@ -2,7 +2,7 @@ import { adjustMusicCardSvg } from "../core/adjustSvgSize.js";
 import {
 	bigScreen,
 	largeScreen,
-	mobleScreen,
+	mobileScreen,
 } from "../core/screenBreakePoints.js";
 import CreateElement from "../utils/CreateElement.js";
 import { heartSvg, playCircleFill, threeDotMenu } from "../utils/SVG_ICONS.js";
@@ -37,7 +37,7 @@ const MusicCard = () => {
 	musicCard.setInnerHTML(htmlContent);
 
 	const musicCardSvgs = musicCard.getChildren("svg", "el");
-	if (mobleScreen.matches) {
+	if (mobileScreen.matches) {
 		adjustMusicCardSvg(musicCardSvgs, 16);
 	} else if (bigScreen.matches) {
 		adjustMusicCardSvg(musicCardSvgs, 18);

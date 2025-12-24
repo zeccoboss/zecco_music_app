@@ -6,8 +6,8 @@ const screenBreakePoints = {
 
 //  and (max-width: 1400px)
 
-const mobleScreen = screenBreakePoints.mobileScreen;
+const mobileScreen = screenBreakePoints.mobileScreen;
 const bigScreen = screenBreakePoints.bigScreen;
 const largeScreen = screenBreakePoints.largeScreen;
 
-export { mobleScreen, bigScreen, largeScreen };
+export { mobileScreen, bigScreen, largeScreen };

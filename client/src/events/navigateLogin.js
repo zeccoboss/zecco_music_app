@@ -14,7 +14,7 @@ const navigateLogin = () => {
 		{ render: true, element: loginForm },
 	];
 
-	navigationSpinner(overlay, extraContent, 1000, formsToRender);
+	navigationSpinner(overlay, extraContent, 2500, formsToRender);
 };
 
 export default navigateLogin;

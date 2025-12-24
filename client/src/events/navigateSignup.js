@@ -14,7 +14,7 @@ const navigateSignup = () => {
 		{ render: false, element: loginForm },
 	];
 
-	navigationSpinner(overlay, extraContent, 1000, formsToRender);
+	navigationSpinner(overlay, extraContent, 2500, formsToRender);
 
 	// extraContent.classList.remove("show_extra_content");
 };

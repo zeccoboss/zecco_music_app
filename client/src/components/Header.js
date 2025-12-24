@@ -1,4 +1,4 @@
-import { mobleScreen } from "../core/screenBreakePoints.js";
+import { mobileScreen } from "../core/screenBreakePoints.js";
 import { navigateSearch } from "../events/navigateSearch.js";
 import { pushHistory } from "../routes/router.js";
 // import navigateSignup from "../events/navigateSignup.js";
@@ -35,7 +35,7 @@ const Header = () => {
 	const headerSVGs = header.getChildren("svg", "el");
 	const musicIcon = header.getChild(".bi-music-note", "class");
 
-	if (mobleScreen.matches) {
+	if (mobileScreen.matches) {
 		headerSVGs.forEach((svg) => {
 			if (svg.classList.contains("music_icon-optional")) {
 				svg.setAttribute("width", "13");

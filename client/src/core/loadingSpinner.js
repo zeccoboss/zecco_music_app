@@ -1,6 +1,4 @@
 function navigationSpinner(overlay, container, duration, formsToRender = []) {
-	console.log(formsToRender[0].form);
-
 	formsToRender.forEach((form) => {
 		form.render
 			? (() => {
@@ -17,4 +15,17 @@ function navigationSpinner(overlay, container, duration, formsToRender = []) {
 	}, duration);
 }
 
-export { navigationSpinner };
+function navigateHomneSpinner(
+	{ extraContent, overlay },
+	duration,
+	clearExtraLayers
+) {
+	// overlay.classList.remove("show_overlay");
+
+	setTimeout(() => {
+		clearExtraLayers(extraContent, overlay);
+		// overlay.classList.remove("show_overlay");
+	}, duration);
+}
+
+export { navigationSpinner, navigateHomneSpinner };

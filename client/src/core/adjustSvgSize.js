@@ -39,6 +39,17 @@ function adjustFooterSvg(
 	});
 }
 
+function adjustmobileFooterSvg(svgs, size = 20) {
+	svgs.forEach((svg) => {
+		if (svg.classList.contains("home")) {
+			svg.setAttribute("width", `${size + 10}`);
+			svg.setAttribute("height", `${size + 10}`);
+		}
+
+		svg.setAttribute("width", `${size}`);
+		svg.setAttribute("height", `${size}`);
+	});
+}
 // function adjustHeaderSvg(
 // 	svgs,
 // 	musicIconSvgSize = 0,
@@ -67,5 +78,5 @@ export {
 	adjustFooterSvg,
 	// adjustHeaderSvg,
 	adjustMusicCardSvg,
-	// adjustMusicListSvg,
+	adjustmobileFooterSvg,
 };

@@ -2,7 +2,7 @@ import { adjustAsideSvg } from "../core/adjustSvgSize.js";
 import {
 	bigScreen,
 	largeScreen,
-	mobleScreen,
+	mobileScreen,
 } from "../core/screenBreakePoints.js";
 import { navigateHome } from "../events/navigateHome.js";
 import { navigateLibrary } from "../events/navigateLibrary.js";
@@ -87,7 +87,7 @@ const Aside = () => {
 	const asideSVGs = aside.getElement().querySelectorAll("svg");
 	// const asideLinks = aside.getElement().querySelectorAll("a");
 
-	if (mobleScreen.matches) {
+	if (mobileScreen.matches) {
 		adjustAsideSvg(asideSVGs, 20);
 	} else if (bigScreen.matches) {
 		adjustAsideSvg(asideSVGs, 20);

@@ -2,34 +2,24 @@ const express = require("express");
 const path = require("node:path");
 const { parseFile } = require("music-metadata");
 const fsPromise = require("node:fs/promises");
+const cors = require("cors");
+const { corsOptions } = require("./config/corsOptions");
+const { logger } = require("./middlewares/eventHandler");
+const { errorLogger } = require("./middlewares/errorHandler");
+
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 5200;
 
-app.use(async (req, res, next) => {
-	try {
-		const message = `${req.url}\t${req.method}\t${req.headers.origin}\n`;
-		const filePath = path.join(__dirname, "logs", "eventLogs.tx");
-
-		await fsPromise.appendFile(filePath, message);
-		console.log(`${req.url}\t${req.method}\t${req.headers.origin}`);
-	} catch (error) {
-		console.log(error);
-	}
-
-	next();
-});
+app.use(cors(corsOptions));
+app.use(logger);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", (_, res) => {
-	res.status(200).sendFile(
-		path.join(__dirname, "public", "views", "index.html")
-	);
-});
+app.use("/", require("./routes/root"));
 
 app.get("/api/media/audios", async (_req, res) => {
 	try {
@@ -56,11 +46,15 @@ app.get("/api/media/audios", async (_req, res) => {
 	}
 });
 
+app.use("/users", require("./routes/api/users"));
+
 app.use((_, res) => {
 	res.status(404).sendFile(
-		path.join(__dirname, "public", "views", "404.html")
+		path.join(__dirname, "public", "views", "notFound.html")
 	);
 });
+
+app.use(errorLogger);
 
 app.listen(PORT, () => {
 	console.log(`🔥 Server running on "http://localhost:${PORT}"`);
