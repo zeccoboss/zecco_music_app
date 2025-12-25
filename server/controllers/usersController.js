@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const fs = require("node:fs/promises");
 const path = require("node:path");
-const { nanoid } = require("nanoid");
+const { v4: uuidv4 } = require("uuid");
 // const jwt = require("jsonwebtoken");
 
 const usersDB = {
@@ -12,15 +12,15 @@ const usersDB = {
 };
 
 // Update json file with new data
-async function saveEmployeeToDB(updatedData, res) {
+async function saveUsersToDB(updatedData, res) {
 	try {
 		await fsPromises.writeFile(
-			path.join(__dirname, "..", "model", "users.json"),
+			path.join(__dirname, "..", "models", "users.json"),
 			JSON.stringify(updatedData, null, 3)
 		);
 	} catch (err) {
 		console.error("Error:", err);
-		return res.status(500).json(err.message);
+		res.status(500).json(err.message);
 	}
 }
 
@@ -52,13 +52,11 @@ const createUser = async (req, res) => {
 		});
 	}
 
-	console.log("");
-
 	// Hash the password
 	const hashedPassword = await bcrypt.hash(password, 10);
 
 	// Get id
-	const id = nanoid(5); // Generate id of length 5 buh will be updated to 20+ when it's time
+	const id = uuidv4(); // Generate id of length 5 buh will be updated to 20+ when it's time
 
 	// Create new user
 	const newUser = {
@@ -113,7 +111,7 @@ const updateUser = (req, res) => {
 	const filteredUsers = usersDB.users.filter((u) => u.id !== user.id);
 
 	usersDB.setUsers([...filteredUsers, updatedUser]);
-	saveEmployeeToDB(usersDB.users, res);
+	saveUsersToDB(usersDB.users, res);
 
 	res.status(200).json({ message: `User with ID: "${id}" updated.` });
 };
@@ -129,7 +127,7 @@ const deleteUser = (req, res) => {
 	}
 
 	const filteredUser = usersDB.users.filter((u) => u.id !== foundUser.id);
-	saveEmployeeToDB(filteredUser, res);
+	saveUsersToDB(filteredUser, res);
 	res.status(204);
 };
 

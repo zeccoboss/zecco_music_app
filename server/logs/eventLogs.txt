@@ -134,3 +134,4 @@ c7befcac-06ed-4194-ae27-1f745af648e9	24122025	11:29:01	/users/	PUT	undefined
 37cb4f5f-fee8-452f-844e-b6003e2212fc	24122025	11:30:10	/users/	PUT	undefined
 d3eb4882-d900-4e57-a846-470f669fa5e4	24122025	11:30:20	/users/	GET	undefined
 ebe38830-3e19-40bc-b311-9ee3efd44b53	24122025	11:30:28	/users/	GET	undefined
+3894b29d-36ea-40c5-9410-665bc4007a3d	25122025	02:01:03	/favicon.ico	GET	undefined
