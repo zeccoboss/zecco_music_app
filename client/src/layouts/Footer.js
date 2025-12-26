@@ -10,7 +10,7 @@ import {
 	threeDotMenu,
 } from "../utils/SVG_ICONS.js";
 import musicImage from "../images/favicon.png";
-import { adjustFooterSvg } from "../core/adjustSvgSize.js";
+import { adjustFooterSvg } from "../utils/adjustSvgSize.js";
 
 const Footer = () => {
 	// Create element

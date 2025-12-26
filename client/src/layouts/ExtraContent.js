@@ -1,5 +1,5 @@
-import LoginForm from "../fragments/LoginForm.js";
-import SignpForm from "../fragments/SignupForm.js";
+import LoginForm from "../components/LoginForm.js";
+import SignpForm from "../components/SignupForm.js";
 import CreateElement from "../utils/CreateElement.js";
 
 const ExtraContent = () => {

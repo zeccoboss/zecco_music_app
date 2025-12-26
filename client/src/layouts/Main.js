@@ -1,7 +1,7 @@
-import NotFoundSection from "../fragments/404Section.js";
-import HomeSection from "../fragments/HomeSection.js";
-import LibrarySection from "../fragments/LibrarySection.js";
-import SearchSection from "../fragments/SearchSection.js";
+import NotFoundSection from "../components/404Section.js";
+import HomeSection from "../components/HomeSection.js";
+import LibrarySection from "../components/LibrarySection.js";
+import SearchSection from "../components/SearchSection.js";
 import CreateElement from "../utils/CreateElement.js";
 
 const Main = () => {

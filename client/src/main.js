@@ -1,22 +1,22 @@
-import Aside from "./components/Aside.js";
-import Container from "./components/Container.js";
-import ExtraContent from "./components/ExtraContent.js";
-import Footer from "./components/Footer.js";
-import Header from "./components/Header.js";
-import Main from "./components/Main.js";
-import MobileFooter from "./components/MobileFooter.js";
-import MobileHeader from "./components/MobileHeader.js";
-import MobileMain from "./components/MobileMain.js";
-import Overlay from "./components/Overlay.js";
-import StartupScreen from "./components/StartupScreen.js";
+import Aside from "./layouts/Aside.js";
+import Container from "./layouts/Container.js";
+import ExtraContent from "./layouts/ExtraContent.js";
+import Footer from "./layouts/Footer.js";
+import Header from "./layouts/Header.js";
+import Main from "./layouts/Main.js";
+import MobileFooter from "./layouts/MobileFooter.js";
+import MobileHeader from "./layouts/MobileHeader.js";
+import MobileMain from "./layouts/MobileMain.js";
+import Overlay from "./layouts/Overlay.js";
+import StartupScreen from "./layouts/StartupScreen.js";
 import {
 	bigScreen,
 	largeScreen,
 	mobileScreen,
 } from "./core/screenBreakePoints.js";
-import "./style.css";
-import "./media_querries.css";
-import { initApp } from "./utils/initApp.js";
+import "./styles/style.css";
+import "./styles/media_querries.css";
+import { initApp } from "./core/initApp.js";
 
 const renderApp = (app) => {
 	const applyMobileContent = (message) => {
@@ -97,7 +97,7 @@ const renderApp = (app) => {
 		console.log(""); // empty string to show app is fully loaded from additional logs
 	};
 
-	// Check screen size and pass appropraite components
+	// Check screen size and pass appropraite layouts
 	if (mobileScreen.matches) {
 		applyMobileContent("[Screen Size]: Mobile screen!");
 	} else if (bigScreen.matches) {
@@ -106,7 +106,7 @@ const renderApp = (app) => {
 		applyBigScreenContent("[Screen Size]: Large screen!");
 	}
 
-	// Listen to changes on screen size and render the corresponding components
+	// Listen to changes on screen size and render the corresponding layouts
 	mobileScreen.addEventListener("change", (e) => {
 		if (e.target.matches)
 			applyMobileContent(
@@ -114,7 +114,7 @@ const renderApp = (app) => {
 			);
 	});
 
-	// Listen to changes on screen size and render the corresponding components
+	// Listen to changes on screen size and render the corresponding layouts
 	bigScreen.addEventListener("change", (e) => {
 		if (e.target.matches)
 			applyBigScreenContent(
@@ -122,7 +122,7 @@ const renderApp = (app) => {
 			);
 	});
 
-	// Listen to changes on screen size and render the corresponding components
+	// Listen to changes on screen size and render the corresponding layouts
 	largeScreen.addEventListener("change", (e) => {
 		if (e.target.matches)
 			applyLargeScreenContent(

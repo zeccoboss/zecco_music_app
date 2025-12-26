@@ -1,9 +1,26 @@
 [
-	{
-		"id": "8fdf4b0d-c139-4cab-a427-262995ae7a08",
-		"username": "zecco",
-		"email": "ezekielobang@gmail.com",
-		"password": "$2b$10$GS3o5fRhobgS4NkNmVQxeOCzps.sT2kwTH9hChV8PcVmKeOvIHuOG",
-		"role": "admin"
-	}
+   {
+      "id": "8d1a020f-72b2-4de4-bc2f-fb27ebc292e0",
+      "fullname": "Obang Ezekiel",
+      "username": "zecco",
+      "email": "ezekielobang@gmail.com",
+      "password": "$2b$10$9y1P.sTmmjLwR7pBriKbKOxI9K4hB.hPbIU3Lay.aZ.vGjMK2csIS",
+      "role": "admin",
+      "media": {
+         "audios": {
+            "favorites": [],
+            "uploaded": [],
+            "created": []
+         },
+         "videos": {
+            "favorites": [],
+            "uploaded": [],
+            "created": []
+         },
+         "images": {
+            "profile": "images/default_profile.png"
+         }
+      },
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InplY2NvIiwiaWF0IjoxNzY2Njk0NjA5LCJleHAiOjE3NjcxMjY2MDl9.oi2rLRFMIhh-Mn7jrSaM69AiRluw3ou7V_eXtiSd95o"
+   }
 ]

@@ -1,4 +1,4 @@
-import { adjustMusicCardSvg } from "../core/adjustSvgSize.js";
+import { adjustMusicCardSvg } from "../utils/adjustSvgSize.js";
 import {
 	bigScreen,
 	largeScreen,

@@ -33,13 +33,13 @@ const getUser = (req, res) => {
 	const foundUser = usersDB.users.find((u) => u.id === id);
 
 	if (!foundUser) {
-		console.error({ error: `User with ID: "${id}" not found!` });
+		console.error({ message: `user with ID: "${id}" not found!` });
 		return res
 			.status(400)
-			.json({ error: `User with ID: "${id}" not found!` });
+			.json({ message: `user with ID: "${id}" not found!` });
 	}
 
-	console.log({ message: "User found!", user: foundUser });
+	console.log({ message: "user found!", user: foundUser });
 	res.json({ message: "User found!", user: foundUser });
 };
 
@@ -48,7 +48,7 @@ const createUser = async (req, res) => {
 
 	if (!username || !password || !email) {
 		return res.status(400).json({
-			error: "username, email, and password are required!",
+			message: "username, email, and password are required!",
 		});
 	}
 
@@ -64,6 +64,22 @@ const createUser = async (req, res) => {
 		username,
 		email,
 		password: hashedPassword,
+		roll: "user",
+		media: {
+			audios: {
+				favorites: [],
+				uploaded: [],
+				created: [],
+			},
+			video: {
+				favorites: [],
+				uploaded: [],
+				created: [],
+			},
+			images: {
+				profile: "images/default_profile.png",
+			},
+		},
 	};
 
 	// Rewrite users
@@ -95,10 +111,10 @@ const updateUser = (req, res) => {
 	const user = usersDB.users.find((u) => u.id === id);
 
 	if (!user) {
-		console.error({ error: `Coudln't find user with ID: "${id}"!` });
+		console.error({ message: `Coudln't find user with ID: "${id}"!` });
 		return res
 			.status(400)
-			.json({ error: `Coudln't find user with ID: "${id}"!` });
+			.json({ message: `Coudln't find user with ID: "${id}"!` });
 	}
 
 	if (req.body.username) user.username = req.body.username;
@@ -120,10 +136,10 @@ const deleteUser = (req, res) => {
 	const id = req.params.id;
 	const foundUser = usersDB.users.find((u) => u.id === id);
 	if (!user) {
-		console.error({ error: `Coudln't find user with ID: "${id}"!` });
+		console.error({ message: `Coudln't find user with ID: "${id}"!` });
 		return res
 			.status(400)
-			.json({ error: `Coudln't find user with ID: "${id}"!` });
+			.json({ message: `Coudln't find user with ID: "${id}"!` });
 	}
 
 	const filteredUser = usersDB.users.filter((u) => u.id !== foundUser.id);

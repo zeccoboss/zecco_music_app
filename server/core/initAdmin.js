@@ -15,14 +15,29 @@ const initAdmin = async () => {
 		const adminExists = usersDB.users.find((u) => u.role === "admin");
 		if (adminExists) return console.log("Admin already exists!");
 		console.log("Creating Admin...");
-		console.log(process.env.ADMIN_EMAIL);
 
 		const admin = {
 			id: uuidv4(),
+			fullname: process.env.ADMIN_FULLNAME,
 			username: process.env.ADMIN_USERNAME,
 			email: process.env.ADMIN_EMAIL,
-			password: await bcrypt.hash(process.env.ADMIN_PASSWORD, 10),
+			password: await bcrypt.hash(process.env.ADMIN_TEST_PASSWORD, 10),
 			role: process.env.ADMIN_ROLL,
+			media: {
+				audios: {
+					favorites: [],
+					uploaded: [],
+					created: [],
+				},
+				videos: {
+					favorites: [],
+					uploaded: [],
+					created: [],
+				},
+				images: {
+					profile: "images/default_profile.png",
+				},
+			},
 		};
 
 		usersDB.setUsers([admin, ...usersDB.users]);

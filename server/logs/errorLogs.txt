@@ -37,3 +37,7 @@ a6e3feee-f6d9-4b88-89ba-1445cc8d11e9	24122025	09:59:23	TypeError	The "data" argu
 
 8996761a-0dfa-4fab-b4cc-5a4910e554f6	24122025	11:28:31	SyntaxError	Expected double-quoted property name in JSON at position 53 (line 5 column 1)
 
+26a87e92-c2eb-4da1-9110-40951829b08e	25122025	06:08:24	Error	Not allowed by CORS
+
+16c8aded-743e-49fc-870f-21ac9c0d3b75	25122025	06:55:23	Error	Cannot set headers after they are sent to the client
+

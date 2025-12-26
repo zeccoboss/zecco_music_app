@@ -1,4 +1,4 @@
-import { adjustAsideSvg } from "../core/adjustSvgSize.js";
+import { adjustAsideSvg } from "../utils/adjustSvgSize.js";
 import {
 	bigScreen,
 	largeScreen,

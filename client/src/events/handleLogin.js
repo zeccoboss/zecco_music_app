@@ -4,7 +4,7 @@ let loginData = null;
 
 const handleLogin = () => {
 	const passwordInput = document.querySelector(".lg_user_pwd");
-	const userNameOrEmailInput = document.querySelector(".lg_user_name");
+	const identifierInput = document.querySelector(".lg_user_name");
 	const submitBtn = document.querySelector(".lg_submit_btn");
 	const loginP = document.querySelector(".lg_p");
 
@@ -15,9 +15,7 @@ const handleLogin = () => {
 	submitBtn.addEventListener("click", async (e) => {
 		e.preventDefault();
 
-		const userNameOrEmail = userNameOrEmailInput.value
-			.trim()
-			.toLocaleLowerCase();
+		const identifier = identifierInput.value.trim().toLocaleLowerCase();
 		const userPassword = passwordInput.value.trim().toLocaleLowerCase();
 
 		if (!userPassword) {
@@ -28,20 +26,20 @@ const handleLogin = () => {
 			passwordInput.style.outline = "1px solid hsl(226, 60%, 50%).";
 		}
 
-		if (!userNameOrEmail) {
+		if (!identifier) {
 			initParagraphContent = "Username or Email Address required!";
-			userNameOrEmailInput.style.outline = "1px solid hsl(0, 100%, 70%, 1)";
+			identifierInput.style.outline = "1px solid hsl(0, 100%, 70%, 1)";
 			loginP.style.color = "hsl(0, 100%, 70%, 1)";
 		} else {
-			userNameOrEmailInput.style.outline = "1px solid hsl(226, 60%, 50%)";
+			identifierInput.style.outline = "1px solid hsl(226, 60%, 50%)";
 		}
 
-		if (userNameOrEmail && userPassword) {
+		if (identifier && userPassword) {
 			loginP.style.color = "hsla(0, 0%, 11%, 1.00).";
 			initParagraphContent = `Don't have accout ? <a href="/signup">Sign up</a>`;
 
 			const data = {
-				user_name_or_email: userNameOrEmail,
+				identifier: identifier,
 				password: userPassword,
 			};
 
@@ -55,7 +53,7 @@ const handleLogin = () => {
 
 function updatePage(data) {
 	if (data.user) {
-		console.log(data.user);
+		console.log(data);
 	} else {
 		console.error(data.error);
 	}

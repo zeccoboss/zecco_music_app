@@ -13,13 +13,13 @@ const handleSignup = async () => {
 
 	// let initParagraphContent = null;
 
-	const url = new URL("http://localhost:5200/register");
+	const url = new URL("http://localhost:5200/auth/register");
 	const inputErrorBorder = `hsl(0, 100%, 70%, 1)`;
 
 	function validatePassword() {
 		const userCrtPassword = createPwdInput.value.trim().toLocaleLowerCase();
 		const userCfmPassword = confirmPwdInput.value.trim().toLocaleLowerCase();
-		const pwdMinLength = 8;
+		const pwdMinLength = 6;
 
 		//  || userCfmPassword < pwdMinLength
 		if (userCrtPassword.length < pwdMinLength) {
@@ -50,7 +50,7 @@ const handleSignup = async () => {
 	createPwdInput.addEventListener("input", validatePassword);
 	confirmPwdInput.addEventListener("input", validatePassword);
 
-	submitBtn.addEventListener("click", (e) => {
+	submitBtn.addEventListener("click", async (e) => {
 		e.preventDefault();
 
 		const useremail = signupEmailInput.value.trim().toLocaleLowerCase();
@@ -65,6 +65,14 @@ const handleSignup = async () => {
 			signupUsernameInput.style.outline = "1px solid hsl(226, 60%, 50%)";
 		}
 
+		if (!useremail) {
+			signupP.innerHTML = "Email Address required!";
+			signupEmailInput.style.outline = `1px solid ${inputErrorBorder}`;
+			signupP.style.color = `${inputErrorBorder}`;
+			return;
+		} else {
+			signupEmailInput.style.outline = "1px solid hsl(226, 60%, 50%)";
+		}
 		if (!useremail) {
 			signupP.innerHTML = "Email Address required!";
 			signupEmailInput.style.outline = `1px solid ${inputErrorBorder}`;
@@ -91,17 +99,24 @@ const handleSignup = async () => {
 			signupP.style.color = "hsl(0, 0%, 90%)";
 			signupP.innerHTML = `Don't have accout ? <a href="/signup">Sign up</a>`;
 
-			const data = {
+			const user = {
 				email: useremail,
 				username: username,
 				password: pwd,
 			};
 
-			signupAccountService(url, data);
+			const axiosDetails = await signupAccountService(url, user);
+			renderCreation(axiosDetails);
 		}
-
-		//  = initParagraphContent;
 	});
 };
+
+function renderCreation(data) {
+	if (data.user) {
+		console.log(data);
+	} else {
+		console.log(data.message);
+	}
+}
 
 export { handleSignup };
