@@ -1,6 +1,5 @@
 :root {
-	--padding: 0.5rem;
-	--margin: 0.5rem;
+	--space: 0.5rem;
 
 	--h_f-height: 7rem;
 	--m_a-hieght: calc(100vh - var(--h_f-height) * 2);
@@ -48,11 +47,10 @@
 @media screen and (max-width: 620px) {
 	:root {
 		/*  */
-		--padding: 0.5rem;
-		--margin: 0.5rem;
+		--space: 0.5rem;
 
 		/*  */
-		--h-height: 6.5rem;
+		--h-height: 5rem;
 		--f-height: 3.5rem;
 		--mb-main-h: calc(100vh - var(--h-height) - var(--f-height));
 
@@ -76,72 +74,70 @@
 		flex-direction: column;
 		background-image: linear-gradient(var(--bg-img-colors));
 		color: var(--ft-color-light);
-		padding: var(--padding);
+		padding: 0.2rem var(--space);
 	}
 
-	.mobile_header_nav {
-		display: flex;
-		justify-content: space-between;
-		align-content: center;
-		place-items: center;
-		margin: var(--margin) var(--margin) 0 var(--margin);
-		/* flex-grow: 1; */
-	}
-
-	.mob_logo {
-		font-size: 1.2rem;
-		letter-spacing: 2px;
-		margin: 0 var(--margin) 0 -1rem;
-		& .h_music_icon {
-			margin-left: 0.5rem;
-			transform: translate(4px, -1px);
-		}
-	}
-
-	.mob_list {
-		display: flex;
-		justify-content: space-between;
-		gap: 0.8rem;
-		list-style-type: none;
-	}
-
-	.logo_wrapper {
-		padding-right: var(--padding);
-	}
-
-	.logo_wrapper,
-	.mob_header_content {
+	.header_content,
+	.header_nav {
 		display: flex;
 		justify-content: space-between;
 		align-content: space-between;
-		margin: 0.3rem 0;
-	}
+		margin: var(--space);
 
-	.mob_header_content {
-		flex-flow: column nowrap;
-
-		& h5 {
-			margin-top: 0.6rem;
-			font-size: 0, 9rem;
+		& h1 {
+			font-size: 1.5rem;
 		}
 	}
 
-	.search_toggler {
-		color: var(--ft-color-dark);
-		box-shadow: 0px 0px 1px rgb(117, 117, 117);
+	.header_list {
 		display: flex;
-		flex-grow: 1;
 		gap: 0.5rem;
-		padding: 0.2rem var(--padding);
+		list-style-type: none;
+		place-content: center;
+		place-items: center;
+	}
 
-		& span {
+	.header_img_wrapper {
+		width: 2rem;
+		height: 2rem;
+		position: relative;
+
+		& .header_img {
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+		}
+
+		& figcaption {
+			position: absolute;
+			left: -1000px;
+		}
+	}
+
+	.header_nav {
+		margin-top: unset;
+		& li {
+			list-style-type: none;
+			box-shadow: 0px 0px 1px gray;
+			padding: 0.2rem var(--space);
+			border-radius: 5px;
+			font-weight: 400;
 			font-size: 0.8rem;
 		}
 	}
 
+	.card_music_details {
+		& .card_artist_name {
+			font-size: 0.8rem;
+		}
+		& .card_music_title {
+			font-size: 0.5rem;
+		}
+	}
+
 	.card_img_container {
-		width: 3rem;
-		height: 3rem;
+		width: 2.5rem;
+		height: 2.5rem;
 		object-fit: cover;
 		object-position: center;
 		border-radius: 0.2rem;
@@ -190,11 +186,11 @@
 		height: 2rem;
 		border-radius: 50%;
 		box-sizing: 0px 0px 9px rgba(252, 252, 252, 0.632);
-		margin: 0.2rem var(--margin) 0 var(--margin);
+		margin: 0.2rem var(--space) 0 var(--space);
 	}
 
 	.playing_banner_btns {
-		padding-right: var(--padding);
+		padding-right: var(--space);
 	}
 
 	.playing_banner_btns > button {

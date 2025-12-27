@@ -14,13 +14,15 @@ const MobileMain = () => {
 	mobileMain.addClass("mobile_main");
 	mobileMain.setId("mobile-main");
 
-	mobileMain.getElement().append(
+	mobileMain.append(
 		HomeSection(),
 		LibrarySection(),
 		SearchSection(),
 		PlayingBanner()
 		// NotFoundSection()
 	);
+
+	// console.log(mobileMain.getElement());
 
 	//
 	return mobileMain.getElement();

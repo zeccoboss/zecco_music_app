@@ -1,4 +1,5 @@
 import CreateElement from "../utils/CreateElement.js";
+import { homeSvg, musicIconSvg } from "../utils/SVG_ICONS.js";
 
 const LoginForm = () => {
 	const loginForm = new CreateElement("forms");
@@ -6,24 +7,25 @@ const LoginForm = () => {
 	loginForm.addClass("login_form", "forms");
 	loginForm.setId("login-form");
 
-	const htmlContent = `
-		<h3>Login To Continue</h3>
+	loginForm.setInnerHTML(`
+		<a href="/" class="form_nav_link">${homeSvg} Home</a>	
+		<h2 class="form_heading">
+			<span class="first-child">Zecco</span><span class="second-child">Music</span>
+		</h2>
+		<h4 class="form_message">Welcome back, Please login to continue.</h4>
 
-		<input type="text" name="" id="lg-user-name" class="lg_user_name" placeholder="Email address or Username" required />
-
+		<label for="lg-user-name">Username or Email address:</label>
+		<input type="text" name="" id="lg-user-name" class="lg_user_name" placeholder="user2313@mail.com or Username..." required />
+		<label for="lg-user-pwd">Password:</label>
 		<input type="password" name="password" id="lg-user-pwd" class="lg_user_pwd" placeholder="User Password" required />		
 	
-		<div >
-			<a href="/" class="lg_frm_rtn_link">Navigate Home</a>	
-			<p class="lg_p">Don't have accout ? <a href="/signup">Sign up</a></p>
-			<a href="/password" class="lg_frgt_pwd_lnk">Fogotten passaword ?</a>	
+		<div class="form_links_wrapper">
+			<a href="/signup" class="form_links">Don't have accout? Sign up.</a>
+			<a href="/forgotten_password" class="form_links lg_frgt_pwd_lnk">Fogotten passaword?</a>	
 		</div>
 	
-		<button type="submit" id="lg-submit-btn" class="lg_submit_btn">Login
-		</button>
-	`;
-
-	loginForm.setInnerHTML(htmlContent);
+		<button type="submit" id="lg-submit-btn" class="form_btn">Login</button>
+	`);
 
 	return loginForm.getElement();
 };

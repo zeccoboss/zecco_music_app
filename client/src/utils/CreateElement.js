@@ -6,12 +6,17 @@ class CreateElement {
 		this.element.innerText = innerText ? innerText : "";
 	}
 
-	append(elArray) {
-		this.element.append(...Array.from(elArray));
+	append(...elArray) {
+		this.element.append(...elArray);
 	}
 
 	addEvent(eventType, eventFunction) {
 		this.element.addEventListener(`${eventType}`, eventFunction);
+	}
+
+	remove() {
+		this.element.innerHTML = "";
+		this.element.remove();
 	}
 
 	getElement() {
@@ -30,7 +35,8 @@ class CreateElement {
 		} else if (flag === "el") {
 			return this.element.querySelector(`${selector}`);
 		} else {
-			return console.error(`[Flag]: "${flag}" not valid a valid flag`);
+			console.error(`[Flag Error]: "${flag}" not valid a valid flag`);
+			return null;
 		}
 	}
 
@@ -42,7 +48,8 @@ class CreateElement {
 		} else if (flag === "el") {
 			return this.element.querySelectorAll(`${selector}`);
 		} else {
-			return console.error(`[Flag]: ${flag} not valid`);
+			console.error(`[Flag Error]: "${flag}" not valid a valid flag`);
+			return null;
 		}
 	}
 
@@ -62,24 +69,16 @@ class CreateElement {
 		this.element.id = id;
 	}
 
-	addClass(
-		classNameOne,
-		classNameTwo,
-		classNameThree,
-		classNameFour,
-		classNameFive
-	) {
-		this.element.classList.add(
-			classNameOne,
-			!classNameTwo ? (classNameTwo = classNameOne) : classNameTwo,
-			!classNameThree ? (classNameThree = classNameOne) : classNameThree,
-			!classNameFour ? (classNameFour = classNameOne) : classNameFour,
-			!classNameFive ? (classNameFive = classNameOne) : classNameFive
-		);
+	addClass(...classArray) {
+		classArray.forEach((cl) => {
+			if (cl !== "") this.element.classList.add(cl);
+		});
 	}
 
-	removeClass(className) {
-		this.element.classList.remove(className);
+	removeClass(...classNames) {
+		classNames.forEach((cl) => {
+			if (cl !== "") this.element.classList.remove(cl);
+		});
 	}
 
 	setPlaceHolder(placeholder) {

@@ -3,13 +3,10 @@ import axios from "axios";
 const signupAccountService = async (url, data) => {
 	try {
 		const res = await axios.post(url, data);
-		if (res.status === 409) {
-			throw new Error("User alredy exist");
-		}
-		return res.data;
+		// return res.data;
+		return { data: res.data, status: res.status, message: res.message };
 	} catch (error) {
-		console.error(error);
-		return { message: error.message };
+		return { status: error.status, message: error.message };
 	}
 };
 

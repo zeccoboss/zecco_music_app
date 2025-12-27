@@ -1,5 +1,5 @@
 import CreateElement from "../utils/CreateElement.js";
-import loadingImg from "../images/loading_img.jpg";
+import loadingImg from "../assets/images/loading_img.jpg";
 
 const Overlay = () => {
 	// Create element

@@ -6,8 +6,7 @@
 
 :root {
 	/*  */
-	--padding: 0.5rem;
-	--margin: 0.5rem;
+	--space: 0.5rem;
 
 	/*  */
 	--h_f-height: 5rem;
@@ -21,6 +20,13 @@
 
 	/*  */
 	--transition: all ease-out 0.3s;
+
+	--warning: rgb(255, 218, 95);
+	--error: rgb(255, 74, 74);
+	--warning-border: var(--warning);
+	--error-border: var(--error);
+	--clear-border-warning: hsl(226, 60%, 50%);
+	--clear-error: hsl(226, 84%, 80%);
 
 	/*  */
 	--bg-light: hsl(0, 0%, 11%);
@@ -78,7 +84,7 @@ button {
 	font-weight: 520;
 	border: none;
 	background-color: transparent;
-	padding: var(--padding);
+	padding: var(--space);
 	border-radius: 0.3rem;
 	transition: var(--transition);
 
@@ -106,7 +112,7 @@ button {
 
 /* Header */
 .header {
-	padding: var(--padding);
+	padding: var(--space);
 	display: flex;
 	justify-content: space-between;
 	place-items: center;
@@ -122,7 +128,7 @@ button {
 	place-items: center;
 	font-size: 1.5rem;
 	font-weight: 700;
-	/* padding: var(--padding); */
+	/* padding: var(--space); */
 	font-family: "Courier New", Courier, monospace;
 
 	& svg {
@@ -161,7 +167,7 @@ button {
 .header_signin_btn {
 	/* border: 1px solid hsl(from var(--ft-color-light) h s calc(l - 50)); */
 	color: var(--ft-color-light);
-	margin-right: var(--margin);
+	margin-right: var(--space);
 	transition: all ease-in 0.2s;
 	padding: 0;
 	border: 1px solid var(--brd-color);
@@ -172,7 +178,7 @@ button {
 	}
 
 	& a {
-		padding: var(--padding);
+		padding: var(--space);
 		display: inline-block;
 	}
 }
@@ -180,7 +186,7 @@ button {
 .header_signup_btn {
 	background-color: var(--accent);
 	color: var(--ft-color-light);
-	margin-right: var(--margin);
+	margin-right: var(--space);
 	transition: all ease-in 0.2s;
 	padding: 0;
 
@@ -190,7 +196,7 @@ button {
 	}
 
 	& a {
-		padding: var(--padding);
+		padding: var(--space);
 		display: inline-block;
 	}
 }
@@ -214,7 +220,7 @@ button {
 
 .active_section {
 	height: var(--m-secs-height);
-	padding: var(--padding) 0;
+	padding: var(--space) 0;
 	overflow-y: scroll;
 	transform: scale(1);
 }
@@ -232,7 +238,7 @@ button {
 	align-items: center;
 	gap: 0.5rem;
 	height: fit-content;
-	padding: var(--padding);
+	padding: var(--space);
 	transition: var(--transition);
 	color: var(--crd-ft-color);
 
@@ -283,7 +289,7 @@ button {
 }
 
 .card_music_details {
-	padding: var(--padding);
+	padding: var(--space);
 }
 
 .card_artist_name {
@@ -303,7 +309,7 @@ button {
 
 .card_download_btn,
 .card_lick_btn {
-	padding: var(--padding);
+	padding: var(--space);
 }
 
 /* Aside */
@@ -314,7 +320,7 @@ button {
 	transition: var(--transition);
 	display: grid;
 	background-color: var(--bg-light);
-	margin: var(--margin);
+	margin: var(--space);
 	border-radius: 0.5rem;
 	font-weight: 800;
 	background-image: linear-gradient(to left, var(--m_a-bg-img-colors));
@@ -326,8 +332,8 @@ button {
 	display: flex;
 	place-items: center;
 	gap: 1rem;
-	padding: calc(var(--padding) + 0.3rem) var(--padding)
-		calc(var(--padding) + 0.3rem) calc(var(--padding) + 0.5rem);
+	padding: calc(var(--space) + 0.3rem) var(--space) calc(var(--space) + 0.3rem)
+		calc(var(--space) + 0.5rem);
 	/* place-self: center; */
 }
 
@@ -376,7 +382,7 @@ button {
 	grid-template-columns: 3rem auto;
 	gap: 0.5rem;
 	align-items: center;
-	padding: var(--padding);
+	padding: var(--space);
 }
 
 .music_image_container {
@@ -408,20 +414,20 @@ button {
 	width: 4.2rem;
 	height: 4.2rem;
 	border-radius: 50%;
-	margin: 0 var(--margin);
+	margin: 0 var(--space);
 	background-color: rgba(240, 248, 255, 0.055);
 }
 
 .music_controls {
 	display: flex;
 	justify-content: flex-end;
-	margin: var(--margin);
+	margin: var(--space);
 }
 
 .duration_container {
 	place-content: center;
-	margin: var(--margin);
-	padding: var(--padding);
+	margin: var(--space);
+	padding: var(--space);
 }
 
 .overlay,
@@ -430,8 +436,8 @@ button {
 	position: absolute;
 	background-color: hsla(0, 0%, 0%, 0.219);
 	width: 100vw;
-	height: 100vh;
-	padding: var(--padding);
+	min-height: 100vh;
+	padding: var(--space);
 	display: none;
 	transition: var(--transition);
 }
@@ -497,82 +503,166 @@ button {
 	place-self: center;
 	background-image: linear-gradient(to top, var(--f-bg-img-colors));
 	padding: 1rem;
-	box-shadow: 0px 0px 3px hsl(0, 0%, 90%);
+	box-shadow: 0px 0px 2px hsl(0, 0%, 56%);
 	border-radius: 0.5rem;
-	text-align: center;
+	/* text-align: center; */
 	position: relative;
+
+	& .feed_holder {
+		font-size: 0.8rem;
+		margin-top: var(--space);
+		text-align: center;
+	}
+}
+
+.error_color,
+.error_border {
+	color: var(--error);
+}
+
+.warning_color,
+.warning_border {
+	color: var(--warning);
+}
+
+.clear_border_error,
+.clear_border_warning {
+	color: hsl(226, 60%, 50%);
+}
+
+.clear_error_color,
+.clear_error_warning {
+	color: hsl(226, 65%, 69%);
+}
+
+.form_nav_link {
+	display: flex;
+	place-items: center;
+	place-content: center;
+	gap: 0.1rem;
+	font-size: min(2vw, 0.7rem);
+	box-shadow: 0px 0px 2px hsla(0, 0%, 29%, 0.807);
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: hsl(193, 43%, 60%);
+	padding: var(--space);
+	border-radius: 0 0.45rem;
+
+	&:hover {
+		background-color: hsla(257, 77%, 74%, 0.047);
+		box-shadow: 0px 0px 1px hsla(0, 0%, 77%, 0.807);
+		color: hsl(180, 29%, 66%);
+	}
+}
+
+.form_heading {
+	/* background-image: linear-gradient(blue, orange); */
+	clip-path: clip;
+	background-clip: cliip;
+	margin: 1.5rem 0 1rem 0;
+	text-align: center;
+	color: rgb(115, 154, 217);
+	color: 0.9rem;
+
+	& .first-child {
+		color: rgb(167, 218, 217);
+	}
+}
+
+.form_message {
+	color: rgb(125, 166, 166);
+	margin: 1rem var(--space);
+	text-align: center;
+}
+
+.forms label {
+	color: rgb(175, 175, 175);
+	margin: var(--space) 0.1rem var(--space) 0;
+	font-size: 0.7rem;
 }
 
 .forms input {
-	padding: var(--padding);
-	margin-top: calc(var(--margin) + 0.3rem);
+	padding: var(--space);
 	background-color: hsla(0, 2%, 12%, 0.486);
 	border-radius: 0.3rem;
 	box-shadow: 0px 0px 2px hsl(0, 1%, 50%);
 	border: none;
 	color: var(--ft-color-light);
+
+	&:focus {
+		outline: 1px solid var(--accent);
+	}
 }
 
-.forms input:focus {
-	outline: 1px solid var(--accent);
+.form_links_wrapper {
+	margin: 1rem var(--space) 0 var(--space);
+	text-align: center;
+	color: hsl(180, 14%, 45%);
+	/* color: rgb(94, 96, 97); */
 }
 
-.forms h3 {
-	margin: 1rem;
+.form_links {
+	padding: var(--space);
+	transition: var(--transition);
+	font-size: min(3vw, 0.8rem);
+
+	&:hover {
+		text-decoration: underline;
+		text-decoration-color: rgb(75, 75, 75);
+		text-underline-offset: 2.5px;
+		text-decoration-thickness: 1px;
+		color: hsl(180, 14%, 70%);
+	}
 }
 
-.forms button {
+.form_btn {
 	color: rgb(206, 206, 206);
 	background-color: hsl(from var(--accent) h s calc(l - 5));
 	margin: 1.5rem 2rem 1rem 2rem;
 	font-weight: 700;
+	position: relative;
+
+	&:hover {
+		color: rgb(117, 116, 116);
+		background-color: hsl(from var(--accent) h s calc(l - 15));
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
 }
 
-.forms button:hover {
-	background-color: hsl(from var(--accent) h s calc(l - 20));
+#button-loading-spinner {
+	position: absolute;
+	top: 12%;
+	left: 45%;
+	margin: 0;
+	height: 1.5rem;
+	width: 1.5rem;
+	border: 3px solid rgb(156, 255, 255);
+	border-top: 4px solid rgb(73, 108, 146);
+	border-radius: 50%;
+	animation: button-spinner 0.5s linear infinite forwards;
 }
 
-.lg_frm_rtn_link,
-.su_frm_rtn_link {
-	font-size: min(3vw, 0.8rem);
-	margin-top: 0.5rem;
-	box-shadow: 0px 0px 2px hsla(0, 1%, 50%, 0.048);
-	display: inline-block;
+@keyframes button-spinner {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
-.lg_frgt_pwd_lnk {
-	margin-top: 0.1rem;
-	display: inline-block;
+.user_details_container,
+.user_password_container,
+.submit_btn,
+.return_btn {
+	display: none;
 }
 
-.forms .lg_p,
-.forms .su_p,
-.lg_frgt_pwd_lnk {
-	font-size: min(4vw, 0.9rem);
-}
-
-.forms a {
-	padding: var(--padding);
-	transition: var(--transition);
-}
-
-.forms a:hover {
-	text-decoration: underline;
-	text-decoration-color: rgb(126, 124, 124);
-	text-underline-offset: 2.5px;
-	text-decoration-thickness: 1px;
-	color: var(--ft-color-light);
-}
-
-.lg_frgt_pwd_lnk {
-	text-decoration: underline;
-	text-decoration-color: rgb(126, 124, 124);
-	text-underline-offset: 2.5px;
-	text-decoration-thickness: 1px;
-	color: var(--ft-color-light);
-	font-size: min(3vw, 0.8rem);
-}
-
-.login_form input {
-	margin-top: 1.1rem;
+.user_details_container {
+	display: grid;
 }

@@ -37,8 +37,8 @@ const handleRegister = async (req, res) => {
 		const hashedPassword = await bcrypt.hash(password, 10);
 
 		// Get id
-		// const id = uuidv4(); // Generate id of length 5 buh will be updated to 20+ when it's time
-		const id = nanoid(4); // To be deleted later need short id for now to test routes
+		const id = uuidv4(); // Generate id of length 5 buh will be updated to 20+ when it's time
+		// const id = nanoid(4); // To be deleted later need short id for now to test routes
 
 		// Create new user
 		const newUser = {
@@ -107,12 +107,12 @@ const handleLogin = async (req, res) => {
 		);
 
 		// Check if user exist
-		if (!user) return res.status(403).json({ message: "no user found" });
+		if (!user) return res.status(404).json({ message: "no user found" });
 
 		// Check if password match
 		const match = await bcrypt.compare(password, user.password);
 		if (!match)
-			return res.status(403).json({ message: "passwords don't match" });
+			return res.status(404).json({ message: "passwords don't match" });
 
 		const accessToken = jwt.sign(
 			{ username: user.username },
@@ -123,7 +123,7 @@ const handleLogin = async (req, res) => {
 		const refreshToken = jwt.sign(
 			{ username: user.username },
 			process.env.REFRESH_TOKEN,
-			{ expiresIn: "5d" }
+			{ expiresIn: "7d" }
 		);
 
 		// Current user from login

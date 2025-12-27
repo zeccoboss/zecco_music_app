@@ -1,62 +1,131 @@
+import { showFormFeed } from "../helpers/showFormFeed.js";
 import { loginAccountService } from "../services/loginAccountService.js";
+import CreateElement from "../utils/CreateElement.js";
 
 let loginData = null;
 
 const handleLogin = () => {
+	const loginForm = document.querySelector("#login-form");
 	const passwordInput = document.querySelector(".lg_user_pwd");
 	const identifierInput = document.querySelector(".lg_user_name");
-	const submitBtn = document.querySelector(".lg_submit_btn");
-	const loginP = document.querySelector(".lg_p");
+	const submitBtn = document.querySelector("#lg-submit-btn");
 
-	let initParagraphContent = null;
+	// Create element that holds feed for form validation
+	const feedHolder = new CreateElement("span", "Feed holder"); // Create elemet
+	feedHolder.addClass("feed_holder"); // Add the class
 
+	// Url to make POST request
 	const url = new URL("http://localhost:5200/auth/login");
 
 	submitBtn.addEventListener("click", async (e) => {
 		e.preventDefault();
 
+		// Get values from inputs
 		const identifier = identifierInput.value.trim().toLocaleLowerCase();
 		const userPassword = passwordInput.value.trim().toLocaleLowerCase();
 
-		if (!userPassword) {
-			loginP.style.color = "hsl(0, 100%, 70%, 1)";
-			initParagraphContent = "Password required!";
-			passwordInput.style.outline = "1px solid red.";
+		if (!identifier) {
+			showFormFeed(
+				`All feilds are required!`,
+				feedHolder.getElement(),
+				loginForm,
+				identifierInput
+			);
+
+			feedHolder.addClass("error_color");
+			feedHolder.removeClass("warning_color");
+
+			identifierInput.style.outline = `1px solid var(--error-border)`;
+			return;
 		} else {
-			passwordInput.style.outline = "1px solid hsl(226, 60%, 50%).";
+			feedHolder.remove();
+			identifierInput.style.outline =
+				"1px solid var(--clear-border-warning)";
 		}
 
-		if (!identifier) {
-			initParagraphContent = "Username or Email Address required!";
-			identifierInput.style.outline = "1px solid hsl(0, 100%, 70%, 1)";
-			loginP.style.color = "hsl(0, 100%, 70%, 1)";
+		if (!userPassword) {
+			showFormFeed(
+				`All feilds are required!`,
+				feedHolder.getElement(),
+				loginForm,
+				passwordInput
+			);
+
+			feedHolder.addClass("error_color");
+			feedHolder.removeClass("warning_color");
+
+			passwordInput.style.outline = `1px solid var(--error-border)`;
+			return;
 		} else {
-			identifierInput.style.outline = "1px solid hsl(226, 60%, 50%)";
+			feedHolder.remove();
+			passwordInput.style.outline = "1px solid var(--clear-border-warning)";
 		}
 
 		if (identifier && userPassword) {
-			loginP.style.color = "hsla(0, 0%, 11%, 1.00).";
-			initParagraphContent = `Don't have accout ? <a href="/signup">Sign up</a>`;
+			const data = { identifier, password: userPassword };
 
-			const data = {
-				identifier: identifier,
-				password: userPassword,
-			};
+			const axiosDetails = await loginAccountService(url, data); // Call service function to send request
 
-			loginData = await loginAccountService(url, data);
-			updatePage(loginData);
+			if (axiosDetails.status === 404) {
+				feedHolder.removeClass("form_feed");
+
+				showFormFeed(
+					`No account found, Try agin!`,
+					feedHolder.getElement(),
+					loginForm,
+					passwordInput
+				);
+
+				feedHolder.getElement().style = "text-align: center";
+
+				passwordInput.style.outline = `1px solid var(--error-border)`;
+				identifierInput.style.outline = `1px solid var(--error-border)`;
+
+				feedHolder.addClass("error_color");
+				feedHolder.removeClass("warning_color");
+				return;
+			} else if (axiosDetails.status === 400) {
+				showFormFeed(
+					`All fields are required!`,
+					feedHolder.getElement(),
+					loginForm,
+					passwordInput
+				);
+
+				feedHolder.removeClass("error_color");
+				feedHolder.addClass("warning_color");
+				return;
+			} else if (axiosDetails.status === 500) {
+				showFormFeed(
+					`Somethin went wrong.`,
+					feedHolder.getElement(),
+					loginForm,
+					passwordInput
+				);
+
+				feedHolder.removeClass("error_color");
+				feedHolder.addClass("warning_color");
+				return;
+			} else if (axiosDetails.status === 202) {
+				showFormFeed(
+					`Processing... Login successful`,
+					feedHolder.getElement(),
+					loginForm,
+					passwordInput
+				);
+
+				passwordInput.style.outline = `1px solid var(--clear-border-warning)`;
+				identifierInput.style.outline = `1px solid var(--clear-border-warning)`;
+
+				feedHolder.addClass("clear_error_color");
+				renderAccountLogin(axiosDetails);
+			}
 		}
-
-		loginP.innerHTML = initParagraphContent;
 	});
 };
 
-function updatePage(data) {
-	if (data.user) {
-		console.log(data);
-	} else {
-		console.error(data.error);
-	}
+function renderAccountLogin(data) {
+	console.log(data.message);
 }
 
 export { handleLogin };

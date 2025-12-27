@@ -9,11 +9,11 @@ const Header = () => {
 	const header = new CreateElement("header", "Header");
 
 	// Set attribute
-	header.addClass("header", "");
+	header.addClass("header");
 	header.setId("header");
 
 	const htmlContent = `
-		<a href="/" class="logo">${musicIconSvg}<span>zecco_music</span></a>
+		<a href="/" class="logo">${musicIconSvg}<span>ZeccoMusic</span></a>
 
 		<form action="" class="search_form">
 			${magnifierSvg}

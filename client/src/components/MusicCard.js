@@ -6,7 +6,7 @@ import {
 } from "../core/screenBreakePoints.js";
 import CreateElement from "../utils/CreateElement.js";
 import { heartSvg, playCircleFill, threeDotMenu } from "../utils/SVG_ICONS.js";
-import musicImage from "../images/favicon.png";
+import musicImage from "../assets/images/favicon.png";
 
 const MusicCard = () => {
 	// Create element

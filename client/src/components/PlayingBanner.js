@@ -1,6 +1,6 @@
 import CreateElement from "../utils/CreateElement.js";
 import { musicListSvg, playSvg } from "../utils/SVG_ICONS.js";
-import music_cover from "../images/logo.jpg";
+import music_cover from "../assets/images/favicon.png";
 
 const PlayingBanner = () => {
 	// Create element
@@ -32,8 +32,8 @@ const PlayingBanner = () => {
 	const playingBannerSVGs = playingBanner.getChildren("svg", "el");
 
 	playingBannerSVGs.forEach((svg) => {
-		svg.setAttribute("width", "25");
-		svg.setAttribute("height", "25");
+		svg.setAttribute("width", "20");
+		svg.setAttribute("height", "20");
 		svg.style.fill = "white";
 	});
 
