@@ -96,7 +96,7 @@ const handleRegister = async (req, res) => {
 	}
 };
 
-const handleLogin = async (req, res) => {
+const validateLogin = async (req, res) => {
 	try {
 		const { identifier, password } = req.body;
 		if (!identifier || !password)
@@ -153,4 +153,4 @@ const handleLogin = async (req, res) => {
 
 const handleLogout = (req, res) => {};
 
-module.exports = { handleLogin, handleRegister, handleLogout };
+module.exports = { validateLogin, handleRegister, handleLogout };

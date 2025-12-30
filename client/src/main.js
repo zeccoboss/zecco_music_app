@@ -17,6 +17,7 @@ import {
 import "./styles/style.css";
 import "./styles/media_querries.css";
 import { initApp } from "./core/initApp.js";
+import ProfilePage from "./pages/profilePage.js";
 
 const renderApp = (app) => {
 	const applyMobileContent = (message) => {
@@ -31,7 +32,8 @@ const renderApp = (app) => {
 			MobileFooter(),
 			StartupScreen(),
 			Overlay(),
-			ExtraContent()
+			ExtraContent(),
+			ProfilePage()
 		);
 
 		console.warn(message);
@@ -57,6 +59,7 @@ const renderApp = (app) => {
 			Footer(),
 			StartupScreen(),
 			Overlay(),
+			ProfilePage(),
 			ExtraContent()
 		);
 
@@ -83,6 +86,7 @@ const renderApp = (app) => {
 			Footer(),
 			StartupScreen(),
 			Overlay(),
+			ProfilePage(),
 			ExtraContent()
 		);
 

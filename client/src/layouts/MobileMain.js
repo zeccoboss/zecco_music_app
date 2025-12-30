@@ -18,8 +18,8 @@ const MobileMain = () => {
 		HomeSection(),
 		LibrarySection(),
 		SearchSection(),
-		PlayingBanner()
-		// NotFoundSection()
+		PlayingBanner(),
+		NotFoundSection()
 	);
 
 	// console.log(mobileMain.getElement());

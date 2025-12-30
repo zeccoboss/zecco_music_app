@@ -3,7 +3,7 @@ import { showFormFeed } from "../helpers/showFormFeed.js";
 import { signupAccountService } from "../services/signupAccountService.js";
 import CreateElement from "../utils/CreateElement.js";
 
-const handleSignup = async () => {
+const validateRegister = async () => {
 	// Select element
 	const nextBtn = document.querySelector("#signup-next-btn");
 	const submitBtn = document.querySelector("#signup-submit-btn");
@@ -11,7 +11,6 @@ const handleSignup = async () => {
 	const userDetContainer = document.querySelector(".user_details_container");
 	const userPwdContainer = document.querySelector(".user_password_container");
 
-	const signupForm = document.querySelector(".signup_form");
 	const signupUsernameInput = document.querySelector(".signup_username");
 	const signupEmailInput = document.querySelector(".signup_email");
 
@@ -265,4 +264,4 @@ function renderAccountCreation(data) {
 	console.log(data.message);
 }
 
-export { handleSignup };
+export { validateRegister };

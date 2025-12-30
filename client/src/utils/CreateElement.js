@@ -25,7 +25,7 @@ class CreateElement {
 
 	getChild(selector, flag) {
 		if (flag === "id") {
-			return selector.includes(".")
+			return selector.includes("#")
 				? this.element.querySelector(`${selector}`)
 				: this.element.querySelector(`#${selector}`);
 		} else if (flag === "class") {

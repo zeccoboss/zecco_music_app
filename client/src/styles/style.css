@@ -101,6 +101,7 @@ button {
 	color: var(--ft-color-dark);
 	background-image: linear-gradient(to bottom, var(--bg-img-colors));
 	background-color: var(--bg-dark);
+	position: relative;
 }
 
 .container {
@@ -347,7 +348,26 @@ button {
 }
 
 .active_nav {
-	background-color: hsl(from var(--bg-light) h s calc(l + 25));
+	background-color: hsl(from var(--bg-light) h s calc(l + 15));
+	color: hsl(from var(--accent) h s calc(l + 30));
+
+	& svg {
+		fill: hsl(from var(--accent) h s calc(l + 30));
+	}
+}
+
+.profile_page {
+	background-color: black;
+	color: antiquewhite;
+	height: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: 100;
+}
+
+.show_profile_page {
+	height: 100dvh;
+	width: 100dvw;
 }
 
 /* Footer */

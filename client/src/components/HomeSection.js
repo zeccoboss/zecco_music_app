@@ -18,6 +18,12 @@ const HomeSection = () => {
 		MusicCard(),
 		MusicCard(),
 		MusicCard(),
+		MusicCard(),
+		MusicCard(),
+		MusicCard(),
+		MusicCard(),
+		MusicCard(),
+		MusicCard(),
 		MusicCard()
 	);
 

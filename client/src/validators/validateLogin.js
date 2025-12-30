@@ -4,7 +4,7 @@ import CreateElement from "../utils/CreateElement.js";
 
 let loginData = null;
 
-const handleLogin = () => {
+const validateLogin = () => {
 	const loginForm = document.querySelector("#login-form");
 	const passwordInput = document.querySelector(".lg_user_pwd");
 	const identifierInput = document.querySelector(".lg_user_name");
@@ -128,4 +128,4 @@ function renderAccountLogin(data) {
 	console.log(data.message);
 }
 
-export { handleLogin };
+export { validateLogin };

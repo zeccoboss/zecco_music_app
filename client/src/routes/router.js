@@ -1,5 +1,7 @@
 import navigateLogin from "../events/navigateLogin.js";
 import navigateSignup from "../events/navigateSignup.js";
+import { clearActiveSections } from "../helpers/clearActiveSections.js";
+import showProfilePage from "../helpers/showProfilePage.js";
 
 const routes = {
 	"/": "home",
@@ -7,6 +9,7 @@ const routes = {
 	"/library": "library",
 	"/signup": "signup",
 	"/login": "login",
+	"/profile": "profile",
 };
 
 function pushHistory(path) {
@@ -25,11 +28,18 @@ function navigate(path) {
 	if (routes[path] === "login") {
 		navigateLogin();
 		pushHistory(path);
+		return;
 	} else if (routes[path] === "signup") {
 		// console.log("signup");
 		navigateSignup();
 		pushHistory(path);
+		return;
+	} else if (routes[path] === "profile") {
+		showProfilePage();
+		pushHistory(path);
+		return;
 	} else {
+		clearActiveSections();
 		const id = `${routes[path]}-section`;
 
 		const foundSection = document.querySelector(`#${id}`);
