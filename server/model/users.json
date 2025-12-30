@@ -1,11 +1,17 @@
 [
    {
-      "id": "3a4e2c25-1fc3-4ab6-9eb7-e77a743a7c17",
+      "id": "5e4d9ab8-208a-4452-83bf-40edd6e02c1e",
       "fullname": "Obang Ezekiel",
       "username": "zecco",
       "email": "ezekielobang@gmail.com",
-      "password": "$2b$10$HNdbNEtYhECNEXJatTWy9eqKq6RBR9knjNEt5075Ve3.zrhl.cvM6",
-      "role": "admin",
+      "password": "$2b$10$A7XkrrQpi98Z4l5cGk79oudHkqxATL2iYHm/tmgfp1XU4666tu13S",
+      "roles": {
+         "Admin": 8840,
+         "Editor": 9910,
+         "User": 2442
+      },
+      "isVerified": true,
+      "playlist": [],
       "media": {
          "audios": {
             "favorites": [],
@@ -18,9 +24,8 @@
             "created": []
          },
          "images": {
-            "profile": "images/default_profile.png"
+            "profile": "images/admin/admin_img.PNG"
          }
-      },
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InplY2NvIiwiaWF0IjoxNzY2ODE5MjY1LCJleHAiOjE3Njc0MjQwNjV9.LRoPCpJlzqp25ZNNSOhCtt8BGHmbDZSjAPhAPsdQMCk"
+      }
    }
 ]

@@ -313,6 +313,71 @@ button {
 	padding: var(--space);
 }
 
+.library_section {
+	overflow-y: unset;
+}
+
+.lib_links {
+	font-weight: 700;
+	color: hsl(from var(--accent) h s calc(l + 5));
+
+	&:hover {
+		text-decoration: underline;
+		color: hsl(from var(--accent) h s calc(l + 15));
+		text-underline-offset: 3px;
+	}
+}
+
+.empty_lib_content,
+.lib_content {
+	height: 0;
+	overflow-y: hidden;
+	line-height: 1.5;
+}
+
+.show_lib_content {
+	height: 100%;
+}
+
+.empty_lib_content {
+	padding: 0 calc(var(--space) + 0.3rem);
+	text-align: center;
+	padding-top: 2rem;
+
+	& h2 {
+		margin-bottom: 2rem;
+		font-size: 2.5rem;
+	}
+
+	& p {
+		/* margin-bottom: var(--space); */
+		color: hsl(from var(--ft-color-light) h s calc(l - 10));
+	}
+}
+
+.lib_lnks_ctn {
+	/* display: flex; */
+	justify-content: center;
+	margin-top: 2rem;
+}
+
+.lib_lnks_ctn .lib_links {
+	font-weight: 500;
+	box-shadow: 0px 0px 2px rgb(194, 165, 221);
+	margin: 1rem;
+	padding: 0.3rem 1rem;
+	text-decoration: none;
+	display: inline-block;
+	/* background-color: rgb(79, 182, 160); */
+	/* color: rgb(0, 42, 48); */
+	border-radius: 0.6rem;
+}
+
+.lib_lnks_ctn .lib_links:hover {
+	background-color: rgba(240, 248, 255, 0.11);
+	transform: translateY(-3px);
+}
+
 /* Aside */
 .aside {
 	overflow: hidden;
@@ -577,13 +642,11 @@ button {
 }
 
 .form_heading {
-	/* background-image: linear-gradient(blue, orange); */
 	clip-path: clip;
 	background-clip: cliip;
 	margin: 1.5rem 0 1rem 0;
 	text-align: center;
 	color: rgb(115, 154, 217);
-	color: 0.9rem;
 
 	& .first-child {
 		color: rgb(167, 218, 217);
@@ -644,8 +707,8 @@ button {
 	position: relative;
 
 	&:hover {
-		color: rgb(117, 116, 116);
-		background-color: hsl(from var(--accent) h s calc(l - 15));
+		color: rgb(177, 177, 177);
+		background-color: hsl(from var(--accent) h s calc(l - 10));
 	}
 
 	&:disabled {
@@ -657,7 +720,7 @@ button {
 #button-loading-spinner {
 	position: absolute;
 	top: 12%;
-	left: 45%;
+	left: 40%;
 	margin: 0;
 	height: 1.5rem;
 	width: 1.5rem;

@@ -42,6 +42,8 @@ function navigate(path) {
 		clearActiveSections();
 		const id = `${routes[path]}-section`;
 
+		console.log();
+
 		const foundSection = document.querySelector(`#${id}`);
 		const notFoundSection = document.getElementById("not-found-section");
 

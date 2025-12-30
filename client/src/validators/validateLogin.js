@@ -1,10 +1,15 @@
+import { buttonLoadingSpinner } from "../components/ButtonLoadingSpinner.js";
 import { showFormFeed } from "../helpers/showFormFeed.js";
 import { loginAccountService } from "../services/loginAccountService.js";
 import CreateElement from "../utils/CreateElement.js";
 
+<<<<<<< HEAD:client/src/validators/validateLogin.js
 let loginData = null;
 
 const validateLogin = () => {
+=======
+const handleLogin = () => {
+>>>>>>> 37aca4b9e6d5b949d248445e1381ee2af1dadb09:client/src/events/handleLogin.js
 	const loginForm = document.querySelector("#login-form");
 	const passwordInput = document.querySelector(".lg_user_pwd");
 	const identifierInput = document.querySelector(".lg_user_name");
@@ -62,70 +67,94 @@ const validateLogin = () => {
 		}
 
 		if (identifier && userPassword) {
-			const data = { identifier, password: userPassword };
+			const user = { identifier, password: userPassword };
 
-			const axiosDetails = await loginAccountService(url, data); // Call service function to send request
+			submitBtn.disabled = true;
+			submitBtn.appendChild(buttonLoadingSpinner.getElement());
 
-			if (axiosDetails.status === 404) {
-				feedHolder.removeClass("form_feed");
+			const axiosDetails = await loginAccountService(url, user); // Call service function to send request
 
-				showFormFeed(
-					`No account found, Try agin!`,
-					feedHolder.getElement(),
-					loginForm,
-					passwordInput
-				);
+			setTimeout(() => {
+				submitBtn.disabled = false;
+				buttonLoadingSpinner.remove();
 
-				feedHolder.getElement().style = "text-align: center";
+				if (axiosDetails.status === 404) {
+					feedHolder.removeClass("form_feed");
 
-				passwordInput.style.outline = `1px solid var(--error-border)`;
-				identifierInput.style.outline = `1px solid var(--error-border)`;
+					showFormFeed(
+						axiosDetails.data.error,
+						feedHolder.getElement(),
+						loginForm,
+						passwordInput
+					);
 
-				feedHolder.addClass("error_color");
-				feedHolder.removeClass("warning_color");
-				return;
-			} else if (axiosDetails.status === 400) {
-				showFormFeed(
-					`All fields are required!`,
-					feedHolder.getElement(),
-					loginForm,
-					passwordInput
-				);
+					feedHolder.getElement().style = "text-align: center";
 
-				feedHolder.removeClass("error_color");
-				feedHolder.addClass("warning_color");
-				return;
-			} else if (axiosDetails.status === 500) {
-				showFormFeed(
-					`Somethin went wrong.`,
-					feedHolder.getElement(),
-					loginForm,
-					passwordInput
-				);
+					passwordInput.style.outline = `1px solid var(--error-border)`;
+					identifierInput.style.outline = `1px solid var(--error-border)`;
 
-				feedHolder.removeClass("error_color");
-				feedHolder.addClass("warning_color");
-				return;
-			} else if (axiosDetails.status === 202) {
-				showFormFeed(
-					`Processing... Login successful`,
-					feedHolder.getElement(),
-					loginForm,
-					passwordInput
-				);
+					feedHolder.addClass("error_color");
+					feedHolder.removeClass("warning_color");
+					return;
+				} else if (axiosDetails.status === 403) {
+					feedHolder.removeClass("form_feed");
 
-				passwordInput.style.outline = `1px solid var(--clear-border-warning)`;
-				identifierInput.style.outline = `1px solid var(--clear-border-warning)`;
+					showFormFeed(
+						axiosDetails.data.error,
+						feedHolder.getElement(),
+						loginForm,
+						passwordInput
+					);
 
-				feedHolder.addClass("clear_error_color");
-				renderAccountLogin(axiosDetails);
-			}
+					passwordInput.style.outline = `1px solid var(--error-border)`;
+					identifierInput.style.outline = `1px solid var(--error-border)`;
+
+					feedHolder.addClass("error_color");
+					feedHolder.removeClass("warning_color");
+					return;
+				} else if (axiosDetails.status === 400) {
+					showFormFeed(
+						axiosDetails.data.error,
+						feedHolder.getElement(),
+						loginForm,
+						passwordInput
+					);
+
+					feedHolder.removeClass("error_color");
+					feedHolder.addClass("warning_color");
+					return;
+				} else if (axiosDetails.status === 500) {
+					showFormFeed(
+						`500 internal server error`,
+						feedHolder.getElement(),
+						loginForm,
+						passwordInput
+					);
+
+					feedHolder.removeClass("error_color");
+					feedHolder.addClass("warning_color");
+					return;
+				} else if (axiosDetails.status === 202) {
+					showFormFeed(
+						`Processing... Login successful`,
+						feedHolder.getElement(),
+						loginForm,
+						passwordInput
+					);
+
+					passwordInput.style.outline = `1px solid var(--clear-border-warning)`;
+					identifierInput.style.outline = `1px solid var(--clear-border-warning)`;
+					feedHolder.addClass("clear_error_color");
+
+					renderAccountLogin(axiosDetails.data);
+				}
+			}, 1000);
 		}
 	});
 };
 
 function renderAccountLogin(data) {
-	console.log(data.message);
+	console.log(data.user);
 }
 
 export { validateLogin };

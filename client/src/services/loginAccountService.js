@@ -1,11 +1,12 @@
 import axios from "axios";
 
-const loginAccountService = async (url, data) => {
+const loginAccountService = async (url, data = {}) => {
 	try {
 		const res = await axios.post(url, data);
-		return { data: res.data, status: res.status, message: res.message };
+		return res;
 	} catch (error) {
-		return { message: error.message, status: error.status };
+		console.log(error.response);
+		return error.response;
 	}
 };
 

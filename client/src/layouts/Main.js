@@ -1,6 +1,7 @@
-import NotFoundSection from "../components/404Section.js";
 import HomeSection from "../components/HomeSection.js";
 import LibrarySection from "../components/LibrarySection.js";
+import NotFoundSection from "../components/NotFoundSection.js";
+import ProfileSection from "../components/ProfileSection.js";
 import SearchSection from "../components/SearchSection.js";
 import CreateElement from "../utils/CreateElement.js";
 
@@ -18,7 +19,8 @@ const Main = () => {
 			HomeSection(),
 			LibrarySection(),
 			SearchSection(),
-			NotFoundSection()
+			NotFoundSection(),
+			ProfileSection()
 		);
 
 	return main.getElement();
