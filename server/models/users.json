@@ -1,10 +1,10 @@
 [
    {
-      "id": "5e4d9ab8-208a-4452-83bf-40edd6e02c1e",
+      "id": "f72f65eb-a511-4642-95e4-1dd2b7907889",
       "fullname": "Obang Ezekiel",
       "username": "zecco",
       "email": "ezekielobang@gmail.com",
-      "password": "$2b$10$A7XkrrQpi98Z4l5cGk79oudHkqxATL2iYHm/tmgfp1XU4666tu13S",
+      "password": "$2b$10$uUc0qyvMiZ5gEuQEA/oKReAWh94FYSMoZ9IytT5TZBS.mAg0cAR4q",
       "roles": {
          "Admin": 8840,
          "Editor": 9910,
@@ -26,6 +26,7 @@
          "images": {
             "profile": "images/admin/admin_img.PNG"
          }
-      }
+      },
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InplY2NvIiwiaWF0IjoxNzY3MTE0MDc4LCJleHAiOjE3NjcyMDA0Nzh9.2EKJR887XJKrbMgS1llElSlHHrsBEzBgfYhLLscPOg8"
    }
 ]

@@ -40,6 +40,7 @@ app.use("/", require("./routes/root"));
 app.use("/auth/register", require("./routes/registerUser"));
 app.use("/auth/login", require("./routes/loginUser"));
 app.use("/auth/logout", require("./routes/logoutUser"));
+app.use("/profile", require("./routes/profile"));
 app.use("/refresh", require("./routes/refresh"));
 
 // app.use(verifyJWT);

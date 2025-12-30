@@ -54,3 +54,21 @@ b50296f3-e2b3-4a18-9b1a-a66b91e8f8c7	28122025	06:22:41	TypeError	Cannot read pro
 ce22ee0d-6876-44f7-b796-307643e2a25f	29122025	00:48:18	TypeError	Cannot read properties of undefined (reading 'username')
 e9b584be-131e-4342-a988-60725f14b539	29122025	17:45:47	TypeError	res.headers is not a function
 ac137916-c19e-4e9c-a929-8820c1d6629d	29122025	17:47:03	TypeError	res.headers is not a function
+9a7f7a2f-cafa-47bc-be73-409b0577c85e	30122025	05:52:04	TypeError	res.headers is not a function
+7821bf83-d9c7-4da1-98a2-8e1cf5c23076	30122025	05:52:33	TypeError	res.headers is not a function
+dcc1303b-d7c0-49a1-9354-5bad9faf9148	30122025	05:54:11	TypeError	res.headers is not a function
+a69d85c0-a12b-4d25-a046-693e7c76a9b6	30122025	05:58:33	TypeError	res.headers is not a function
+e90486c7-f09a-40dd-8342-7ea25d07f4b9	30122025	05:59:31	TypeError	res.headers is not a function
+146793b4-9162-42b6-8a20-2b83421c8d21	30122025	06:07:22	TypeError	res.headers is not a function
+2d33a09b-a584-4f00-a068-ea393bd56c79	30122025	10:25:35	ReferenceError	user is not defined
+2868831e-2f08-4198-92a5-e557680d1a51	30122025	10:27:53	ReferenceError	user is not defined
+058ab5e1-16ee-4c70-bc33-4162e06aa8b8	30122025	15:13:52	ReferenceError	ROLES_LIST is not defined
+ddae04f7-dad6-47d3-8ebd-dda4f3f7a05c	30122025	15:14:43	ReferenceError	ROLES_LIST is not defined
+c630a34b-ddf4-4ed4-a23c-afb321dd6fc4	30122025	15:16:34	ReferenceError	user is not defined
+1ed148e3-f756-4435-9f19-20a4d6f73024	30122025	15:17:26	ReferenceError	user is not defined
+cc24f83c-8540-42ad-b620-0a0b863be652	30122025	15:19:57	ReferenceError	user is not defined
+ced159ff-4850-44e9-ae2b-17c6a27c12c9	30122025	15:20:51	ReferenceError	user is not defined
+74d78d16-dcd4-44ea-aeff-c8bbdc5048da	30122025	15:22:07	ReferenceError	user is not defined
+21bb388b-42c0-4987-a6f4-7edd643daab8	30122025	15:22:49	ReferenceError	user is not defined
+ffbd0bba-fad1-4cbd-ac99-9d3fe6f60696	30122025	17:00:02	TypeError	Cannot read properties of undefined (reading 'authorization')
+d0d3a985-a6bf-4b0c-8fdf-f8d3ba1f65c3	30122025	17:01:01	TypeError	Cannot read properties of undefined (reading 'authorization')

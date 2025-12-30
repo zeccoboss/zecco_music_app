@@ -5,7 +5,7 @@ const path = require("node:path");
 const { ROLES_LIST } = require("../config/roles_list");
 
 const usersDB = {
-	users: require("../model/users.json"),
+	users: require("../models/users.json"),
 	setUsers: function (users) {
 		this.users = users;
 	},
@@ -35,7 +35,7 @@ const initAdmin = async () => {
 		};
 		usersDB.setUsers([admin, ...usersDB.users]);
 		await fs.writeFile(
-			path.join(__dirname, "..", "model", "users.json"),
+			path.join(__dirname, "..", "models", "users.json"),
 			JSON.stringify([...usersDB.users], null, 3)
 		);
 		console.log("Admin created!");

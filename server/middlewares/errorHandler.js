@@ -5,7 +5,7 @@ const errorLogger = (err, _req, res, next) => {
 	const message = `${err.name}\t${err.message}`;
 	eventLogger(message, fileName);
 	res.status(500).json({ error: err.message });
-	console.error(`[ERROR]: ${err.message}`);
+	console.error(`[ERROR]: ${err}`);
 	next();
 };
 

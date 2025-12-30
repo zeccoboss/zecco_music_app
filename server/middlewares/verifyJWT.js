@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 
 const verifyJWT = (req, res, next) => {
-	const authHeader = req.headers.authorization;
-	if (!authHeader || !authHeader.startsWith("Bearer ")) {
+	const authHeader = req.headers.authorization || req.headers.Authorization;
+	if (!authHeader?.startsWith("Bearer ")) {
 		return res
 			.status(401)
 			.json({ message: "No token provided or invalid token format" });
@@ -11,7 +11,8 @@ const verifyJWT = (req, res, next) => {
 	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
 		if (err) return res.sendStatus(403);
 
-		req.user = decoded.username;
+		req.user = decoded.UserInfo.username;
+		req.roles = decoded.UserInfo.roles;
 		next();
 	});
 };

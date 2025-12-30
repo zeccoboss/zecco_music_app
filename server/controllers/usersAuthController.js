@@ -3,9 +3,10 @@ const path = require("node:path");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 const fs = require("node:fs/promises");
+const { ROLES_LIST } = require("../config/roles_list");
 
 const usersDB = {
-	users: require("../model/users.json"),
+	users: require("../models/users.json"),
 	setUsers: function (users) {
 		this.users = users;
 	},
@@ -15,7 +16,7 @@ const usersDB = {
 async function saveUsersToDB(updatedData, res) {
 	try {
 		await fs.writeFile(
-			path.join(__dirname, "..", "model", "users.json"),
+			path.join(__dirname, "..", "models", "users.json"),
 			JSON.stringify(updatedData, null, 3)
 		);
 	} catch (err) {
@@ -59,9 +60,10 @@ const handleRegister = async (req, res) => {
 		usersDB.setUsers([...usersDB.users, newUser]); // Set new user
 		// Write the updated user to JSON DB
 		saveUsersToDB(usersDB.users, res);
-		//
-		console.log({ message: "User created succesfully." });
-		// Send user back
+		// Remove sensitive field
+		delete newUser.password;
+		delete newUser.isVerified;
+		delete newUser.refreshToken;
 		res.status(201).json({
 			message: "user created successfully",
 			user: newUser,
@@ -72,36 +74,44 @@ const handleRegister = async (req, res) => {
 	}
 };
 
-const validateLogin = async (req, res) => {
+const handleLogin = async (req, res) => {
 	try {
 		const { identifier, password } = req.body; // Get req data
 		// Check req data
 		if (!identifier || !password)
 			return res.status(400).json({ error: "All fields are required" });
 		// Get first matching user
-		const user = usersDB.users.find(
+		const foundUser = usersDB.users.find(
 			(u) => u.username === identifier || u.email === identifier
 		);
 		// Check if user exist
-		if (!user) return res.status(403).json({ error: "No user found" });
+		if (!foundUser) return res.status(403).json({ error: "No user found" });
+		console.log(password);
 		// Check if password match
-		const match = await bcrypt.compare(password, user.password);
+		const match = await bcrypt.compare(password, foundUser.password);
 		if (!match) return res.status(403).json({ error: "Incorrect password!" });
+		const roles = Object.values(ROLES_LIST); // Get values of the roles object
+
 		// Generate access token
 		const accessToken = jwt.sign(
-			{ username: user.username },
+			{
+				UserInfo: {
+					roles: roles,
+					username: foundUser.username,
+				},
+			},
 			process.env.ACCESS_TOKEN_SECRET,
 			{ expiresIn: "15m" }
 		);
 		// Generate refresh token
 		const refreshToken = jwt.sign(
-			{ username: user.username },
+			{ username: foundUser.username },
 			process.env.REFRESH_TOKEN_SECRET,
 			{ expiresIn: "1d" }
 		);
 		// Manage users
-		const currentUser = { ...user, refreshToken }; // Current user from login
-		const otherUsers = usersDB.users.filter((u) => u.id !== user.id); // Get the rest users
+		const currentUser = { ...foundUser, refreshToken }; // Current user from login
+		const otherUsers = usersDB.users.filter((u) => u.id !== foundUser.id); // Get the rest users
 		usersDB.setUsers([...otherUsers, currentUser]); // Update users
 		saveUsersToDB(usersDB.users, res); // Save user to DB
 		// Send back processed data
@@ -126,4 +136,4 @@ const handleLogout = (_req, res) => {
 		.json({ message: "Logout succesful" });
 };
 
-module.exports = { validateLogin, handleRegister, handleLogout };
+module.exports = { handleLogin, handleRegister, handleLogout };

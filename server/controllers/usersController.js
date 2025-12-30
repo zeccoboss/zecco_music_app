@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 // const jwt = require("jsonwebtoken");
 
 const usersDB = {
-	users: require("../model/users.json"),
+	users: require("../models/users.json"),
 	setUsers: function (users) {
 		this.users = users;
 	},
@@ -15,7 +15,7 @@ const usersDB = {
 async function saveUsersToDB(updatedData, res) {
 	try {
 		await fsPromises.writeFile(
-			path.join(__dirname, "..", "model", "users.json"),
+			path.join(__dirname, "..", "models", "users.json"),
 			JSON.stringify(updatedData, null, 3)
 		);
 	} catch (err) {
@@ -87,7 +87,7 @@ const createUser = async (req, res) => {
 
 	// Write the updated user to JSON DB
 	await fs.writeFile(
-		path.join(__dirname, "..", "model", "users.json"),
+		path.join(__dirname, "..", "models", "users.json"),
 		JSON.stringify([...usersDB.users], null, 3)
 	);
 
