@@ -9,11 +9,11 @@ import { navigateLibrary } from "../events/navigateLibrary.js";
 import { navigateSearch } from "../events/navigateSearch.js";
 import CreateElement from "../utils/CreateElement.js";
 import {
-	feedSvg,
 	gearSvg,
 	homeSvg,
 	librarySvg,
 	magnifierSvg,
+	personProfileSVG,
 } from "../utils/SVG_ICONS.js";
 
 const Aside = () => {
@@ -48,13 +48,12 @@ const Aside = () => {
 					</a>
 				</li>
 
-				<!-- <li id="feed" class="feed">
-					<a href="feed" class="nav_links">
-						${feedSvg}
-						<span>Feed</span>
+				<li id="profile" class="profile">
+					<a href="profile" class="nav_links">
+						${personProfileSVG}
+						<span>Profile</span>
 					</a>
-				</li> -->
-
+				</li> 
 
 				<!-- <li id="settings" class="settings">
 					<a href="settings" class="nav_links">

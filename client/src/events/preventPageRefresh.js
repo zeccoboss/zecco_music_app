@@ -7,10 +7,6 @@ function preventLinksBehaviour() {
 	navLinks.forEach((link) => {
 		link.addEventListener("click", (e) => {
 			e.preventDefault();
-
-			// console.log("href: ", e.currentTarget.getAttribute("href"));
-			// console.log("href: ", e.currentTarget);
-
 			navigate(e.currentTarget.getAttribute("href"));
 		});
 	});

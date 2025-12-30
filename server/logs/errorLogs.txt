@@ -41,3 +41,16 @@ a6e3feee-f6d9-4b88-89ba-1445cc8d11e9	24122025	09:59:23	TypeError	The "data" argu
 
 16c8aded-743e-49fc-870f-21ac9c0d3b75	25122025	06:55:23	Error	Cannot set headers after they are sent to the client
 
+6b808c92-fd0f-4f55-a691-83030a5f6a22	27122025	11:04:12	SyntaxError	Expected ',' or '}' after property value in JSON at position 26 (line 3 column 3)
+6a22735a-8214-4b83-90c0-87989e65c7af	28122025	06:17:42	TypeError	Cannot read properties of undefined (reading 'split')
+9c1b8832-ce6a-4f49-a557-a1e1e083e7b9	28122025	06:22:29	TypeError	Cannot read properties of undefined (reading 'split')
+f7fb6437-4270-48fa-af08-cb687e7ef353	28122025	06:22:39	TypeError	Cannot read properties of undefined (reading 'split')
+b50296f3-e2b3-4a18-9b1a-a66b91e8f8c7	28122025	06:22:41	TypeError	Cannot read properties of undefined (reading 'split')
+5056af79-53a1-4f2d-bb62-8d97c5a4eb7b	28122025	06:23:30	TypeError	Cannot read properties of undefined (reading 'split')
+1c156227-2dd6-49af-b341-df62269287e8	28122025	06:24:02	TypeError	Cannot read properties of undefined (reading 'split')
+0fb4aba1-ae92-4ff4-8943-831e3f556d67	28122025	21:52:58	Error	Cannot set headers after they are sent to the client
+29e897b5-32e4-4ec4-ae05-8e66b29a632b	28122025	21:53:38	Error	Cannot set headers after they are sent to the client
+7d90cacf-9a08-4cce-9116-8488b665c148	28122025	21:55:22	Error	Cannot set headers after they are sent to the client
+ce22ee0d-6876-44f7-b796-307643e2a25f	29122025	00:48:18	TypeError	Cannot read properties of undefined (reading 'username')
+e9b584be-131e-4342-a988-60725f14b539	29122025	17:45:47	TypeError	res.headers is not a function
+ac137916-c19e-4e9c-a929-8820c1d6629d	29122025	17:47:03	TypeError	res.headers is not a function

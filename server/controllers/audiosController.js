@@ -8,7 +8,7 @@ const { nanoid } = require("nanoid");
 const { parseFile } = require("music-metadata");
 
 const audiosDB = {
-	users: require("../models/audios.json"),
+	users: require("../model/audios.json"),
 	setUsers: function (users) {
 		this.users = users;
 	},
@@ -18,7 +18,7 @@ const audiosDB = {
 async function saveAudiosToDB(updatedData, res) {
 	try {
 		await fsPromises.writeFile(
-			path.join(__dirname, "..", "models", "users.json"),
+			path.join(__dirname, "..", "model", "users.json"),
 			JSON.stringify(updatedData, null, 3)
 		);
 	} catch (err) {
@@ -31,7 +31,6 @@ const getAllAudios = async (_req, res) => {
 	try {
 		const dirPath = path.join(__dirname, "public", "audios");
 		const files = await fs.readdir(dirPath, "utf-8");
-
 		const transformedData = await Promise.all(
 			files.map(async (el) => {
 				const src = path.join(dirPath, el);
@@ -42,7 +41,6 @@ const getAllAudios = async (_req, res) => {
 				};
 			})
 		);
-
 		// console.log(transformedData);
 		res.json(transformedData);
 	} catch (error) {

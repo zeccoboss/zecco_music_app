@@ -7,6 +7,7 @@ const routes = {
 	"/library": "library",
 	"/signup": "signup",
 	"/login": "login",
+	"/profile": "profile",
 };
 
 function pushHistory(path) {
@@ -31,6 +32,8 @@ function navigate(path) {
 		pushHistory(path);
 	} else {
 		const id = `${routes[path]}-section`;
+
+		console.log();
 
 		const foundSection = document.querySelector(`#${id}`);
 		const notFoundSection = document.getElementById("not-found-section");

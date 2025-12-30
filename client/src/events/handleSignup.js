@@ -11,7 +11,6 @@ const handleSignup = async () => {
 	const userDetContainer = document.querySelector(".user_details_container");
 	const userPwdContainer = document.querySelector(".user_password_container");
 
-	const signupForm = document.querySelector(".signup_form");
 	const signupUsernameInput = document.querySelector(".signup_username");
 	const signupEmailInput = document.querySelector(".signup_email");
 
@@ -23,7 +22,6 @@ const handleSignup = async () => {
 	feedHolder.addClass("feed_holder");
 
 	const url = new URL("http://localhost:5200/auth/register");
-	const inputErrorBorder = `hsl(0, 100%, 70%, 1)`;
 
 	function validatePassword(e) {
 		const userCrtPassword = createPwdInput.value.trim().toLocaleLowerCase();
@@ -125,12 +123,12 @@ const handleSignup = async () => {
 		}
 
 		if (username && useremail) {
-			nextBtn.disabled = "true";
+			nextBtn.disabled = true;
 			e.currentTarget.appendChild(buttonLoadingSpinner.getElement());
 		}
 
 		setTimeout(() => {
-			nextBtn.disabled = "false";
+			nextBtn.disabled = false;
 			buttonLoadingSpinner.remove();
 
 			userDetContainer.style.display = "none";
@@ -146,14 +144,15 @@ const handleSignup = async () => {
 
 		const useremail = signupEmailInput.value.trim().toLocaleLowerCase();
 		const username = signupUsernameInput.value.trim().toLocaleLowerCase();
-		submitBtn.disabled = "true";
+		const createdPwd = createPwdInput.value.trim();
+		const confirmedPwd = confirmPwdInput.value.trim();
 
-		if (!createPwdInput.value.trim() || !confirmPwdInput.value.trim()) {
+		if (createdPwd !== confirmedPwd) {
 			showFormFeed(
-				`Password is required!`,
+				`Password don't match`,
 				feedHolder.getElement(),
 				userPwdContainer,
-				signupEmailInput
+				confirmPwdInput
 			);
 
 			feedHolder.addClass("error_color");
@@ -164,46 +163,60 @@ const handleSignup = async () => {
 			return;
 		}
 
-		const pwd = createPwdInput.value.trim().toLocaleLowerCase();
+		if (!createdPwd || !confirmedPwd) {
+			showFormFeed(
+				`Password is required!`,
+				feedHolder.getElement(),
+				userPwdContainer,
+				confirmPwdInput
+			);
 
-		if (
-			(username && useremail && createPwdInput.value.trim()) ===
-			confirmPwdInput.value.trim()
-		) {
+			feedHolder.addClass("error_color");
+			feedHolder.removeClass("warning_color");
+
+			createPwdInput.style.outline = "1px solid var(--error-border)";
+			confirmPwdInput.style.outline = `1px solid var(--error-border)`;
+			return;
+		}
+
+		const pwd = createdPwd === confirmedPwd ? confirmedPwd : null;
+		console.log(pwd);
+
+		if (username && useremail && pwd) {
 			feedHolder.remove();
 
 			const user = {
 				email: useremail,
 				username: username,
-				password: pwd,
+				password: confirmedPwd,
 			};
 
+			submitBtn.disabled = true;
+			submitBtn.appendChild(buttonLoadingSpinner.getElement());
+
 			const axiosDetails = await signupAccountService(url, user); // Call service function to send request
-			submitBtn.disabled = "true";
-			e.currentTarget.appendChild(buttonLoadingSpinner.getElement());
 
 			setTimeout(() => {
-				submitBtn.disabled = "false";
+				submitBtn.disabled = false;
 				buttonLoadingSpinner.remove();
 
 				if (axiosDetails.status === 409) {
-					submitBtn.disabled = "false";
+					submitBtn.disabled = false;
 
 					feedHolder.style("text-align: center");
 					showFormFeed(
-						`Username "${username}" already exist`,
+						axiosDetails.data.error,
 						feedHolder.getElement(),
 						userPwdContainer,
 						confirmPwdInput
 					);
+
 					feedHolder.addClass("warninig_color");
-					// userPwdContainer.style.display = "none";
-					// userDetContainer.style.display = "grid";
 					submitBtn.style.display = "none";
 					returnBtn.style.display = "inline-block";
 				} else if (axiosDetails.status === 400) {
 					showFormFeed(
-						`All fileds are required`,
+						axiosDetails.data.error,
 						feedHolder.getElement(),
 						userPwdContainer,
 						confirmPwdInput
@@ -213,15 +226,15 @@ const handleSignup = async () => {
 					feedHolder.removeClass("warning_color");
 				} else if (axiosDetails.status === 500) {
 					showFormFeed(
-						`Somethin went wrong.`,
+						`500 internal server error`,
 						feedHolder.getElement(),
-						loginForm,
-						passwordInput
+						userPwdContainer,
+						confirmPwdInput
 					);
 					feedHolder.removeClass("error_color");
 					feedHolder.addClass("warning_color");
 				} else {
-					nextBtn.disabled = "false";
+					nextBtn.disabled = false;
 					feedHolder.style("text-align: unset");
 					feedHolder.removeClass("warning_color");
 					feedHolder.removeClass("error_color");
@@ -234,20 +247,23 @@ const handleSignup = async () => {
 						confirmPwdInput
 					);
 
-					renderAccountCreation(axiosDetails);
+					renderAccountCreation(axiosDetails.data);
 				}
 			}, 1000);
 		}
 
 		returnBtn.addEventListener("click", (e) => {
-			returnBtn.disabled = "true";
+			nextBtn.disabled = false;
+			submitBtn.disabled = false;
+			returnBtn.disabled = true;
 
-			nextBtn.disabled = "true";
 			e.currentTarget.appendChild(buttonLoadingSpinner.getElement());
 
 			setTimeout(() => {
-				returnBtn.disabled = "false";
-				nextBtn.disabled = "false";
+				createPwdInput.value = "";
+				confirmPwdInput.value = "";
+
+				returnBtn.disabled = false;
 				buttonLoadingSpinner.remove();
 
 				userDetContainer.style.display = "grid";
@@ -255,14 +271,13 @@ const handleSignup = async () => {
 				submitBtn.style.display = "none";
 				returnBtn.style.display = "none";
 				nextBtn.style.display = "inline-block";
-				console.log("We are there!");
 			}, 1000);
 		});
 	});
 };
 
 function renderAccountCreation(data) {
-	console.log(data.message);
+	console.log(data.user);
 }
 
 export { handleSignup };
