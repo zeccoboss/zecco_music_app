@@ -32,8 +32,8 @@ const renderApp = (app) => {
 			MobileFooter(),
 			StartupScreen(),
 			Overlay(),
-			ExtraContent(),
-			ProfilePage()
+			ExtraContent()
+			// ProfilePage()
 		);
 
 		console.warn(message);
@@ -59,7 +59,7 @@ const renderApp = (app) => {
 			Footer(),
 			StartupScreen(),
 			Overlay(),
-			ProfilePage(),
+			// ProfilePage(),
 			ExtraContent()
 		);
 
@@ -86,7 +86,7 @@ const renderApp = (app) => {
 			Footer(),
 			StartupScreen(),
 			Overlay(),
-			ProfilePage(),
+			// ProfilePage(),
 			ExtraContent()
 		);
 

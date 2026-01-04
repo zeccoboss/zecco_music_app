@@ -72,3 +72,14 @@ ced159ff-4850-44e9-ae2b-17c6a27c12c9	30122025	15:20:51	ReferenceError	user is no
 21bb388b-42c0-4987-a6f4-7edd643daab8	30122025	15:22:49	ReferenceError	user is not defined
 ffbd0bba-fad1-4cbd-ac99-9d3fe6f60696	30122025	17:00:02	TypeError	Cannot read properties of undefined (reading 'authorization')
 d0d3a985-a6bf-4b0c-8fdf-f8d3ba1f65c3	30122025	17:01:01	TypeError	Cannot read properties of undefined (reading 'authorization')
+ac215726-4e26-4bd5-bc55-52ad421c000f	03012026	21:42:26	SyntaxError	Expected double-quoted property name in JSON at position 90 (line 5 column 1)
+2fbc9386-07ba-44d9-b269-0f87122cd184	04012026	00:37:10	SyntaxError	Unexpected token ',', ..."assword": ,
+    "ema"... is not valid JSON
+23b0a408-5a8b-4cee-89c0-aee82509c107	04012026	00:37:58	SyntaxError	Unexpected token ',', ..."username":,
+    "pas"... is not valid JSON
+778fc0b8-15d4-4144-80dd-dfe97a70e1e0	04012026	00:38:02	SyntaxError	Unexpected token ',', ..."username":,
+    "pas"... is not valid JSON
+41b04b2b-2356-42ae-b20b-59f7ee44527d	04012026	00:38:34	SyntaxError	Unexpected token ',', ..."username":,
+    "pas"... is not valid JSON
+4b467d57-9731-4d1e-b364-59506376bc52	04012026	00:38:36	SyntaxError	Unexpected token ',', ..."username":,
+    "pas"... is not valid JSON

@@ -1,15 +1,10 @@
 import { buttonLoadingSpinner } from "../components/ButtonLoadingSpinner.js";
+import loadLoggedInUser from "../helpers/loadLoggedInUser.js";
 import { showFormFeed } from "../helpers/showFormFeed.js";
 import { loginAccountService } from "../services/loginAccountService.js";
 import CreateElement from "../utils/CreateElement.js";
 
-<<<<<<< HEAD:client/src/validators/validateLogin.js
-let loginData = null;
-
 const validateLogin = () => {
-=======
-const handleLogin = () => {
->>>>>>> 37aca4b9e6d5b949d248445e1381ee2af1dadb09:client/src/events/handleLogin.js
 	const loginForm = document.querySelector("#login-form");
 	const passwordInput = document.querySelector(".lg_user_pwd");
 	const identifierInput = document.querySelector(".lg_user_name");
@@ -18,9 +13,6 @@ const handleLogin = () => {
 	// Create element that holds feed for form validation
 	const feedHolder = new CreateElement("span", "Feed holder"); // Create elemet
 	feedHolder.addClass("feed_holder"); // Add the class
-
-	// Url to make POST request
-	const url = new URL("http://localhost:5200/auth/login");
 
 	submitBtn.addEventListener("click", async (e) => {
 		e.preventDefault();
@@ -68,12 +60,9 @@ const handleLogin = () => {
 
 		if (identifier && userPassword) {
 			const user = { identifier, password: userPassword };
-
 			submitBtn.disabled = true;
 			submitBtn.appendChild(buttonLoadingSpinner.getElement());
-
-			const axiosDetails = await loginAccountService(url, user); // Call service function to send request
-
+			const axiosDetails = await loginAccountService("auth/login", user); // Call service function to send request
 			setTimeout(() => {
 				submitBtn.disabled = false;
 				buttonLoadingSpinner.remove();
@@ -125,7 +114,7 @@ const handleLogin = () => {
 					return;
 				} else if (axiosDetails.status === 500) {
 					showFormFeed(
-						`500 internal server error`,
+						`500 Network error`,
 						feedHolder.getElement(),
 						loginForm,
 						passwordInput
@@ -146,15 +135,15 @@ const handleLogin = () => {
 					identifierInput.style.outline = `1px solid var(--clear-border-warning)`;
 					feedHolder.addClass("clear_error_color");
 
-					renderAccountLogin(axiosDetails.data);
+					setTimeout(() => {
+						// Call to load user details after login
+						// loadLoggedInUser(axiosDetails.data.accessToken);
+						console.log("[SUCCESS]: Login successful");
+					}, 3000);
 				}
 			}, 1000);
 		}
 	});
 };
-
-function renderAccountLogin(data) {
-	console.log(data.user);
-}
 
 export { validateLogin };

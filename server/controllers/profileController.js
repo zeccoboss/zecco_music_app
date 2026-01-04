@@ -6,7 +6,7 @@ const usersDB = {
 	},
 };
 
-const profieController = (req, res) => {
+const profileController = (req, res) => {
 	const authHeader = req.headers.authorization || req.headers.Authorization;
 	if (!authHeader?.startsWith("Bearer "))
 		return res.status(401).json({ error: "No or invalid token format" });
@@ -30,4 +30,4 @@ const profieController = (req, res) => {
 	}
 };
 
-module.exports = { profieController };
+module.exports = { profileController };

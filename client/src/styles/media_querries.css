@@ -85,7 +85,6 @@
 		transition: var(--transition);
 
 		& li {
-			padding: var(--space);
 			word-break: keep-all;
 			text-wrap: no-wrap;
 			white-space: no-wrap;
@@ -217,8 +216,6 @@
 		align-items: center;
 		justify-content: space-between;
 		align-content: center;
-		place-items: center;
-		z-index: 10;
 		height: var(--pl-bnnr-h);
 	}
 

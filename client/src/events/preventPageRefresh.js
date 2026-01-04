@@ -3,9 +3,14 @@ import { navigateHome } from "./navigateHome.js";
 
 function preventLinksBehaviour() {
 	const navLinks = document.querySelectorAll("a");
+	const inputs = Array.from(document.getElementsByTagName("input"));
 
 	navLinks.forEach((link) => {
 		link.addEventListener("click", (e) => {
+			inputs.forEach((input) => {
+				input.value = ""; //  Clear all inputs when a link is clicked
+			});
+
 			e.preventDefault();
 			navigate(e.currentTarget.getAttribute("href"));
 		});

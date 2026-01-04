@@ -21,8 +21,6 @@ const validateRegister = async () => {
 	const feedHolder = new CreateElement("span", "Feed holder");
 	feedHolder.addClass("feed_holder");
 
-	const url = new URL("http://localhost:5200/auth/register");
-
 	function validatePassword(e) {
 		const userCrtPassword = createPwdInput.value.trim().toLocaleLowerCase();
 		const userCfmPassword = confirmPwdInput.value.trim().toLocaleLowerCase();
@@ -194,7 +192,10 @@ const validateRegister = async () => {
 			submitBtn.disabled = true;
 			submitBtn.appendChild(buttonLoadingSpinner.getElement());
 
-			const axiosDetails = await signupAccountService(url, user); // Call service function to send request
+			const axiosDetails = await signupAccountService(
+				"/auth/register",
+				user
+			); // Call service function to send request
 
 			setTimeout(() => {
 				submitBtn.disabled = false;
@@ -211,7 +212,7 @@ const validateRegister = async () => {
 						confirmPwdInput
 					);
 
-					feedHolder.addClass("warninig_color");
+					feedHolder.addClass("warning_color");
 					submitBtn.style.display = "none";
 					returnBtn.style.display = "inline-block";
 				} else if (axiosDetails.status === 400) {
@@ -226,7 +227,7 @@ const validateRegister = async () => {
 					feedHolder.removeClass("warning_color");
 				} else if (axiosDetails.status === 500) {
 					showFormFeed(
-						`500 internal server error`,
+						`500 Network error`,
 						feedHolder.getElement(),
 						userPwdContainer,
 						confirmPwdInput
@@ -239,14 +240,12 @@ const validateRegister = async () => {
 					feedHolder.removeClass("warning_color");
 					feedHolder.removeClass("error_color");
 					feedHolder.addClass("clear_error_color");
-
 					showFormFeed(
 						`Processing...`,
 						feedHolder.getElement(),
 						userPwdContainer,
 						confirmPwdInput
 					);
-
 					renderAccountCreation(axiosDetails.data);
 				}
 			}, 1000);
@@ -262,10 +261,8 @@ const validateRegister = async () => {
 			setTimeout(() => {
 				createPwdInput.value = "";
 				confirmPwdInput.value = "";
-
 				returnBtn.disabled = false;
 				buttonLoadingSpinner.remove();
-
 				userDetContainer.style.display = "grid";
 				userPwdContainer.style.display = "none";
 				submitBtn.style.display = "none";

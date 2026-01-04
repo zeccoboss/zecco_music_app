@@ -1,6 +1,6 @@
-const { profieController } = require("../controllers/profileController");
+const { profileController } = require("../controllers/profileController");
 
 const router = require("express").Router();
-router.get("/", profieController);
+router.get("/", profileController);
 
 module.exports = router;

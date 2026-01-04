@@ -20,10 +20,7 @@ const MobileMain = () => {
 		LibrarySection(),
 		SearchSection(),
 		PlayingBanner(),
-<<<<<<< HEAD
-=======
 		ProfileSection(),
->>>>>>> 37aca4b9e6d5b949d248445e1381ee2af1dadb09
 		NotFoundSection()
 	);
 

@@ -1,44 +1,41 @@
 const bcrypt = require("bcrypt");
-const { v4: uuidv4 } = require("uuid");
-const fs = require("node:fs/promises");
-const path = require("node:path");
 const { ROLES_LIST } = require("../config/roles_list");
-
-const usersDB = {
-	users: require("../models/users.json"),
-	setUsers: function (users) {
-		this.users = users;
-	},
-};
+const User = require("../models/User");
+const Media = require("../models/Media");
+const Mailer = require("../services/MailService");
 
 const initAdmin = async () => {
 	try {
-		const adminExists = usersDB.users.find((user) =>
-			Object.values(user.roles).includes(ROLES_LIST.Admin)
-		);
-		if (adminExists) return console.log("Admin already exists!");
+		const adminExists = await User.findOne({
+			"roles.Admin": ROLES_LIST.Admin,
+		});
+		if (adminExists) return console.log(" Admin already exists!");
 		console.log("Creating Admin...");
-		const admin = {
-			id: uuidv4(),
+		const admin = await User.create({
 			fullname: process.env.ADMIN_FULLNAME,
 			username: process.env.ADMIN_USERNAME,
 			email: process.env.ADMIN_EMAIL,
-			password: await bcrypt.hash(process.env.ADMIN_TEST_PASSWORD, 10),
+			password: await bcrypt.hash(`${process.env.ADMIN_TEST_PASSWORD}`, 10),
 			roles: { ...ROLES_LIST },
 			isVerified: true,
 			playlist: [],
-			media: {
-				audios: { favorites: [], uploaded: [], created: [] },
-				videos: { favorites: [], uploaded: [], created: [] },
-				images: { profile: "images/admin/admin_img.PNG" },
+			profile: {
+				path: "images/admin/admin_img.PNG",
 			},
-		};
-		usersDB.setUsers([admin, ...usersDB.users]);
-		await fs.writeFile(
-			path.join(__dirname, "..", "models", "users.json"),
-			JSON.stringify([...usersDB.users], null, 3)
-		);
-		console.log("Admin created!");
+			verificationToken: undefined,
+			verificationTokenExpiry: undefined,
+		});
+		const adminMailer = new Mailer({
+			mailAddress: admin.email,
+			subjectContent: "Welcome Modafuka",
+			textContent: `Hey modafuka, glad to have you on board, Just want to let you know you've been added as an admin to ZeccoMusicApp, all the best.`,
+		});
+		const userId = admin._id;
+		const media = await Media.create({
+			owner: userId,
+		});
+		adminMailer.welcomeAdmin();
+		console.log("Admin created successfully!");
 	} catch (err) {
 		console.error("error:", err);
 	}

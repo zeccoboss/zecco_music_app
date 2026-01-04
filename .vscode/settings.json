@@ -1,0 +1,9 @@
+{
+	"cSpell.words": ["modafuka", "Obang", "useremail", "zecco"],
+	"mdb.presetConnections": [
+		{
+			"name": "Preset Connection",
+			"connectionString": "mongodb://localhost:27017"
+		}
+	]
+}

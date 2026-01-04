@@ -340,6 +340,10 @@ button {
 }
 
 .empty_lib_content {
+	display: flex;
+	place-items: center;
+	place-content: center;
+	flex-direction: column;
 	padding: 0 calc(var(--space) + 0.3rem);
 	text-align: center;
 	padding-top: 2rem;
@@ -678,11 +682,16 @@ button {
 	}
 }
 
-.form_links_wrapper {
+.form_links_wrapper,
+.form_links_wrapper_two {
 	margin: 1rem var(--space) 0 var(--space);
 	text-align: center;
 	color: hsl(180, 14%, 45%);
 	/* color: rgb(94, 96, 97); */
+}
+
+.form_links_wrapper_two {
+	margin: 0 0 1rem 0;
 }
 
 .form_links {

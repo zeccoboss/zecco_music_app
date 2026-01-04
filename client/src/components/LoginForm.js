@@ -20,11 +20,14 @@ const LoginForm = () => {
 		<input type="password" name="password" id="lg-user-pwd" class="lg_user_pwd" placeholder="User Password" required />		
 	
 		<div class="form_links_wrapper">
-			<a href="/signup" class="form_links">Don't have accout? Sign up.</a>
 			<a href="/forgotten_password" class="form_links lg_frgt_pwd_lnk">Fogotten passaword?</a>	
 		</div>
 	
 		<button type="submit" id="lg-submit-btn" class="form_btn">Login</button>
+
+		<div class="form_links_wrapper_two">
+			<a href="/signup" class="form_links">Don't have accout? Sign up.</a>
+		</div>
 	`);
 
 	return loginForm.getElement();

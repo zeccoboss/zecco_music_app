@@ -13,6 +13,7 @@ const headerEvent = () => {
 	const headerPlusBtn = document.getElementById("header-plus-btn");
 	headerPlusBtn.style.position = "relative";
 	headerPlusBtn.appendChild(dropDownList.getElement());
+	console.log(headerPlusBtn);
 
 	header.addEventListener("click", (e) => {
 		e.stopPropagation();
@@ -28,7 +29,6 @@ const headerEvent = () => {
 	});
 
 	headerPlusBtn.addEventListener("click", (e) => {
-		const list = header.querySelector("#header-add-list");
 		const addPlayListBtn = document.querySelector("#hd-crt-playlist-btn");
 		const uploadMusicBtn = document.querySelector("#hd-upload-music-btn");
 

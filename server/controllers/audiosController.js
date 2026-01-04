@@ -6,6 +6,7 @@ const path = require("node:path");
 const { nanoid } = require("nanoid");
 // const jwt = require("jsonwebtoken");
 const { parseFile } = require("music-metadata");
+const loadAudioFilesHelper = require("../helpers/loadAudioFilesHelper");
 
 const audiosDB = {
 	users: require("../models/audios.json"),
@@ -14,35 +15,11 @@ const audiosDB = {
 	},
 };
 
-// Update json file with new data
-async function saveAudiosToDB(updatedData, res) {
-	try {
-		await fsPromises.writeFile(
-			path.join(__dirname, "..", "models", "users.json"),
-			JSON.stringify(updatedData, null, 3)
-		);
-	} catch (err) {
-		console.error("Error:", err);
-		res.status(500).json(err.message);
-	}
-}
-
 const getAllAudios = async (_req, res) => {
 	try {
-		const dirPath = path.join(__dirname, "public", "audios");
-		const files = await fs.readdir(dirPath, "utf-8");
-		const transformedData = await Promise.all(
-			files.map(async (el) => {
-				const src = path.join(dirPath, el);
-				const metadata = await parseFile(src);
-				return {
-					file: el,
-					metadata: metadata,
-				};
-			})
-		);
-		// console.log(transformedData);
-		res.json(transformedData);
+		const data = await loadAudioFilesHelper.loadAudioFiles();
+		// res.json({ message: "I have audio data" });
+		return data;
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ message: error });
