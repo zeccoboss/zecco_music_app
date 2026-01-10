@@ -20,8 +20,7 @@ const initLocalAudio = async (flag) => {
 
 		const localAudios = Promise.all(data.map(async (audio) => audio));
 
-		const result = await LocalMedia.insertMany(await localAudios);
-		console.log(result);
+		// const result = await LocalMedia.insertMany(await localAudios);
 	} catch (err) {
 		console.error(err);
 	}

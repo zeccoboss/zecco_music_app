@@ -4121,3 +4121,14 @@ cb0555b1-eb11-4310-9f9e-a98c8c07c0eb	10012026	01:39:48	/api/media/audio	GET	unde
 0c64db09-927c-43b3-a984-9b489cda9efc	10012026	01:44:28	/api/media/audio	GET	undefined
 ea30e302-e104-42a0-896e-84627948ec66	10012026	01:44:31	/api/media/audio	GET	undefined
 85ccd765-9b6f-4eab-a25e-4d3182dfce9a	10012026	01:46:43	/api/media/audio	GET	undefined
+58835756-5933-4034-b247-89f15c205c5b	10012026	07:56:49	/api/media/audio	GET	undefined
+e2bbed46-96a3-4d6a-a1f6-b72bd01a2d34	10012026	07:59:10	/api/media/audio	GET	undefined
+0ed2cc6a-7bd3-4bd7-aea0-f2c56ea1ca36	10012026	08:59:17	/api/media/audio	GET	undefined
+383b85f0-eabb-4e24-847a-4ae73ed5e058	10012026	08:59:27	/api/media/audio	GET	undefined
+fc351058-730e-4c51-ba47-1498935c1a06	10012026	09:34:07	/	GET	undefined
+596d6441-a3a0-4230-8bab-a1bdd2c06f2a	10012026	09:34:07	/style/style.css	GET	undefined
+871132f5-d25c-4552-ac03-1ce5422e0c73	10012026	09:34:07	/images/cover/2f045b7c-cfbc-4c9e-91d3-d56ebc7a4bf7.jpeg	GET	undefined
+30aa4e4c-500d-4a11-a7d3-f0b28f0aed38	10012026	09:34:07	/script/script.js	GET	undefined
+9892883b-9a25-443d-b7a5-f043a7b1394c	10012026	09:34:07	/favicon.ico	GET	undefined
+91e2abb2-94fc-46aa-a4b4-ed82ecf06559	10012026	09:34:12	/style/style.css	GET	undefined
+32901c3a-7436-47df-a979-c26d4f32039d	10012026	09:34:12	/.well-known/appspecific/com.chrome.devtools.json	GET	undefined

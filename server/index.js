@@ -17,7 +17,7 @@ const MetaManager = require("./metadata/MetaManager");
 
 connectDB(); // Connect to mongodb
 const app = express(); // Create App
-const PORT = process.env.PORT || 7830; // Get PORT
+const PORT = process.env.PORT || 7835; // Get PORT
 
 app.use(credentials); //
 app.use(cors(corsOptions)); // CORS
@@ -74,13 +74,14 @@ mongoose.connection.once("open", () => {
 	});
 });
 
+// For testing purpose
 (async () => {
-	// const buckets = await minioClient.listBuckets();
-	// // console.log(buckets);.;,
-	// const mtm = new MetaManager("Public");
+	const buckets = await minioClient.listBuckets();
+	// console.log(buckets);
+	const mtm = new MetaManager("Public");
 	// const data = await mtm.processFile({
-	// 	path: "public/audios/local/248 | HipHopKit.mp3",
+	// 	path: "public/audios/Happiest Year (Afro Mara) | val9ja.mp3",
 	// 	flag: "Path",
 	// });
-	// console.log(await data);
+	// console.log(data);
 })();

@@ -1,20 +1,28 @@
 const minioClient = require("../config/minioConn");
 const { Readable } = require("node:stream");
+const fs = require("node:fs");
 
 class MinIOService {
 	constructor(bucketName, contentType) {
-		if (!bucketName || !contentType)
-			console.error("Bucket name and Content type are required");
+		if (!bucketName || !contentType) return;
+		console.error("Bucket name and Content type are required");
 		this.bucketName = bucketName ?? null;
 		this.contentType = contentType;
 	}
 
-	async uploadFile({ fileName, media, dir, flag, extension }) {
+	async uploadFile({ fileName, media, dir, flag, extension, path }) {
 		if (!fileName) return console.error("File 'name' required");
-		if (!media) return null;
+		if (!flag) return console.error("Flag required to store Object");
 
-		const stream =
-			flag === "Buffer" ? Readable.from(Buffer.from(media)) : media;
+		let stream = null;
+		if (flag === "Buffer") stream = Readable.from(Buffer.from(media));
+		if (flag === "Stream") stream = media;
+		if (flag === "Path") stream = fs.createReadStream(path);
+
+		// If theres no stream at any occasion don't proceed uploading of files
+		if (!stream) return null;
+
+		const contentType = this.contentType;
 
 		try {
 			const etag = await new Promise((resolve, reject) => {
@@ -22,9 +30,7 @@ class MinIOService {
 					this.bucketName,
 					`${fileName}.${extension}`,
 					stream,
-					{
-						contentType: this.contentType,
-					},
+					{ contentType },
 					(err, etag) => {
 						if (err) reject(err);
 						resolve(etag);
@@ -32,41 +38,47 @@ class MinIOService {
 				);
 			});
 
-			const url = `${this.bucketName}/${fileName}.${extension}`;
-
+			const url = dir
+				? `${process.env.MINIO_IMAGE_BUCKET}/${dir}/${fileName}.${this._extension}`
+				: `${process.env.MINIO_IMAGE_BUCKET}/${fileName}.${this._extension}`;
 			return etag ? url : null;
 		} catch (err) {
 			console.log(err);
 			return null;
 		}
 	}
-	/*
-	async uploadAudios(fileName, stream, dir) {
-		if (!fileName) console.error("File 'name' required");
 
-		if (!cover) return null;
+	async uploadProfileImg({ fileName, media, dir, flag, extension, path }) {
+		if (!fileName) return console.error("File 'name' required");
+		if (!flag) return console.error("Flag required to store Object");
 
-		const stream = cover ? Readable.from(Buffer.from(cover.data)) : null;
-		// console.log(this._extension);
+		let stream = null;
+		if (flag === "Buffer") stream = Readable.from(Buffer.from(media));
+		if (flag === "Stream") stream = media;
+		if (flag === "Path") stream = fs.createReadStream(path);
+
+		// If theres no stream at any occasion don't proceed uploading of files
+		if (!stream) return null;
+
+		const contentType = this.contentType;
 
 		try {
 			const etag = await new Promise((resolve, reject) => {
 				minioClient.putObject(
 					this.bucketName,
-					`${fileName}.jpeg`,
+					`${fileName}.${extension}`,
 					stream,
-					{
-						contentType: this.contentType,
-					},
+					{ contentType },
 					(err, etag) => {
 						if (err) reject(err);
 						resolve(etag);
 					}
 				);
 			});
+
 			const url = dir
-				? `http://127.0.0.1:9000/${process.env.MINIO_IMAGE_BUCKET}/${dir}/${fileName}.${this._extension}`
-				: `http://127.0.0.1:9000/${process.env.MINIO_IMAGE_BUCKET}/${fileName}.${this._extension}`;
+				? `${process.env.MINIO_IMAGE_BUCKET}/${dir}/${fileName}.${this._extension}`
+				: `${process.env.MINIO_IMAGE_BUCKET}/${fileName}.${this._extension}`;
 
 			return etag ? url : null;
 		} catch (err) {
@@ -74,7 +86,7 @@ class MinIOService {
 			return null;
 		}
 	}
-	*/
+
 	deleteFile(fileName) {
 		console.log(fileName);
 	}

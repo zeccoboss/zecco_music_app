@@ -33,14 +33,21 @@ class Mailer {
 		});
 	}
 
+	//
 	verificationToken(verificationUrl) {
 		this.mailOptions.html = `<p>Click <a href="${verificationUrl}">here</a> to verify your account</p>`;
 		this.#sendMail(this.mailOptions);
 		return this.mailOptions.html;
 	}
 
+	//
 	welcomeAdmin() {
 		this.#sendMail(this.mailOptions);
+		const adminMailer = new Mailer({
+			mailAddress: admin.email,
+			subjectContent: "Welcome Modafuka",
+			textContent: `Hey modafuka, glad to have you on board, Just want to let you know you've been added as an admin to ZeccoMusicApp, all the best.`,
+		});
 	}
 }
 

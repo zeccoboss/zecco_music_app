@@ -37,8 +37,8 @@ class MetaManager {
 	#readFileWithPath = async (filePath) => {
 		try {
 			const stream = fs.createReadStream(filePath); // Get stream (Actual audio)
-
 			const metaData = await parseStream(stream); // Parse the stream and remove metadata
+
 			if (!metaData) return console.error("No metadata"); // Check if metadata valid
 			return {
 				fileName: null, // Filename
@@ -70,9 +70,8 @@ class MetaManager {
 		const { common, format } = metadata; // Remove required properties
 		if (!common || !format)
 			return console.error("Common or Format not passed");
-		const filePath = path.join("public", `${fileName}`);
-
 		// Return object
+
 		return {
 			uuid: id,
 			fileName,
@@ -125,10 +124,8 @@ class MetaManager {
 					media: !!format.hasAudio === true ? data.stream : null,
 					dir: "local",
 					extension: "mp3",
+					flag: "Stream",
 				});
-
-				// console.log("Audio: ", audioUrl);
-				// console.log("Cover: ", coverUrl);
 
 				const meta = this.#safeMeta(
 					id,
@@ -142,7 +139,7 @@ class MetaManager {
 				return meta;
 			});
 		} catch (err) {
-			// console.error(err);
+			console.error(err);
 			return [];
 		}
 	}
@@ -179,11 +176,9 @@ class MetaManager {
 				fileName: id,
 				media: !!format.hasAudio === true ? readData.stream : null,
 				dir: "local",
+				flag: "Stream",
 				extension: "mp3",
 			});
-
-			// console.log("Audio: ", audioUrl);
-			// console.log("Cover: ", coverUrl);
 
 			const meta = this.#safeMeta(
 				id,
@@ -194,7 +189,6 @@ class MetaManager {
 				audioUrl
 			); // A method to process metadata
 
-			// const media = this.#safeMedia(data, cover, audioName, coverPath); // A method to process audio
 			return meta;
 		} catch (error) {
 			console.error(error);
