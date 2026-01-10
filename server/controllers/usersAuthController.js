@@ -69,7 +69,7 @@ const handleLogin = async (req, res) => {
 			{
 				UserInfo: {
 					roles: roles,
-					username: foundUser.username,
+					id: foundUser._id,
 				},
 			},
 			process.env.ACCESS_TOKEN_SECRET,
@@ -77,7 +77,7 @@ const handleLogin = async (req, res) => {
 		);
 		// Generate refresh token
 		const refreshToken = jwt.sign(
-			{ username: foundUser.username },
+			{ id: foundUser._id },
 			process.env.REFRESH_TOKEN_SECRET,
 			{ expiresIn: "1d" }
 		);

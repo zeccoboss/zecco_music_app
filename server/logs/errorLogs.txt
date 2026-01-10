@@ -85,3 +85,12 @@ ac215726-4e26-4bd5-bc55-52ad421c000f	03012026	21:42:26	SyntaxError	Expected doub
     "pas"... is not valid JSON
 efe09e14-5a0d-47a8-b04d-3effae318dd4	06012026	11:05:09	Error	Cannot set headers after they are sent to the client
 86ea7f94-045c-47c4-98a2-c2a995b6d2f3	06012026	11:06:24	Error	Cannot set headers after they are sent to the client
+d1ba8ed2-7587-4425-8afe-ad1fe5a3333d	10012026	12:53:01	Error	Unexpected end of form
+8e2208cb-34fa-4ebc-95ca-2da8cd522cfb	10012026	13:17:26	TypeError	The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received an instance of Object
+ca4f8400-f184-4b73-a023-a1004d78acb6	10012026	13:19:28	TypeError	The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received an instance of Object
+3baeea84-1211-4eec-b0b7-7cbaa21fedfb	10012026	13:21:41	TypeError	The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined
+0c8ee6c5-f366-4d4d-a067-cd6fc354b452	10012026	13:28:53	TypeError	The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined
+e1625955-6e95-4279-9050-6152944574b5	10012026	13:29:35	TypeError	The "iterable" argument must be an instance of Iterable. Received undefined
+a77831bd-d0c3-4148-978f-8aa58f8cb44b	10012026	14:00:18	TypeError	res.senStatus is not a function
+b48a1ad8-ad0d-4081-8a53-3358bebe8178	10012026	14:10:49	SyntaxError	Expected double-quoted property name in JSON at position 62 (line 4 column 1)
+e0969bb0-c00d-496e-adac-ba30fcfe90a5	10012026	14:11:15	SyntaxError	Expected double-quoted property name in JSON at position 62 (line 4 column 1)

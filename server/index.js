@@ -14,6 +14,7 @@ const mongoose = require("mongoose");
 const initLocalAudio = require("./core/initLocalAudio");
 const minioClient = require("./config/minioConn");
 const MetaManager = require("./metadata/MetaManager");
+const uploader = require("./middlewares/multer");
 
 connectDB(); // Connect to mongodb
 const app = express(); // Create App
@@ -49,6 +50,13 @@ app.use("/users", verifyJWT, require("./routes/api/users"));
 
 // Music routes
 app.use("/api/media/audio", require("./routes/api/audios"));
+
+app.post(
+	"/api/media/audio/upload",
+	// verifyJWT,
+	uploader.single("audio"),
+	require("./routes/api/audiosUploads.js")
+);
 
 // Serve 404 page
 app.use((_, res) => {
