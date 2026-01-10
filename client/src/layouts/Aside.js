@@ -3,7 +3,7 @@ import {
 	bigScreen,
 	largeScreen,
 	mobileScreen,
-} from "../core/screenBreakePoints.js";
+} from "../core/screenBreakPoints.js";
 import { navigateHome } from "../events/navigateHome.js";
 import { navigateLibrary } from "../events/navigateLibrary.js";
 import { navigateSearch } from "../events/navigateSearch.js";
@@ -48,12 +48,12 @@ const Aside = () => {
 					</a>
 				</li>
 
-				<li id="profile" class="profile">
+				<!-- <li id="profile" class="profile">
 					<a href="profile" class="nav_links">
 						${personProfileSVG}
 						<span>Profile</span>
 					</a>
-				</li> 
+				</li> -->
 
 				<!-- <li id="settings" class="settings">
 					<a href="settings" class="nav_links">

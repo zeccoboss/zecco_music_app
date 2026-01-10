@@ -7,7 +7,7 @@ import ProfileSection from "../components/ProfileSection.js";
 import SearchSection from "../components/SearchSection.js";
 import CreateElement from "../utils/CreateElement.js";
 
-const MobileMain = () => {
+const MobileMain = async () => {
 	// Create element
 	const mobileMain = new CreateElement("main");
 
@@ -16,7 +16,7 @@ const MobileMain = () => {
 	mobileMain.setId("mobile-main");
 
 	mobileMain.append(
-		HomeSection(),
+		await HomeSection(),
 		LibrarySection(),
 		SearchSection(),
 		PlayingBanner(),

@@ -10,11 +10,9 @@
 
 	/*  */
 	--h_f-height: 5rem;
-
-	--m_a-hieght: calc(100vh - var(--h_f-height) * 2);
-	--m-secs-height: var(--m_a-hieght);
-	--a-secs-height: var(--m_a-hieght);
-
+	--m_a-height: calc(100vh - var(--h_f-height) * 2);
+	--m-secs-height: var(--m_a-height);
+	--a-secs-height: var(--m_a-height);
 	--nav-spinner-h: clamp(7rem, 20vw, 10rem);
 	--nav-spinner-w: var(--nav-spinner-h);
 
@@ -29,26 +27,15 @@
 	--clear-error: hsl(226, 84%, 80%);
 
 	/*  */
-	--bg-light: hsl(0, 0%, 11%);
-	--bg-dark: hsl(0, 0%, 5%);
-	--bg-img-colors: hsl(0, 0%, 5%), hsl(198, 94%, 6%), hsl(262, 48%, 9%);
-	--h-bg: hsl(0, 0%, 6.5%);
-	--f-bg: hsl(0, 3%, 6%);
-	--h-img-colors: hsl(198, 94%, 6%), hsl(263, 64%, 6%);
-	--f-img-colors: hsl(212, 36%, 9%), hsl(266, 38%, 8%);
-	--ft-color-light: hsl(0, 2%, 82%);
-	--ft-color-dark: hsl(0, 0%, 87%);
-	--crd-ft-color: white;
-	--accent: hsl(226, 60%, 50%);
-	--brd-color: hsl(192, 40%, 60%);
-	--btn-bg: hsla(0, 0%, 100%, 0);
-	--btn-bg-hover: hsl(from var(--btn-bg) h s calc(l + 5));
-	--m_a-bg-img-colors: hsla(198, 64%, 14%, 0.4), hsla(262, 48%, 9%, 0.4);
-	--f-bg-img-colors: hsla(198, 64%, 14%, 0.5), hsla(262, 35%, 22%, 0.5);
+	--background: hsl(0, 0%, 6%);
+	--header-bg: hsl(from var(--background) h s calc(l + 2));
+	--footer-bg: hsl(from var(--background) h s calc(l + 10));
+	--text: hsl(0, 3%, 89%);
+	--accent: hsl(213, 100%, 50%);
+	--muted: rgb(187, 187, 187);
+	--accent-hover: hsl(from var(--accent) h s calc(l + 5));
 
-	--overlay-bg-img-colors: hsl(212, 36%, 9%), hsl(266, 38%, 8%);
-
-	--ext-cnt-bg-img-colors: hsl(199, 32%, 12%), hsl(265, 23%, 10%);
+	--strt-up-ani-dly: 0.15s;
 }
 
 html {
@@ -98,9 +85,9 @@ button {
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
-	color: var(--ft-color-dark);
-	background-image: linear-gradient(to bottom, var(--bg-img-colors));
-	background-color: var(--bg-dark);
+	color: var(--text);
+	/* background-image: linear-gradient(to bottom, var(--bg-img-colors)); */
+	background-color: var(--background);
 	position: relative;
 }
 
@@ -118,9 +105,9 @@ button {
 	justify-content: space-between;
 	place-items: center;
 	height: var(--h_f-height);
-	background-color: var(--h-bg);
+	background-color: var(--header-bg);
 	color: var(--ft-color-light);
-	background-image: linear-gradient(var(--h-img-colors));
+	/* background-image: linear-gradient(var(--h-img-colors)); */
 }
 
 .logo {
@@ -129,7 +116,7 @@ button {
 	place-items: center;
 	font-size: 1.5rem;
 	font-weight: 700;
-	/* padding: var(--space); */
+	color: var(--muted);
 	font-family: "Courier New", Courier, monospace;
 
 	& svg {
@@ -152,30 +139,29 @@ button {
 	font-size: 0.9rem;
 	width: 20rem;
 	padding: 0.6rem 0.6rem 0.6rem 2.2rem;
-	background-color: hsl(from var(--bg-light) h s calc(l + 5));
+	background-color: hsl(from var(--background) h s calc(l + 5));
 	border: 2px solid hsl(0, 0%, 29%);
-	color: hsl(from var(--bg-light) h s calc(l -50));
+	color: hsl(from var(--background) h s calc(l -50));
 	border-radius: 0.5rem;
 	transition: var(--transition);
 
 	&:focus,
 	&:active {
-		border: 2px solid var(--brd-color);
+		border: 2px solid var(--accent);
 		outline: none;
 	}
 }
 
 .header_signin_btn {
-	/* border: 1px solid hsl(from var(--ft-color-light) h s calc(l - 50)); */
-	color: var(--ft-color-light);
+	color: var(--muted);
 	margin-right: var(--space);
 	transition: all ease-in 0.2s;
 	padding: 0;
-	border: 1px solid var(--brd-color);
+	border: 1px solid var(--accent);
 
 	&:hover {
 		background-color: hsl(0, 0%, 19%);
-		color: hsl(from var(--ft-color-dark) h s calc(l - 20));
+		color: hsl(from var(--text) h s calc(l - 20));
 	}
 
 	& a {
@@ -186,7 +172,7 @@ button {
 
 .header_signup_btn {
 	background-color: var(--accent);
-	color: var(--ft-color-light);
+	color: var(--muted);
 	margin-right: var(--space);
 	transition: all ease-in 0.2s;
 	padding: 0;
@@ -205,9 +191,9 @@ button {
 /* Main */
 .main {
 	position: relative;
-	background-color: var(--bg-light);
-	background-image: linear-gradient(to bottom, var(--m_a-bg-img-colors));
-	height: var(--m_a-hieght);
+	background-color: var(--background);
+	/* background-image: linear-gradient(to bottom, var(--m_a-bg-img-colors)); */
+	height: var(--m_a-height);
 }
 
 .main_sections {
@@ -241,7 +227,7 @@ button {
 	height: fit-content;
 	padding: var(--space);
 	transition: var(--transition);
-	color: var(--crd-ft-color);
+	color: var(--text);
 
 	& svg {
 		fill: aliceblue;
@@ -300,7 +286,7 @@ button {
 .card_music_title {
 	margin-top: 0.3rem;
 	font-size: 0.8rem;
-	color: hsl(from var(--crd-ft-color) h s calc(l -40));
+	color: hsl(from var(--text) h s calc(l -40));
 }
 
 .music_card_control {
@@ -385,15 +371,15 @@ button {
 /* Aside */
 .aside {
 	overflow: hidden;
-	height: calc(var(--m_a-hieght) - 1rem);
+	height: calc(var(--m_a-height) - 1rem);
 	position: relative;
 	transition: var(--transition);
 	display: grid;
-	background-color: var(--bg-light);
+	background-color: var(--background);
 	margin: var(--space);
 	border-radius: 0.5rem;
 	font-weight: 800;
-	background-image: linear-gradient(to left, var(--m_a-bg-img-colors));
+	/* background-image: linear-gradient(to left, var(--m_a-bg-img-colors)); */
 	font-size: 0.9rem;
 	box-shadow: 0px 0px 2px hsla(0, 0%, 100%, 0.2);
 }
@@ -413,11 +399,11 @@ button {
 }
 
 .nav_links:hover {
-	background-color: hsl(from var(--bg-light) h s calc(l + 10));
+	background-color: hsl(from var(--background) h s calc(l + 10));
 }
 
 .active_nav {
-	background-color: hsl(from var(--bg-light) h s calc(l + 15));
+	background-color: hsl(from var(--background) h s calc(l + 15));
 	color: hsl(from var(--accent) h s calc(l + 30));
 
 	& svg {
@@ -444,9 +430,9 @@ button {
 	display: grid;
 	grid-template-rows: auto 1fr;
 	height: var(--h_f-height);
-	/* background-color: var(--f-bg); */
-	background-image: linear-gradient(var(--f-img-colors));
-	color: var(--ft-color-dark);
+	/* background-color: var(--footer-bg); */
+	/* background-image: linear-gradient(var(--f-img-colors)); */
+	color: var(--text);
 	position: relative;
 	font-size: 0.8rem;
 
@@ -547,14 +533,14 @@ button {
 	object-fit: cover;
 	object-position: center;
 	border-radius: 50%;
-	filter: drop-shadow(0px 1px 1px hsl(0, 0%, 94%)) brightness(100%)
-		contrast(100%) grayscale(10%);
+	filter: drop-shadow(0px 1px 1px hsl(0, 1%, 32%)) brightness(100%)
+		contrast(100%);
 	animation: grow-loading-logo 1s ease-in-out infinite alternate;
 }
 
 @keyframes grow-loading-logo {
 	to {
-		filter: drop-shadow(1px 0px 1px hsl(0, 0%, 94%));
+		filter: drop-shadow(1px 0px 1px hsl(0, 0%, 28%)) grayscale(1%);
 		scale: 1.1;
 	}
 }
@@ -563,6 +549,7 @@ button {
 .show_extra_content,
 .show_startup_screen {
 	display: flex;
+	/* z-index: 100; */
 }
 
 .show_overlay {
@@ -571,16 +558,95 @@ button {
 	place-items: center;
 	place-content: center;
 	font-weight: 700;
-	background-image: linear-gradient(to top, var(--overlay-bg-img-colors));
+	background-color: hsl(from var(--background) h s calc(l + 1));
 	letter-spacing: 2px;
 }
 
 .show_extra_content {
-	background-image: linear-gradient(var(--ext-cnt-bg-img-colors));
-	color: var(--ft-color-dark);
+	background-color: hsl(from var(--background) h s calc(l + 5));
+	/* background-image: linear-gradient(var(--ext-cnt-bg-img-colors)); */
+	color: var(--text);
 	scrollbar-width: none;
 	display: grid;
 }
+
+.show_startup_screen {
+	flex-direction: column;
+	background-color: black;
+	place-content: center;
+	place-items: center;
+	font-size: 2.5rem;
+	letter-spacing: 1px;
+}
+
+.strt_up_container {
+	color: var(--muted);
+}
+
+.strt_up_container span {
+	color: rgb(235, 235, 235);
+	display: inline-block;
+	animation: load-start-up 1s ease-in infinite alternate;
+	font-weight: 100;
+}
+.strt_up_container .letter-one {
+	/* transform: rotate(40deg); */
+	/* color: rgb(212, 14, 14); */
+	animation-delay: var(--strt-up-ani-dly);
+}
+.strt_up_container .letter-two {
+	/* transform: rotate(40deg); */
+	animation-delay: calc(var(--strt-up-ani-dly) + 0.2s);
+}
+.strt_up_container .letter-three {
+	/* transform: rotate(40deg); */
+	animation-delay: calc(var(--strt-up-ani-dly) + 0.4s);
+}
+.strt_up_container .letter-four {
+	/* transform: rotate(40deg); */
+	animation-delay: calc(var(--strt-up-ani-dly) + 0.6s);
+}
+.strt_up_container .letter-five {
+	/* transform: rotate(40deg); */
+	animation-delay: calc(var(--strt-up-ani-dly) + 0.8s);
+}
+.strt_up_container .letter-six {
+	/* transform: rotate(40deg); */
+	animation-delay: calc(var(--strt-up-ani-dly) + 1s);
+}
+.strt_up_container .letter-seven {
+	/* transform: rotate(40deg); */
+	animation-delay: calc(var(--strt-up-ani-dly) + 1.2s);
+}
+.strt_up_container .letter-eight {
+	/* transform: rotate(40deg); */
+	animation-delay: calc(var(--strt-up-ani-dly) + 1.4s);
+}
+.strt_up_container .letter-nine {
+	transform: rotate(40deg);
+	animation-delay: calc(var(--strt-up-ani-dly) + 1.6s);
+}
+.strt_up_container .letter-ten {
+	/* transform: rotate(40deg); */
+	animation-delay: calc(var(--strt-up-ani-dly) + 1.8s);
+}
+@keyframes load-start-up {
+	0% {
+		transform: translateY(0px);
+	}
+	to {
+		/* color: red; */
+		transform: translateY(-1rem);
+	}
+}
+
+/* @keyframes grow-loading-logo {
+	to {
+		 filter: drop-shadow(1px 0px 1px hsl(0, 0%, 94%)) grayscale(80%);
+		scale: 1.1; 
+		transform: translateY(-2px);
+	}
+} */
 
 /* Login and Signup Form */
 .forms {
@@ -590,7 +656,7 @@ button {
 	width: 90%;
 	max-width: 27rem;
 	place-self: center;
-	background-image: linear-gradient(to top, var(--f-bg-img-colors));
+	/* background-image: linear-gradient(to top, var(--footer-bg-img-colors)); */
 	padding: 1rem;
 	box-shadow: 0px 0px 2px hsl(0, 0%, 56%);
 	border-radius: 0.5rem;
@@ -647,24 +713,23 @@ button {
 
 .form_heading {
 	clip-path: clip;
-	background-clip: cliip;
 	margin: 1.5rem 0 1rem 0;
 	text-align: center;
-	color: rgb(115, 154, 217);
+	color: hsl(from var(--accent) h calc(s + 40) calc(l + 20));
 
 	& .first-child {
-		color: rgb(167, 218, 217);
+		color: hsl(from var(--accent) h s calc(l - 5));
 	}
 }
 
 .form_message {
-	color: rgb(125, 166, 166);
+	color: var(--muted);
 	margin: 1rem var(--space);
 	text-align: center;
 }
 
 .forms label {
-	color: rgb(175, 175, 175);
+	color: var(--muted);
 	margin: var(--space) 0.1rem var(--space) 0;
 	font-size: 0.7rem;
 }
@@ -686,7 +751,7 @@ button {
 .form_links_wrapper_two {
 	margin: 1rem var(--space) 0 var(--space);
 	text-align: center;
-	color: hsl(180, 14%, 45%);
+	color: var(--muted);
 	/* color: rgb(94, 96, 97); */
 }
 
@@ -704,19 +769,19 @@ button {
 		text-decoration-color: rgb(75, 75, 75);
 		text-underline-offset: 2.5px;
 		text-decoration-thickness: 1px;
-		color: hsl(180, 14%, 70%);
+		color: hsl(from var(--muted) h s calc(l +10));
 	}
 }
 
 .form_btn {
-	color: rgb(206, 206, 206);
+	color: var(--muted);
 	background-color: hsl(from var(--accent) h s calc(l - 5));
 	margin: 1.5rem 2rem 1rem 2rem;
 	font-weight: 700;
 	position: relative;
 
 	&:hover {
-		color: rgb(177, 177, 177);
+		color: hsl(from var(--muted) h s calc(l - 10));
 		background-color: hsl(from var(--accent) h s calc(l - 10));
 	}
 

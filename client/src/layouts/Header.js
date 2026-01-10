@@ -1,4 +1,4 @@
-import { mobileScreen } from "../core/screenBreakePoints.js";
+import { mobileScreen } from "../core/screenBreakPoints.js";
 import { navigateSearch } from "../events/navigateSearch.js";
 import { pushHistory } from "../routes/router.js";
 // import navigateSignup from "../events/navigateSignup.js";

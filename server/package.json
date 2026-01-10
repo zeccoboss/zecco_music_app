@@ -5,13 +5,18 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "node index.js",
-		"dev": "nodemon index.js"
+		"dev": "nodemon index.js",
+		"mongo:start": "mongosh --port 27017 --username admin --password secret",
+		"minio:start": "minio server ./data --console-address ':9001'",
+		"minio:client": "mc alias set local http://127.0.0.1:9000 minioadmin minioadmin"
 	},
 	"keywords": [],
 	"author": "ZECCO",
 	"license": "ISC",
 	"type": "commonjs",
 	"dependencies": {
+		"@aws-sdk/client-s3": "^3.965.0",
+		"@aws-sdk/s3-request-presigner": "^3.965.0",
 		"axios": "^1.13.2",
 		"bcrypt": "^6.0.0",
 		"cookie-parser": "^1.4.7",

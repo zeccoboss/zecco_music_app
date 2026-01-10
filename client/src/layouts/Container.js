@@ -1,6 +1,6 @@
 import CreateElement from "../utils/CreateElement.js";
 
-const Container = (main, aside) => {
+const Container = async (main, aside) => {
 	// Create element
 	const container = new CreateElement("div");
 
@@ -8,7 +8,7 @@ const Container = (main, aside) => {
 	container.addClass("container");
 	container.setId("container");
 
-	container.getElement().append(aside(), main());
+	container.getElement().append(aside(), await main());
 
 	return container.getElement();
 };

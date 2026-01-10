@@ -3,30 +3,47 @@ import {
 	bigScreen,
 	largeScreen,
 	mobileScreen,
-} from "../core/screenBreakePoints.js";
+} from "../core/screenBreakPoints.js";
 import CreateElement from "../utils/CreateElement.js";
 import { heartSvg, playCircleFill, threeDotMenu } from "../utils/SVG_ICONS.js";
 import musicImage from "../assets/images/favicon.png";
 
-const MusicCard = () => {
+const MusicCard = (audio) => {
 	// Create element
 	const musicCard = new CreateElement("div");
+	const {
+		_id,
+		title,
+		artist,
+		artists,
+		duration,
+		bitrate,
+		sampleRate,
+		album,
+		genre,
+		hasCover,
+		hasVideo,
+		year,
+		coverUrl,
+		audioUrl,
+	} = audio;
 
-	// Attr
 	musicCard.addClass("music_card");
-	musicCard.setId("music-card");
+	musicCard.setId(audio._id);
 
 	const htmlContent = `
-		<div class="card_img_container">
-			<img src="${musicImage}" class="card_img" alt="Music card image" srcset="" width="50" height="50" loading="lazy"/>
+		 <div class="card_img_container">
+			<img src="${
+				audio.hasCover ? audio.coverUrl : musicImage
+			}" class="card_img" alt="Music card image" srcset="" width="50" height="50" loading="lazy"/>
 			<div class="card_overlay">
 				${playCircleFill}
 			</div>
 		</div>
 
 		<div class="card_music_details">
-			<h4 class="card_artist_name">Artist name</h4>
-			<p class="card_music_title">Music Title</p>
+			<h4 class="card_artist_name">${audio.artist ? artist : "Unknown artist"}</h4>
+			<p class="card_music_title">${audio.title ? title : "Unknown title"}</p>
 		</div>
 
 		<div class="music_card_control">

@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const { ROLES_LIST } = require("../config/roles_list");
 const User = require("../models/User");
-const Media = require("../models/Media");
+const UserMedia = require("../models/UserMedia");
 const Mailer = require("../services/MailService");
 
 const initAdmin = async () => {
@@ -20,7 +20,7 @@ const initAdmin = async () => {
 			isVerified: true,
 			playlist: [],
 			profile: {
-				path: "images/admin/admin_img.PNG",
+				path: "http://localhost:7830/images/admin/admin_img.PNG",
 			},
 			verificationToken: undefined,
 			verificationTokenExpiry: undefined,
@@ -30,8 +30,10 @@ const initAdmin = async () => {
 			subjectContent: "Welcome Modafuka",
 			textContent: `Hey modafuka, glad to have you on board, Just want to let you know you've been added as an admin to ZeccoMusicApp, all the best.`,
 		});
+		console.log(admin);
+
 		const userId = admin._id;
-		const media = await Media.create({
+		const media = await UserMedia.create({
 			owner: userId,
 		});
 		adminMailer.welcomeAdmin();

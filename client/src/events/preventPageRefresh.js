@@ -1,7 +1,7 @@
 import { navigate } from "../routes/router.js";
 import { navigateHome } from "./navigateHome.js";
 
-function preventLinksBehaviour() {
+function preventLinksBehavior() {
 	const navLinks = document.querySelectorAll("a");
 	const inputs = Array.from(document.getElementsByTagName("input"));
 
@@ -17,7 +17,7 @@ function preventLinksBehaviour() {
 	});
 }
 
-function preventFormBehaviour() {
+function preventFormBehavior() {
 	const extraContent = document.querySelector(".extra_content");
 	const forms = extraContent.querySelectorAll(".forms");
 	const homeNavLink = document.querySelector("#home-links");
@@ -37,4 +37,4 @@ function preventFormBehaviour() {
 	});
 }
 
-export { preventLinksBehaviour, preventFormBehaviour };
+export { preventLinksBehavior, preventFormBehavior };

@@ -83,3 +83,5 @@ ac215726-4e26-4bd5-bc55-52ad421c000f	03012026	21:42:26	SyntaxError	Expected doub
     "pas"... is not valid JSON
 4b467d57-9731-4d1e-b364-59506376bc52	04012026	00:38:36	SyntaxError	Unexpected token ',', ..."username":,
     "pas"... is not valid JSON
+efe09e14-5a0d-47a8-b04d-3effae318dd4	06012026	11:05:09	Error	Cannot set headers after they are sent to the client
+86ea7f94-045c-47c4-98a2-c2a995b6d2f3	06012026	11:06:24	Error	Cannot set headers after they are sent to the client

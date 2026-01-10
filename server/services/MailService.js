@@ -36,6 +36,7 @@ class Mailer {
 	verificationToken(verificationUrl) {
 		this.mailOptions.html = `<p>Click <a href="${verificationUrl}">here</a> to verify your account</p>`;
 		this.#sendMail(this.mailOptions);
+		return this.mailOptions.html;
 	}
 
 	welcomeAdmin() {

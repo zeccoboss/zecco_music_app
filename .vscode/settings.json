@@ -1,5 +1,15 @@
 {
-	"cSpell.words": ["modafuka", "Obang", "useremail", "zecco"],
+	"cSpell.words": [
+		"lnks",
+		"metas",
+		"minioadmin",
+		"modafuka",
+		"mongosh",
+		"Obang",
+		"strt",
+		"useremail",
+		"zecco"
+	],
 	"mdb.presetConnections": [
 		{
 			"name": "Preset Connection",

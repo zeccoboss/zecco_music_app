@@ -13,14 +13,15 @@ import {
 	bigScreen,
 	largeScreen,
 	mobileScreen,
-} from "./core/screenBreakePoints.js";
+} from "./core/screenBreakPoints.js";
 import "./styles/style.css";
-import "./styles/media_querries.css";
+import "./styles/media_queries.css";
 import { initApp } from "./core/initApp.js";
+``;
 import ProfilePage from "./pages/profilePage.js";
 
 const renderApp = (app) => {
-	const applyMobileContent = (message) => {
+	const applyMobileContent = async (message) => {
 		console.warn("Clearing app...");
 		app.innerHTML = ""; // Clear the app
 		console.warn("Appending app content...");
@@ -28,7 +29,7 @@ const renderApp = (app) => {
 		// Add Components to app
 		app.append(
 			MobileHeader(),
-			MobileMain(),
+			await MobileMain(),
 			MobileFooter(),
 			StartupScreen(),
 			Overlay(),
@@ -47,7 +48,7 @@ const renderApp = (app) => {
 		console.log(""); // empty string to show app is fully loaded from additional logs
 	};
 
-	const applyBigScreenContent = (message) => {
+	const applyBigScreenContent = async (message) => {
 		console.warn("Clearing app...");
 		app.innerHTML = ""; // Clear the app
 		console.warn("Appending app content...");
@@ -55,11 +56,11 @@ const renderApp = (app) => {
 		// Add Components to app
 		app.append(
 			Header(),
-			Container(Main, Aside),
+			await Container(Main, Aside),
 			Footer(),
 			StartupScreen(),
 			Overlay(),
-			// ProfilePage(),
+			ProfilePage(),
 			ExtraContent()
 		);
 
@@ -74,7 +75,7 @@ const renderApp = (app) => {
 		console.log(""); // empty string to show app is fully loaded from additional logs
 	};
 
-	const applyLargeScreenContent = (message) => {
+	const applyLargeScreenContent = async (message) => {
 		console.warn("Clearing app...");
 		app.innerHTML = ""; // Clear the app
 		console.warn("Appending app content...");
@@ -82,7 +83,7 @@ const renderApp = (app) => {
 		// Add Components to app
 		app.append(
 			Header(),
-			Container(Main, Aside),
+			await Container(Main, Aside),
 			Footer(),
 			StartupScreen(),
 			Overlay(),

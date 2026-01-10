@@ -2,7 +2,7 @@ import axios from "axios";
 import { API } from "../config/apiConfig";
 
 const loginAccountService = async (path, data = {}) => {
-	const base = API.BASE_URL;
+	const base = API.DEV_URL;
 	const url = new URL(path, base);
 	axios.defaults.withCredentials = true;
 

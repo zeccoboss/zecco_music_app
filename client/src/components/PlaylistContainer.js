@@ -3,7 +3,7 @@ import {
 	bigScreen,
 	largeScreen,
 	mobileScreen,
-} from "../core/screenBreakePoints.js";
+} from "../core/screenBreakPoints.js";
 import CreateElement from "../utils/CreateElement.js";
 import { heartSvg, playCircleFill, threeDotMenu } from "../utils/SVG_ICONS.js";
 import musicImage from "../assets/images/favicon.png";

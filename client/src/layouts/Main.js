@@ -5,7 +5,7 @@ import ProfileSection from "../components/ProfileSection.js";
 import SearchSection from "../components/SearchSection.js";
 import CreateElement from "../utils/CreateElement.js";
 
-const Main = () => {
+const Main = async () => {
 	// Create element
 	const main = new CreateElement("main");
 
@@ -16,7 +16,7 @@ const Main = () => {
 	main
 		.getElement()
 		.append(
-			HomeSection(),
+			await HomeSection(),
 			LibrarySection(),
 			SearchSection(),
 			NotFoundSection(),

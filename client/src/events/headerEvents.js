@@ -11,9 +11,11 @@ const headerEvent = () => {
 
 	const header = document.querySelector("header");
 	const headerPlusBtn = document.getElementById("header-plus-btn");
-	headerPlusBtn.style.position = "relative";
-	headerPlusBtn.appendChild(dropDownList.getElement());
-	console.log(headerPlusBtn);
+	if (headerPlusBtn) {
+		headerPlusBtn.style.position = "relative";
+		headerPlusBtn.appendChild(dropDownList.getElement());
+		console.log(headerPlusBtn);
+	}
 
 	header.addEventListener("click", (e) => {
 		e.stopPropagation();
@@ -28,16 +30,17 @@ const headerEvent = () => {
 		}
 	});
 
-	headerPlusBtn.addEventListener("click", (e) => {
-		const addPlayListBtn = document.querySelector("#hd-crt-playlist-btn");
-		const uploadMusicBtn = document.querySelector("#hd-upload-music-btn");
+	if (headerPlusBtn)
+		headerPlusBtn.addEventListener("click", (e) => {
+			const addPlayListBtn = document.querySelector("#hd-crt-playlist-btn");
+			const uploadMusicBtn = document.querySelector("#hd-upload-music-btn");
 
-		if (e.target === addPlayListBtn) {
-			console.log("Create new playlist");
-		} else if (e.target === uploadMusicBtn) {
-			console.log("Upload music");
-		}
-	});
+			if (e.target === addPlayListBtn) {
+				console.log("Create new playlist");
+			} else if (e.target === uploadMusicBtn) {
+				console.log("Upload music");
+			}
+		});
 };
 
 export { headerEvent };

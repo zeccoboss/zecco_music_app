@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { ROLES_LIST } = require("../config/roles_list");
 const User = require("../models/User");
-const Media = require("../models/Media");
+const UserMedia = require("../models/UserMedia");
 const crypto = require("node:crypto");
 const { sendVerificationMail } = require("../helpers/sendVerificationMail");
 
@@ -35,7 +35,7 @@ const handleRegister = async (req, res) => {
 				verificationToken: hashedToken,
 			});
 			const userId = user._id;
-			const media = await Media.create({
+			const userMedia = await UserMedia.create({
 				owner: userId,
 			});
 

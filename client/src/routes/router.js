@@ -1,31 +1,32 @@
+import HomeSection from "../components/HomeSection.js";
+import LibrarySection from "../components/LibrarySection.js";
+import NotFoundSection from "../components/NotFoundSection.js";
+import ProfileSection from "../components/ProfileSection.js";
+import SearchSection from "../components/SearchSection.js";
 import navigateLogin from "../events/navigateLogin.js";
 import navigateSignup from "../events/navigateSignup.js";
 import { clearActiveSections } from "../helpers/clearActiveSections.js";
 import showProfilePage from "../helpers/showProfilePage.js";
 
 const routes = {
-	"/": "home",
-	"/search": "search",
-	"/library": "library",
+	"/": HomeSection,
+	"/search": SearchSection,
+	"/library": LibrarySection,
 	"/signup": "signup",
 	"/login": "login",
-	"/profile": "profile",
+	"/profile": ProfileSection,
+	"/notFound": NotFoundSection,
 };
 
 function pushHistory(path) {
 	history.pushState({}, "", path);
 }
-
-function navigate(path) {
-	const main = document.querySelector("main");
-	const mainSections = main.querySelectorAll("section");
-	mainSections.forEach((sec) => {
-		sec.classList.remove("active_section");
-	});
-
+async function navigate(path) {
 	if (!path.startsWith("/")) path = `/${path}`;
 
-	if (routes[path] === "login") {
+	if (routes[path] === "/") {
+		console.log("Home");
+	} else if (routes[path] === "login") {
 		navigateLogin();
 		pushHistory(path);
 		return;
@@ -39,17 +40,18 @@ function navigate(path) {
 		pushHistory(path);
 		return;
 	} else {
-		clearActiveSections();
-		const id = `${routes[path]}-section`;
+		// document.querySelector('')
+		// clearActiveSections();
+		// const id = `${routes[path]}-section`;
 
-		console.log();
+		// console.log();
 
-		const foundSection = document.querySelector(`#${id}`);
-		const notFoundSection = document.getElementById("not-found-section");
+		// const foundSection = document.querySelector(`#${id}`);
+		// const notFoundSection = document.getElementById("not-found-section");
 
-		foundSection
-			? foundSection.classList.add("active_section")
-			: notFoundSection.classList.add("active_section");
+		// foundSection
+		// 	? foundSection.classList.add("active_section")
+		// 	: notFoundSection.classList.add("active_section");
 
 		pushHistory(path);
 	}
