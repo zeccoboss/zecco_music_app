@@ -1,32 +1,58 @@
 [
-   {
-      "id": "f72f65eb-a511-4642-95e4-1dd2b7907889",
-      "fullname": "Obang Ezekiel",
-      "username": "zecco",
-      "email": "ezekielobang@gmail.com",
-      "password": "$2b$10$uUc0qyvMiZ5gEuQEA/oKReAWh94FYSMoZ9IytT5TZBS.mAg0cAR4q",
-      "roles": {
-         "Admin": 8840,
-         "Editor": 9910,
-         "User": 2442
-      },
-      "isVerified": true,
-      "playlist": [],
-      "media": {
-         "audios": {
-            "favorites": [],
-            "uploaded": [],
-            "created": []
-         },
-         "videos": {
-            "favorites": [],
-            "uploaded": [],
-            "created": []
-         },
-         "images": {
-            "profile": "images/admin/admin_img.PNG"
-         }
-      },
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InplY2NvIiwiaWF0IjoxNzY3MjExMjk2LCJleHAiOjE3NjcyOTc2OTZ9.LZcatTArQBr-cqVujgu0Xvk3utBqJv3cXMb-iJWhDPY"
-   }
+	{
+		"id": "f72f65eb-a511-4642-95e4-1dd2b7907889",
+		"fullname": "Obang Ezekiel",
+		"username": "zecco",
+		"email": "ezekielobang@gmail.com",
+		"password": "$2b$10$uUc0qyvMiZ5gEuQEA/oKReAWh94FYSMoZ9IytT5TZBS.mAg0cAR4q",
+		"roles": {
+			"Admin": 8840,
+			"Editor": 9910,
+			"User": 2442
+		},
+		"isVerified": true,
+		"playlist": [],
+		"media": {
+			"audios": {
+				"favorites": [],
+				"uploaded": [],
+				"created": []
+			},
+			"videos": {
+				"favorites": [],
+				"uploaded": [],
+				"created": []
+			},
+			"images": {
+				"profile": "images/admin/admin_img.PNG"
+			}
+		},
+		"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InplY2NvIiwiaWF0IjoxNzY3MjExMjk2LCJleHAiOjE3NjcyOTc2OTZ9.LZcatTArQBr-cqVujgu0Xvk3utBqJv3cXMb-iJWhDPY"
+	},
+	{
+		"owner": "69620d7a0ca38a4fa3f3b32f",
+		"type": "audio",
+		"category": "upload",
+		"media": {
+			"uuid": "78675e56-e7fe-4300-b7d9-9fa3f8e3528a",
+			"fileName": null,
+			"title": "248 | HipHopKit.com",
+			"artist": "Lil Durk",
+			"artists": ["Lil Durk"],
+			"duration": 156.00326530612244,
+			"bitrate": 192000,
+			"sampleRate": 44100,
+			"album": "Just Cause Y'all Waited 2",
+			"genre": null,
+			"hasAudio": true,
+			"hasCover": true,
+			"hasVideo": false,
+			"year": 2023,
+			"coverUrl": "image-files/78675e56-e7fe-4300-b7d9-9fa3f8e3528a.jpeg",
+			"coverFormat": "image/jpeg",
+			"audioUrl": "audio-files/78675e56-e7fe-4300-b7d9-9fa3f8e3528a.mp3"
+		},
+		"_id": "69634e5e1fe2f406163b2c41",
+		"__v": 0
+	}
 ]

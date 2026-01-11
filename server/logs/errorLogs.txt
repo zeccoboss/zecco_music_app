@@ -115,3 +115,4 @@ db3cbdfd-6361-4379-842c-cb8783c8ed97	11012026	03:31:43	ReferenceError	foundMedia
 801ef610-d5c4-436a-8cc6-2eac97b0a462	11012026	04:01:07	ReferenceError	stream is not defined
 a8217024-c29d-4609-8f7b-d46d6e4cbf50	11012026	06:50:39	ReferenceError	stream is not defined
 d2bfd075-b6bc-4261-92cb-4b323d4a86c5	11012026	07:06:37	ValidationError	UserMedia validation failed: category: `upload` is not a valid enum value for path `category`.
+ad527e11-6b02-4ec6-aa03-536bf83f8b60	11012026	08:11:22	MongooseError	document must have an _id before saving

@@ -22,6 +22,8 @@ class MinIOService {
 		if (!fileName) return console.error("File 'name' required");
 		if (!flag) return console.error("Flag required to store Object");
 
+		if (!media) return null;
+
 		let stream = null;
 		if (flag === "Buffer") stream = Readable.from(Buffer.from(media));
 		if (flag === "Stream") stream = media;
@@ -44,10 +46,10 @@ class MinIOService {
 				);
 			});
 
-			const url = dir
-				? `${process.env.MINIO_IMAGE_BUCKET}/${dir}/${fileName}.${this._extension}`
-				: `${process.env.MINIO_IMAGE_BUCKET}/${fileName}.${this._extension}`;
-			return etag ? url : null;
+			// const url = dir
+			// 	? `${bucketName}/${dir}/${fileName}.${extension}`
+			// 	: `${bucketName}/${fileName}.${extension}`;
+			return etag ? `${bucketName}/${fileName}.${extension}` : null;
 		} catch (err) {
 			console.log(err);
 			return null;
@@ -89,11 +91,11 @@ class MinIOService {
 				);
 			});
 
-			const url = dir
-				? `${process.env.MINIO_IMAGE_BUCKET}/${dir}/${fileName}.${this._extension}`
-				: `${process.env.MINIO_IMAGE_BUCKET}/${fileName}.${this._extension}`;
+			// const url = dir
+			// 	? `${bucketName}/${dir}/${fileName}.${extension}`
+			// 	: `${bucketName}/${fileName}.${extension}`;
 
-			return etag ? url : null;
+			return etag ? `${bucketName}/${fileName}.${extension}` : null;
 		} catch (err) {
 			console.log(err);
 			return null;

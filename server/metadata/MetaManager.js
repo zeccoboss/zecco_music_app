@@ -5,6 +5,7 @@ const { parseStream, selectCover, parseBuffer } = require("music-metadata");
 const { v4: uuidV4 } = require("uuid");
 const MinIOService = require("../services/MinIOService");
 const { Readable } = require("node:stream");
+const AppConfig = require("../config/App");
 
 class MetaManager {
 	constructor(flag) {
@@ -83,21 +84,48 @@ class MetaManager {
 			uuid: id,
 			fileName,
 			title: common.title ?? null,
-			artist: common.artist ?? null,
+			artist: common.artist ?? "Unknown Artist",
 			duration: format.duration ?? null,
-			artists: common.artists ?? null,
+			artists: common.artists ?? [],
 			bitrate: format.bitrate ?? null,
 			sampleRate: format.sampleRate ?? null,
-			album: common.album ?? null,
+			album: common.album ?? "Unknown Album",
 			hasVideo: format.hasVideo ?? false,
 			hasAudio: !!format.hasAudio,
 			hasCover: !!cover?.data,
 			genre: format.genre ?? null,
 			year: common.year ?? null,
-			coverUrl: coverUrl,
-			coverFormat: cover ? cover.format : null,
+			coverUrl: cover?.data
+				? coverUrl
+				: `${AppConfig.baseUrl}/images/default/music.default.png`,
+			coverFormat: cover ? cover.format : "image/png",
 			audioUrl: audioUrl,
+			audioFormat: format.hasAudio && !format.hasVideo ? "audio/mpeg" : null,
 		};
+	}
+
+	#storeCover(data) {
+		return this.#imagesStorage.uploadFile({
+			fileName: id,
+			media: cover ? cover.data : null,
+			dir: "cover",
+			extension: "jpeg",
+			flag: "Buffer",
+			bucketName: "image-files",
+			contentType: "image/jpeg",
+		});
+	}
+
+	#storeAudio() {
+		return this.#audiosStorage.uploadFile({
+			fileName: id,
+			media: !!format.hasAudio === true ? data.stream : null,
+			dir: "local",
+			extension: "mp3",
+			flag: "Stream",
+			bucketName: "audio-files",
+			contentType: "audio/mpeg",
+		});
 	}
 
 	async processDirectory(dirPath) {
@@ -124,6 +152,8 @@ class MetaManager {
 					dir: "cover",
 					extension: "jpeg",
 					flag: "Buffer",
+					bucketName: "image-files",
+					contentType: "image/jpeg",
 				});
 
 				const audioUrl = await this.#audiosStorage.uploadFile({
@@ -132,6 +162,8 @@ class MetaManager {
 					dir: "local",
 					extension: "mp3",
 					flag: "Stream",
+					bucketName: "audio-files",
+					contentType: "audio/mpeg",
 				});
 
 				const meta = this.#safeMeta(
@@ -151,7 +183,7 @@ class MetaManager {
 		}
 	}
 
-	async processFile({ path, flag, buffer }) {
+	async processFile({ path, flag, buffer, bufferName }) {
 		try {
 			// Check to know if path or file passed is valid
 			if (flag === "Path" && !path)
@@ -167,8 +199,13 @@ class MetaManager {
 			if (!readData.metaData || !readData.stream)
 				return console.warn("No data to transform!"); // Check if data is returned
 
-			const { fileName } = readData; // Get the common
-			const { common, format } = readData.metaData; // Get the common
+			// Get file name from read data or default to passed buffer name
+			const fileName =
+				readData.fileName ??
+				bufferName.slice(0, bufferName.lastIndexOf("."));
+
+			// Get useful metadata
+			const { common, format } = readData.metaData; // Get the common and format from metadata
 			const cover = selectCover(common.picture); // Get cover or return custom values
 
 			const id = `${uuidV4()}`; // Generate file name

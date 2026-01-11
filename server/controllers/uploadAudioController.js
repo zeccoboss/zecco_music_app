@@ -5,6 +5,7 @@ const UserMedia = require("../models/UserMedia");
 const handleAudioUpload = async (req, res) => {
 	if (!req.file.buffer) res.status(400).json({ error: "No file uploaded" });
 	const userId = req.user.id; // Get id
+	// console.log(req.file);
 
 	// Check if theres user
 	if (!userId) res.status(406).json({ error: "Cant proceed upload" });
@@ -15,6 +16,7 @@ const handleAudioUpload = async (req, res) => {
 	const meta = await uploadAudio.processFile({
 		buffer: buffer,
 		flag: "Buffer",
+		bufferName: `${req.file.originalname}`,
 	});
 
 	const result = await UserMedia.insertOne({
