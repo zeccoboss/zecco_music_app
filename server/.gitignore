@@ -1,3 +1,5 @@
 node_modules
 .env
-/data
+data/audio-files
+data/image-files
+data/.minio.sys
