@@ -94,3 +94,24 @@ e1625955-6e95-4279-9050-6152944574b5	10012026	13:29:35	TypeError	The "iterable" 
 a77831bd-d0c3-4148-978f-8aa58f8cb44b	10012026	14:00:18	TypeError	res.senStatus is not a function
 b48a1ad8-ad0d-4081-8a53-3358bebe8178	10012026	14:10:49	SyntaxError	Expected double-quoted property name in JSON at position 62 (line 4 column 1)
 e0969bb0-c00d-496e-adac-ba30fcfe90a5	10012026	14:11:15	SyntaxError	Expected double-quoted property name in JSON at position 62 (line 4 column 1)
+6e608492-bc66-404e-a382-2ad73f665166	11012026	02:41:14	TypeError	Cannot read properties of undefined (reading 'UserInfo')
+e8d0c4a6-7748-4bb2-96a5-1acb1d2b8b53	11012026	02:44:08	TypeError	Cannot read properties of undefined (reading 'UserInfo')
+a33be0f1-79e4-47b8-ae09-6cafa6933ea6	11012026	02:44:36	TypeError	Cannot read properties of undefined (reading 'UserInfo')
+f2dfc741-3de7-4268-9298-1547b69ae065	11012026	02:44:52	TypeError	Cannot read properties of undefined (reading 'UserInfo')
+e18e06f0-11ea-4cfd-b07c-5571ea1e4b40	11012026	02:47:16	ReferenceError	userId is not defined
+2fc8fb76-43a9-4239-b328-50231636e3ed	11012026	02:49:06	TypeError	Cannot read properties of undefined (reading 'UserInfo')
+0cbe4bbd-1ff6-4707-9bc4-a90280a8936b	11012026	02:49:43	TypeError	Cannot destructure property 'UserInfo' of 'req.user' as it is undefined.
+d57b8abf-ae3f-407a-b4ed-d9b731beebe9	11012026	02:58:33	TypeError	Cannot read properties of undefined (reading 'id')
+4e148e97-1389-4a11-bce1-3c0ed2a95cd0	11012026	02:59:08	TypeError	Cannot read properties of undefined (reading 'id')
+83c8d461-28b0-4ffa-be9f-407bfce040fe	11012026	03:00:35	TypeError	Cannot destructure property 'UserInfo' of 'req.user.UserInfo' as it is undefined.
+ef287c4b-7e77-4eab-83d7-34b619ff5314	11012026	03:01:04	TypeError	Cannot read properties of undefined (reading 'id')
+67f73984-3270-4c26-b4b9-42d0d8df16d7	11012026	03:01:39	TypeError	Cannot read properties of undefined (reading 'id')
+509a8c94-0933-461f-b72d-c55806b42f87	11012026	03:02:12	TypeError	Cannot read properties of undefined (reading 'id')
+94dfb875-30ec-42a4-970a-6233090f49f3	11012026	03:02:46	TypeError	Cannot read properties of undefined (reading 'id')
+02367ed4-788e-48f1-aa79-1abe07865045	11012026	03:29:00	ReferenceError	foundMedia is not defined
+956a3f81-988b-4fb8-ad8d-193e049ae72e	11012026	03:31:23	ReferenceError	foundMedia is not defined
+db3cbdfd-6361-4379-842c-cb8783c8ed97	11012026	03:31:43	ReferenceError	foundMedia is not defined
+4e106718-32a7-4422-af92-ed2db23cd179	11012026	04:00:33	ReferenceError	stream is not defined
+801ef610-d5c4-436a-8cc6-2eac97b0a462	11012026	04:01:07	ReferenceError	stream is not defined
+a8217024-c29d-4609-8f7b-d46d6e4cbf50	11012026	06:50:39	ReferenceError	stream is not defined
+d2bfd075-b6bc-4261-92cb-4b323d4a86c5	11012026	07:06:37	ValidationError	UserMedia validation failed: category: `upload` is not a valid enum value for path `category`.

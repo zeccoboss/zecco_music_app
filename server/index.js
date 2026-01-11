@@ -51,9 +51,9 @@ app.use("/users", verifyJWT, require("./routes/api/users"));
 // Music routes
 app.use("/api/media/audio", require("./routes/api/audios"));
 
-app.post(
+app.use(
 	"/api/media/audio/upload",
-	// verifyJWT,
+	verifyJWT,
 	uploader.single("audio"),
 	require("./routes/api/audiosUploads.js")
 );
@@ -84,9 +84,9 @@ mongoose.connection.once("open", () => {
 
 // For testing purpose
 (async () => {
-	const buckets = await minioClient.listBuckets();
-	// console.log(buckets);
-	const mtm = new MetaManager("Public");
+	// const buckets = await minioClient.listBuckets();
+	// // console.log(buckets);
+	// const mtm = new MetaManager("Public");
 	// const data = await mtm.processFile({
 	// 	path: "public/audios/Happiest Year (Afro Mara) | val9ja.mp3",
 	// 	flag: "Path",

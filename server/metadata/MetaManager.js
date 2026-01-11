@@ -1,9 +1,10 @@
 const fs = require("node:fs");
 const fsPromise = require("node:fs/promises");
 const path = require("node:path");
-const { parseStream, selectCover } = require("music-metadata");
+const { parseStream, selectCover, parseBuffer } = require("music-metadata");
 const { v4: uuidV4 } = require("uuid");
 const MinIOService = require("../services/MinIOService");
+const { Readable } = require("node:stream");
 
 class MetaManager {
 	constructor(flag) {
@@ -51,14 +52,20 @@ class MetaManager {
 		}
 	};
 
-	#readFileWithStream = async (stream) => {
+	#readFileWithBuffer = async (buffer) => {
 		try {
-			const metaData = await parseStream(stream); // Parse the stream and remove metadata
-			if (!metaData) return console.error("No metadata"); // Check if metadata valid
+			const metaData = await parseBuffer(buffer); // Parse the buffer and remove metadata
+
+			// Check if metadata valid
+			if (!metaData) {
+				console.error("No metadata");
+				return null;
+			}
+
 			return {
 				fileName: null, // Filename
 				metaData, // Metadata
-				stream: fs.createReadStream(filePath), // Audio file
+				stream: Readable.from(buffer), // Audio file
 			};
 		} catch (err) {
 			console.error(err);
@@ -144,17 +151,19 @@ class MetaManager {
 		}
 	}
 
-	async processFile({ path, flag, stream }) {
+	async processFile({ path, flag, buffer }) {
 		try {
 			// Check to know if path or file passed is valid
 			if (flag === "Path" && !path)
 				return console.error("Audio path required");
 
-			const readData =
-				flag === "Path"
-					? await this.#readFileWithPath(path)
-					: await this.#readFileWithStream(stream); // Get the read file
+			// Chose what to do on matching flag
+			let readData;
+			if (flag === "Path") readData = await this.#readFileWithPath(path);
+			if (flag === "Buffer")
+				readData = await this.#readFileWithBuffer(buffer); // Get the read file
 
+			// If there's no data or stream then return
 			if (!readData.metaData || !readData.stream)
 				return console.warn("No data to transform!"); // Check if data is returned
 
@@ -170,6 +179,8 @@ class MetaManager {
 				dir: "cover",
 				extension: "jpeg",
 				flag: "Buffer",
+				bucketName: "image-files",
+				contentType: "image/jpeg",
 			});
 
 			const audioUrl = await this.#audiosStorage.uploadFile({
@@ -178,6 +189,8 @@ class MetaManager {
 				dir: "local",
 				flag: "Stream",
 				extension: "mp3",
+				bucketName: "audio-files",
+				contentType: "audio/mpeg",
 			});
 
 			const meta = this.#safeMeta(

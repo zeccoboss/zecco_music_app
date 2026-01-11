@@ -4,7 +4,6 @@ const router = require("express").Router();
 router
 	.route("/")
 	.get(audiosControllers.getAllAudios)
-	.post(audiosControllers.createAudio)
 	.delete(audiosControllers.deleteAudio)
 	.put(audiosControllers.updateAudio);
 

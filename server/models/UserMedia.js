@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const AudioSchema = require("./AudioSchema");
 const { Schema } = mongoose;
 
 const mediaSchema = new Schema({
@@ -9,20 +10,19 @@ const mediaSchema = new Schema({
 	},
 	type: {
 		type: String,
-		enum: ["audio", "video", "image", "unknown"],
+		enum: ["audio", "video", "image"],
 		required: true,
-		default: "unknown",
+		default: null,
 	},
 	category: {
 		required: true,
-		enum: ["uploaded", "created", "favorite", "unknown", "local"],
+		enum: ["upload", "created", "favorite", "local"],
 		type: String,
-		default: "unknown",
+		default: null,
 	},
 	media: {
-		type: Schema.Types.Mixed,
-		required: true,
-		default: {},
+		type: AudioSchema,
+		required: false,
 	},
 });
 

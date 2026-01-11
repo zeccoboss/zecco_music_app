@@ -4,13 +4,21 @@ const fs = require("node:fs");
 
 class MinIOService {
 	constructor(bucketName, contentType) {
-		if (!bucketName || !contentType) return;
-		console.error("Bucket name and Content type are required");
-		this.bucketName = bucketName ?? null;
+		// if (!bucketName || !contentType) return console.error("Bucket name and Content type are required");
+		this.bucketName = bucketName;
 		this.contentType = contentType;
 	}
 
-	async uploadFile({ fileName, media, dir, flag, extension, path }) {
+	async uploadFile({
+		fileName,
+		media,
+		dir,
+		flag,
+		extension,
+		path,
+		bucketName,
+		contentType,
+	}) {
 		if (!fileName) return console.error("File 'name' required");
 		if (!flag) return console.error("Flag required to store Object");
 
@@ -22,12 +30,10 @@ class MinIOService {
 		// If theres no stream at any occasion don't proceed uploading of files
 		if (!stream) return null;
 
-		const contentType = this.contentType;
-
 		try {
 			const etag = await new Promise((resolve, reject) => {
 				minioClient.putObject(
-					this.bucketName,
+					bucketName,
 					`${fileName}.${extension}`,
 					stream,
 					{ contentType },
@@ -48,7 +54,16 @@ class MinIOService {
 		}
 	}
 
-	async uploadProfileImg({ fileName, media, dir, flag, extension, path }) {
+	async uploadProfileImg({
+		fileName,
+		media,
+		dir,
+		flag,
+		extension,
+		path,
+		bucketName,
+		contentType,
+	}) {
 		if (!fileName) return console.error("File 'name' required");
 		if (!flag) return console.error("Flag required to store Object");
 
@@ -60,12 +75,10 @@ class MinIOService {
 		// If theres no stream at any occasion don't proceed uploading of files
 		if (!stream) return null;
 
-		const contentType = this.contentType;
-
 		try {
 			const etag = await new Promise((resolve, reject) => {
 				minioClient.putObject(
-					this.bucketName,
+					bucketName,
 					`${fileName}.${extension}`,
 					stream,
 					{ contentType },
