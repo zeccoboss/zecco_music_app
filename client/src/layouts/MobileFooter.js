@@ -14,8 +14,7 @@ const MobileFooter = () => {
 	// Set attributes
 	mobileFooter.addClass("mobile_footer");
 	mobileFooter.setId("mobile-footer");
-
-	const htmlContent = `
+	mobileFooter.innerHTML = `
 		<nav class="footer_nav">
 			<ul class="footer_nav_list">
 				<li id="home" class="home active_nav">
@@ -48,8 +47,6 @@ const MobileFooter = () => {
 			</ul>
 		</nav>
 	`;
-
-	mobileFooter.setInnerHTML(htmlContent);
 
 	// const mobileFooterSVGs = mobileFooter.getChildren("svg", "el");
 

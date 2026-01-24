@@ -14,7 +14,7 @@ const initAdmin = async () => {
 		"public",
 		"images",
 		"admin",
-		"admin_img.PNG"
+		"admin_img.PNG",
 	);
 
 	try {

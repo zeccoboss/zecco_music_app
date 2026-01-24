@@ -1,7 +1,7 @@
-import { navigateHomneSpinner } from "../core/loadingSpinner.js";
+// import { navigateHomeSpinner } from "../core/loadingSpinner.js";
 import { clearActiveNav } from "../helpers/clearActiveNav.js";
 import { clearActiveSections } from "../helpers/clearActiveSections.js";
-import { navigate } from "../routes/router.js";
+import { router } from "../routes/router.js";
 
 // Check and remove all additional page content
 function clearExtraLayers(extraContent, overlay) {
@@ -12,29 +12,32 @@ function clearExtraLayers(extraContent, overlay) {
 }
 
 // For navigating to home
-const navigateHome = (navElement, href) => {
+const navigateHome = (e) => {
 	const homeSection = document.querySelector(".home_section");
 	const extraContent = document.querySelector(".extra_content");
 	const overlay = document.querySelector(".overlay");
 
-	// Clear all active sections and nav links
-	clearActiveSections();
-	clearActiveNav();
+	const href = e.currentTarget.getAttribute("href");
+	const currentTarget = e.currentTarget;
+	// // Clear all active sections and nav links
+	// clearActiveSections();
+	// clearActiveNav();
 
-	if (!href) {
-		homeSection.classList.add("active_section");
-		navElement.classList.add("active_nav");
-	} else {
-		overlay.classList.add("show_overlay");
-		extraContent.classList.remove("show_extra_content");
+	// if (!href) {
+	// 	homeSection.classList.add("active_section");
+	// 	navElement.classList.add("active_nav");
+	// } else {
+	// 	overlay.classList.add("show_overlay");
+	// 	extraContent.classList.remove("show_extra_content");
 
-		navigateHomneSpinner({ extraContent, overlay }, 2500, clearExtraLayers); // To manage duration witch loader is shown
-		navigate(href); // Call to route
+	// 	navigateHomeSpinner({ extraContent, overlay }, 2500, clearExtraLayers); // To manage duration witch loader is shown
+	// 	navigate(href); // Call to route
 
-		//
-		homeSection.classList.add("active_section");
-		navElement.classList.add("active_nav");
-	}
+	// 	//
+	// 	homeSection.classList.add("active_section");
+	// 	navElement.classList.add("active_nav");
+	// }
+	router.navigateTo(href);
 };
 
 export { navigateHome };

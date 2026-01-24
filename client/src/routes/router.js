@@ -1,73 +1,53 @@
-import HomeSection from "../components/HomeSection.js";
-import LibrarySection from "../components/LibrarySection.js";
-import NotFoundSection from "../components/NotFoundSection.js";
-import ProfileSection from "../components/ProfileSection.js";
-import SearchSection from "../components/SearchSection.js";
-import navigateLogin from "../events/navigateLogin.js";
-import navigateSignup from "../events/navigateSignup.js";
-import { clearActiveSections } from "../helpers/clearActiveSections.js";
-import showProfilePage from "../helpers/showProfilePage.js";
+import { routes } from "./routesConfig";
 
-const routes = {
-	"/": HomeSection,
-	"/search": SearchSection,
-	"/library": LibrarySection,
-	"/signup": "signup",
-	"/login": "login",
-	"/profile": ProfileSection,
-	"/notFound": NotFoundSection,
-};
+class Router {
+	// Define routes
+	#routes = routes;
 
-function pushHistory(path) {
-	history.pushState({}, "", path);
-}
-async function navigate(path) {
-	if (!path.startsWith("/")) path = `/${path}`;
+	#navigate(path, fromPopstate = false) {
+		let matched = false; // keep
 
-	if (routes[path] === "/") {
-		console.log("Home");
-	} else if (routes[path] === "login") {
-		navigateLogin();
-		pushHistory(path);
-		return;
-	} else if (routes[path] === "signup") {
-		// console.log("signup");
-		navigateSignup();
-		pushHistory(path);
-		return;
-	} else if (routes[path] === "profile") {
-		showProfilePage();
-		pushHistory(path);
-		return;
-	} else {
-		// document.querySelector('')
-		// clearActiveSections();
-		// const id = `${routes[path]}-section`;
+		// Loop through routes
+		for (const route of this.#routes) {
+			const match = path.match(route.pattern); // Access route that matches route
 
-		// console.log();
+			// When theres a match call its handler
+			if (match) {
+				// Call and if token avai	lable pass it to the handler
+				route.handler({ token: match[1] ?? match[2] ?? match[3] });
+				matched = true; // Resign matched to true
+				break; // Exit if match available
+			}
+		}
 
-		// const foundSection = document.querySelector(`#${id}`);
-		// const notFoundSection = document.getElementById("not-found-section");
+		// Check and call the 404 handler
+		if (!matched) {
+			const noResourceRoute = routes.find((r) => r.pattern === 404);
+			noResourceRoute.handler();
+		}
 
-		// foundSection
-		// 	? foundSection.classList.add("active_section")
-		// 	: notFoundSection.classList.add("active_section");
-
-		pushHistory(path);
+		if (!fromPopstate) {
+			history.pushState({}, "", path); // Push the path to history the buttons navigation's
+		}
 	}
-}
 
-const router = () => {
-	function handleLocation() {
+	#handleLocation() {
 		const path = window.location.pathname;
-		navigate(path, routes);
+		this.#navigate(path);
 	}
 
-	// For back/forwards button
-	window.onpopstate = handleLocation;
+	initRoutes() {
+		window.onpopstate = () => this.#handleLocation(); // For back/forwards button
+		this.#handleLocation(); //
+	}
 
-	// Direct URL typing
-	document.addEventListener("DOMContentLoaded", handleLocation);
-};
+	// Keep track of navigation history
+	navigateTo(path) {
+		this.#navigate(path, false);
+	}
+}
 
-export { navigate, router, pushHistory };
+// Create an instance to give out
+const router = new Router();
+
+export { router };

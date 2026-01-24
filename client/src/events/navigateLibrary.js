@@ -1,14 +1,17 @@
 import { clearActiveNav } from "../helpers/clearActiveNav.js";
 import { clearActiveSections } from "../helpers/clearActiveSections.js";
+import { router } from "../routes/router.js";
 
-const navigateLibrary = (currentTarget) => {
-	const librarySection = document.querySelector(".library_section");
+const navigateLibrary = (e) => {
+	const href = e.currentTarget.getAttribute("href");
+	const currentTarget = e.currentTarget;
 
 	clearActiveSections();
 	clearActiveNav();
 
-	librarySection.classList.add("active_section");
-	currentTarget.classList.add("active_nav");
+	// currentTarget.classList.add("active_nav");
+
+	router.navigateTo(href);
 };
 
 export { navigateLibrary };

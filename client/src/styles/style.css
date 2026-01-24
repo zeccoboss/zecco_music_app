@@ -371,17 +371,18 @@ button {
 /* Aside */
 .aside {
 	overflow: hidden;
-	height: calc(var(--m_a-height) - 1rem);
+	/* height: calc(var(--m_a-height)); */
 	position: relative;
 	transition: var(--transition);
 	display: grid;
-	background-color: var(--background);
-	margin: var(--space);
-	border-radius: 0.5rem;
+	background-color: hsl(from var(--background) h s calc(l + 10) / 0.2);
+	margin: var(--space) var(--space) 0.7rem var(--space);
+	/* border-radius: 0.5rem; */
 	font-weight: 800;
+	/* border-right: 1px solid grey; */
 	/* background-image: linear-gradient(to left, var(--m_a-bg-img-colors)); */
 	font-size: 0.9rem;
-	box-shadow: 0px 0px 2px hsla(0, 0%, 100%, 0.2);
+	box-shadow: 0px 0px 2px hsla(0, 0%, 100%, 0.13);
 }
 
 .nav_links {
@@ -390,13 +391,16 @@ button {
 	gap: 1rem;
 	padding: calc(var(--space) + 0.3rem) var(--space) calc(var(--space) + 0.3rem)
 		calc(var(--space) + 0.5rem);
-	/* place-self: center; */
+	font-weight: 550;
+	font-size: 1.05rem;
+	margin: 0.1rem var(--space);
+	border-radius: 0.5rem;
 }
 
-.first_nav_link {
+/* .first_nav_link {
 	border-top-right-radius: 0.57rem;
 	border-top-left-radius: 0.57rem;
-}
+} */
 
 .nav_links:hover {
 	background-color: hsl(from var(--background) h s calc(l + 10));
@@ -405,6 +409,9 @@ button {
 .active_nav {
 	background-color: hsl(from var(--background) h s calc(l + 15));
 	color: hsl(from var(--accent) h s calc(l + 30));
+	width: 90%;
+	/* overflow-x: hidden; */
+	/* margin: 0.1rem var(--space); */
 
 	& svg {
 		fill: hsl(from var(--accent) h s calc(l + 30));
@@ -506,15 +513,19 @@ button {
 }
 
 .overlay,
-.extra_content,
-.startup_screen {
+.form_page,
+.startup_screen,
+.verification_page,
+.no_resource_page,
+.frt_pwd_frm_page {
+	display: none;
 	position: absolute;
 	background-color: hsla(0, 0%, 0%, 0.219);
 	width: 100vw;
 	min-height: 100vh;
 	padding: var(--space);
-	display: none;
 	transition: var(--transition);
+	opacity: 0;
 }
 
 .overlay_p {
@@ -546,10 +557,12 @@ button {
 }
 
 .show_overlay,
-.show_extra_content,
-.show_startup_screen {
+.show_form_page,
+.show_startup_screen,
+.show_no_resource_page,
+.show_frt_pwd_frm_page {
 	display: flex;
-	/* z-index: 100; */
+	opacity: 1;
 }
 
 .show_overlay {
@@ -559,10 +572,11 @@ button {
 	place-content: center;
 	font-weight: 700;
 	background-color: hsl(from var(--background) h s calc(l + 1));
+	z-index: 100;
 	letter-spacing: 2px;
 }
 
-.show_extra_content {
+.show_form_page {
 	background-color: hsl(from var(--background) h s calc(l + 5));
 	/* background-image: linear-gradient(var(--ext-cnt-bg-img-colors)); */
 	color: var(--text);
@@ -648,9 +662,31 @@ button {
 	}
 } */
 
+.show_verification_page {
+	display: flex;
+	background-color: rgb(33, 33, 33);
+	padding: 1rem 2rem;
+}
+
+.show_no_resource_page {
+	flex-direction: column;
+	background-color: var(--background);
+	place-items: center;
+	place-content: center;
+	gap: 1.5rem;
+
+	.nfp-link {
+		color: antiquewhite;
+		box-shadow: 0px 0px 3px rgb(128, 128, 128);
+		padding: var(--space) 1rem;
+		border-radius: var(--space);
+		margin-top: var(--space);
+	}
+}
+
 /* Login and Signup Form */
 .forms {
-	display: flex;
+	display: none;
 	flex-flow: column nowrap;
 	min-width: 10rem;
 	width: 90%;
@@ -668,6 +704,10 @@ button {
 		margin-top: var(--space);
 		text-align: center;
 	}
+}
+
+.active_form {
+	display: flex;
 }
 
 .error_color,
@@ -822,4 +862,49 @@ button {
 
 .user_details_container {
 	display: grid;
+}
+
+.prompt_modal {
+	display: flex;
+	flex-flow: column nowrap;
+	/* background-color: hsla(from var(--background) h s calc(l + 40) / 0.09); */
+	background-color: #1e1e1e;
+	/* box-shadow: 0px 0px 3px rgba(128, 128, 128, 0.15); */
+	padding: var(--space) 1rem;
+	width: clamp(15rem, 90%, 30rem);
+	gap: 0.8rem;
+	border-radius: 0.5rem;
+	letter-spacing: 0.1px;
+	text-align: center;
+}
+
+.modal_title {
+	margin: 1rem var(--space);
+	color: hsl(from var(--accent) h s calc(l + 10));
+}
+
+.modal_message {
+	margin: var(--space) 1rem;
+	color: var(--muted);
+}
+
+.modal_actions {
+	margin: var(--space) 1rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+}
+
+.modal_actn_lnks {
+	transition: var(--transition);
+	box-shadow: 0px 0px 3px rgb(42, 40, 40);
+	/* background-color: hsl(from var(--accent) h s calc(l + 10)); */
+	background-color: hsl(from var(--accent) h calc(s + 40) calc(l - 15));
+	padding: 0.3rem var(--space);
+	margin: var(--space);
+	display: inline-block;
+	border-radius: 1rem;
+
+	&:hover {
+		background-color: hsl(from var(--accent) h calc(s + 40) calc(l - 25));
+	}
 }

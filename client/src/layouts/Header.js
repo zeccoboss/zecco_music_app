@@ -1,6 +1,5 @@
 import { mobileScreen } from "../core/screenBreakPoints.js";
-import { navigateSearch } from "../events/navigateSearch.js";
-import { pushHistory } from "../routes/router.js";
+// import { navigateSearch } from "../events/navigateSearch.js";
 // import navigateSignup from "../events/navigateSignup.js";
 import CreateElement from "../utils/CreateElement.js";
 import { magnifierSvg, musicIconSvg } from "../utils/SVG_ICONS.js";
@@ -12,7 +11,7 @@ const Header = () => {
 	header.addClass("header");
 	header.setId("header");
 
-	const htmlContent = `
+	header.innerHTML = `
 		<a href="/" class="logo">${musicIconSvg}<span>ZeccoMusic</span></a>
 
 		<form action="" class="search_form">
@@ -22,7 +21,7 @@ const Header = () => {
 
 		<div class="header_sign_btn">
 			<button class="header_signup_btn">
-				<a href="/signup">Sign Up</a>
+				<a href="/register">Sign Up</a>
 			</button>
 			<button class="header_signin_btn">
 				<a href="/login">Login</a>
@@ -30,9 +29,7 @@ const Header = () => {
 		</div>
 	`;
 
-	header.setInnerHTML(htmlContent);
-
-	const headerSVGs = header.getChildren("svg", "el");
+	const headerSVGs = header.getChildren("svg", "element");
 	const musicIcon = header.getChild(".bi-music-note", "class");
 
 	if (mobileScreen.matches) {

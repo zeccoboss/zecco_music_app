@@ -1,9 +1,8 @@
 import axios from "axios";
-import { API } from "../config/apiConfig";
+import appConfig from "../config/AppConfig.js";
 
 const signupAccountService = async (path, data = {}) => {
-	const base = API.DEV_URL;
-	const url = new URL(path, base);
+	const url = new URL(path, appConfig.apiUrl);
 	axios.defaults.withCredentials = true;
 
 	try {

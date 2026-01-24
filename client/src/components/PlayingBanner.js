@@ -10,11 +10,11 @@ const PlayingBanner = () => {
 	playingBanner.addClass("playing_banner");
 	playingBanner.setId("playing-banner");
 
-	const htmlContent = `
+	playingBanner.innerHTML = `
 		<figure>
 			<img src="${music_cover}" alt="Playing" class="playing_banner_music_photo" id="playing-banner-music-photo" aria-label="Playing banner image" width="50" height="50" loading="lazy"/>
 			<figcaption class="banner_music_img_caption">
-				Curently Playing Cover
+				Currently Playing Cover
 			</figcaption>
 		</figure>
 
@@ -27,9 +27,7 @@ const PlayingBanner = () => {
 		</div>
 	`;
 
-	playingBanner.setInnerHTML(htmlContent);
-
-	const playingBannerSVGs = playingBanner.getChildren("svg", "el");
+	const playingBannerSVGs = playingBanner.getChildren("svg", "element");
 
 	playingBannerSVGs.forEach((svg) => {
 		svg.setAttribute("width", "20");

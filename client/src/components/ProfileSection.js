@@ -8,13 +8,11 @@ const ProfileSection = () => {
 	profileSection.addClass("profile_section", "main_sections");
 	profileSection.setId("profile-section");
 
-	const htmlContent = `
+	profileSection.innerHTML = `
 		<div class="recent_search_container">
 			<p>No user yet...</p>
 		</div>
 	`;
-
-	profileSection.setInnerHTML(htmlContent);
 
 	//
 	return profileSection.getElement();

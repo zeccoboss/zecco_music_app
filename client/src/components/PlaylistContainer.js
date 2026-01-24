@@ -16,11 +16,10 @@ const PlaylistContainer = () => {
 	playlistContainer.addClass("playlist_ontainer");
 	playlistContainer.setId("playlist-ontainer");
 
-	const htmlContent = `
+	playlistContainer.innerHTML = `
 		Explore More
 	`;
 
-	playlistContainer.setInnerHTML(htmlContent);
 	return playlistContainer.getElement();
 };
 

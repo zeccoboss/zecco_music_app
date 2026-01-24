@@ -35,12 +35,19 @@ const handleRegister = async (req, res) => {
 				verificationToken: hashedToken,
 			});
 			const userId = user._id;
-			const userMedia = await UserMedia.create({
-				owner: userId,
-			});
+			// const userMedia = await UserMedia.create({
+			// 	owner: userId,
+			// 	category: 'local',
+			// 	type: media
+			// });
 
-			sendVerificationMail(user.email, hashedToken);
-			res.status(201).json({ message: "user created successfully" });
+			// sendVerificationMail(user.email, hashedToken);
+			console.log(`http://localhost:7835/auth/verify/${hashedToken}`);
+
+			res.status(201).json({
+				message: "user created successfully",
+				email: user.email,
+			});
 		}
 	} catch (error) {
 		console.error(error);
@@ -73,13 +80,13 @@ const handleLogin = async (req, res) => {
 				},
 			},
 			process.env.ACCESS_TOKEN_SECRET,
-			{ expiresIn: "15m" }
+			{ expiresIn: "15m" },
 		);
 		// Generate refresh token
 		const refreshToken = jwt.sign(
 			{ id: foundUser._id },
 			process.env.REFRESH_TOKEN_SECRET,
-			{ expiresIn: "1d" }
+			{ expiresIn: "1d" },
 		);
 		res.status(202)
 			.cookie("jwt", refreshToken, {

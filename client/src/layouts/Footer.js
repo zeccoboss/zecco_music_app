@@ -2,15 +2,15 @@ import CreateElement from "../utils/CreateElement.js";
 import {
 	heartSvg,
 	loopSvg,
-	nextSvg,
+	skipNext,
 	playSvg,
 	plusPlaylistSvg,
-	previousSvg,
+	skipBack,
 	shuffleSvg,
 	threeDotMenu,
 } from "../utils/SVG_ICONS.js";
 import musicImage from "../assets/images/favicon.png";
-import { adjustFooterSvg } from "../utils/adjustSvgSize.js";
+import { adjustFooterSvg } from "../helpers/adjustSvgSize.js";
 
 const Footer = () => {
 	// Create element
@@ -20,7 +20,7 @@ const Footer = () => {
 	footer.addClass("footer");
 	footer.setId("footer");
 
-	const htmlContent = `
+	footer.innerHTML = `
 		<input type="range" name="" value="0" id="" min="0" max="100" class="music_range_input" aria-label="Music progress range"/>
 
 		<div class="footer_container">
@@ -38,7 +38,7 @@ const Footer = () => {
 
 			<section class="action_btns">
 				<button aria-label="Previous" class="previous_btn" id="previous-button">
-					${previousSvg}
+					${skipBack}
 				</button>
 
 				<button aria-label="Play/Pause" class="play_pause_btn" id="play-pause-btn">
@@ -46,7 +46,7 @@ const Footer = () => {
 				</button>
 
 				<button aria-label="Next" class="next_btn" id="next-button">
-					${nextSvg}
+					${skipNext}
 				</button>
 			</section>
 
@@ -76,12 +76,9 @@ const Footer = () => {
 				</button>
 			</div>
 		</div>
-
  	`;
 
-	footer.setInnerHTML(htmlContent);
-
-	const footerSVGs = footer.getChildren("svg", "el");
+	const footerSVGs = footer.getChildren("svg", "element");
 
 	adjustFooterSvg(footerSVGs, 50, 30, 20, "white");
 

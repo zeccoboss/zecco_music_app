@@ -1,13 +1,13 @@
 import Aside from "./layouts/Aside.js";
 import Container from "./layouts/Container.js";
-import ExtraContent from "./layouts/ExtraContent.js";
+// import ExtraContent from "./layouts/ExtraContent.js";
 import Footer from "./layouts/Footer.js";
-import Header from "./layouts/Header.js";
+import Header from "./layouts/Header";
 import Main from "./layouts/Main.js";
-import MobileFooter from "./layouts/MobileFooter.js";
+import MobileFooter from "./layouts/MobileFooter";
 import MobileHeader from "./layouts/MobileHeader.js";
 import MobileMain from "./layouts/MobileMain.js";
-import Overlay from "./layouts/Overlay.js";
+import { Overlay } from "./layouts/Overlay.js";
 import StartupScreen from "./layouts/StartupScreen.js";
 import {
 	bigScreen,
@@ -18,11 +18,14 @@ import "./styles/style.css";
 import "./styles/media_queries.css";
 import { initApp } from "./core/initApp.js";
 ``;
-import ProfilePage from "./pages/profilePage.js";
+import { FormPage } from "./pages/FormPage.js";
+import { NoResourcePage } from "./pages/NoResourcePage.js";
+import { VerificationPage } from "./pages/VerificationPage.js";
+import { ForgotPasswordFormPage } from "./pages/ForgotPasswordFormPage.js";
 
 const renderApp = (app) => {
 	const applyMobileContent = async (message) => {
-		console.warn("Clearing app...");
+		console.warn("Clearing app..");
 		app.innerHTML = ""; // Clear the app
 		console.warn("Appending app content...");
 
@@ -31,9 +34,13 @@ const renderApp = (app) => {
 			MobileHeader(),
 			await MobileMain(),
 			MobileFooter(),
-			StartupScreen(),
+			// StartupScreen(),
 			Overlay(),
-			ExtraContent()
+			NoResourcePage(),
+			VerificationPage(),
+			FormPage(),
+			ForgotPasswordFormPage(),
+			// ExtraContent()
 			// ProfilePage()
 		);
 
@@ -42,7 +49,7 @@ const renderApp = (app) => {
 		// Start it's functionality ones DOM is completely built
 		document.addEventListener(
 			"DOMContentLoaded",
-			initApp("Starting Application...")
+			initApp("Starting Application..."),
 		);
 
 		console.log(""); // empty string to show app is fully loaded from additional logs
@@ -58,10 +65,13 @@ const renderApp = (app) => {
 			Header(),
 			await Container(Main, Aside),
 			Footer(),
-			StartupScreen(),
+			// StartupScreen(),
 			Overlay(),
-			ProfilePage(),
-			ExtraContent()
+			NoResourcePage(),
+			VerificationPage(),
+			// ExtraContent(),
+			FormPage(),
+			ForgotPasswordFormPage(),
 		);
 
 		console.warn(message);
@@ -69,7 +79,7 @@ const renderApp = (app) => {
 		// Start it's functionality ones DOM is completely built
 		document.addEventListener(
 			"DOMContentLoaded",
-			initApp("Starting Application...")
+			initApp("Starting Application..."),
 		);
 
 		console.log(""); // empty string to show app is fully loaded from additional logs
@@ -85,10 +95,13 @@ const renderApp = (app) => {
 			Header(),
 			await Container(Main, Aside),
 			Footer(),
-			StartupScreen(),
+			// StartupScreen(),
 			Overlay(),
-			// ProfilePage(),
-			ExtraContent()
+			NoResourcePage(),
+			VerificationPage(),
+			ForgotPasswordFormPage(),
+			FormPage(),
+			// ExtraContent()
 		);
 
 		console.warn(message);
@@ -96,7 +109,7 @@ const renderApp = (app) => {
 		// Start it's functionality ones DOM is completely built
 		document.addEventListener(
 			"DOMContentLoaded",
-			initApp("Starting Application...")
+			initApp("Starting Application..."),
 		);
 
 		console.log(""); // empty string to show app is fully loaded from additional logs
@@ -115,7 +128,7 @@ const renderApp = (app) => {
 	mobileScreen.addEventListener("change", (e) => {
 		if (e.target.matches)
 			applyMobileContent(
-				"[Mobile Screen]: Listened and changed to mobile device screen."
+				"[Mobile Screen]: Listened and changed to mobile device screen.",
 			);
 	});
 
@@ -123,7 +136,7 @@ const renderApp = (app) => {
 	bigScreen.addEventListener("change", (e) => {
 		if (e.target.matches)
 			applyBigScreenContent(
-				`[Big Screen]: Listened and changed to device Big device screen.`
+				`[Big Screen]: Listened and changed to device Big device screen.`,
 			);
 	});
 
@@ -131,7 +144,7 @@ const renderApp = (app) => {
 	largeScreen.addEventListener("change", (e) => {
 		if (e.target.matches)
 			applyLargeScreenContent(
-				`[Large Screen]: Listened and changed to device Large device screen.`
+				`[Large Screen]: Listened and changed to device Large device screen.`,
 			);
 	});
 };

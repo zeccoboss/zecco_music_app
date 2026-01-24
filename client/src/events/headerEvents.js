@@ -7,7 +7,7 @@ const listItems = `
 
 const headerEvent = () => {
 	const dropDownList = DropDownList("header-add-list", "header_add_list");
-	dropDownList.setInnerHTML(listItems);
+	dropDownList.innerHTML = listItems;
 
 	const header = document.querySelector("header");
 	const headerPlusBtn = document.getElementById("header-plus-btn");

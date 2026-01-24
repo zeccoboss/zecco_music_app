@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node index.js",
 		"dev": "nodemon index.js",
-		"mongo:start": "mongosh --port 27017 --username admin --password secret",
+		"mongo:start": " sudo systemctl stop mongod  && sudo systemctl disable mongod podman",
 		"minio:start": "minio server ./data --console-address ':9001'",
 		"minio:client": "mc alias set local http://127.0.0.1:9000 minioadmin minioadmin"
 	},

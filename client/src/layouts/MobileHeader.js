@@ -1,5 +1,5 @@
-import { navigateSearch } from "../events/navigateSearch.js";
-import { pushHistory } from "../routes/router.js";
+// import { navigateSearch } from "../events/navigateSearch.js";
+// import { pushHistory } from "../routes/router.js";
 import CreateElement from "../utils/CreateElement.js";
 import { magnifierSvg, musicIconSvg } from "../utils/SVG_ICONS.js";
 
@@ -41,8 +41,6 @@ const MobileHeader = () => {
 			</ul>
 		</nav>
 	`;
-
-	mobileHeader.setInnerHTML(htmlContent);
 
 	// return mobileHeader element
 	return mobileHeader.getElement();

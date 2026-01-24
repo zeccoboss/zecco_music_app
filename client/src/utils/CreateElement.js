@@ -32,7 +32,7 @@ class CreateElement {
 			return selector.includes(".")
 				? this.element.querySelector(`${selector}`)
 				: this.element.querySelector(`.${selector}`);
-		} else if (flag === "el") {
+		} else if (flag === "element") {
 			return this.element.querySelector(`${selector}`);
 		} else {
 			console.error(`[Flag Error]: "${flag}" not valid a valid flag`);
@@ -45,7 +45,7 @@ class CreateElement {
 			return selector.includes(".")
 				? this.element.querySelectorAll(`${selector}`)
 				: this.element.querySelectorAll(`.${selector}`);
-		} else if (flag === "el") {
+		} else if (flag === "element") {
 			return this.element.querySelectorAll(`${selector}`);
 		} else {
 			console.error(`[Flag Error]: "${flag}" not valid a valid flag`);
@@ -53,7 +53,8 @@ class CreateElement {
 		}
 	}
 
-	setType(type) {
+	set type(type) {
+		if (!type) return;
 		this.element.setAttribute("type", type);
 	}
 
@@ -73,6 +74,10 @@ class CreateElement {
 		classArray.forEach((cl) => {
 			if (cl !== "") this.element.classList.add(cl);
 		});
+	}
+
+	hasClass(identifier) {
+		return !!this.element.classList.contains(identifier);
 	}
 
 	removeClass(...classNames) {
@@ -101,16 +106,19 @@ class CreateElement {
 		this.element.value = value;
 	}
 
-	setInnerText(text) {
+	set innerText(text) {
+		if (!text) return;
 		this.element.innerText = text;
 	}
 
-	setInnerHTML(innerHTML) {
+	set innerHTML(innerHTML) {
+		if (!innerHTML) return;
 		this.element.innerHTML = innerHTML;
 	}
 
-	style(declaration) {
-		this.element.style.cssText = declaration;
+	style(key, value) {
+		if (!key && !value) return;
+		this.element.style[key] = value;
 	}
 }
 

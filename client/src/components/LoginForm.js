@@ -1,35 +1,38 @@
 import CreateElement from "../utils/CreateElement.js";
 import { homeSvg } from "../utils/SVG_ICONS.js";
+import { validateLogin } from "../validators/validateLogin.js";
+
+const loginFormInstance = new CreateElement("forms");
 
 const LoginForm = () => {
-	const loginForm = new CreateElement("forms");
+	loginFormInstance.addClass("login_form", "forms");
+	loginFormInstance.setId("login-form");
 
-	loginForm.addClass("login_form", "forms");
-	loginForm.setId("login-form");
-
-	loginForm.setInnerHTML(`
-		<a href="/" class="form_nav_link">${homeSvg} Home</a>	
+	loginFormInstance.innerHTML = `
+		<a href="/" id="form-nav-link" class="form_nav_link form_links">${homeSvg} Home</a>	
 		<h2 class="form_heading">
 			<span class="first-child">Zecco</span><span class="second-child">Music</span>
 		</h2>
 		<h4 class="form_message">Welcome back, Please login to continue.</h4>
 
-		<label for="lg-user-name">Username or Email address:</label>
-		<input type="text" name="" id="lg-user-name" class="lg_user_name" placeholder="user2313@mail.com or Username..." required />
+		<label for="lg-user-name">Email address:</label>
+		<input type="text" name="" id="lg-user-name" class="lg_user_name" placeholder="youremail@example.com" required />
 		<label for="lg-user-pwd">Password:</label>
-		<input type="password" name="password" id="lg-user-pwd" class="lg_user_pwd" placeholder="User Password" required />		
+		<input type="password" name="password" id="lg-user-pwd" class="lg_user_pwd" placeholder="Enter Password" required />
 	
 		<div class="form_links_wrapper">
-			<a href="/forgotten_password" class="form_links lg_frgt_pwd_lnk">Fogotten passaword?</a>	
+			<a href="/password/reset" class="form_links lg_frgt_pwd_lnk" id="lg-frgt-pwd-lnk">Forgotten password?</a>	
 		</div>
 	
 		<button type="submit" id="lg-submit-btn" class="form_btn">Login</button>
 
 		<div class="form_links_wrapper_two">
-			<a href="/signup" class="form_links">Don't have accout? Sign up.</a>
+			<a href="/register" class="form_links">Don't have account? Sign up.</a>
 		</div>
-	`);
+	`;
 
-	return loginForm.getElement();
+	validateLogin(loginFormInstance); // Handle user login
+
+	return loginFormInstance.getElement();
 };
-export default LoginForm;
+export { loginFormInstance, LoginForm };

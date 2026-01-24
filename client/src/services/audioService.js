@@ -1,15 +1,13 @@
 import axios from "axios";
-import { API } from "../config/apiConfig";
+import appConfig from "../config/AppConfig";
 
 const audioService = async (path, data = {}) => {
-	const base = API.DEV_URL;
-	console.log(base);
-
-	const url = new URL(path, base);
+	const url = new URL(path, appConfig.apiUrl);
 	axios.defaults.withCredentials = true;
 
 	try {
-		const res = await axios.get(url, data);
+		const res = await axios.get(url, appConfig.apiUrl);
+
 		return res;
 	} catch (error) {
 		console.log(error.response.data);

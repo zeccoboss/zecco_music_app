@@ -15,7 +15,7 @@ function navigationSpinner(overlay, container, duration, formsToRender = []) {
 	}, duration);
 }
 
-function navigateHomneSpinner(
+function navigateHomeSpinner(
 	{ extraContent, overlay },
 	duration,
 	clearExtraLayers
@@ -28,4 +28,4 @@ function navigateHomneSpinner(
 	}, duration);
 }
 
-export { navigationSpinner, navigateHomneSpinner };
+export { navigationSpinner, navigateHomeSpinner };

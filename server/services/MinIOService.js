@@ -12,7 +12,6 @@ class MinIOService {
 	async uploadFile({
 		fileName,
 		media,
-		dir,
 		flag,
 		extension,
 		path,
@@ -42,7 +41,7 @@ class MinIOService {
 					(err, etag) => {
 						if (err) reject(err);
 						resolve(etag);
-					}
+					},
 				);
 			});
 
@@ -59,7 +58,6 @@ class MinIOService {
 	async uploadProfileImg({
 		fileName,
 		media,
-		dir,
 		flag,
 		extension,
 		path,
@@ -87,7 +85,7 @@ class MinIOService {
 					(err, etag) => {
 						if (err) reject(err);
 						resolve(etag);
-					}
+					},
 				);
 			});
 

@@ -1,5 +1,7 @@
 {
 	"cSpell.words": [
+		"actn",
+		"frgt",
 		"lnks",
 		"metas",
 		"minioadmin",
@@ -7,9 +9,11 @@
 		"mongosh",
 		"Obang",
 		"strt",
+		"Svgs",
 		"useremail",
 		"zecco"
 	],
+
 	"mdb.presetConnections": [
 		{
 			"name": "Preset Connection",

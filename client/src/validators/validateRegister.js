@@ -1,21 +1,39 @@
 import { buttonLoadingSpinner } from "../components/ButtonLoadingSpinner.js";
+import promptsConfig from "../config/promptsConfig.js";
 import { showFormFeed } from "../helpers/showFormFeed.js";
+import { overlayInstance } from "../layouts/Overlay.js";
 import { signupAccountService } from "../services/signupAccountService.js";
 import CreateElement from "../utils/CreateElement.js";
+import { PromptManager } from "../utils/PromptManager.js";
 
-const validateRegister = async () => {
+// overlayInstance.addClass("show_overlay");
+// const registerPrompt = new PromptManager();
+// overlayInstance.append(registerPrompt.open(promptsConfig.regFormConn));
+
+const validateRegister = async (formInstance) => {
+	const registerPrompt = new PromptManager();
+
 	// Select element
-	const nextBtn = document.querySelector("#signup-next-btn");
-	const submitBtn = document.querySelector("#signup-submit-btn");
-	const returnBtn = document.querySelector("#signup-return-btn");
-	const userDetContainer = document.querySelector(".user_details_container");
-	const userPwdContainer = document.querySelector(".user_password_container");
+	const nextBtn = formInstance.getChild("#register-next-btn", "id");
+	const submitBtn = formInstance.getChild("#register-submit-btn", "id");
+	const returnBtn = formInstance.getChild("#register-return-btn", "id");
+	const userDetContainer = formInstance.getChild(
+		".user_details_container",
+		"class",
+	);
+	const userPwdContainer = formInstance.getChild(
+		".user_password_container",
+		"class",
+	);
 
-	const signupUsernameInput = document.querySelector(".signup_username");
-	const signupEmailInput = document.querySelector(".signup_email");
+	const signupUsernameInput = formInstance.getChild(
+		".signup_username",
+		"class",
+	);
+	const signupEmailInput = formInstance.getChild(".signup_email", "class");
 
-	const createPwdInput = document.querySelector("#create-pwd-input");
-	const confirmPwdInput = document.querySelector("#confirm-pwd-input");
+	const createPwdInput = formInstance.getChild("#create-pwd-input", "id");
+	const confirmPwdInput = formInstance.getChild("#confirm-pwd-input", "id");
 
 	// Create element that holds feed for form validation
 	const feedHolder = new CreateElement("span", "Feed holder");
@@ -33,7 +51,7 @@ const validateRegister = async () => {
 				`Password must be more than ${pwdMinLength} characters!`,
 				feedHolder.getElement(),
 				userPwdContainer,
-				e.currentTarget
+				e.currentTarget,
 			);
 
 			feedHolder.addClass("warning_color");
@@ -56,7 +74,7 @@ const validateRegister = async () => {
 				`Password don't match`,
 				feedHolder.getElement(),
 				userPwdContainer,
-				e.currentTarget
+				e.currentTarget,
 			);
 
 			feedHolder.addClass("error_color");
@@ -89,7 +107,7 @@ const validateRegister = async () => {
 				"Username required!",
 				feedHolder.getElement(),
 				userDetContainer,
-				signupUsernameInput
+				signupUsernameInput,
 			);
 
 			feedHolder.addClass("error_color");
@@ -106,7 +124,7 @@ const validateRegister = async () => {
 				"Email Address required!",
 				feedHolder.getElement(),
 				userDetContainer,
-				signupEmailInput
+				signupEmailInput,
 			);
 
 			feedHolder.addClass("error_color");
@@ -150,7 +168,7 @@ const validateRegister = async () => {
 				`Password don't match`,
 				feedHolder.getElement(),
 				userPwdContainer,
-				confirmPwdInput
+				confirmPwdInput,
 			);
 
 			feedHolder.addClass("error_color");
@@ -166,7 +184,7 @@ const validateRegister = async () => {
 				`Password is required!`,
 				feedHolder.getElement(),
 				userPwdContainer,
-				confirmPwdInput
+				confirmPwdInput,
 			);
 
 			feedHolder.addClass("error_color");
@@ -178,7 +196,6 @@ const validateRegister = async () => {
 		}
 
 		const pwd = createdPwd === confirmedPwd ? confirmedPwd : null;
-		console.log(pwd);
 
 		if (username && useremail && pwd) {
 			feedHolder.remove();
@@ -186,7 +203,7 @@ const validateRegister = async () => {
 			const user = {
 				email: useremail,
 				username: username,
-				password: confirmedPwd,
+				password: pwd,
 			};
 
 			submitBtn.disabled = true;
@@ -194,7 +211,7 @@ const validateRegister = async () => {
 
 			const axiosDetails = await signupAccountService(
 				"/auth/register",
-				user
+				user,
 			); // Call service function to send request
 
 			setTimeout(() => {
@@ -209,7 +226,7 @@ const validateRegister = async () => {
 						axiosDetails.data.error,
 						feedHolder.getElement(),
 						userPwdContainer,
-						confirmPwdInput
+						confirmPwdInput,
 					);
 
 					feedHolder.addClass("warning_color");
@@ -220,31 +237,44 @@ const validateRegister = async () => {
 						axiosDetails.data.error,
 						feedHolder.getElement(),
 						userPwdContainer,
-						confirmPwdInput
+						confirmPwdInput,
 					);
 
 					feedHolder.addClass("error_color");
 					feedHolder.removeClass("warning_color");
 				} else if (axiosDetails.status === 500) {
 					showFormFeed(
-						`500 Network error`,
+						`Network error`,
 						feedHolder.getElement(),
 						userPwdContainer,
-						confirmPwdInput
+						confirmPwdInput,
 					);
 					feedHolder.removeClass("error_color");
 					feedHolder.addClass("warning_color");
-				} else {
+				} else if (axiosDetails.status === 201) {
+					// overlayInstance.style("opacity", "0.8");
+					document.querySelector(".overlay").innerHTML = ``;
+
+					const email = axiosDetails?.data?.email;
+					if (!email) return console.error("Can't get the email address");
+					const { regFormConn } = promptsConfig;
+					const { modal } = registerPrompt.open(regFormConn, email);
+					// overlayInstance.addClass("show_overlay");
+					// overlayInstance.append(modal);
+
+					console.log(axiosDetails.data.email);
+
 					nextBtn.disabled = false;
-					feedHolder.style("text-align: unset");
+					feedHolder.style = "text-align: unset";
 					feedHolder.removeClass("warning_color");
 					feedHolder.removeClass("error_color");
 					feedHolder.addClass("clear_error_color");
+					console.log(axiosDetails);
 					showFormFeed(
-						`Processing...`,
+						`${axiosDetails?.data?.message ?? "Registration successful."}`,
 						feedHolder.getElement(),
 						userPwdContainer,
-						confirmPwdInput
+						confirmPwdInput,
 					);
 					renderAccountCreation(axiosDetails.data);
 				}

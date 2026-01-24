@@ -12,9 +12,8 @@ const { credentials } = require("./middlewares/credentials");
 const { connectDB } = require("./config/dbConn");
 const mongoose = require("mongoose");
 const initLocalAudio = require("./core/initLocalAudio");
-const minioClient = require("./config/minioConn");
-const MetaManager = require("./metadata/MetaManager");
-const uploader = require("./middlewares/multer");
+// const minioClient = require("./config/minioConn");
+// const MetaManager = require("./metadata/MetaManager");
 
 connectDB(); // Connect to mongodb
 const app = express(); // Create App
@@ -35,40 +34,19 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 // Server html page
-app.use("/", require("./routes/root"));
+app.use("/", require("./routes/rootRouter"));
 
-// Users auth routes
-app.use("/auth/register", require("./routes/registerUser"));
-app.use("/auth/verify:token", require("./routes/token"));
-app.use("/auth/login", require("./routes/loginUser"));
-app.use("/auth/logout", require("./routes/logoutUser"));
-app.use("/profile", require("./routes/profile"));
-app.use("/refresh", require("./routes/refresh"));
-
-// Users routes
-app.use("/users", verifyJWT, require("./routes/api/users"));
-
-// Music routes
-app.use("/api/media/audio", require("./routes/api/audios"));
-
-app.use(
-	"/api/media/audio/upload",
-	verifyJWT,
-	uploader.single("audio"),
-	require("./routes/api/audiosUploads.js")
-);
+app.use("/auth", require("./routes/authRouter"));
+app.use("/profile", require("./routes/profileRouter"));
+app.use("/refresh", require("./routes/refreshRouter")); // Routes
+app.use("/users", verifyJWT, require("./routes/api/usersRouter")); // Users routes
+app.use("/api/media/audio", require("./routes/api/audiosRouter")); // Music routes
 
 // Serve 404 page
 app.use((_, res) => {
-	res.status(404).sendFile(
-		path.join(__dirname, "public", "views", "notFound.html")
-	);
+	const filePath = path.join(__dirname, "public", "views", "notFound.html");
+	res.status(404).sendFile(filePath);
 });
-app.use("/auth/verify:token", require("./routes/token"));
-app.use("/auth/login", require("./routes/loginUser"));
-app.use("/auth/logout", require("./routes/logoutUser"));
-app.use("/profile", require("./routes/profile"));
-app.use("/refresh", require("./routes/refresh"));
 
 // Logs all errors
 app.use(errorLogger);
@@ -82,14 +60,14 @@ mongoose.connection.once("open", () => {
 	});
 });
 
-// For testing purpose
-(async () => {
-	// const buckets = await minioClient.listBuckets();
-	// // console.log(buckets);
-	// const mtm = new MetaManager("Public");
-	// const data = await mtm.processFile({
-	// 	path: "public/audios/Happiest Year (Afro Mara) | val9ja.mp3",
-	// 	flag: "Path",
-	// });
-	// console.log(data);
-})();
+//  For testing purpose
+// (async () => {
+// const buckets = await minioClient.listBuckets();
+// console.log(buckets);
+// const mtm = new MetaManager("Public");
+// const data = await mtm.processFile({
+// 	path: "public/audios/Happiest Year (Afro Mara) | val9ja.mp3",
+// 	flag: "Path",
+// });
+// console.log(data);
+// })();

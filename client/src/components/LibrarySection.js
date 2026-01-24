@@ -8,15 +8,15 @@ const LibrarySection = () => {
 	librarySection.addClass("library_section", "main_sections");
 	librarySection.setId("library-section");
 
-	librarySection.setInnerHTML(`
+	librarySection.innerHTML = `
 		<div class="empty_lib_content show_lib_content">
 			<h2>Library</h2>
 
 			<div>
 				<p>No content in your library.</p>
-				<p>To access your library  <a href="/signup" class="lib_links">Sign up</a> to continue or <a href="/login" class="lib_links">Login</a> to acces all features.</p> 
+				<p>To access your library  <a href="/register" class="lib_links">Sign up</a> to continue or <a href="/login" class="lib_links">Login</a> to access all features.</p> 
 				<div class="lib_lnks_ctn">
-					<a href="/signup" class="lib_links">Sign up</a>
+					<a href="/register" class="lib_links">Sign up</a>
 					<a href="/login" class="lib_links">Login</a> 
 				</div>
 			</div>
@@ -43,7 +43,8 @@ const LibrarySection = () => {
 				<p>Playlis.</p>
 			</div>
 		</section>
-	`);
+	`;
+
 	return librarySection.getElement();
 };
 

@@ -1,6 +1,5 @@
 import HomeSection from "../components/HomeSection.js";
 import LibrarySection from "../components/LibrarySection.js";
-import NotFoundSection from "../components/NotFoundSection.js";
 import ProfileSection from "../components/ProfileSection.js";
 import SearchSection from "../components/SearchSection.js";
 import CreateElement from "../utils/CreateElement.js";
@@ -13,15 +12,13 @@ const Main = async () => {
 	main.addClass("main");
 	main.setId("main");
 
-	main
-		.getElement()
-		.append(
-			await HomeSection(),
-			LibrarySection(),
-			SearchSection(),
-			NotFoundSection(),
-			ProfileSection()
-		);
+	main.append(
+		await HomeSection(),
+		LibrarySection(),
+		SearchSection(),
+		ProfileSection(),
+		ProfileSection()
+	);
 
 	return main.getElement();
 };

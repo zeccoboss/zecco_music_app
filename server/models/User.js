@@ -9,7 +9,7 @@ const profileSchema = new Schema(
 			default: "images/users/default_profile.png",
 		},
 	},
-	{ _id: false }
+	{ _id: false },
 );
 
 const userSchema = new Schema({
@@ -21,6 +21,8 @@ const userSchema = new Schema({
 	email: {
 		type: String,
 		required: true,
+		unique: true,
+		index: true,
 	},
 	roles: {
 		type: roleSChema,
@@ -53,6 +55,8 @@ const userSchema = new Schema({
 	},
 	verificationToken: String,
 	verificationTokenExpiry: Date,
+	lasUserVerificationSentAt: Date,
+	lasPasswordVerificationSentAt: Date,
 });
 
 const User = mongoose.model("User", userSchema);

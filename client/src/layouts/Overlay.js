@@ -1,19 +1,10 @@
+/** biome-ignore-all assist/source/organizeImports: <explanation> */
 import CreateElement from "../utils/CreateElement.js";
-import loadingImg from "../assets/images/logo.jpg";
 
-const Overlay = () => {
-	// Create element
-	const overlay = new CreateElement("div");
-	overlay.addClass("overlay");
+// Create element
+const overlayInstance = new CreateElement("div");
+overlayInstance.addClass("overlay");
 
-	overlay.setInnerHTML(`
-		<div class="overlay_logo_container">
-			<img src="${loadingImg}" alt="" height="300" width="300" class="overlay_logo"/>
-		</div>
-		
-	`);
+const Overlay = () => overlayInstance.getElement();
 
-	return overlay.getElement();
-};
-
-export default Overlay;
+export { Overlay, overlayInstance };

@@ -7,7 +7,10 @@ function sendVerificationMail(email, token) {
 		subjectContent: "Verify your email",
 	};
 	const verificationMailer = new Mailer(mailerArgs);
-	verificationMailer.verificationToken(`${CLIENT.DEV_URL}verify/${token}`);
+	verificationMailer.verificationToken(
+		`${CLIENT.DEV_URL}user/verify/${token}`,
+	);
 }
 
+// /auth/verify/:token
 module.exports = { sendVerificationMail };

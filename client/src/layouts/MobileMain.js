@@ -1,7 +1,6 @@
 // MobileMain;
 import HomeSection from "../components/HomeSection.js";
 import LibrarySection from "../components/LibrarySection.js";
-import NotFoundSection from "../components/NotFoundSection.js";
 import PlayingBanner from "../components/PlayingBanner.js";
 import ProfileSection from "../components/ProfileSection.js";
 import SearchSection from "../components/SearchSection.js";
@@ -20,8 +19,7 @@ const MobileMain = async () => {
 		LibrarySection(),
 		SearchSection(),
 		PlayingBanner(),
-		ProfileSection(),
-		NotFoundSection()
+		ProfileSection()
 	);
 
 	//

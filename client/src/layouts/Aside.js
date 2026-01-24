@@ -1,4 +1,4 @@
-import { adjustAsideSvg } from "../utils/adjustSvgSize.js";
+import { adjustAsideSvg } from "../helpers/adjustSvgSize.js";
 import {
 	bigScreen,
 	largeScreen,
@@ -24,7 +24,7 @@ const Aside = () => {
 	aside.setId("aside");
 	aside.addClass("aside");
 
-	const htmlContent = `
+	aside.innerHTML = `
 		<nav class="nav">
 			<ul class="nav_list">
 				<li id="home" class="home active_nav">
@@ -65,23 +65,13 @@ const Aside = () => {
 		</nav>
 	`;
 
-	aside.setInnerHTML(htmlContent);
-
 	const libraryNavLink = aside.getChild("library_nav", "class");
 	const homeNavLink = aside.getChild("home-links", "id");
 	const searchNavLink = aside.getChild("search-link", "id");
 
-	homeNavLink.addEventListener("click", (e) => {
-		navigateHome(e.currentTarget);
-	});
-
-	libraryNavLink.addEventListener("click", (e) => {
-		navigateLibrary(e.currentTarget);
-	});
-
-	searchNavLink.addEventListener("click", () => {
-		navigateSearch();
-	});
+	homeNavLink.addEventListener("click", navigateHome);
+	libraryNavLink.addEventListener("click", navigateLibrary);
+	searchNavLink.addEventListener("click", navigateSearch);
 
 	const asideSVGs = aside.getElement().querySelectorAll("svg");
 	// const asideLinks = aside.getElement().querySelectorAll("a");
@@ -91,7 +81,7 @@ const Aside = () => {
 	} else if (bigScreen.matches) {
 		adjustAsideSvg(asideSVGs, 20);
 	} else if (largeScreen.matches) {
-		adjustAsideSvg(asideSVGs, 20);
+		adjustAsideSvg(asideSVGs, 25);
 	}
 
 	return aside.getElement();

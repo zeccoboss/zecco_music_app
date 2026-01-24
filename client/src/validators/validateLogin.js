@@ -4,14 +4,14 @@ import { showFormFeed } from "../helpers/showFormFeed.js";
 import { loginAccountService } from "../services/loginAccountService.js";
 import CreateElement from "../utils/CreateElement.js";
 
-const validateLogin = () => {
-	const loginForm = document.querySelector("#login-form");
-	const passwordInput = document.querySelector(".lg_user_pwd");
-	const identifierInput = document.querySelector(".lg_user_name");
-	const submitBtn = document.querySelector("#lg-submit-btn");
+const validateLogin = (formInstance) => {
+	const loginForm = formInstance.getElement();
+	const passwordInput = formInstance.getChild(".lg_user_pwd", "class");
+	const identifierInput = formInstance.getChild(".lg_user_name", "class");
+	const submitBtn = formInstance.getChild("#lg-submit-btn", "id");
 
 	// Create element that holds feed for form validation
-	const feedHolder = new CreateElement("span", "Feed holder"); // Create elemet
+	const feedHolder = new CreateElement("span", "Feed holder"); // Create element
 	feedHolder.addClass("feed_holder"); // Add the class
 
 	submitBtn.addEventListener("click", async (e) => {
@@ -23,10 +23,10 @@ const validateLogin = () => {
 
 		if (!identifier) {
 			showFormFeed(
-				`All feilds are required!`,
+				`All fields are required!`,
 				feedHolder.getElement(),
 				loginForm,
-				identifierInput
+				identifierInput,
 			);
 
 			feedHolder.addClass("error_color");
@@ -42,10 +42,10 @@ const validateLogin = () => {
 
 		if (!userPassword) {
 			showFormFeed(
-				`All feilds are required!`,
+				`All fields are required!`,
 				feedHolder.getElement(),
 				loginForm,
-				passwordInput
+				passwordInput,
 			);
 
 			feedHolder.addClass("error_color");
@@ -74,7 +74,7 @@ const validateLogin = () => {
 						axiosDetails.data.error,
 						feedHolder.getElement(),
 						loginForm,
-						passwordInput
+						passwordInput,
 					);
 
 					feedHolder.getElement().style = "text-align: center";
@@ -92,7 +92,7 @@ const validateLogin = () => {
 						axiosDetails.data.error,
 						feedHolder.getElement(),
 						loginForm,
-						passwordInput
+						passwordInput,
 					);
 
 					passwordInput.style.outline = `1px solid var(--error-border)`;
@@ -106,7 +106,7 @@ const validateLogin = () => {
 						axiosDetails.data.error,
 						feedHolder.getElement(),
 						loginForm,
-						passwordInput
+						passwordInput,
 					);
 
 					feedHolder.removeClass("error_color");
@@ -117,7 +117,7 @@ const validateLogin = () => {
 						`500 Network error`,
 						feedHolder.getElement(),
 						loginForm,
-						passwordInput
+						passwordInput,
 					);
 
 					feedHolder.removeClass("error_color");
@@ -128,7 +128,7 @@ const validateLogin = () => {
 						`Processing... Login successful`,
 						feedHolder.getElement(),
 						loginForm,
-						passwordInput
+						passwordInput,
 					);
 
 					passwordInput.style.outline = `1px solid var(--clear-border-warning)`;

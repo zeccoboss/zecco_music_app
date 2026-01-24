@@ -8,13 +8,11 @@ const SearchSection = () => {
 	searchSection.addClass("search_section", "main_sections");
 	searchSection.setId("search-section");
 
-	const htmlContent = `
+	searchSection.innerHTML = `
 		<div class="recent_search_container">
 			<p>No search yet...</p>
 		</div>
 	`;
-
-	searchSection.setInnerHTML(htmlContent);
 
 	//
 	return searchSection.getElement();

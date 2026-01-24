@@ -1,11 +1,11 @@
-import { adjustMusicCardSvg } from "../utils/adjustSvgSize.js";
+import { adjustMusicCardSvg } from "../helpers/adjustSvgSize.js";
 import {
 	bigScreen,
 	largeScreen,
 	mobileScreen,
 } from "../core/screenBreakPoints.js";
 import CreateElement from "../utils/CreateElement.js";
-import { heartSvg, playCircleFill, threeDotMenu } from "../utils/SVG_ICONS.js";
+import { heartSvg, playSvg, threeDotMenu } from "../utils/SVG_ICONS.js";
 import musicImage from "../assets/images/favicon.png";
 
 const MusicCard = (audio) => {
@@ -34,10 +34,12 @@ const MusicCard = (audio) => {
 	const htmlContent = `
 		 <div class="card_img_container">
 			<img src="${
-				audio.hasCover ? audio.coverUrl : musicImage
+				audio.hasCover
+					? `http://127.0.0.1:9000/${audio.coverUrl}`
+					: audio.coverUrl
 			}" class="card_img" alt="Music card image" srcset="" width="50" height="50" loading="lazy"/>
 			<div class="card_overlay">
-				${playCircleFill}
+				${playSvg}
 			</div>
 		</div>
 
@@ -53,7 +55,7 @@ const MusicCard = (audio) => {
 	`;
 	musicCard.setInnerHTML(htmlContent);
 
-	const musicCardSvgs = musicCard.getChildren("svg", "el");
+	const musicCardSvgs = musicCard.getChildren("svg", "element");
 	if (mobileScreen.matches) {
 		adjustMusicCardSvg(musicCardSvgs, 16);
 	} else if (bigScreen.matches) {
@@ -62,7 +64,7 @@ const MusicCard = (audio) => {
 		adjustMusicCardSvg(musicCardSvgs, 18);
 	}
 
-	const overlaySvg = musicCard.getChild(".bi-play-circle-fill", "class");
+	const overlaySvg = musicCard.getChild(".bi-play", "class");
 	overlaySvg.setAttribute("height", "35");
 	overlaySvg.setAttribute("width", "35");
 
