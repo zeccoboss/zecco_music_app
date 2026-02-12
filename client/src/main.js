@@ -1,11 +1,11 @@
 import Aside from "./layouts/Aside.js";
-import Container from "./layouts/Container.js";
+import { Container } from "./layouts/Container.js";
 // import ExtraContent from "./layouts/ExtraContent.js";
 import Footer from "./layouts/Footer.js";
-import Header from "./layouts/Header";
+import { Header } from "./layouts/Header";
 import Main from "./layouts/Main.js";
 import MobileFooter from "./layouts/MobileFooter";
-import MobileHeader from "./layouts/MobileHeader.js";
+import { MobileHeader } from "./layouts/MobileHeader.js";
 import MobileMain from "./layouts/MobileMain.js";
 import { Overlay } from "./layouts/Overlay.js";
 import StartupScreen from "./layouts/StartupScreen.js";
@@ -14,14 +14,16 @@ import {
 	largeScreen,
 	mobileScreen,
 } from "./core/screenBreakPoints.js";
-import "./styles/style.css";
-import "./styles/media_queries.css";
 import { initApp } from "./core/initApp.js";
 ``;
 import { FormPage } from "./pages/FormPage.js";
 import { NoResourcePage } from "./pages/NoResourcePage.js";
 import { VerificationPage } from "./pages/VerificationPage.js";
 import { ForgotPasswordFormPage } from "./pages/ForgotPasswordFormPage.js";
+
+import "./styles/base.css";
+import "./styles/skeleton.css";
+import "./styles/media.css";
 
 const renderApp = (app) => {
 	const applyMobileContent = async (message) => {
@@ -115,13 +117,13 @@ const renderApp = (app) => {
 		console.log(""); // empty string to show app is fully loaded from additional logs
 	};
 
-	// Check screen size and pass appropraite layouts
+	// Check screen size and pass appropriate layouts
 	if (mobileScreen.matches) {
 		applyMobileContent("[Screen Size]: Mobile screen!");
 	} else if (bigScreen.matches) {
-		applyBigScreenContent("[Screen Size]: Large screen!");
+		applyBigScreenContent("[Screen Size]: Big screen!");
 	} else if (largeScreen.matches) {
-		applyBigScreenContent("[Screen Size]: Large screen!");
+		applyLargeScreenContent("[Screen Size]: Large screen!");
 	}
 
 	// Listen to changes on screen size and render the corresponding layouts

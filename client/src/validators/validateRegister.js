@@ -259,8 +259,8 @@ const validateRegister = async (formInstance) => {
 					if (!email) return console.error("Can't get the email address");
 					const { regFormConn } = promptsConfig;
 					const { modal } = registerPrompt.open(regFormConn, email);
-					// overlayInstance.addClass("show_overlay");
-					// overlayInstance.append(modal);
+					overlayInstance.addClass("show_overlay");
+					overlayInstance.append(modal);
 
 					console.log(axiosDetails.data.email);
 

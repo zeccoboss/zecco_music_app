@@ -5,38 +5,22 @@ import {
 	mobileScreen,
 } from "../core/screenBreakPoints.js";
 import CreateElement from "../utils/CreateElement.js";
-import { heartSvg, playSvg, threeDotMenu } from "../utils/SVG_ICONS.js";
+import { heartSvg, playSvg, threeDotMenuSvg } from "../assets/svgs/svgIcons.js";
 import musicImage from "../assets/images/favicon.png";
 
-const MusicCard = (audio) => {
+const MusicCard = (audio = null) => {
 	// Create element
 	const musicCard = new CreateElement("div");
-	const {
-		_id,
-		title,
-		artist,
-		artists,
-		duration,
-		bitrate,
-		sampleRate,
-		album,
-		genre,
-		hasCover,
-		hasVideo,
-		year,
-		coverUrl,
-		audioUrl,
-	} = audio;
 
 	musicCard.addClass("music_card");
-	musicCard.setId(audio._id);
+	musicCard.setId(audio._id ?? null);
 
-	const htmlContent = `
+	musicCard.innerHTML = `
 		 <div class="card_img_container">
 			<img src="${
-				audio.hasCover
+				audio?.hasCover
 					? `http://127.0.0.1:9000/${audio.coverUrl}`
-					: audio.coverUrl
+					: audio?.coverUrl
 			}" class="card_img" alt="Music card image" srcset="" width="50" height="50" loading="lazy"/>
 			<div class="card_overlay">
 				${playSvg}
@@ -44,16 +28,15 @@ const MusicCard = (audio) => {
 		</div>
 
 		<div class="card_music_details">
-			<h4 class="card_artist_name">${audio.artist ? artist : "Unknown artist"}</h4>
-			<p class="card_music_title">${audio.title ? title : "Unknown title"}</p>
+			<h4 class="card_artist_name">${audio?.artist ?? "Unknown artist"}</h4>
+			<p class="card_music_title">${audio?.title ?? "Unknown title"}</p>
 		</div>
 
 		<div class="music_card_control">
 			<button class="card_lick_btn">${heartSvg}</button>
-			<button class="card_options_btn">${threeDotMenu}</button>
+			<button class="card_options_btn">${threeDotMenuSvg}</button>
 		</div>
 	`;
-	musicCard.setInnerHTML(htmlContent);
 
 	const musicCardSvgs = musicCard.getChildren("svg", "element");
 	if (mobileScreen.matches) {
@@ -64,7 +47,7 @@ const MusicCard = (audio) => {
 		adjustMusicCardSvg(musicCardSvgs, 18);
 	}
 
-	const overlaySvg = musicCard.getChild(".bi-play", "class");
+	const overlaySvg = musicCard.getChild(".bi-play-fill", "class");
 	overlaySvg.setAttribute("height", "35");
 	overlaySvg.setAttribute("width", "35");
 

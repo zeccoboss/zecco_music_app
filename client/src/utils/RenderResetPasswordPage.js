@@ -8,7 +8,7 @@ const RenderResetPasswordPage = async () => {
 	appConfig.pageTitle = "Reset Password";
 
 	// Show loading spinner before
-	handleFormNavigation(2500, forgotPasswordFormPageInstance, "reset");
+	handleFormNavigation(1500, forgotPasswordFormPageInstance, "reset");
 };
 
 export default RenderResetPasswordPage;

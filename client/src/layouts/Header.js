@@ -1,18 +1,34 @@
-import { mobileScreen } from "../core/screenBreakPoints.js";
+import {
+	bigScreen,
+	mobileScreen,
+	largeScreen,
+} from "../core/screenBreakPoints.js";
 // import { navigateSearch } from "../events/navigateSearch.js";
 // import navigateSignup from "../events/navigateSignup.js";
 import CreateElement from "../utils/CreateElement.js";
-import { magnifierSvg, musicIconSvg } from "../utils/SVG_ICONS.js";
-const Header = () => {
-	// Create element
-	const header = new CreateElement("header", "Header");
+import {
+	magnifierSvg,
+	musicIconSvg,
+	panelOpenSvg,
+} from "../assets/svgs/svgIcons.js";
+import { getTag } from "../helpers/selectElement.js";
+import { sidebarHandler } from "../events/sidebarHandler.js";
 
-	// Set attribute
-	header.addClass("header");
-	header.setId("header");
+// Create element
+const headerInstance = new CreateElement("header", "Header");
 
-	header.innerHTML = `
-		<a href="/" class="logo">${musicIconSvg}<span>ZeccoMusic</span></a>
+// Set attribute
+headerInstance.addClass("header");
+headerInstance.setId("header");
+
+headerInstance.innerHTML = `
+		<div class="header_logo_container">
+			<div class="sidebar_toggle_container">
+				<button class="sidebar_toggle_btn">${panelOpenSvg}</button>
+				<small class="sidebar_toggle_tooltip" arial-label="Toggle sidebar">Toggle sidebar</small>
+			</div>
+			<div href="/" class="logo">${musicIconSvg}<span>ZeccoMusic</span></div>
+		</div>
 
 		<form action="" class="search_form">
 			${magnifierSvg}
@@ -29,36 +45,31 @@ const Header = () => {
 		</div>
 	`;
 
-	const headerSVGs = header.getChildren("svg", "element");
-	const musicIcon = header.getChild(".bi-music-note", "class");
+// const headerSVGs =headerInstance.getChildren("svg", "element");
+const musicIcon = headerInstance.getChild(".bi-music-note");
 
-	if (mobileScreen.matches) {
-		headerSVGs.forEach((svg) => {
-			if (svg.classList.contains("music_icon-optional")) {
-				svg.setAttribute("width", "13");
-				svg.setAttribute("height", "13");
-			} else {
-				svg.setAttribute("width", `30`);
-				svg.setAttribute("height", `30`);
-			}
-		});
-	} else {
-		musicIcon.setAttribute("width", "35");
-		musicIcon.setAttribute("height", "35");
-	}
+// shrink_sidebar;
+sidebarHandler();
 
-	const searchInput = header.getChild("search_input", "class");
+// Make all it's svgs white
+// for (const svg of headerSVGs) svg.style.fill = "white";
 
-	searchInput.addEventListener("input", (e) => {
-		navigateSearch();
-		const searchValue = e.target.value;
-		pushHistory("/search");
+if (bigScreen.matches || largeScreen.matches) {
+	musicIcon.setAttribute("width", "35");
+	musicIcon.setAttribute("height", "35");
+}
 
-		console.log(searchValue);
-	});
+const searchInput = headerInstance.getChild(".search_input");
 
+searchInput.addEventListener("input", (e) => {
+	navigateSearch();
+	const searchValue = e.target.value;
+	pushHistory("/search");
+});
+
+const Header = () => {
 	// return header element
-	return header.getElement();
+	return headerInstance.getElement();
 };
 
-export default Header;
+export { headerInstance, Header };

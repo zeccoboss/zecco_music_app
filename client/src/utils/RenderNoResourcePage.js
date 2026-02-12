@@ -15,8 +15,6 @@ const RenderNoResourcePage = () => {
 
 	noResourcePageInstance.addClass("show_no_resource_page");
 
-	console.log(noResourcePageInstance);
-
 	// if (noResourcePageInstance.hasClass("show_not_found_page")) {
 	// 	noResourcePageInstance.removeClass("show_not_found_page");
 	// }

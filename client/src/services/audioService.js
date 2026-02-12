@@ -7,16 +7,15 @@ const audioService = async (path, data = {}) => {
 
 	try {
 		const res = await axios.get(url, appConfig.apiUrl);
-
+		res.failed = false;
 		return res;
 	} catch (error) {
-		console.log(error.response.data);
-		return (
-			error.response ?? {
-				status: 500,
-				data: { error: "Network error" },
-			}
-		);
+		console.log(error.message);
+		return {
+			status: 500,
+			error: "Network error",
+			failed: true,
+		};
 	}
 };
 

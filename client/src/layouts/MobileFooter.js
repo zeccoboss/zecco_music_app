@@ -4,8 +4,10 @@ import {
 	homeSvg,
 	librarySvg,
 	magnifierSvg,
-} from "../utils/SVG_ICONS.js";
+} from "../assets/svgs/svgIcons.js";
 import CreateElement from "../utils/CreateElement.js";
+import { adjustMobileFooterSvg } from "../helpers/adjustSvgSize.js";
+import { mobileScreen } from "../core/screenBreakPoints.js";
 
 const MobileFooter = () => {
 	// Create element
@@ -25,21 +27,21 @@ const MobileFooter = () => {
 				</li>
 
 				<li id="library" class="library">
-					<a href="library" class="nav_links">
+					<a href="/library" class="nav_links">
 						${librarySvg}
 						<span>Library</span>
 					</a>
 				</li>
 
-				<li id="search" class="search">
-					<a href="search" class="nav_links">
+				<li id="/search" class="search">
+					<a href="/search" id="search-link" class="nav_links">
 						${magnifierSvg}
 						<span>Search</span>
 					</a>
 				</li>
 
-				<li id="feed" class="feed">
-					<a href="feed" class="nav_links">
+				<li id="/feed" class="feed">
+					<a href="/feed" class="nav_links">
 						${feedSvg}
 						<span>Feed</span>
 					</a>
@@ -48,11 +50,11 @@ const MobileFooter = () => {
 		</nav>
 	`;
 
-	// const mobileFooterSVGs = mobileFooter.getChildren("svg", "el");
+	const mobileFooterSVGs = mobileFooter.getChildren("svg", "element");
 
-	// if (mobileScreen.matches) {
-	// 	adjustmobileFooterSvg(mobileFooterSVGs, 20);
-	// }
+	if (mobileScreen.matches) {
+		adjustMobileFooterSvg(mobileFooterSVGs, 25);
+	}
 
 	// if (bigScreen.matches) {
 	// 	adjustmobileFooterSvg(mobileFooterSVGs, 25);

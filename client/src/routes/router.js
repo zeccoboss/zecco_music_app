@@ -13,7 +13,7 @@ class Router {
 
 			// When theres a match call its handler
 			if (match) {
-				// Call and if token avai	lable pass it to the handler
+				// Call and if token available pass it to the handler
 				route.handler({ token: match[1] ?? match[2] ?? match[3] });
 				matched = true; // Resign matched to true
 				break; // Exit if match available

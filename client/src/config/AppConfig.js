@@ -3,9 +3,13 @@ class AppConfig {
 	#creator = "ZECCO";
 	#devs = ["ZECCO"];
 
-	#globalDocument = document;
-	#apiDevUrl = "http://localhost:7835";
+	#globalDocument = document; // get reference to the document object
+	#apiDevUrl = "http://localhost:3500";
 	#apiBaseUrl = null;
+
+	get appName() {
+		return this.#appName;
+	}
 
 	set pageTitle(title = "Home") {
 		this.#globalDocument.title = title;
@@ -20,12 +24,17 @@ class AppConfig {
 		return this.#apiBaseUrl ?? this.#apiDevUrl;
 	}
 
-	getAppData() {
-		console.log("Bellow is the available application data: ");
-		console.log("");
-		console.log("App name: ", this.#appName);
-		console.log("Developers: ", this.#creator);
-		console.log("Developers: ", this.#devs);
+	get getAppData() {
+		return {
+			appName: this.#appName,
+			creator: this.#creator,
+			developers: this.#devs,
+		};
+	}
+
+	get date() {
+		const date = new Date();
+		return date;
 	}
 }
 

@@ -2,13 +2,13 @@ import CreateElement from "../utils/CreateElement.js";
 import {
 	heartSvg,
 	loopSvg,
-	skipNext,
+	skipNextSvg,
 	playSvg,
 	plusPlaylistSvg,
 	skipBack,
 	shuffleSvg,
-	threeDotMenu,
-} from "../utils/SVG_ICONS.js";
+	threeDotMenuSvg,
+} from "../assets/svgs/svgIcons.js";
 import musicImage from "../assets/images/favicon.png";
 import { adjustFooterSvg } from "../helpers/adjustSvgSize.js";
 
@@ -21,8 +21,6 @@ const Footer = () => {
 	footer.setId("footer");
 
 	footer.innerHTML = `
-		<input type="range" name="" value="0" id="" min="0" max="100" class="music_range_input" aria-label="Music progress range"/>
-
 		<div class="footer_container">
 			<section class="music_data">
 				<figure class="music_image_container">
@@ -36,18 +34,30 @@ const Footer = () => {
 				</div>
 			</section>
 
-			<section class="action_btns">
-				<button aria-label="Previous" class="previous_btn" id="previous-button">
-					${skipBack}
-				</button>
+			<section class="action_btns_ctnr">
+				<div class="action_btns">
+					<button aria-label="/Shuffle" class="random_btn" id="random-button">
+						${shuffleSvg}
+					</button>
 
-				<button aria-label="Play/Pause" class="play_pause_btn" id="play-pause-btn">
-					${playSvg}
-				</button>
+					<button aria-label="Previous" class="previous_btn" id="previous-button">
+						${skipBack}
+					</button>
 
-				<button aria-label="Next" class="next_btn" id="next-button">
-					${skipNext}
-				</button>
+					<button aria-label="Play/Pause" class="play_pause_btn" id="play-pause-btn">
+						${playSvg}
+					</button>
+
+					<button aria-label="Next" class="next_btn" id="next-button">
+						${skipNextSvg}
+					</button>
+
+					<button aria-label="Repeat/Loop" class="sleep_timer_btn" id="sleep-timer-button">
+						${loopSvg}
+					</button>
+				</div>
+
+				<input type="range" name="" value="0" id="" min="0" max="100" class="music_range_input" aria-label="Music progress range"/>
 			</section>
 
 			<div class="music_controls">
@@ -63,16 +73,8 @@ const Footer = () => {
 					${heartSvg}
 				</button>
 
-				<button aria-label="/Shuffle" class="random_btn" id="randon-button">
-					${shuffleSvg}
-				</button>
-
-				<button aria-label="Repeat/Loop" class="sleep_timer_btn" id="sleep-timer-button">
-					${loopSvg}
-				</button>
-
 				<button aria-label="menu song button" class="menu_btn" id="menu-button">
-					${threeDotMenu}
+					${threeDotMenuSvg}
 				</button>
 			</div>
 		</div>

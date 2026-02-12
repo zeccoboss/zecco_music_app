@@ -19,7 +19,7 @@ function adjustFooterSvg(
 	playSvgSize = 50,
 	nextSvgSize = 27,
 	svgSize = 20,
-	color
+	color,
 ) {
 	svgs.forEach((svg) => {
 		if (svg.classList.contains("pause") || svg.classList.contains("play")) {
@@ -39,7 +39,7 @@ function adjustFooterSvg(
 	});
 }
 
-function adjustmobileFooterSvg(svgs, size = 20) {
+function adjustMobileFooterSvg(svgs, size = 20) {
 	svgs.forEach((svg) => {
 		if (svg.classList.contains("home")) {
 			svg.setAttribute("width", `${size + 10}`);
@@ -78,5 +78,5 @@ export {
 	adjustFooterSvg,
 	// adjustHeaderSvg,
 	adjustMusicCardSvg,
-	adjustmobileFooterSvg,
+	adjustMobileFooterSvg,
 };

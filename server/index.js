@@ -12,12 +12,13 @@ const { credentials } = require("./middlewares/credentials");
 const { connectDB } = require("./config/dbConn");
 const mongoose = require("mongoose");
 const initLocalAudio = require("./core/initLocalAudio");
+const AppConfig = require("./config/App");
 // const minioClient = require("./config/minioConn");
 // const MetaManager = require("./metadata/MetaManager");
 
 connectDB(); // Connect to mongodb
 const app = express(); // Create App
-const PORT = process.env.PORT || 7835; // Get PORT
+const PORT = AppConfig.port; // Get PORT
 
 app.use(credentials); //
 app.use(cors(corsOptions)); // CORS
@@ -25,7 +26,7 @@ app.use(logger); // Logs all Events
 
 // Create admin on server start
 initAdmin();
-initLocalAudio(); // LoadLocal music/
+// initLocalAudio(); // LoadLocal music/
 
 // Middle wares
 app.use(express.urlencoded({ extended: false }));

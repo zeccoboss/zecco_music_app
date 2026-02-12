@@ -24,7 +24,7 @@ noResourcePageInstance.innerHTML = `
 // 	color: hsla(0, 80%, 80%);
 // `);
 
-const rtnHomeBtn = noResourcePageInstance.getChild("nfp-link", "class");
+const rtnHomeBtn = noResourcePageInstance.getChild(".nfp-link");
 
 rtnHomeBtn.addEventListener("click", (e) => {
 	e.preventDefault();

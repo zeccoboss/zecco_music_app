@@ -1,21 +1,38 @@
 class CreateElement {
-	constructor(elementName, innerText, innerHTML) {
-		const element = document.createElement(`${elementName}`);
-		this.element = element;
-		this.element.innerHTML = innerHTML ? innerHTML : "";
-		this.element.innerText = innerText ? innerText : "";
+	constructor(elementName, text, html) {
+		this.element = document.createElement(`${elementName}`);
+
+		if (html) this.element.innerHTML = html;
+		else if (text) this.element.innerText = text;
 	}
 
-	append(...elArray) {
-		this.element.append(...elArray);
+	append(...items) {
+		this.element.append(...items);
 	}
 
-	addEvent(eventType, eventFunction) {
-		this.element.addEventListener(`${eventType}`, eventFunction);
+	appendChild(child) {
+		this.element.appendChild(child);
+	}
+
+	appendContent(...items) {
+		items.forEach((item) => {
+			if (item instanceof Node) {
+				this.appendChild(item);
+			} else if (typeof item === "string") {
+				const tlp = document.createElement("template");
+				tlp.innerHTML = item;
+				this.element.append(tlp.content);
+			} else {
+				console.warn("Unknown content type: ", item);
+			}
+		});
+	}
+
+	addEvent(type, handler) {
+		this.element.addEventListener(`${type}`, handler);
 	}
 
 	remove() {
-		this.element.innerHTML = "";
 		this.element.remove();
 	}
 
@@ -23,34 +40,12 @@ class CreateElement {
 		return this.element;
 	}
 
-	getChild(selector, flag) {
-		if (flag === "id") {
-			return selector.includes("#")
-				? this.element.querySelector(`${selector}`)
-				: this.element.querySelector(`#${selector}`);
-		} else if (flag === "class") {
-			return selector.includes(".")
-				? this.element.querySelector(`${selector}`)
-				: this.element.querySelector(`.${selector}`);
-		} else if (flag === "element") {
-			return this.element.querySelector(`${selector}`);
-		} else {
-			console.error(`[Flag Error]: "${flag}" not valid a valid flag`);
-			return null;
-		}
+	getChild(selector) {
+		return this.element.querySelector(`${selector}`);
 	}
 
-	getChildren(selector, flag) {
-		if (flag === "class") {
-			return selector.includes(".")
-				? this.element.querySelectorAll(`${selector}`)
-				: this.element.querySelectorAll(`.${selector}`);
-		} else if (flag === "element") {
-			return this.element.querySelectorAll(`${selector}`);
-		} else {
-			console.error(`[Flag Error]: "${flag}" not valid a valid flag`);
-			return null;
-		}
+	getChildren(selector) {
+		return this.element.querySelectorAll(`${selector}`);
 	}
 
 	set type(type) {
@@ -62,16 +57,12 @@ class CreateElement {
 		this.element.disabled = value;
 	}
 
-	showElement() {
-		console.log(this.element);
-	}
-
 	setId(id) {
 		this.element.id = id;
 	}
 
-	addClass(...classArray) {
-		classArray.forEach((cl) => {
+	addClass(...items) {
+		items.forEach((cl) => {
 			if (cl !== "") this.element.classList.add(cl);
 		});
 	}
@@ -80,21 +71,21 @@ class CreateElement {
 		return !!this.element.classList.contains(identifier);
 	}
 
-	removeClass(...classNames) {
-		classNames.forEach((cl) => {
+	removeClass(...items) {
+		items.forEach((cl) => {
 			if (cl !== "") this.element.classList.remove(cl);
 		});
 	}
 
-	setPlaceHolder(placeholder) {
+	placeholder(placeholder) {
 		this.element.placeholder = placeholder;
 	}
 
-	setColumns(columns) {
+	columns(columns) {
 		this.element.cols = columns;
 	}
 
-	setRows(rows) {
+	rows(rows) {
 		this.element.rows = rows;
 	}
 
@@ -111,13 +102,25 @@ class CreateElement {
 		this.element.innerText = text;
 	}
 
-	set innerHTML(innerHTML) {
-		if (!innerHTML) return;
-		this.element.innerHTML = innerHTML;
+	set innerHTML(html) {
+		if (!html || typeof html !== "string") return;
+		this.element.innerHTML = html;
+	}
+
+	get outerHTML() {
+		return this.element.outerHTML;
 	}
 
 	style(key, value) {
-		if (!key && !value) return;
+		if (
+			!key ||
+			!value ||
+			typeof key !== "string" ||
+			typeof value !== "string"
+		) {
+			console.warn("Invalid style");
+			return;
+		}
 		this.element.style[key] = value;
 	}
 }

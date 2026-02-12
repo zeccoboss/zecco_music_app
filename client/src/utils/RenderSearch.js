@@ -1,19 +1,21 @@
-import RenderSearch from "../components/RenderSearch";
 import appConfig from "../config/AppConfig";
 import { clearActiveNav } from "../helpers/clearActiveNav";
 import { clearActiveSections } from "../helpers/clearActiveSections";
+import { getTag } from "../helpers/selectElement";
+import { manageHeaderBtns } from "./manageHeaderBtns";
 
-const RenderLibrary = async () => {
+const RenderSearch = async () => {
 	appConfig.pageTitle = "Search";
-	const main = document.querySelector("main");
 	// main.innerHTML = "";
-	const RenderSearch = document.querySelector(".library_section");
+	const searchSection = getTag(".search_section", "class");
 
 	// Clear all active sections and nav links
 	clearActiveSections();
 	clearActiveNav();
 
-	RenderSearch.classList.add("active_section");
+	manageHeaderBtns("Search", "search_btns_ctn");
+
+	searchSection.classList.add("active_section");
 };
 
-export default RenderLibrary;
+export default RenderSearch;

@@ -1,7 +1,7 @@
 import { overlayInstance } from "../layouts/Overlay.js";
 import { router } from "../routes/router";
 import CreateElement from "./CreateElement";
-import { checkBox, uncheckBox } from "./SVG_ICONS.js";
+import { checkBoxSvg, uncheckBoxSvg } from "../assets/svgs/svgIcons.js";
 
 class PromptManager {
 	constructor() {
@@ -14,7 +14,7 @@ class PromptManager {
 		config.mail = email;
 
 		this.modal.innerHTML = `
-			<h2 class="modal_title">${config.title} ${config.success ? checkBox : uncheckBox}</h2>
+			<h2 class="modal_title">${config.title} ${config.success ? checkBoxSvg : uncheckBoxSvg}</h2>
 			<p class="modal_message">${config.message}</p>
 			<div class="modal_actions">
 				${config.actions

@@ -1,10 +1,9 @@
-// MobileMain;
-import HomeSection from "../components/HomeSection.js";
-import LibrarySection from "../components/LibrarySection.js";
-import PlayingBanner from "../components/PlayingBanner.js";
-import ProfileSection from "../components/ProfileSection.js";
-import SearchSection from "../components/SearchSection.js";
+import MiniPlayer from "../components/MiniPlayer.js";
 import CreateElement from "../utils/CreateElement.js";
+import { HomeContainer } from "./HomeContainer.js";
+import LibraryContainer from "./LibraryContainer.js";
+import ProfileContainer from "./ProfileContainer.js";
+import SearchContainer from "./SearchContainer.js";
 
 const MobileMain = async () => {
 	// Create element
@@ -15,11 +14,12 @@ const MobileMain = async () => {
 	mobileMain.setId("mobile-main");
 
 	mobileMain.append(
-		await HomeSection(),
-		LibrarySection(),
-		SearchSection(),
-		PlayingBanner(),
-		ProfileSection()
+		await HomeContainer(),
+		LibraryContainer(),
+		// SearchContainer(),
+		SearchContainer(),
+		MiniPlayer(),
+		ProfileContainer(),
 	);
 
 	//

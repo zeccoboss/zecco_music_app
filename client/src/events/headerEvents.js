@@ -14,7 +14,6 @@ const headerEvent = () => {
 	if (headerPlusBtn) {
 		headerPlusBtn.style.position = "relative";
 		headerPlusBtn.appendChild(dropDownList.getElement());
-		console.log(headerPlusBtn);
 	}
 
 	header.addEventListener("click", (e) => {

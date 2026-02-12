@@ -61,7 +61,6 @@ const handleFormNavigation = (duration, formPageInstance, flag) => {
 				overlayInstance.removeClass("show_overlay");
 				forgotPasswordFormPageInstance.removeClass("show_form_page");
 				formPage.removeClass("show_form_page");
-				console.log(formPageInstance);
 			}, duration);
 			break;
 		default:

@@ -8,7 +8,7 @@ const RenderLoginForm = () => {
 	// Clear from page and add a new form to the DOM
 
 	// Show loading spinner before
-	handleFormNavigation(2500, formPageInstance, "login");
+	handleFormNavigation(1500, formPageInstance, "login");
 };
 
 export default RenderLoginForm;

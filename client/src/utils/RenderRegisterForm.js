@@ -9,7 +9,7 @@ const RenderRegisterForm = async () => {
 	appConfig.pageTitle = "Register User";
 
 	// Show loading spinner before
-	handleFormNavigation(2500, formPageInstance, "register");
+	handleFormNavigation(1500, formPageInstance, "register");
 };
 
 export default RenderRegisterForm;

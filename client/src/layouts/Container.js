@@ -1,16 +1,15 @@
 import CreateElement from "../utils/CreateElement.js";
 
+// Create element
+const containerInstance = new CreateElement("div");
+
+// Set attributes
+containerInstance.addClass("container");
+containerInstance.setId("container");
+
 const Container = async (main, aside) => {
-	// Create element
-	const container = new CreateElement("div");
-
-	// Set attributes
-	container.addClass("container");
-	container.setId("container");
-
-	container.getElement().append(aside(), await main());
-
-	return container.getElement();
+	containerInstance.getElement().append(aside(), await main());
+	return containerInstance.getElement();
 };
 
-export default Container;
+export { containerInstance, Container };

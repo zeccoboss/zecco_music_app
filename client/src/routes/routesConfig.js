@@ -6,7 +6,7 @@ import RenderNoResourcePage from "../utils/RenderNoResourcePage";
 import RenderProfile from "../utils/RenderProfile";
 import RenderRegisterForm from "../utils/RenderRegisterForm";
 import RenderResetPasswordPage from "../utils/RenderResetPasswordPage";
-import RenderVerifyPasswordPage from "../utils/RenderVerifyPasswordPage";
+import RenderSearch from "../utils/RenderSearch";
 import RenderVerifyUserPage from "../utils/RenderVerifyUserPage";
 
 // Declare all routes
@@ -22,8 +22,18 @@ const routes = [
 		handler: RenderLibrary,
 	},
 	{
-		// (/user/profile/id--id84je4r3) User profile
-		pattern: /^\/user\/profile\/([^/]+)$/,
+		// (/library) Library
+		pattern: /^\/search$/,
+		handler: RenderSearch,
+	},
+	{
+		// (/profile/id--id84je4r3) User profile
+		pattern: /^\/profile\/?id=([A-Za-z0-9/-_.]{10,50})$/,
+		handler: RenderProfile,
+	},
+	{
+		// (/profile/id--id84je4r3) User profile
+		pattern: /^\/profile$/,
 		handler: RenderProfile,
 	},
 	{
@@ -52,19 +62,19 @@ const routes = [
 		handler: null,
 	},
 	{
-		// (/user/verify/token--3u3n44u3hb3uhe) Verify user when token available
-		pattern: /^\/user\/verify\/([^/]+)$/,
+		// (/verify-email/3u3n44u3hb3uhe) Verify user when token available
+		pattern: /^\/verify-email\/?token=([A-Za-z0-9/-_.]{20,500})$/,
 		handler: RenderVerifyUserPage,
 	},
 	{
-		// (/verify/token--3u3n44u3hb3uhe) Render form for resetting password
-		pattern: /^\/password\/reset$/,
+		// (/forgot-password) Render form for resetting password
+		pattern: /^\/forgot-password$/,
 		handler: RenderResetPasswordPage,
 	},
 	{
-		// (/password/verify/token--4eu33edh3e) Verify user email with provided token to reset password
-		pattern: /^\/password\/verify\/([^/]+)$/,
-		handler: RenderVerifyPasswordPage,
+		// (/reset-password/4eu33edh3e) Verify user email with provided token to reset password
+		pattern: /^\/reset-password\/?token=([A-Za-z0-9/-_.]{20,500})$/,
+		handler: RenderResetPasswordPage,
 	},
 	{
 		// (404) No resource page

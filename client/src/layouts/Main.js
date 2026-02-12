@@ -1,8 +1,10 @@
-import HomeSection from "../components/HomeSection.js";
-import LibrarySection from "../components/LibrarySection.js";
-import ProfileSection from "../components/ProfileSection.js";
-import SearchSection from "../components/SearchSection.js";
+import LibrarySection from "./LibraryContainer.js";
+import SearchSection from "./SearchContainer.js";
 import CreateElement from "../utils/CreateElement.js";
+import { HomeContainer } from "./HomeContainer.js";
+import ProfileContainer from "./ProfileContainer.js";
+import LibraryContainer from "./LibraryContainer.js";
+import SearchContainer from "./SearchContainer.js";
 
 const Main = async () => {
 	// Create element
@@ -13,11 +15,10 @@ const Main = async () => {
 	main.setId("main");
 
 	main.append(
-		await HomeSection(),
-		LibrarySection(),
-		SearchSection(),
-		ProfileSection(),
-		ProfileSection()
+		await HomeContainer(),
+		LibraryContainer(),
+		SearchContainer(),
+		ProfileContainer(),
 	);
 
 	return main.getElement();

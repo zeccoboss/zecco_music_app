@@ -1,0 +1,88 @@
+import defaultProfile from "../assets/images/default-profile.png";
+import { cameraSvg } from "../assets/svgs/svgIcons.js";
+import appConfig from "../config/AppConfig.js";
+import CreateElement from "../utils/CreateElement.js";
+
+const date = `${appConfig.date.getDate()}-${appConfig.date.getMonth()}-${appConfig.date.getFullYear()}`;
+
+const ProfileContainer = () => {
+	// Create element
+	const profileContainer = new CreateElement("section");
+
+	// Set attributes
+	profileContainer.addClass("profile_section", "main_sections");
+	profileContainer.setId("profile-section");
+
+	const profileHeader = `
+		<div class="profile_header">
+			<div class="profile_cover_wrapper">
+				<figure class="profile_cover_ctn">
+					<img src="${defaultProfile}" class="profile_cover" width="500" height="400" alt="Profile cover">
+					<figcaption>Profile cover</figcaption>
+					<button class="profile_cover_btn">${cameraSvg}</button>
+				</figure>
+			</div>
+
+			<div class="profile_pic_ctn">
+				<figure class="profile_pic_wrapper">
+					<img src="${defaultProfile}" class="profile_pic" width="100" height="100" alt="Profile picture">
+					<figcaption>Profile Picture</figcaption>
+					<!-- <button class="profile_pic_btn">${cameraSvg}</button> -->
+				</figure>
+			</div>
+		</div>
+	`;
+
+	profileContainer.innerHTML = `
+		<div class="profile_containers" data-private-profile>
+			${profileHeader}
+
+			<div class="profile_info">
+				<div id="" class="profile_user_data">
+					<h3 class="user_name" data-user-placeholder>ZECCOBOSS</h3>
+					<p class="user_id">User ID: <span data-user-id=>478984397664387298</span></p>
+				</div>
+
+				<div class="profile_details">
+					<div>
+						<h2>0</h2>
+						<p>Following</p>
+					</div>
+					<div>
+						<h2>0</h2>
+						<p>Followers</p>
+					</div>
+					<div>
+						<h2>0</h2>
+						<p>Uploads</p>
+					</div>
+				</div>
+
+				<div class="profile_data">
+					<div>
+						<span>Bio: </span><p>About me</p>
+					</div>
+					<div>
+						<span>Member Since: </span><span>${date}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="profile_content">
+				<div>
+					<h3>Playlists</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="profile_containers" style="display:none" data-public-profile>
+			${profileHeader}
+
+		</div>
+	`;
+
+	//
+	return profileContainer.getElement();
+};
+
+export default ProfileContainer;
