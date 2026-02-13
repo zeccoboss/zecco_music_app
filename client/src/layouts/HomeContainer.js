@@ -7,10 +7,10 @@ import { mobileScreen } from "../core/screenBreakPoints.js";
 import { HomeSkeleton } from "../components/skeleton/HomeSkeleton.js";
 import { buildNode } from "../utils/buildFragments.js";
 
-const homeContainerInstance = new CreateElement("section");
 const HomeContainer = async () => {
-	// Create element
 	const homeContainerInstance = new CreateElement("section");
+
+	// Create element
 	const musicCardContainer = new CreateElement("section");
 
 	// Set attributes
@@ -126,12 +126,11 @@ const HomeContainer = async () => {
 				console.error(err);
 			}
 		}, 500);
-
-		return homeContainerInstance.getElement();
 	} catch (err) {
 		console.log(err);
-		return null;
 	}
-};
 
-export { homeContainerInstance, HomeContainer };
+	return homeContainerInstance.getElement();
+};
+// export { homeContainerInstance, HomeContainer };
+export { HomeContainer };

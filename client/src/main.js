@@ -1,12 +1,12 @@
 import Aside from "./layouts/Aside.js";
 import { Container } from "./layouts/Container.js";
 // import ExtraContent from "./layouts/ExtraContent.js";
-import Footer from "./layouts/Footer.js";
+import { Footer } from "./layouts/Footer.js";
 import { Header } from "./layouts/Header";
-import Main from "./layouts/Main.js";
-import MobileFooter from "./layouts/MobileFooter";
+import { Main } from "./layouts/Main.js";
+import { MobileFooter } from "./layouts/MobileFooter";
 import { MobileHeader } from "./layouts/MobileHeader.js";
-import MobileMain from "./layouts/MobileMain.js";
+import { MobileMain } from "./layouts/MobileMain.js";
 import { Overlay } from "./layouts/Overlay.js";
 import StartupScreen from "./layouts/StartupScreen.js";
 import {
@@ -15,7 +15,6 @@ import {
 	mobileScreen,
 } from "./core/screenBreakPoints.js";
 import { initApp } from "./core/initApp.js";
-``;
 import { FormPage } from "./pages/FormPage.js";
 import { NoResourcePage } from "./pages/NoResourcePage.js";
 import { VerificationPage } from "./pages/VerificationPage.js";
@@ -24,11 +23,20 @@ import { ForgotPasswordFormPage } from "./pages/ForgotPasswordFormPage.js";
 import "./styles/base.css";
 import "./styles/skeleton.css";
 import "./styles/media.css";
+import CreateElement from "./utils/CreateElement.js";
 
-const renderApp = (app) => {
+const renderApp = () => {
+	const clearApp = () => {
+		const app = document.querySelector("#app");
+		// const ctns = document.querySelectorAll("#app > div");
+		// if (ctns) for (const c of ctns) c.innerHTML = "";
+
+		app.innerHTML = ""; // Clear the app
+	};
+
 	const applyMobileContent = async (message) => {
 		console.warn("Clearing app..");
-		app.innerHTML = ""; // Clear the app
+		clearApp();
 		console.warn("Appending app content...");
 
 		// Add Components to app
@@ -59,7 +67,7 @@ const renderApp = (app) => {
 
 	const applyBigScreenContent = async (message) => {
 		console.warn("Clearing app...");
-		app.innerHTML = ""; // Clear the app
+		clearApp();
 		console.warn("Appending app content...");
 
 		// Add Components to app
@@ -89,7 +97,7 @@ const renderApp = (app) => {
 
 	const applyLargeScreenContent = async (message) => {
 		console.warn("Clearing app...");
-		app.innerHTML = ""; // Clear the app
+		clearApp();
 		console.warn("Appending app content...");
 
 		// Add Components to app
@@ -152,4 +160,4 @@ const renderApp = (app) => {
 };
 
 // Render Application
-renderApp(document.querySelector("#app"));
+renderApp();

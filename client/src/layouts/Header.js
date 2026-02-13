@@ -1,8 +1,4 @@
-import {
-	bigScreen,
-	mobileScreen,
-	largeScreen,
-} from "../core/screenBreakPoints.js";
+import { bigScreen, largeScreen } from "../core/screenBreakPoints.js";
 // import { navigateSearch } from "../events/navigateSearch.js";
 // import navigateSignup from "../events/navigateSignup.js";
 import CreateElement from "../utils/CreateElement.js";
@@ -11,7 +7,6 @@ import {
 	musicIconSvg,
 	panelOpenSvg,
 } from "../assets/svgs/svgIcons.js";
-import { getTag } from "../helpers/selectElement.js";
 import { sidebarHandler } from "../events/sidebarHandler.js";
 
 // Create element
@@ -22,42 +17,34 @@ headerInstance.addClass("header");
 headerInstance.setId("header");
 
 headerInstance.innerHTML = `
-		<div class="header_logo_container">
-			<div class="sidebar_toggle_container">
-				<button class="sidebar_toggle_btn">${panelOpenSvg}</button>
-				<small class="sidebar_toggle_tooltip" arial-label="Toggle sidebar">Toggle sidebar</small>
-			</div>
-			<div href="/" class="logo">${musicIconSvg}<span>ZeccoMusic</span></div>
+	<div class="header_logo_container">
+		<div class="sidebar_toggle_container">
+			<button class="sidebar_toggle_btn">${panelOpenSvg}</button>	
+			<small class="sidebar_toggle_tooltip" arial-label="Toggle sidebar">Toggle sidebar</small>
 		</div>
+		<div href="/" class="logo">${musicIconSvg}<span>ZeccoMusic</span></div>
+	</div>
 
-		<form action="" class="search_form">
-			${magnifierSvg}
-			<input type="search" name="search" id="search-input" class="search_input" placeholder="Search..." />
-		</form>
+	<form action="" class="search_form">
+		${magnifierSvg}
+		<input type="search" name="search" id="search-input" class="search_input" placeholder="Search..." />
+	</form>
 
-		<div class="header_sign_btn">
-			<button class="header_signup_btn">
-				<a href="/register">Sign Up</a>
-			</button>
-			<button class="header_signin_btn">
-				<a href="/login">Login</a>
-			</button>
-		</div>
-	`;
+	<div class="header_sign_btn">
+		<button class="header_signup_btn">
+			<a href="/register">Sign Up</a>
+		</button>
+		<button class="header_signin_btn">
+			<a href="/login">Login</a>
+		</button>
+	</div>
+`;
 
 // const headerSVGs =headerInstance.getChildren("svg", "element");
 const musicIcon = headerInstance.getChild(".bi-music-note");
 
 // shrink_sidebar;
 sidebarHandler();
-
-// Make all it's svgs white
-// for (const svg of headerSVGs) svg.style.fill = "white";
-
-if (bigScreen.matches || largeScreen.matches) {
-	musicIcon.setAttribute("width", "35");
-	musicIcon.setAttribute("height", "35");
-}
 
 const searchInput = headerInstance.getChild(".search_input");
 
@@ -68,6 +55,11 @@ searchInput.addEventListener("input", (e) => {
 });
 
 const Header = () => {
+	if (bigScreen.matches || largeScreen.matches) {
+		musicIcon.setAttribute("width", "35");
+		musicIcon.setAttribute("height", "35");
+	}
+
 	// return header element
 	return headerInstance.getElement();
 };

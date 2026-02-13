@@ -1,27 +1,27 @@
-import LibrarySection from "./LibraryContainer.js";
-import SearchSection from "./SearchContainer.js";
-import CreateElement from "../utils/CreateElement.js";
-import { HomeContainer } from "./HomeContainer.js";
-import ProfileContainer from "./ProfileContainer.js";
-import LibraryContainer from "./LibraryContainer.js";
-import SearchContainer from "./SearchContainer.js";
+import CreateElement from "../utils/CreateElement";
+import { HomeContainer } from "./HomeContainer";
+import { LibraryContainer } from "./LibraryContainer";
+import { ProfileContainer } from "./ProfileContainer";
+import { SearchContainer } from "./SearchContainer";
+import { SettingsContainer } from "./SettingsContainer";
+
+// Create element
+const mainInstance = new CreateElement("main");
+
+// Set attributes
+mainInstance.addClass("main");
+mainInstance.setId("main");
 
 const Main = async () => {
-	// Create element
-	const main = new CreateElement("main");
-
-	// Set attributes
-	main.addClass("main");
-	main.setId("main");
-
-	main.append(
+	mainInstance.append(
 		await HomeContainer(),
 		LibraryContainer(),
 		SearchContainer(),
 		ProfileContainer(),
+		SettingsContainer(),
 	);
 
-	return main.getElement();
+	return mainInstance.getElement();
 };
 
-export default Main;
+export { mainInstance, Main };

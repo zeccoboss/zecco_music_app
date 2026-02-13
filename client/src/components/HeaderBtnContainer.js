@@ -27,11 +27,11 @@ const libraryBtnWrapper = `
 		<button class="header_action_btns lib_btns lib_artist_btn">Following</button>
 	</div>
 `;
-
+// settings_btns_ctn;
 const profileBtnWrapper = `
 	<div class="profile_btns_ctn header_btn_wrappers">
+		<a href="/settings" class="header_action_btns profile_btns">Settings</a>
 		<button class="header_action_btns profile_btns">Edit Profile</button>
-		<button class="header_action_btns profile_btns">Settings</button>
 	</div>
 `;
 
@@ -44,6 +44,13 @@ const searchBtnWrapper = `
 		</button>
 	</div>
 `;
+const settingsBtnWrapper = `
+	<div class="settings_btns_ctn header_btn_wrappers">
+		<button class="header_action_btns profile_btns">${magnifierSvg}</button>
+		<a href="/profile" class="header_action_btns profile_btns">Profile</a>
+		<button class="header_action_btns profile_btns">Edit Profile</button>
+	</div>
+`;
 
 const HeaderBtnCtn = () => {
 	if (matchMobile) {
@@ -52,8 +59,10 @@ const HeaderBtnCtn = () => {
 			libraryBtnWrapper,
 			searchBtnWrapper,
 			profileBtnWrapper,
+			settingsBtnWrapper,
 		);
 	}
+
 	return homeBtnCtnrInstance.getElement();
 };
 
@@ -62,6 +71,7 @@ const buttonWrapper = {
 	libraryBtns: libraryBtnWrapper,
 	searchBtns: searchBtnWrapper,
 	profileBtns: profileBtnWrapper,
+	settingsBtns: settingsBtnWrapper,
 };
 
 export { homeBtnCtnrInstance, HeaderBtnCtn, buttonWrapper };

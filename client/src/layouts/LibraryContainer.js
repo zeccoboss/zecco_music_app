@@ -1,30 +1,29 @@
-import CreateElement from "../utils/CreateElement.js";
-import LibrarySkeleton from "../components/skeleton/LibrarySkeleton.js";
+import CreateElement from "../utils/CreateElement";
+import LibrarySkeleton from "../components/skeleton/LibrarySkeleton";
 import {
 	chevronDownSvg,
 	heartFillSvg,
 	recentSvg,
 	uploadSvg,
-} from "../assets/svgs/svgIcons.js";
-import LibraryPlaylistCard from "../components/LibraryPlaylistCard.js";
-import LibraryArtistCard from "../components/LibraryArtistCard.js";
-import { mobileScreen } from "../core/screenBreakPoints.js";
+} from "../assets/svgs/svgIcons";
+import LibraryPlaylistCard from "../components/LibraryPlaylistCard";
+import LibraryArtistCard from "../components/LibraryArtistCard";
+import { mobileScreen } from "../core/screenBreakPoints";
 import { buttonWrapper } from "../components/HeaderBtnContainer.js";
-import { libraryContainerEvents } from "../events/libraryContainerEvents.js";
+
+// Create element
+const libraryContainerInstance = new CreateElement("section");
+const libraryContent = new CreateElement("section");
+
+// Set attributes
+libraryContainerInstance.addClass("library_section", "main_sections");
+libraryContainerInstance.setId("library-section");
+
+// Library content
+libraryContent.addClass("library_content", "show_lib_content");
+libraryContent.setId("library-content");
 
 const LibraryContainer = () => {
-	// Create element
-	const libraryContainer = new CreateElement("section");
-	const libraryContent = new CreateElement("section");
-
-	// Set attributes
-	libraryContainer.addClass("library_section", "main_sections");
-	libraryContainer.setId("library-section");
-
-	// Library content
-	libraryContent.addClass("library_content", "show_lib_content");
-	libraryContent.setId("library-content");
-
 	// Set inner HTML
 	const libraryContentWrapper = `
 		<section class="user_library lib_secs">
@@ -100,20 +99,20 @@ const LibraryContainer = () => {
 
 	// Empty library section
 	const emptyLibraryCtn = `
-		<section class="empty_lib_content" id="empty-library">
-			<h2>Library</h2>
+	<section class="empty_lib_content" id="empty-library">
+		<h2>Library</h2>
 
-			<div class="empty_lib_container">
-				<h3>No content in your library.</h3>
-				<p>To access your library  
-					<strong><a href="/register" class="empty_lib_links muted_link">Sign up</a></strong> to continue or <strong><a href="/login" class="empty_lib_links muted_link">Login</a></strong> to access all features.</p>
-				<div class="lib_lnks_ctn">
-					<a href="/register" class="empty_lib_links">Sign up</a>
-					<a href="/login" class="empty_lib_links">Login</a> 
-				</div>
+		<div class="empty_lib_container">
+			<h3>No content in your library.</h3>
+			<p>To access your library  
+				<strong><a href="/register" class="empty_lib_links muted_link">Sign up</a></strong> to continue or <strong><a href="/login" class="empty_lib_links muted_link">Login</a></strong> to access all features.</p>
+			<div class="lib_lnks_ctn">
+				<a href="/register" class="empty_lib_links">Sign up</a>
+				<a href="/login" class="empty_lib_links">Login</a> 
 			</div>
-		</section>
-	`;
+		</div>
+	</section>
+`;
 
 	const libCardCover = libraryContent.getChildren(".lib_card_cover");
 	libCardCover.forEach((el) => {
@@ -122,15 +121,12 @@ const LibraryContainer = () => {
 		svg.setAttribute("height", "25");
 	});
 
-	libraryContainer.appendContent(
+	libraryContainerInstance.appendContent(
 		libraryContent.getElement(),
 		emptyLibraryCtn,
 		// LibrarySkeleton(),
 	);
-	// const btns = libraryContainer.getChildren("lib_btns", "class");
-
-	libraryContainerEvents(libraryContainer);
-	return libraryContainer.getElement();
+	// const btns = libraryContainerInstance.getChildren("lib_btns", "class");
+	return libraryContainerInstance.getElement();
 };
-
-export default LibraryContainer;
+export { libraryContainerInstance, LibraryContainer };

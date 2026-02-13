@@ -45,9 +45,6 @@ const libraryContainerEvents = (libraryContainer) => {
 		const librarySections = libraryContainer.getChildren(".lib_secs");
 		const userLibraryTabs = getMultiTags(".lib_card");
 
-		// console.log(userLibraryTabs);
-		// console.log(librarySections);
-
 		function showTab(identifier) {
 			// const uploadTab = getTag("uploaded_tab", "class");
 			for (const sec of librarySections) {
@@ -80,12 +77,8 @@ const libraryContainerEvents = (libraryContainer) => {
 
 		switch (true) {
 			case matches(".all_tab_btn"):
-				for (const sec of librarySections) {
-					sec.style.display = "block";
-				}
-				for (const tab of userLibraryTabs) {
-					tab.style.display = "grid";
-				}
+				for (const sec of librarySections) sec.style.display = "block"; // Show all sections
+				for (const tab of userLibraryTabs) tab.style.display = "grid"; // Show all tabs
 				break;
 			case matches(".liked_tab_btn"):
 				showTab("liked_tab"); // Liked tab

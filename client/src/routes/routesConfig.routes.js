@@ -7,6 +7,7 @@ import RenderProfile from "../utils/RenderProfile";
 import RenderRegisterForm from "../utils/RenderRegisterForm";
 import RenderResetPasswordPage from "../utils/RenderResetPasswordPage";
 import RenderSearch from "../utils/RenderSearch";
+import RenderSettings from "../utils/RenderSettings";
 import RenderVerifyUserPage from "../utils/RenderVerifyUserPage";
 
 // Declare all routes
@@ -35,6 +36,11 @@ const routes = [
 		// (/profile/id--id84je4r3) User profile
 		pattern: /^\/profile$/,
 		handler: RenderProfile,
+	},
+	{
+		// (/library) Library
+		pattern: /^\/settings$/,
+		handler: RenderSettings,
 	},
 	{
 		// (/login) Login form on form page

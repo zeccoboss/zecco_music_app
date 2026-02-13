@@ -1,4 +1,4 @@
-import { routes } from "./routesConfig";
+import { routes } from "./routesConfig.routes";
 
 class Router {
 	// Define routes

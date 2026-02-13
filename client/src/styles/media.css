@@ -5,8 +5,6 @@
 	} */
 
 	.home_section {
-		/* scrollbar-width: thin;
-		display: grid; */
 		grid-template-columns: 1fr;
 		/* align-content: baseline; */
 	}
@@ -16,7 +14,7 @@
 	:root {
 		/* || Spacing */
 		--space: 0.5rem; /* Margin and Padding  */
-		--h-height: 5.9rem; /* Header height  */
+		--h-height: 5.5rem; /* Header height  */
 		--f-height: 4rem; /* Footer height */
 		--mb-main-h: calc(100vh - var(--h-height) - var(--f-height));
 		--player-height: 3.5rem; /* Playing banner */
@@ -24,6 +22,7 @@
 		--nav-spinner-h: 7rem;
 		/* || Animation  */
 		--transition: all ease-out 0.3s;
+		--crd-cover-size: 3.5rem;
 	}
 
 	#app {
@@ -37,6 +36,10 @@
 
 	#header-plus-btn {
 		position: relative;
+	}
+
+	.header_action_btns {
+		padding: calc(var(--space) - 0.2rem) var(--space);
 	}
 
 	.header_add_list {
@@ -91,7 +94,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-content: space-between;
-		margin: var(--space);
+		margin: var(--space) var(--space) 0 var(--space);
 		/* padding: var(--space) 1rem var(--space) 1rem; */
 	}
 
@@ -147,6 +150,16 @@
 		top: 0;
 		height: var(--act-sec);
 		margin-bottom: 1.5rem;
+	}
+
+	.profile_header {
+		height: 10rem;
+		position: relative;
+
+		.profile_pic_wrapper {
+			width: 6rem;
+			height: 6rem;
+		}
 	}
 
 	.mini_player {

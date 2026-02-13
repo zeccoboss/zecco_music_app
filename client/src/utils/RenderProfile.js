@@ -1,16 +1,11 @@
-import appConfig from "../config/AppConfig";
+import appConfig from "../config/AppConfig.js";
 import { clearActiveNav } from "../helpers/clearActiveNav";
 import { clearActiveSections } from "../helpers/clearActiveSections";
+import { profileContainerInstance } from "../layouts/ProfileContainer.js";
 import { manageHeaderBtns } from "./manageHeaderBtns.js";
 
 const RenderProfile = () => {
-	appConfig.pageTitle = "User Profile";
-	console.log("Profile rendered");
-	const profileSection = document.querySelector(".profile_section");
-
-	appConfig.pageTitle = "Music";
-	// const extraContent = document.querySelector(".extra_content");
-	// const overlay = document.querySelector(".overlay");
+	appConfig.pageTitle = "Profile";
 
 	// Clear all active sections and nav links
 	clearActiveSections();
@@ -18,7 +13,7 @@ const RenderProfile = () => {
 
 	manageHeaderBtns("Profile", "profile_btns_ctn");
 
-	profileSection.classList.add("active_section");
+	profileContainerInstance.addClass("active_section");
 };
 
 export default RenderProfile;

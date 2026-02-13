@@ -1,9 +1,6 @@
-import handleFormNavigation from "../helpers/handleFormNavigation.js";
-import { formPageInstance } from "../pages/FormPage.js";
-import { router } from "../routes/router.js";
-import CreateElement from "../utils/CreateElement.js";
-import { homeSvg } from "../assets/svgs/svgIcons.js";
-import { validateRegister } from "../validators/validateRegister.js";
+import { homeSvg } from "../assets/svgs/svgIcons";
+import CreateElement from "../utils/CreateElement";
+import { validateRegister } from "../validators/validateRegister";
 
 const registerFormInstance = new CreateElement("forms");
 

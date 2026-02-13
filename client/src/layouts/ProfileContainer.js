@@ -1,18 +1,20 @@
 import defaultProfile from "../assets/images/default-profile.png";
-import { cameraSvg } from "../assets/svgs/svgIcons.js";
+import { cameraSvg, pencilSvg } from "../assets/svgs/svgIcons.js";
+import { buttonWrapper } from "../components/HeaderBtnContainer.js";
 import appConfig from "../config/AppConfig.js";
+import { mobileScreen } from "../core/screenBreakPoints.js";
 import CreateElement from "../utils/CreateElement.js";
 
 const date = `${appConfig.date.getDate()}-${appConfig.date.getMonth()}-${appConfig.date.getFullYear()}`;
 
+// Create element
+const profileContainerInstance = new CreateElement("section");
+
+// Set attributes
+profileContainerInstance.addClass("profile_section", "main_sections");
+profileContainerInstance.setId("profile-section");
+
 const ProfileContainer = () => {
-	// Create element
-	const profileContainer = new CreateElement("section");
-
-	// Set attributes
-	profileContainer.addClass("profile_section", "main_sections");
-	profileContainer.setId("profile-section");
-
 	const profileHeader = `
 		<div class="profile_header">
 			<div class="profile_cover_wrapper">
@@ -27,20 +29,24 @@ const ProfileContainer = () => {
 				<figure class="profile_pic_wrapper">
 					<img src="${defaultProfile}" class="profile_pic" width="100" height="100" alt="Profile picture">
 					<figcaption>Profile Picture</figcaption>
-					<!-- <button class="profile_pic_btn">${cameraSvg}</button> -->
 				</figure>
 			</div>
 		</div>
 	`;
 
-	profileContainer.innerHTML = `
+	profileContainerInstance.innerHTML = `
 		<div class="profile_containers" data-private-profile>
 			${profileHeader}
 
 			<div class="profile_info">
 				<div id="" class="profile_user_data">
-					<h3 class="user_name" data-user-placeholder>ZECCOBOSS</h3>
-					<p class="user_id">User ID: <span data-user-id=>478984397664387298</span></p>
+					<div>
+						<h3 class="user_name" data-user-placeholder>ZECCOBOSS</h3>
+						<p class="user_id">User ID: <span data-user-id=>478984397664387298</span></p>
+					</div>
+					<div>
+						<button class="st_prf_card_wrapper">${pencilSvg}</button>
+					</div>
 				</div>
 
 				<div class="profile_details">
@@ -69,7 +75,7 @@ const ProfileContainer = () => {
 			</div>
 
 			<div class="profile_content">
-				<div>
+				<div profile-content-header>
 					<h3>Playlists</h3>
 				</div>
 			</div>
@@ -80,9 +86,6 @@ const ProfileContainer = () => {
 
 		</div>
 	`;
-
-	//
-	return profileContainer.getElement();
+	return profileContainerInstance.getElement();
 };
-
-export default ProfileContainer;
+export { profileContainerInstance, ProfileContainer };

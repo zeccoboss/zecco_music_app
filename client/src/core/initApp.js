@@ -9,9 +9,9 @@ const initApp = async (message) => {
 	preventLinksBehavior(); // Prevent page refresh when an anchor tag is clicked
 	headerEvent(); // Add event to the header
 	themeManager.init(); // Initialize the application theme
-	themeManager.setDark();
+	// themeManager.setDark();
 	// themeManager.setLight();
-	themeManager.setSystem();
+	// themeManager.setSystem();
 };
 
 export { initApp };

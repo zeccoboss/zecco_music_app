@@ -1,23 +1,25 @@
+import { checkedSvg } from "../assets/svgs/svgIcons";
 import {
 	getLocalStorageData,
 	setToLocalStorage,
 } from "../helpers/getLocalStorageData";
-import { getTag } from "../helpers/selectElement";
+import { getMultiTags, getTag } from "../helpers/selectElement";
+import { settingsContainerInstance } from "../layouts/SettingsContainer";
 
 class ThemeManager {
-	#root = document.documentElement;
-	#app = getTag("#app", "id");
+	#root = document.documentElement; // Get the root of the page
+	#app = getTag("#app");
 	#storedTheme = getLocalStorageData("Theme");
 	#globalTheme = window.matchMedia("(prefers-color-scheme: dark)"); // Checks for dark mood
 	#themes = {
-		dark: {
+		Dark: {
 			"--background": "hsl(0, 0%, 10%)",
 			"--text": "hsl(0, 3%, 89%)",
 			"--accent": "hsl(213, 100%, 50%)",
 			"--muted": "rgb(187, 187, 187)",
 			"--svg-color": "rgb(221, 221, 221)",
 		},
-		light: {
+		Light: {
 			"--background": "hsl(0, 0%, 100%)",
 			"--text": "hsl(0, 2%, 12%)",
 			"--accent": "hsl(213, 100%, 50%)",
@@ -26,12 +28,17 @@ class ThemeManager {
 		},
 	};
 
+	#systemDarkMood = () => this.#syncTheme("Dark", "System"); // Sync the changes to the page
+	#systemLightMood = () => this.#syncTheme("Light", "System"); // Sync the changes to the page
+
+	#changeThemeEvent = (e) => {
+		e.matches ? this.#systemDarkMood() : this.#systemLightMood(); // Apply theme due to the global theme
+	};
+
 	#applyTheme(name) {
-		const data = Object.entries(this.#themes[name]);
-		// Loop through and c...setDark
-		data.forEach(([key, value]) => {
-			this.#root.style.setProperty(key, value);
-		});
+		const data = Object.entries(this.#themes[name]); // Covert object to arrays
+		// biome-ignore lint/suspicious/useIterableCallbackReturn: <Need to keep it short not returning values>
+		data.forEach(([key, value]) => this.#root.style.setProperty(key, value));
 	}
 
 	// Clear all theme attribute from app
@@ -43,73 +50,82 @@ class ThemeManager {
 	// Call to clear all theme attr from page, add the required theme attr then save to local storage
 	#syncTheme(name, defaultTheme) {
 		this.#applyTheme(name); // Call to change the css variables
-		this.#clearTheme("dark", "light", "system"); // Clear the attr from the root element
+		this.#clearTheme("Dark", "Light", "System"); // Clear the attr from the root element
 		this.#app.setAttribute("data-theme", defaultTheme ?? name); // Add the provided theme attr value
 		setToLocalStorage("Theme", defaultTheme ?? name); //  Save the provided theme
+
+		if (
+			(name === "Dark" && !defaultTheme) ||
+			(name === "Light" && !defaultTheme)
+		) {
+			this.#globalTheme.removeEventListener(
+				"change",
+				this.#changeThemeEvent,
+			);
+		}
+
+		this.#renderTheme(defaultTheme ?? name);
 	}
 
 	#renderTheme(theme) {
-		const themeContainer = getTag("#theme-container");
+		const sci = settingsContainerInstance;
 
-		// Only add event when the theme container is available
-		if (!themeContainer) {
-			// console.error("No theme container");
-			return;
-		} else {
-			themeContainer.onclick = (e) => console.log(e.target); // Log the target
+		const themePlaceholder = sci.getChild("[data-theme-placeholder]");
+		const themeContainer = getTag(".theme_container_content");
+		themePlaceholder.innerHTML = theme; // Show current theme on page
+
+		if (!themeContainer && !themePlaceholder)
+			return console.error("No theme container or placeholder"); // Only add event when the theme container is available
+
+		switch (theme) {
+			case "Dark":
+				getTag(".theme_btn_dark", sci).innerHTML =
+					`<span>${theme}</span>${checkedSvg}`;
+				getTag(".theme_btn_light", sci).innerHTML = "Light";
+				getTag(".theme_btn_system", sci).innerHTML = "System";
+				break;
+			case "Light":
+				getTag(".theme_btn_dark", sci).innerHTML = "Dark";
+				getTag(".theme_btn_light", sci).innerHTML =
+					`<span>${theme}</span>${checkedSvg}`;
+				getTag(".theme_btn_system", sci).innerHTML = "System";
+				break;
+			case "System":
+				getTag(".theme_btn_dark", sci).innerHTML = "Dark";
+				getTag(".theme_btn_light", sci).innerHTML = "Light";
+				getTag(".theme_btn_system", sci).innerHTML =
+					`<span>${theme}</span>${checkedSvg}`;
+				break;
 		}
-
-		// console.info(`App on ${theme} theme`); // Give log of current theme
 	}
 
 	// Initialize the theme on first app load
 	init() {
 		switch (this.#storedTheme) {
-			case "light":
+			case "Light":
 				this.setLight(); // Light mood
 				break;
-			case "dark":
+			case "Dark":
 				this.setDark(); // Dark mood
 				break;
-			default:
+			case "System" || null:
 				this.setSystem(); // System mood
 				break;
 		}
 	}
 
-	// System default
 	setSystem() {
-		const matchedDarkTheme = this.#globalTheme.matches; // /Will match if its on dark theme
-
-		const systemDarkMood = () => {
-			this.#syncTheme("dark", "system"); // Sync the changes to the page
-			this.#renderTheme("system");
-		};
-
-		const systemLightMood = () => {
-			this.#syncTheme("light", "system"); // Sync the changes to the page
-			this.#renderTheme("system");
-		};
-
-		// Apply theme due to the global theme
-		matchedDarkTheme ? systemDarkMood() : systemLightMood();
-
-		this.#globalTheme.addEventListener("change", (e) => {
-			const match = e.matches; // /Will match if its on dark theme
-			match ? systemDarkMood() : systemLightMood(); // Apply theme due to the global theme
-		});
+		const matchedDarkTheme = this.#globalTheme.matches; // Will match if its on dark theme
+		matchedDarkTheme ? this.#systemDarkMood() : this.#systemLightMood(); // Apply theme due to the global theme
+		this.#globalTheme.addEventListener("change", this.#changeThemeEvent); // Add Event when its on system mood
 	}
 
-	// Apply light theme
 	setLight() {
-		this.#syncTheme(`light`); // Sync the changes to the page
-		this.#renderTheme(`Light`); // Update the theme details on page
+		this.#syncTheme(`Light`); // Sync the changes to the page  And set Light theme
 	}
 
-	// Apply dark theme
 	setDark() {
-		this.#syncTheme("dark"); // Sync the changes to the page
-		this.#renderTheme(`Dark`); // Update the theme details on page
+		this.#syncTheme("Dark"); // Sync the changes to the page And set Dark theme
 	}
 }
 

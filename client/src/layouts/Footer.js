@@ -1,4 +1,4 @@
-import CreateElement from "../utils/CreateElement.js";
+import CreateElement from "../utils/CreateElement";
 import {
 	heartSvg,
 	loopSvg,
@@ -8,19 +8,20 @@ import {
 	skipBack,
 	shuffleSvg,
 	threeDotMenuSvg,
-} from "../assets/svgs/svgIcons.js";
+} from "../assets/svgs/svgIcons";
 import musicImage from "../assets/images/favicon.png";
-import { adjustFooterSvg } from "../helpers/adjustSvgSize.js";
+import { adjustFooterSvg } from "../helpers/adjustSvgSize";
 
+// Create element
+const footerInstance = new CreateElement("footer", "Footer");
+
+// Return footer element
 const Footer = () => {
-	// Create element
-	const footer = new CreateElement("footer", "Footer");
-
 	// Set attributes
-	footer.addClass("footer");
-	footer.setId("footer");
+	footerInstance.addClass("footer");
+	footerInstance.setId("footer");
 
-	footer.innerHTML = `
+	footerInstance.innerHTML = `
 		<div class="footer_container">
 			<section class="music_data">
 				<figure class="music_image_container">
@@ -80,12 +81,11 @@ const Footer = () => {
 		</div>
  	`;
 
-	const footerSVGs = footer.getChildren("svg", "element");
+	const footerSVGs = footerInstance.getChildren("svg");
 
 	adjustFooterSvg(footerSVGs, 50, 30, 20, "white");
 
-	// Return footer element
-	return footer.getElement();
+	return footerInstance.getElement();
 };
 
-export default Footer;
+export { footerInstance, Footer };

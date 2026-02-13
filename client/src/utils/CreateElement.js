@@ -6,6 +6,13 @@ class CreateElement {
 		else if (text) this.element.innerText = text;
 	}
 
+	setAttribute(name, value) {
+		if (typeof name !== "string") {
+			console.warn(`${name}, Not a valid attribute`);
+			return;
+		} else this.element.setAttribute(name, value);
+	}
+
 	append(...items) {
 		this.element.append(...items);
 	}
