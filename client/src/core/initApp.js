@@ -2,7 +2,7 @@ import { headerEvent } from "../events/headerEvents.js";
 import { preventLinksBehavior } from "../events/preventPageRefresh.js";
 import { router } from "../routes/router.js";
 import { themeManager } from "./themeManager.js";
-
+import { sidebarHandler } from "../events/sidebarHandler.js";
 const initApp = async (message) => {
 	console.log(message);
 	router.initRoutes(); // Initializes the routes on page load
@@ -12,6 +12,8 @@ const initApp = async (message) => {
 	// themeManager.setDark();
 	// themeManager.setLight();
 	// themeManager.setSystem();
+	// shrink_sidebar;
+	sidebarHandler();
 };
 
 export { initApp };

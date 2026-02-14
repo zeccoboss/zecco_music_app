@@ -1,16 +1,18 @@
 import { getMultiTags, getTag } from "../helpers/selectElement";
-import { mobileHeaderInstance } from "../layouts/MobileHeader";
+// import { mobileHeaderInstance } from "../layouts/MobileHeader"
+// ;
 
 const libraryContainerEvents = (libraryContainer) => {
+	const header = getTag(".header");
 	// Make an anonymous function so it will run first on lot not to break layout
 	const libraryBtnsCtn = (() => {
 		return (
-			mobileHeaderInstance.getChild(".library_btns_ctn") ||
+			header.querySelector(".library_btns_ctn") ||
 			libraryContainer.getChild(".library_btns_ctn")
 		);
 	})();
 
-	libraryContainer.addEvent("click", (e) => {
+	libraryContainer.addEventListener("click", (e) => {
 		// Get the closest target if bubbling matches
 		const closest = (name, event = e) => {
 			return !!event.target.closest(name); // Return boolean
@@ -42,7 +44,7 @@ const libraryContainerEvents = (libraryContainer) => {
 		}
 
 		// Select elements
-		const librarySections = libraryContainer.getChildren(".lib_secs");
+		const librarySections = getMultiTags(".lib_secs", libraryContainer);
 		const userLibraryTabs = getMultiTags(".lib_card");
 
 		function showTab(identifier) {

@@ -1,7 +1,7 @@
 import { themeManager } from "../core/themeManager";
 
-const settingsContainerEvents = (settingsInstance) => {
-	settingsInstance.addEvent("click", (e) => {
+const settingsContainerEvents = (settingsContainer) => {
+	settingsContainer.addEventListener("click", (e) => {
 		const closest = (name, event = e) => {
 			return !!event.target.closest(name); // Return boolean
 		};

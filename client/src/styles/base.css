@@ -11,7 +11,7 @@
 	/*  */
 	--h-height: 5rem;
 	--f-height: 6rem;
-	--m-height: calc(100vh - var(--f-height) - var(--h-height));
+	--m-height: calc(100dvh - var(--f-height) + var(--h-height));
 	--sb-height: var(--m-height);
 	--m-secs-height: var(--m-height);
 	--nav-spinner-h: clamp(7rem, 20vw, 10rem);

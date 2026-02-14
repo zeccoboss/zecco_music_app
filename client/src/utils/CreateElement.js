@@ -1,9 +1,16 @@
 class CreateElement {
+	static instances = new Set();
+
 	constructor(elementName, text, html) {
 		this.element = document.createElement(`${elementName}`);
 
 		if (html) this.element.innerHTML = html;
 		else if (text) this.element.innerText = text;
+		CreateElement.instances.add(this.element);
+	}
+
+	static getInstances() {
+		return CreateElement.instances;
 	}
 
 	setAttribute(name, value) {

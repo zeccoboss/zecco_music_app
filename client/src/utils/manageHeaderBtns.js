@@ -1,6 +1,6 @@
 import { mobileScreen } from "../core/screenBreakPoints";
-import { getMultiTags } from "../helpers/selectElement";
-import { mobileHeaderInstance } from "../layouts/MobileHeader";
+import { getMultiTags, getTag } from "../helpers/selectElement";
+// import { mobileHeaderInstance } from "../layouts/MobileHeader";
 
 // const manageHeaderBtns =  => {
 const manageHeaderBtns = (title, selector) => {
@@ -13,7 +13,7 @@ const manageHeaderBtns = (title, selector) => {
 		}
 
 		// Select and change the page title
-		const pageHeader = mobileHeaderInstance.getChild("#header-title");
+		const pageHeader = getTag("#header-title");
 		if (pageHeader) pageHeader.innerHTML = title;
 
 		const btnContainers = getMultiTags(".header_btn_wrappers");

@@ -4,17 +4,17 @@ import { HomeContainer } from "./HomeContainer.js";
 import { LibraryContainer } from "./LibraryContainer.js";
 import { ProfileContainer } from "./ProfileContainer.js";
 import { SearchContainer } from "./SearchContainer.js";
-import { SettingsContainer } from "./SettingsContainer.js";
-
-// Create element
-const mobileMainInstance = new CreateElement("main");
-
-// Set attributes
-mobileMainInstance.addClass("mobile_main");
-mobileMainInstance.setId("mobile-main");
+import { SettingsContainer } from "./SettingContainer.js";
 
 //
 const MobileMain = async () => {
+	// Create element
+	const mobileMainInstance = new CreateElement("main");
+
+	// Set attributes
+	mobileMainInstance.addClass("mobile_main");
+	mobileMainInstance.setId("mobile-main");
+
 	mobileMainInstance.append(
 		await HomeContainer(),
 		LibraryContainer(),
@@ -27,4 +27,4 @@ const MobileMain = async () => {
 
 	return mobileMainInstance.getElement();
 };
-export { mobileMainInstance, MobileMain };
+export { MobileMain };

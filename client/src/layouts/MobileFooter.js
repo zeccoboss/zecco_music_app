@@ -9,14 +9,14 @@ import CreateElement from "../utils/CreateElement.js";
 import { adjustMobileFooterSvg } from "../helpers/adjustSvgSize.js";
 import { mobileScreen } from "../core/screenBreakPoints.js";
 
-// Create element
-const mobileFooterInstance = new CreateElement("footer");
-
-// Set attributes
-mobileFooterInstance.addClass("mobile_footer");
-mobileFooterInstance.setId("mobile-footer");
-
 const MobileFooter = () => {
+	// Create element
+	const mobileFooterInstance = new CreateElement("footer");
+
+	// Set attributes
+	mobileFooterInstance.addClass("mobile_footer");
+	mobileFooterInstance.setId("mobile-footer");
+
 	mobileFooterInstance.innerHTML = `
 		<nav class="footer_nav">
 			<ul class="footer_nav_list">
@@ -56,4 +56,4 @@ const MobileFooter = () => {
 
 	return mobileFooterInstance.getElement();
 };
-export { mobileFooterInstance, MobileFooter };
+export { MobileFooter };

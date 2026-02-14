@@ -5,7 +5,7 @@ import MusicCard from "../components/MusicCard.js";
 import { buttonWrapper } from "../components/HeaderBtnContainer.js";
 import { mobileScreen } from "../core/screenBreakPoints.js";
 import { HomeSkeleton } from "../components/skeleton/HomeSkeleton.js";
-import { buildNode } from "../utils/buildFragments.js";
+import { buildNode } from "../utils/buildNode.js";
 
 const HomeContainer = async () => {
 	const homeContainerInstance = new CreateElement("section");

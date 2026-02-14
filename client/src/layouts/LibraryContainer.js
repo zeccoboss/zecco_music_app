@@ -11,19 +11,19 @@ import LibraryArtistCard from "../components/LibraryArtistCard";
 import { mobileScreen } from "../core/screenBreakPoints";
 import { buttonWrapper } from "../components/HeaderBtnContainer.js";
 
-// Create element
-const libraryContainerInstance = new CreateElement("section");
-const libraryContent = new CreateElement("section");
-
-// Set attributes
-libraryContainerInstance.addClass("library_section", "main_sections");
-libraryContainerInstance.setId("library-section");
-
-// Library content
-libraryContent.addClass("library_content", "show_lib_content");
-libraryContent.setId("library-content");
-
 const LibraryContainer = () => {
+	// Create element
+	const libraryContainerInstance = new CreateElement("section");
+	const libraryContent = new CreateElement("section");
+
+	// Set attributes
+	libraryContainerInstance.addClass("library_section", "main_sections");
+	libraryContainerInstance.setId("library-section");
+
+	// Library content
+	libraryContent.addClass("library_content", "show_lib_content");
+	libraryContent.setId("library-content");
+
 	// Set inner HTML
 	const libraryContentWrapper = `
 		<section class="user_library lib_secs">
@@ -129,4 +129,4 @@ const LibraryContainer = () => {
 	// const btns = libraryContainerInstance.getChildren("lib_btns", "class");
 	return libraryContainerInstance.getElement();
 };
-export { libraryContainerInstance, LibraryContainer };
+export { LibraryContainer };

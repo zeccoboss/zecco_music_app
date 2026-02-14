@@ -3,26 +3,27 @@ import {
 	getLocalStorageData,
 	setToLocalStorage,
 } from "../helpers/getLocalStorageData";
-import { containerInstance } from "../layouts/Container";
-import { headerInstance } from "../layouts/Header";
+import { getTag } from "../helpers/selectElement";
+import CreateElement from "../utils/CreateElement";
 
 const sidebarHandler = () => {
-	const toggleBtn = headerInstance.getChild(".sidebar_toggle_btn");
+	const toggleBtn = getTag(".sidebar_toggle_btn");
+	const container = getTag(".container");
 
 	(() => {
 		const sideBarState = getLocalStorageData("SideBar"); // Get data from local storage
 
 		// Check and apply the correct sidebar width
 		if (!sideBarState) {
-			containerInstance.removeClass("shrink_sidebar");
+			container.classList.remove("shrink_sidebar");
 			toggleBtn.innerHTML = panelOpenSvg;
 			setToLocalStorage("SideBar", "expand");
 		} else if (sideBarState === "expand") {
-			containerInstance.removeClass("shrink_sidebar");
+			container.classList.remove("shrink_sidebar");
 			toggleBtn.innerHTML = panelOpenSvg;
 			setToLocalStorage("SideBar", "expand");
 		} else if (sideBarState === "shrink") {
-			containerInstance.addClass("shrink_sidebar");
+			container.classList.add("shrink_sidebar");
 			toggleBtn.innerHTML = panelCloseSvg;
 			setToLocalStorage("SideBar", "shrink");
 		}
@@ -32,12 +33,12 @@ const sidebarHandler = () => {
 	toggleBtn.addEventListener("click", (e) => {
 		const currentTarget = e.currentTarget;
 
-		if (containerInstance.hasClass("shrink_sidebar")) {
-			containerInstance.removeClass("shrink_sidebar");
+		if (container.classList.contains("shrink_sidebar")) {
+			container.classList.remove("shrink_sidebar");
 			currentTarget.innerHTML = panelOpenSvg;
 			setToLocalStorage("SideBar", "expand");
 		} else {
-			containerInstance.addClass("shrink_sidebar");
+			container.classList.add("shrink_sidebar");
 			currentTarget.innerHTML = panelCloseSvg;
 			setToLocalStorage("SideBar", "shrink");
 		}

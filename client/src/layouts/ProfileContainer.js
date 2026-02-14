@@ -5,16 +5,16 @@ import appConfig from "../config/AppConfig.js";
 import { mobileScreen } from "../core/screenBreakPoints.js";
 import CreateElement from "../utils/CreateElement.js";
 
-const date = `${appConfig.date.getDate()}-${appConfig.date.getMonth()}-${appConfig.date.getFullYear()}`;
-
-// Create element
-const profileContainerInstance = new CreateElement("section");
-
-// Set attributes
-profileContainerInstance.addClass("profile_section", "main_sections");
-profileContainerInstance.setId("profile-section");
-
 const ProfileContainer = () => {
+	const date = `${appConfig.date.getDate()}-${appConfig.date.getMonth()}-${appConfig.date.getFullYear()}`;
+
+	// Create element
+	const profileContainerInstance = new CreateElement("section");
+
+	// Set attributes
+	profileContainerInstance.addClass("profile_section", "main_sections");
+	profileContainerInstance.setId("profile-section");
+
 	const profileHeader = `
 		<div class="profile_header">
 			<div class="profile_cover_wrapper">
@@ -88,4 +88,4 @@ const ProfileContainer = () => {
 	`;
 	return profileContainerInstance.getElement();
 };
-export { profileContainerInstance, ProfileContainer };
+export { ProfileContainer };

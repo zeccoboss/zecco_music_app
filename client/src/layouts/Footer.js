@@ -12,11 +12,11 @@ import {
 import musicImage from "../assets/images/favicon.png";
 import { adjustFooterSvg } from "../helpers/adjustSvgSize";
 
-// Create element
-const footerInstance = new CreateElement("footer", "Footer");
-
 // Return footer element
 const Footer = () => {
+	// Create element
+	const footerInstance = new CreateElement("footer", "Footer");
+
 	// Set attributes
 	footerInstance.addClass("footer");
 	footerInstance.setId("footer");
@@ -88,4 +88,4 @@ const Footer = () => {
 	return footerInstance.getElement();
 };
 
-export { footerInstance, Footer };
+export { Footer };

@@ -3,15 +3,15 @@ import { chevronDownSvg } from "../assets/svgs/svgIcons.js";
 import appConfig from "../config/AppConfig.js";
 import CreateElement from "../utils/CreateElement.js";
 
-const date = `${appConfig.date.getDate()}-${appConfig.date.getMonth()}-${appConfig.date.getFullYear()}`;
-
-// Create element
-const settingsContainerInstance = new CreateElement("section");
-settingsContainerInstance.addClass("settings_section", "main_sections");
-
 // Return the ...
 const SettingsContainer = () => {
 	// ${!mobileScreen.matches ? buttonWrapper.settingsBtns : ""}
+
+	const date = `${appConfig.date.getDate()}-${appConfig.date.getMonth()}-${appConfig.date.getFullYear()}`;
+
+	// Create element
+	const settingsContainerInstance = new CreateElement("section");
+	settingsContainerInstance.addClass("settings_section", "main_sections");
 
 	const settingsContent = `
 	<div class="settings_header" data-settings-header>
@@ -50,4 +50,4 @@ const SettingsContainer = () => {
 
 	return settingsContainerInstance.getElement();
 };
-export { settingsContainerInstance, SettingsContainer };
+export { SettingsContainer };
