@@ -1,48 +1,32 @@
+import { closest, matches } from "../helpers/eventDelegationHelpers";
 import { getMultiTags, getTag } from "../helpers/selectElement";
-// import { mobileHeaderInstance } from "../layouts/MobileHeader"
-// ;
 
 const libraryContainerEvents = (libraryContainer) => {
 	const header = getTag(".header");
 	// Make an anonymous function so it will run first on lot not to break layout
-	const libraryBtnsCtn = (() => {
-		return (
-			header.querySelector(".library_btns_ctn") ||
-			libraryContainer.getChild(".library_btns_ctn")
-		);
-	})();
+	const libraryBtnsCtn = (() => getTag(".library_btns_ctn"))();
 
 	libraryContainer.addEventListener("click", (e) => {
-		// Get the closest target if bubbling matches
-		const closest = (name, event = e) => {
-			return !!event.target.closest(name); // Return boolean
-		};
-
 		switch (true) {
-			case closest(".uploaded_tab"):
-				console.log("Liked tab ");
+			case closest(".uploaded_tab", e):
+				console.log("uploaded tab ");
 				break;
-			case closest(".liked_tab"):
+			case closest(".liked_tab", e):
 				console.log("liked tab");
 				break;
-			case closest(".recent-play_tab"):
+			case closest(".recent-play_tab", e):
 				console.log("recently play tab tab");
 				break;
-			case closest(".lib_playlist_card"):
-				console.log("uploaded tab");
+			case closest(".lib_playlist_card", e):
+				console.log("Playlist");
 				break;
-			case closest(".lib_artist_card"):
-				console.log("uploaded tab");
+			case closest(".lib_artist_card", e):
+				console.log("Artist");
 				break;
 		}
 	});
 
 	libraryBtnsCtn.addEventListener("click", (e) => {
-		// Get the closest target if bubbling matches
-		function matches(name, event = e) {
-			return !!event.target.matches(name); // Return boolean
-		}
-
 		// Select elements
 		const librarySections = getMultiTags(".lib_secs", libraryContainer);
 		const userLibraryTabs = getMultiTags(".lib_card");
@@ -77,6 +61,7 @@ const libraryContainerEvents = (libraryContainer) => {
 			}
 		}
 
+		// Get the closest target if bubbling matches
 		switch (true) {
 			case matches(".all_tab_btn"):
 				for (const sec of librarySections) sec.style.display = "block"; // Show all sections

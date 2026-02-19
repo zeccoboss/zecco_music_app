@@ -46,9 +46,10 @@ const Header = () => {
 	const searchInput = headerInstance.getChild(".search_input");
 
 	searchInput.addEventListener("input", (e) => {
-		navigateSearch();
+		e.preventDefault();
+
 		const searchValue = e.target.value;
-		pushHistory("/search");
+		alert(searchValue);
 	});
 
 	if (bigScreen.matches || largeScreen.matches) {

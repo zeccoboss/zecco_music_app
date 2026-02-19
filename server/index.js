@@ -2,23 +2,20 @@ require("dotenv").config();
 const express = require("express");
 const path = require("node:path");
 const cors = require("cors");
-const { corsOptions } = require("./config/corsOptions");
-const { logger } = require("./middlewares/eventHandler");
-const { errorLogger } = require("./middlewares/errorHandler");
-const initAdmin = require("./core/initAdmin");
+const { corsOptions } = require("./config/cors-options.config");
+const { logger } = require("./middlewares/event-handler.middleware");
+const { errorLogger } = require("./middlewares/error-handler.middleware");
+const initAdmin = require("./core/init-admin.core");
 const cookieParser = require("cookie-parser");
-const verifyJWT = require("./middlewares/verifyJWT");
-const { credentials } = require("./middlewares/credentials");
-const { connectDB } = require("./config/dbConn");
+const verifyJWT = require("./middlewares/verify-jwt.middleware");
+const { credentials } = require("./middlewares/credentials.middleware");
+const { connectDB } = require("./config/db.config");
 const mongoose = require("mongoose");
-const initLocalAudio = require("./core/initLocalAudio");
-const AppConfig = require("./config/App");
-// const minioClient = require("./config/minioConn");
-// const MetaManager = require("./metadata/MetaManager");
+const appConfig = require("./config/app.config");
 
 connectDB(); // Connect to mongodb
 const app = express(); // Create App
-const PORT = AppConfig.port; // Get PORT
+const PORT = appConfig.port; // Get PORT
 
 app.use(credentials); //
 app.use(cors(corsOptions)); // CORS
@@ -26,7 +23,6 @@ app.use(logger); // Logs all Events
 
 // Create admin on server start
 initAdmin();
-// initLocalAudio(); // LoadLocal music/
 
 // Middle wares
 app.use(express.urlencoded({ extended: false }));
@@ -35,13 +31,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 // Server html page
-app.use("/", require("./routes/rootRouter"));
+app.use("/", require("./routes/root.route"));
 
-app.use("/auth", require("./routes/authRouter"));
-app.use("/profile", require("./routes/profileRouter"));
-app.use("/refresh", require("./routes/refreshRouter")); // Routes
-app.use("/users", verifyJWT, require("./routes/api/usersRouter")); // Users routes
-app.use("/api/media/audio", require("./routes/api/audiosRouter")); // Music routes
+app.use("/auth", require("./routes/auth.route"));
+app.use("/profile", require("./routes/profile.route"));
+app.use("/refresh", require("./routes/refresh.route")); // Routes
+app.use("/users", verifyJWT, require("./routes/api/users.route")); // Users routes
+app.use("/api/media/audio", require("./routes/api/audios.route")); // Music routes
 
 // Serve 404 page
 app.use((_, res) => {

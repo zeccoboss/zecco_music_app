@@ -1,24 +1,16 @@
 import { themeManager } from "../core/themeManager";
+import { closest } from "../helpers/eventDelegationHelpers";
 
 const settingsContainerEvents = (settingsContainer) => {
 	settingsContainer.addEventListener("click", (e) => {
-		const closest = (name, event = e) => {
-			return !!event.target.closest(name); // Return boolean
-		};
-
-		// Get the closest target if bubbling matches
-		function matches(name, event = e) {
-			return !!event.target.matches(name); // Return boolean
-		}
-
 		switch (true) {
-			case closest(".theme_btn_dark"):
+			case closest(".theme_btn_dark", e):
 				themeManager.setDark();
 				break;
-			case closest(".theme_btn_light"):
+			case closest(".theme_btn_light", e):
 				themeManager.setLight();
 				break;
-			case closest(".theme_btn_system"):
+			case closest(".theme_btn_system", e):
 				themeManager.setSystem();
 				break;
 		}

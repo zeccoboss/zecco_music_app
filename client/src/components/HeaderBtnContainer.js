@@ -44,6 +44,7 @@ const searchBtnWrapper = `
 		</button>
 	</div>
 `;
+
 const settingsBtnWrapper = `
 	<div class="settings_btns_ctn header_btn_wrappers">
 		<button class="header_action_btns profile_btns">${magnifierSvg}</button>

@@ -1,6 +1,7 @@
 import appConfig from "../config/AppConfig.js";
 import { clearActiveNav } from "../helpers/clearActiveNav";
 import { clearActiveSections } from "../helpers/clearActiveSections";
+import { getTag } from "../helpers/selectElement.js";
 import { manageHeaderBtns } from "./manageHeaderBtns.js";
 
 const RenderProfile = () => {

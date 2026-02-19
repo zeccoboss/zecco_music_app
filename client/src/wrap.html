@@ -1,0 +1,1447 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="./styles/base.css" />
+		<link rel="stylesheet" href="./styles/media.css" />
+		<link rel="stylesheet" href="./styles/skeleton.css" />
+	</head>
+	<body>
+		<div id="app" data-theme="Light">
+			<header class="header" id="header">
+				<div class="header_logo_container">
+					<div class="sidebar_toggle_container">
+						<button class="sidebar_toggle_btn">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								id="Left-Panel-Open--Streamline-Rounded-Material"
+								height="24"
+								width="24"
+							>
+								<desc>
+									Left Panel Open Streamline Icon:
+									https://streamlinehq.com
+								</desc>
+								<path
+									d="M13.175 9.5v5c0 0.16535 0.07915 0.2775 0.2375 0.3365s0.29585 0.03015 0.4125 -0.0865l2.225 -2.225c0.15 -0.15 0.225 -0.325 0.225 -0.525s-0.075 -0.375 -0.225 -0.525l-2.225 -2.225c-0.11665 -0.11665 -0.25415 -0.1455 -0.4125 -0.0865s-0.2375 0.17115 -0.2375 0.3365ZM4.5 21c-0.4125 0 -0.765585 -0.1469 -1.05925 -0.44075C3.146915 20.2656 3 19.9125 3 19.5V4.5c0 -0.4125 0.146915 -0.765665 0.44075 -1.0595C3.734415 3.146835 4.0875 3 4.5 3h15c0.4125 0 0.76565 0.146835 1.0595 0.4405C20.85315 3.734335 21 4.0875 21 4.5v15c0 0.4125 -0.14685 0.7656 -0.4405 1.05925C20.26565 20.8531 19.9125 21 19.5 21H4.5Zm3.675 -1.5V4.5H4.5v15h3.675Zm1.5 0H19.5V4.5H9.675v15Z"
+									stroke-width="0.5"
+								></path>
+							</svg>
+						</button>
+						<small
+							class="sidebar_toggle_tooltip"
+							arial-label="Toggle sidebar"
+							>Toggle sidebar</small
+						>
+					</div>
+					<div href="/" class="logo">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="35"
+							height="35"
+							fill="currentColor"
+							class="bi bi-music-note"
+							viewBox="0 0 16 16"
+						>
+							<path
+								d="M9 13c0 1.105-1.12 2-2.5 2S4 14.105 4 13s1.12-2 2.5-2 2.5.895 2.5 2"
+							></path>
+							<path fill-rule="evenodd" d="M9 3v10H8V3z"></path>
+							<path
+								d="M8 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 13 2.22V4L8 5z"
+							></path>
+						</svg>
+						<span>ZeccoMusic</span>
+					</div>
+				</div>
+
+				<form action="" class="search_form">
+					<svg
+						xmlns='="http://www.w3.org/2000/svg"'
+						width="16"
+						height="16"
+						fill="currentColor"
+						class="bi bi-search"
+						viewBox="0 0 16 16"
+					>
+						<path
+							d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+						></path>
+					</svg>
+
+					<input
+						type="search"
+						name="search"
+						id="search-input"
+						class="search_input"
+						placeholder="Search..."
+					/>
+				</form>
+
+				<div class="header_sign_btn">
+					<button class="header_signup_btn">
+						<a href="/register">Sign Up</a>
+					</button>
+					<button class="header_signin_btn">
+						<a href="/login">Login</a>
+					</button>
+				</div>
+			</header>
+			<div class="container shrink_sidebar" id="container">
+				<aside id="aside" class="aside">
+					<nav class="nav">
+						<ul class="nav_list">
+							<li id="home" class="home">
+								<a
+									href="/"
+									id="home-links"
+									class="nav_links first_nav_link"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="30"
+										height="30"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="lucide lucide-house-icon lucide-house"
+									>
+										<path
+											d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"
+										></path>
+										<path
+											d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+										></path>
+									</svg>
+
+									<span>Home</span>
+								</a>
+							</li>
+
+							<li id="library" class="library">
+								<a href="/library" class="nav_links library_nav">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="30"
+										height="30"
+										fill="currentColor"
+										class="bi bi-menu-button-wide"
+										viewBox="0 0 16 16"
+									>
+										<path
+											d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v2A1.5 1.5 0 0 1 14.5 5h-13A1.5 1.5 0 0 1 0 3.5zM1.5 1a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5z"
+										></path>
+										<path
+											d="M2 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m10.823.323-.396-.396A.25.25 0 0 1 12.604 2h.792a.25.25 0 0 1 .177.427l-.396.396a.25.25 0 0 1-.354 0M0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5"
+										></path>
+									</svg>
+
+									<span>Library</span>
+								</a>
+							</li>
+
+							<li id="search" class="search">
+								<a href="/search" id="search-link" class="nav_links">
+									<svg
+										xmlns='="http://www.w3.org/2000/svg"'
+										width="30"
+										height="30"
+										fill="currentColor"
+										class="bi bi-search"
+										viewBox="0 0 16 16"
+									>
+										<path
+											d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+										></path>
+									</svg>
+
+									<span>Search</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</aside>
+				<main class="main" id="main">
+					<section
+						class="home_section main_sections active_section"
+						id="home-section"
+					>
+						<div class="home_skeleton skeleton" id="music-card-skeleton">
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+
+							<div class="music_card_skeleton">
+								<div class="mcs_img"></div>
+
+								<div class="msc_content">
+									<div class="msc_artist"></div>
+									<div class="msc_title"></div>
+								</div>
+
+								<div class="mcs_controls"></div>
+							</div>
+						</div>
+					</section>
+					<section
+						class="library_section main_sections"
+						id="library-section"
+					>
+						<section
+							class="library_content show_lib_content"
+							id="library-content"
+						>
+							<div class="library_btns_ctn header_btn_wrappers">
+								<button class="header_action_btns lib_btns all_tab_btn">
+									All
+								</button>
+								<button
+									class="header_action_btns lib_btns liked_tab_btn"
+								>
+									Liked
+								</button>
+								<button
+									class="header_action_btns lib_btns uploaded_tab_btn"
+								>
+									Uploaded
+								</button>
+								<button
+									class="header_action_btns lib_btns recent_play_tab_btn"
+								>
+									Recently Played
+								</button>
+								<button
+									class="header_action_btns lib_btns lib_playlists_btn"
+								>
+									Playlists
+								</button>
+								<button
+									class="header_action_btns lib_btns lib_artist_btn"
+								>
+									Following
+								</button>
+							</div>
+
+							<section class="user_library lib_secs">
+								<div class="lib_sec_header">
+									<h3 class="">Your Library</h3>
+									<!-- 
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+		<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+	</svg>
+
+ -->
+								</div>
+
+								<div class="liked_tab lib_card" data-action="liked_tab">
+									<div class="lib_card_cover">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="25"
+											height="25"
+											fill="red"
+											class="bi bi-heart-fill"
+											viewBox="0 0 16 16"
+										>
+											<path
+												fill-rule="red"
+												d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+											></path>
+										</svg>
+									</div>
+									<div class="lib_crd_content">
+										<h3>Liked Songs</h3>
+										<p><span>0</span> songs</p>
+									</div>
+								</div>
+
+								<div class="uploaded_tab lib_card">
+									<div class="lib_card_cover">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="25"
+											height="25"
+											fill="currentColor"
+											class="bi bi-upload"
+											viewBox="0 0 16 16"
+										>
+											<path
+												d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"
+											></path>
+											<path
+												d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"
+											></path>
+										</svg>
+									</div>
+									<div class="lib_crd_content">
+										<h3>Uploaded Tracks</h3>
+										<p><span>0</span> Uploads</p>
+									</div>
+								</div>
+
+								<div class="recent_play_tab lib_card">
+									<div class="lib_card_cover">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="25"
+											height="25"
+											fill="currentColor"
+											class="bi bi-clock-history"
+											viewBox="0 0 16 16"
+										>
+											<path
+												d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z"
+											></path>
+											<path
+												d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z"
+											></path>
+											<path
+												d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5"
+											></path>
+										</svg>
+									</div>
+									<div class="lib_crd_content">
+										<h3>Recently Played</h3>
+										<p>0 Played songs</p>
+									</div>
+								</div>
+							</section>
+
+							<section class="lib_secs lib_playlist_sec">
+								<div class="lib_sec_header">
+									<h3 class="">Your Playlists</h3>
+
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										fill="currentColor"
+										class="bi bi-chevron-down"
+										viewBox="0 0 16 16"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+										></path>
+									</svg>
+								</div>
+
+								<div class="lib_playlist_ctn">
+									<div class="lib_playlist_card lib-playlist-card">
+										<div class="lib_playlist_cover_ctn">
+											<img
+												src="/src/assets/images/favicon.png"
+												alt="Playlist cover"
+												class="lib_playlist_cover_img"
+											/>
+										</div>
+										<div class="lib_playlist_content">
+											<h3 class="title">Playlist Name</h3>
+											<small class="label">Playlist</small>
+										</div>
+										<div>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="16"
+												fill="currentColor"
+												class="bi bi-three-dots-vertical"
+												viewBox="0 0 16 16"
+											>
+												<path
+													d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+												></path>
+											</svg>
+										</div>
+									</div>
+									<div class="lib_playlist_card lib-playlist-card">
+										<div class="lib_playlist_cover_ctn">
+											<img
+												src="/src/assets/images/favicon.png"
+												alt="Playlist cover"
+												class="lib_playlist_cover_img"
+											/>
+										</div>
+										<div class="lib_playlist_content">
+											<h3 class="title">Playlist Name</h3>
+											<small class="label">Playlist</small>
+										</div>
+										<div>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="16"
+												fill="currentColor"
+												class="bi bi-three-dots-vertical"
+												viewBox="0 0 16 16"
+											>
+												<path
+													d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+												></path>
+											</svg>
+										</div>
+									</div>
+								</div>
+							</section>
+
+							<section class="lib_secs lib_artist_sec">
+								<div class="lib_sec_header">
+									<h3 class="">Following</h3>
+
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										fill="currentColor"
+										class="bi bi-chevron-down"
+										viewBox="0 0 16 16"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+										></path>
+									</svg>
+								</div>
+
+								<div class="lib_artist_ctn">
+									<section
+										class="lib_artist_card"
+										id="lib-artist-card"
+									>
+										<div class="lib_artist_cover_ctn">
+											<img
+												src="/src/assets/images/favicon.png"
+												alt="artist cover"
+												class="lib_artist_cover_img"
+												width="100"
+												heigh="100"
+											/>
+										</div>
+										<div>
+											<h3 class="title">Artist Name</h3>
+											<small class="label">Artist </small>
+										</div>
+										<div>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="16"
+												fill="currentColor"
+												class="bi bi-three-dots-vertical"
+												viewBox="0 0 16 16"
+											>
+												<path
+													d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+												></path>
+											</svg>
+										</div>
+									</section>
+									<section
+										class="lib_artist_card"
+										id="lib-artist-card"
+									>
+										<div class="lib_artist_cover_ctn">
+											<img
+												src="/src/assets/images/favicon.png"
+												alt="artist cover"
+												class="lib_artist_cover_img"
+												width="100"
+												heigh="100"
+											/>
+										</div>
+										<div>
+											<h3 class="title">Artist Name</h3>
+											<small class="label">Artist </small>
+										</div>
+										<div>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="16"
+												fill="currentColor"
+												class="bi bi-three-dots-vertical"
+												viewBox="0 0 16 16"
+											>
+												<path
+													d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+												></path>
+											</svg>
+										</div>
+									</section>
+								</div>
+							</section>
+						</section>
+						<section class="empty_lib_content" id="empty-library">
+							<h2>Library</h2>
+
+							<div class="empty_lib_container">
+								<h3>No content in your library.</h3>
+								<p>
+									To access your library
+									<strong
+										><a
+											href="/register"
+											class="empty_lib_links muted_link"
+											>Sign up</a
+										></strong
+									>
+									to continue or
+									<strong
+										><a
+											href="/login"
+											class="empty_lib_links muted_link"
+											>Login</a
+										></strong
+									>
+									to access all features.
+								</p>
+								<div class="lib_lnks_ctn">
+									<a href="/register" class="empty_lib_links"
+										>Sign up</a
+									>
+									<a href="/login" class="empty_lib_links">Login</a>
+								</div>
+							</div>
+						</section>
+					</section>
+					<section
+						class="search_section main_sections"
+						id="search-section"
+					>
+						<div class="recent_search_container">
+							<p>No search yet...</p>
+						</div>
+					</section>
+					<section
+						class="profile_section main_sections"
+						id="profile-section"
+					>
+						<div class="profile_containers" data-private-profile="">
+							<div class="profile_header">
+								<div class="profile_cover_wrapper">
+									<figure class="profile_cover_ctn">
+										<img
+											src="/src/assets/images/default-profile.png"
+											class="profile_cover"
+											width="500"
+											height="400"
+											alt="Profile cover"
+										/>
+										<figcaption>Profile cover</figcaption>
+										<button class="profile_cover_btn">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="24"
+												height="24"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												class="lucide lucide-camera-icon lucide-camera"
+											>
+												<path
+													d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"
+												></path>
+												<circle cx="12" cy="13" r="3"></circle>
+											</svg>
+										</button>
+									</figure>
+								</div>
+
+								<div class="profile_pic_ctn">
+									<figure class="profile_pic_wrapper">
+										<img
+											src="/src/assets/images/default-profile.png"
+											class="profile_pic"
+											width="100"
+											height="100"
+											alt="Profile picture"
+										/>
+										<figcaption>Profile Picture</figcaption>
+									</figure>
+								</div>
+							</div>
+
+							<div class="profile_info">
+								<div id="" class="profile_user_data">
+									<div>
+										<h3 class="user_name" data-user-placeholder="">
+											ZECCOBOSS
+										</h3>
+										<p class="user_id">
+											User ID:
+											<span data-user-id="">478984397664387298</span>
+										</p>
+									</div>
+									<div>
+										<button class="st_prf_card_wrapper">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="20"
+												height="20"
+												fill="currentColor"
+												class="bi bi-pencil svg_pencil"
+												viewBox="0 0 16 16"
+											>
+												<path
+													d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"
+												></path>
+											</svg>
+										</button>
+									</div>
+								</div>
+
+								<div class="profile_details">
+									<div>
+										<h2>0</h2>
+										<p>Following</p>
+									</div>
+									<div>
+										<h2>0</h2>
+										<p>Followers</p>
+									</div>
+									<div>
+										<h2>0</h2>
+										<p>Uploads</p>
+									</div>
+								</div>
+
+								<div class="profile_data">
+									<div>
+										<span>Bio: </span>
+										<p>About me</p>
+									</div>
+									<div>
+										<span>Member Since: </span><span>15-1-2026</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="profile_content">
+								<div profile-content-header="">
+									<h3>Playlists</h3>
+								</div>
+							</div>
+						</div>
+
+						<div
+							class="profile_containers"
+							style="display: none"
+							data-public-profile=""
+						>
+							<div class="profile_header">
+								<div class="profile_cover_wrapper">
+									<figure class="profile_cover_ctn">
+										<img
+											src="/src/assets/images/default-profile.png"
+											class="profile_cover"
+											width="500"
+											height="400"
+											alt="Profile cover"
+										/>
+										<figcaption>Profile cover</figcaption>
+										<button class="profile_cover_btn">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="24"
+												height="24"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												class="lucide lucide-camera-icon lucide-camera"
+											>
+												<path
+													d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"
+												></path>
+												<circle cx="12" cy="13" r="3"></circle>
+											</svg>
+										</button>
+									</figure>
+								</div>
+
+								<div class="profile_pic_ctn">
+									<figure class="profile_pic_wrapper">
+										<img
+											src="/src/assets/images/default-profile.png"
+											class="profile_pic"
+											width="100"
+											height="100"
+											alt="Profile picture"
+										/>
+										<figcaption>Profile Picture</figcaption>
+									</figure>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section class="settings_section main_sections">
+						<div class="settings_header" data-settings-header="">
+							<div class="settings_profile_card">
+								<div class="st_prf_card_wrapper">
+									<figure class="st_profile_ctn">
+										<img
+											src="/src/assets/images/default-profile.png"
+											alt="Settings profile pic"
+											class="st_profile_pic"
+										/>
+										<figcaption class="figcaption">
+											Settings profile picture
+										</figcaption>
+									</figure>
+									<h4>ZECCOBOSS</h4>
+								</div>
+								<button>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										fill="currentColor"
+										class="bi bi-chevron-down"
+										viewBox="0 0 16 16"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+										></path>
+									</svg>
+								</button>
+							</div>
+						</div>
+
+						<div class="settings_content" data-settings-content="">
+							<div class="theme_container">
+								<div class="theme_container_header">
+									<p>Appearance</p>
+
+									<div class="" data-toggle-theme-container="">
+										<span data-theme-placeholder="">Light</span>
+
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											fill="currentColor"
+											class="bi bi-chevron-down"
+											viewBox="0 0 16 16"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+											></path>
+										</svg>
+									</div>
+								</div>
+								<div class="theme_container_content">
+									<button class="theme_actions_btn theme_btn_dark">
+										Dark
+									</button>
+									<button class="theme_actions_btn theme_btn_light">
+										<span>Light</span>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											fill="currentColor"
+											class="bi bi-check-circle"
+											viewBox="0 0 16 16"
+										>
+											<path
+												d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+											></path>
+											<path
+												d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"
+											></path>
+										</svg>
+									</button>
+									<button class="theme_actions_btn theme_btn_system">
+										System
+									</button>
+								</div>
+							</div>
+						</div>
+					</section>
+				</main>
+			</div>
+			<footer class="footer" id="footer">
+				<div class="footer_container">
+					<section class="music_data">
+						<figure class="music_image_container">
+							<img
+								src="/src/assets/images/favicon.png"
+								alt="Music cover image"
+								class="music_image_cover"
+								id="music-image-cover"
+								loading="lazy"
+								width="100"
+								height="100"
+							/>
+							<figcaption class="music_cover_caption">
+								Music cover
+							</figcaption>
+						</figure>
+
+						<div class="music_details">
+							<h3 class="song_title" id="song-title">Song Title</h3>
+							<p class="artist_name" id="artist-name">Artist Name</p>
+						</div>
+					</section>
+
+					<section class="action_btns_ctnr">
+						<div class="action_btns">
+							<button
+								aria-label="/Shuffle"
+								class="random_btn"
+								id="random-button"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="20"
+									height="20"
+									fill="currentColor"
+									class="bi bi-shuffle"
+									viewBox="0 0 16 16"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.6 9.6 0 0 0 7.556 8a9.6 9.6 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.6 10.6 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.6 9.6 0 0 0 6.444 8a9.6 9.6 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5"
+									></path>
+									<path
+										d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192"
+									></path>
+								</svg>
+							</button>
+
+							<button
+								aria-label="Previous"
+								class="previous_btn"
+								id="previous-button"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="20"
+									height="20"
+									fill="currentColor"
+									class="bi bi-skip-start"
+									viewBox="0 0 16 16"
+								>
+									<path
+										d="M4 4a.5.5 0 0 1 1 0v3.248l6.267-3.636c.52-.302 1.233.043 1.233.696v7.384c0 .653-.713.998-1.233.696L5 8.752V12a.5.5 0 0 1-1 0zm7.5.633L5.696 8l5.804 3.367z"
+									></path>
+								</svg>
+							</button>
+
+							<button
+								aria-label="Play/Pause"
+								class="play_pause_btn"
+								id="play-pause-btn"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="20"
+									height="20"
+									fill="currentColor"
+									class="bi bi-play-fill"
+									viewBox="0 0 16 16"
+								>
+									<path
+										d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"
+									></path>
+								</svg>
+							</button>
+
+							<button
+								aria-label="Next"
+								class="next_btn"
+								id="next-button"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="20"
+									height="20"
+									fill="currentColor"
+									class="bi bi-skip-end"
+									viewBox="0 0 16 16"
+								>
+									<path
+										d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.713 3.31 4 3.655 4 4.308v7.384c0 .653.713.998 1.233.696L11.5 8.752V12a.5.5 0 0 0 1 0zM5 4.633 10.804 8 5 11.367z"
+									></path>
+								</svg>
+							</button>
+
+							<button
+								aria-label="Repeat/Loop"
+								class="sleep_timer_btn"
+								id="sleep-timer-button"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="20"
+									height="20"
+									fill="currentColor"
+									class="bi bi-repeat"
+									viewBox="0 0 16 16"
+								>
+									<path
+										d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"
+									></path>
+								</svg>
+							</button>
+						</div>
+
+						<input
+							type="range"
+							name=""
+							value="0"
+							id=""
+							min="0"
+							max="100"
+							class="music_range_input"
+							aria-label="Music progress range"
+						/>
+					</section>
+
+					<div class="music_controls">
+						<div class="duration_container">
+							<span class="current_time">0:00</span> /
+							<span class="current_time">0:00</span>
+						</div>
+
+						<button
+							aria-label="Add song to playlist button"
+							class="add_to_playlist_btn"
+							id="add-to-playlist-btn"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="20"
+								height="20"
+								fill="currentColor"
+								class="bi bi-plus-square"
+								viewBox="0 0 16 16"
+							>
+								<path
+									d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
+								></path>
+								<path
+									d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+								></path>
+							</svg>
+						</button>
+
+						<button
+							aria-label="Favorite song button"
+							class="fave_btn"
+							id="fave-button"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="20"
+								height="20"
+								fill="currentColor"
+								class="bi bi-heart"
+								viewBox="0 0 16 16"
+							>
+								<path
+									d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"
+								></path>
+							</svg>
+						</button>
+
+						<button
+							aria-label="menu song button"
+							class="menu_btn"
+							id="menu-button"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="20"
+								height="20"
+								fill="currentColor"
+								class="bi bi-three-dots-vertical"
+								viewBox="0 0 16 16"
+							>
+								<path
+									d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+								></path>
+							</svg>
+						</button>
+					</div>
+				</div>
+			</footer>
+			<div class="overlay"></div>
+			<div class="no_resource_page" id="no-resource-page">
+				<h1>404</h1>
+				<p>Resource not found</p>
+				<a href="/" class="nfp-link">Return Home</a>
+			</div>
+			<div id="verification-page" class="verification_page"></div>
+			<div class="frt_pwd_frm_page" id="frt-pwd-frm-page">
+				<form class="frt_pwd_frm" id="frt-pwd-frm">
+					<a href="/" id="form-nav-link" class="form_nav_link form_links">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-house-icon lucide-house"
+						>
+							<path
+								d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"
+							></path>
+							<path
+								d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+							></path>
+						</svg>
+						Home</a
+					>
+					<h2 class="form_heading">
+						<span class="first-child">Reset Password</span>
+					</h2>
+					<h4 class="form_message">
+						Fill required data to continue reset
+					</h4>
+
+					<div class="">
+						<label for="reset-email">Email Address:</label>
+						<input
+							type="email"
+							id="reset-email-input	"
+							class="reset_email"
+							placeholder="youremail@example.com"
+							required=""
+						/>
+					</div>
+
+					<button
+						type="submit"
+						id="reset-next-btn"
+						class="form_btn re_next_btn"
+					>
+						Next
+					</button>
+					<button
+						type="submit"
+						id="reset-submit-btn"
+						class="form_btn re_submit_btn"
+					>
+						Submit
+					</button>
+					<button
+						type="submit"
+						id="reset-return-btn"
+						class="form_btn re_return_btn"
+					>
+						Return
+					</button>
+				</form>
+				<div class="frt_pwd_ctn" id="frt-pwd-ctn">
+					An email has been sent to example@example.com
+				</div>
+			</div>
+			<div id="form-page" class="form_page">
+				<forms class="login_form forms" id="login-form">
+					<a href="/" id="form-nav-link" class="form_nav_link form_links">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-house-icon lucide-house"
+						>
+							<path
+								d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"
+							></path>
+							<path
+								d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+							></path>
+						</svg>
+						Home</a
+					>
+					<h2 class="form_heading">
+						<span class="first-child">Zecco</span
+						><span class="second-child">Music</span>
+					</h2>
+					<h4 class="form_message">
+						Welcome back, Please login to continue.
+					</h4>
+
+					<label for="lg-user-name">Email address:</label>
+					<input
+						type="text"
+						name=""
+						id="lg-user-name"
+						class="lg_user_name"
+						placeholder="youremail@example.com"
+						required=""
+					/>
+					<label for="lg-user-pwd">Password:</label>
+					<input
+						type="password"
+						name="password"
+						id="lg-user-pwd"
+						class="lg_user_pwd"
+						placeholder="Enter Password"
+						required=""
+					/>
+
+					<div class="form_links_wrapper">
+						<a
+							href="/password/reset"
+							class="form_links lg_frgt_pwd_lnk"
+							id="lg-frgt-pwd-lnk"
+							>Forgotten password?</a
+						>
+					</div>
+
+					<button type="submit" id="lg-submit-btn" class="form_btn">
+						Login
+					</button>
+
+					<div class="form_links_wrapper_two">
+						<a href="/register" class="form_links"
+							>Don't have account? Sign up.</a
+						>
+					</div> </forms
+				><forms class="signup_form forms" id="register-form">
+					<a href="/" id="form-nav-link" class="form_nav_link form_links">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-house-icon lucide-house"
+						>
+							<path
+								d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"
+							></path>
+							<path
+								d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+							></path>
+						</svg>
+						Home</a
+					>
+					<h2 class="form_heading">
+						<span class="first-child">Zecco</span
+						><span class="second-child">Music</span>
+					</h2>
+					<h4 class="form_message">
+						Welcome! Please enter details below to continue
+					</h4>
+
+					<div class="user_details_container">
+						<label for="register-username">Username:</label>
+						<input
+							type="text"
+							id="register-username"
+							class="signup_username"
+							placeholder="Username"
+							required=""
+						/>
+
+						<label for="register-email">Email Address:</label>
+						<input
+							type="email"
+							id="register-email"
+							class="signup_email"
+							placeholder="youremail@example.com"
+							required=""
+						/>
+					</div>
+
+					<div class="user_password_container">
+						<label for="create-pwd-input">Create password:</label>
+						<input
+							type="password"
+							name="password"
+							id="create-pwd-input"
+							class="signup_pwd_input"
+							placeholder="Create password"
+							required=""
+						/>
+
+						<label for="confirm-pwd-input">Confirm password:</label>
+						<input
+							type="password"
+							name="password"
+							id="confirm-pwd-input"
+							class="signup_pwd_input"
+							placeholder="Confirm password"
+							required=""
+						/>
+					</div>
+
+					<div class="form_links_wrapper">
+						<a href="/login" class="form_links"
+							>Already have account? Login</a
+						>
+					</div>
+
+					<button
+						type="submit"
+						id="register-next-btn"
+						class="form_btn next_btn"
+					>
+						Next
+					</button>
+					<button
+						type="submit"
+						id="register-submit-btn"
+						class="form_btn submit_btn"
+					>
+						Submit
+					</button>
+					<button
+						type="submit"
+						id="register-return-btn"
+						class="form_btn return_btn"
+					>
+						Return
+					</button>
+				</forms>
+			</div>
+		</div>
+	</body>
+</html>

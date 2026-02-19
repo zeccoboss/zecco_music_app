@@ -16,7 +16,7 @@
 		--space: 0.5rem; /* Margin and Padding  */
 		--h-height: 5.5rem; /* Header height  */
 		--f-height: 4rem; /* Footer height */
-		--mb-main-h: calc(100dvh - var(--h-height) + var(--f-height));
+		--mb-main-h: calc(100dvh - var(--h-height) - var(--f-height));
 		--player-height: 3.5rem; /* Playing banner */
 		--act-sec: calc(var(--mb-main-h) - var(--player-height));
 
@@ -27,7 +27,7 @@
 
 	#app {
 		display: grid;
-		grid-template-rows: var(--h-height) 1fr var(--f-height);
+		grid-template-rows: var(--h-height) var(--mb-main-h) var(--f-height);
 	}
 	/* 
 	.header_title {

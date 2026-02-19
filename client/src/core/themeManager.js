@@ -3,7 +3,7 @@ import {
 	getLocalStorageData,
 	setToLocalStorage,
 } from "../helpers/getLocalStorageData";
-import { getMultiTags, getTag } from "../helpers/selectElement";
+import { getTag } from "../helpers/selectElement";
 
 class ThemeManager {
 	#root = document.documentElement; // Get the root of the page
@@ -75,7 +75,7 @@ class ThemeManager {
 		const themePlaceholder = getTag("[data-theme-placeholder]");
 
 		themePlaceholder.innerHTML = theme; // Show current theme on page
-		const btnContent = () => `<span>${theme}</span>${ckSvg}`;
+		const btnContent = () => `<span>${theme}</span>${ckSvg}`; // Add them value and checked icon on the page
 
 		darkBtn.innerHTML = theme === "Dark" ? btnContent() : "Dark";
 		lightBtn.innerHTML = theme === "Light" ? btnContent() : "Light";
@@ -84,9 +84,9 @@ class ThemeManager {
 
 	// Initialize the theme on first app load use the return to break the flow in this method
 	init() {
-		if (this.#storedTheme === "Dark") return this.setLight(); // Light mood
+		if (this.#storedTheme === "Dark") return this.setDark(); // Light mood
 		if (this.#storedTheme === "Light") return this.setLight(); // Light mood
-		if (this.#storedTheme === "System") return this.setLight(); // Light mood
+		if (this.#storedTheme === "System") return this.setSystem(); // Light mood
 	}
 
 	setSystem() {
