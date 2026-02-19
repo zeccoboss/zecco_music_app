@@ -204,7 +204,7 @@
 		<button type="submit" id="reset-return-btn" class="form_btn re_return_btn">Return</button>	
 	`,re.getChildren("a","element"),re.getElement()),G=new b("div");G.addClass("frt_pwd_frm_page");G.setId("frt-pwd-frm-page");const Ze=()=>{const e=new b("div");e.addClass("frt_pwd_ctn"),e.setId("frt-pwd-ctn"),e.innerHTML=`
 		An email has been sent to example@example.com
-	`;const t=re.getChildren("a","element");for(const s of t)s.addEventListener("click",n=>{n.preventDefault();const r=n.currentTarget,a=r.getAttribute("href");if(r.id==="form-nav-link"){_e(1500,form,"reset"),V.navigateTo(a);return}V.navigateTo(a)});return G.append($r(),e.getElement()),G.getElement()},U=new b("div");U.setId("form-page");U.addClass("form_page","");const Ke=()=>(U.append(Ar(),Mr()),U.getElement()),Br="/assets/logo-DbQzCrIJ.jpg",_e=(e,t,s)=>{M.addClass("show_overlay"),M.innerHTML="",M.innerHTML=`
+	`;const t=re.getChildren("a","element");for(const s of t)s.addEventListener("click",n=>{n.preventDefault();const r=n.currentTarget,a=r.getAttribute("href");if(r.id==="form-nav-link"){_e(1500,form,"reset"),V.navigateTo(a);return}V.navigateTo(a)});return G.append($r(),e.getElement()),G.getElement()},U=new b("div");U.setId("form-page");U.addClass("form_page","");const Ke=()=>(U.append(Ar(),Mr()),U.getElement()),Br="/zecco_music_app/assets/logo-DbQzCrIJ.jpg",_e=(e,t,s)=>{M.addClass("show_overlay"),M.innerHTML="",M.innerHTML=`
 		<div class="overlay_logo_container">
 			<img src="${Br}" alt="" height="300" width="300" class="overlay_logo"/>
 		</div>
@@ -237,7 +237,7 @@
 				</li>
 			</ul>
 		</nav>
-	`;const t=e.getChild(".library_nav"),s=e.getChild("#home-links"),n=e.getChild("#search-link");s.addEventListener("click",Zr),t.addEventListener("click",Kr),n.addEventListener("click",Xr);const r=e.getElement().querySelectorAll("svg");for(const a of r)a.setAttribute("width","30"),a.setAttribute("height","30");return e.getElement()},Dt=async(e,t)=>{const s=new b("div");return s.addClass("container"),s.setId("container"),s.getElement().append(t(),await e()),s.getElement()},De="/assets/favicon-B6lTlLgw.png";function Gr(e,t=50,s=27,n=20,r){e.forEach(a=>{a.classList.contains("pause")||a.classList.contains("play")?(a.setAttribute("width",`${t}`),a.setAttribute("height",`${t}`)):a.classList.contains("next")||a.classList.contains("back")?(a.setAttribute("width",`${s}`),a.setAttribute("height",`${s}`)):(a.setAttribute("width",`${n}`),a.setAttribute("height",`${n}`),a.fill=r)})}function Yr(e,t=20){e.forEach(s=>{s.classList.contains("home")&&(s.setAttribute("width",`${t+10}`),s.setAttribute("height",`${t+10}`)),s.setAttribute("width",`${t}`),s.setAttribute("height",`${t}`)})}function Ge(e,t=20){e.forEach(s=>{s.setAttribute("width",`${t}`),s.setAttribute("height",`${t}`)})}const It=()=>{const e=new b("footer","Footer");e.addClass("footer"),e.setId("footer"),e.innerHTML=`
+	`;const t=e.getChild(".library_nav"),s=e.getChild("#home-links"),n=e.getChild("#search-link");s.addEventListener("click",Zr),t.addEventListener("click",Kr),n.addEventListener("click",Xr);const r=e.getElement().querySelectorAll("svg");for(const a of r)a.setAttribute("width","30"),a.setAttribute("height","30");return e.getElement()},Dt=async(e,t)=>{const s=new b("div");return s.addClass("container"),s.setId("container"),s.getElement().append(t(),await e()),s.getElement()},De="/zecco_music_app/assets/favicon-B6lTlLgw.png";function Gr(e,t=50,s=27,n=20,r){e.forEach(a=>{a.classList.contains("pause")||a.classList.contains("play")?(a.setAttribute("width",`${t}`),a.setAttribute("height",`${t}`)):a.classList.contains("next")||a.classList.contains("back")?(a.setAttribute("width",`${s}`),a.setAttribute("height",`${s}`)):(a.setAttribute("width",`${n}`),a.setAttribute("height",`${n}`),a.fill=r)})}function Yr(e,t=20){e.forEach(s=>{s.classList.contains("home")&&(s.setAttribute("width",`${t+10}`),s.setAttribute("height",`${t+10}`)),s.setAttribute("width",`${t}`),s.setAttribute("height",`${t}`)})}function Ge(e,t=20){e.forEach(s=>{s.setAttribute("width",`${t}`),s.setAttribute("height",`${t}`)})}const It=()=>{const e=new b("footer","Footer");e.addClass("footer"),e.setId("footer"),e.innerHTML=`
 		<div class="footer_container">
 			<section class="music_data">
 				<figure class="music_image_container">
@@ -480,7 +480,7 @@
 			</div>
 		</div>
 	</section>
-`;return t.getChildren(".lib_card_cover").forEach(a=>{const i=a.querySelector("svg");i.setAttribute("width","25"),i.setAttribute("height","25")}),e.appendContent(t.getElement(),n),e.getElement()},Me="/assets/default-profile-BW6rucFx.png",Es=()=>{const e=`${S.date.getDate()}-${S.date.getMonth()}-${S.date.getFullYear()}`,t=new b("section");t.addClass("profile_section","main_sections"),t.setId("profile-section");const s=`
+`;return t.getChildren(".lib_card_cover").forEach(a=>{const i=a.querySelector("svg");i.setAttribute("width","25"),i.setAttribute("height","25")}),e.appendContent(t.getElement(),n),e.getElement()},Me="/zecco_music_app/assets/default-profile-BW6rucFx.png",Es=()=>{const e=`${S.date.getDate()}-${S.date.getMonth()}-${S.date.getFullYear()}`,t=new b("section");t.addClass("profile_section","main_sections"),t.setId("profile-section");const s=`
 		<div class="profile_header">
 			<div class="profile_cover_wrapper">
 				<figure class="profile_cover_ctn">
