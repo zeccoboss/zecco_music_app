@@ -1,0 +1,19 @@
+{
+	"cSpell.words": [
+		"lnks",
+		"metas",
+		"minioadmin",
+		"modafuka",
+		"mongosh",
+		"Obang",
+		"strt",
+		"useremail",
+		"zecco"
+	],
+	"mdb.presetConnections": [
+		{
+			"name": "Preset Connection",
+			"connectionString": "mongodb://localhost:27017"
+		}
+	]
+}
