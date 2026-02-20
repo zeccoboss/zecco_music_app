@@ -1,6 +1,7 @@
 const minioClient = require("../config/minio.config");
 const { Readable } = require("node:stream");
 const fs = require("node:fs");
+const appConfig = require("../config/app.config");
 
 class MinIOService {
 	static async storeAudioCover(cover) {
@@ -36,7 +37,7 @@ class MinIOService {
 		return etag ? `${bucket}/${cover.fileName}${ext}` : null;
 	}
 
-	static async storeAudio(file, audioName) {
+	static async storeAudio(file) {
 		if (!file || file instanceof Object === false) {
 			console.error("[Object Storage]: Not valid audio");
 			return null;
@@ -51,7 +52,7 @@ class MinIOService {
 			const etag = await new Promise((resolve, reject) => {
 				minioClient.putObject(
 					bucket,
-					`${audioName}${ext}`,
+					`${appConfig.audioName()}${ext}`,
 					file.buffer,
 					{ "Content-Type": file?.mimetype ?? "audio/mpeg" },
 					(err, etag) => {
@@ -61,7 +62,7 @@ class MinIOService {
 				);
 			});
 
-			return etag ? `${bucket}/${audioName}${ext}` : null;
+			return etag ? `${bucket}/${appConfig.audioName()}${ext}` : null;
 		} catch (err) {
 			console.error("[MinIOService]: ", err);
 			return null;

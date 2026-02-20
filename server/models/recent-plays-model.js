@@ -1,18 +1,23 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const RecentPlaySchema = new Schema({
-	ownerId: {
-		ref: "User",
-		required: true,
-		index: true,
-		type: Schema.Types.ObjectId,
+const RecentPlaySchema = new Schema(
+	{
+		ownerId: {
+			ref: "User",
+			required: true,
+			index: true,
+			type: Schema.Types.ObjectId,
+		},
+		audioIds: {
+			type: [{ type: Schema.Types.ObjectId, ref: "Audio" }],
+			default: [],
+		},
+		name: { required: true, type: String },
+		public: { type: Boolean, default: false },
 	},
-	songIds: { type: [String], default: [] },
-	name: { required: true, type: String },
-	public: { type: Boolean, default: false },
-	createdAt: { type: Date, required: true },
-});
+	{ timestamps: true },
+);
 
 const RecentPlayModel = mongoose.model("RecentPlay", RecentPlaySchema);
 module.exports = RecentPlayModel;

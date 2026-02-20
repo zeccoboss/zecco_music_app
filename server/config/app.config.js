@@ -1,3 +1,4 @@
+const { v4: uuidV4 } = require("uuid");
 class AppConfig {
 	constructor() {
 		this.appName = "ZeccoMusicApp";
@@ -18,27 +19,31 @@ class AppConfig {
 	}
 
 	get client() {
-		return this.#client_base_url ?? this.#client_dev_url;
+		return process.env.NODE_ENV === "production"
+			? this.#client_base_url
+			: this.#client_dev_url;
+	}
+
+	date() {
+		return Date.now();
+	}
+
+	imageName(type) {
+		if (!type) {
+			console.error("[AppConfig]: Give a valid image type");
+			return;
+		}
+		const time = new Date().toTimeString();
+		const date = `${new Date().toDateString()}-${time.slice(0, time.indexOf(" "))}`;
+		return `${this.appName}-${type}-${uuidV4()}-${date}`;
+	}
+
+	audioName() {
+		const time = new Date().toTimeString();
+		const date = `${new Date().toDateString()}-${time.slice(0, time.indexOf(" "))}`;
+		return `${this.appName}-${uuidV4()}-${date}`;
 	}
 }
-
-const AppConfig1 = {
-	appName: "ZeccoMusicApp",
-	port: process.env.PORT || 3500,
-
-	get baseUrl() {
-		if (process.env.NODE_ENV === "production") {
-			return process.env.BASE_URL;
-		}
-		return `http://localhost:${this.port}`;
-	},
-
-	paths: {
-		audio: "audio-files",
-		images: "image-files",
-		defaultCover: "images/default/music.default.png",
-	},
-};
 
 const appConfig = new AppConfig();
 

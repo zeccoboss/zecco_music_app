@@ -1,14 +1,9 @@
 /** biome-ignore-all lint/correctness/noUnusedVariables: <Will be used when its time> */
-const fs = require("node:fs");
-const fsPromise = require("node:fs/promises");
-const path = require("node:path");
-const { parseStream, selectCover, parseBuffer } = require("music-metadata");
-const { v4: uuidV4 } = require("uuid");
+const { selectCover, parseBuffer } = require("music-metadata");
 const MinIOService = require("../services/minio.service");
-const { Readable } = require("node:stream");
-const AppConfig = require("../config/app.config");
 const ImageModel = require("../models/image.model");
 const AudioModel = require("../models/audio.model");
+const appConfig = require("../config/app.config");
 
 class MetaManager {
 	#time = new Date().toTimeString();
@@ -23,11 +18,7 @@ class MetaManager {
 		const { common, format } = metadata; // Get the common and format from metadata
 		const cover = selectCover(common?.picture); // Get cover of the audio
 
-		const audioName = `ZeccoMusicApp-Audio-${uuidV4()}-${this.#date}`;
-		const audioPath = await MinIOService.storeAudio(file, audioName);
-
-		// console.log("user: ", userId);
-		// console.log(file.originalname);
+		const audioPath = await MinIOService.storeAudio(file);
 
 		return {
 			ownerId: userId,
@@ -47,7 +38,7 @@ class MetaManager {
 			coverImageId: coverId ?? null,
 			videoId: null,
 			path: audioPath ?? null,
-			createdAt: Date.now(),
+			createdAt: appConfig.date(),
 		};
 	}
 
@@ -72,7 +63,7 @@ class MetaManager {
 			category: "cover",
 			path: coverPath,
 			format: cover?.format,
-			createdAt: Date.now(),
+			createdAt: appConfig.date(),
 		});
 
 		return image._id;
