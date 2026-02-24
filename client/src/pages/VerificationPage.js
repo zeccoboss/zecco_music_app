@@ -1,4 +1,4 @@
-import CreateElement from "../utils/CreateElement.js";
+import CreateElement from "../utils/create-element.js";
 
 // Create instance
 const verificationPage = new CreateElement("div");

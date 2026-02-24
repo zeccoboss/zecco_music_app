@@ -1,12 +1,12 @@
 // biome-ignore assist/source/organizeImports: <Might arrange them later>
-import { bigScreen, largeScreen } from "../core/screenBreakPoints.js";
+import { bigScreen, largeScreen } from "../core/screen-break-points.js";
 
-import CreateElement from "../utils/CreateElement.js";
+import CreateElement from "../utils/create-element.js";
 import {
 	magnifierSvg,
 	musicIconSvg,
 	panelOpenSvg,
-} from "../assets/svgs/svgIcons.js";
+} from "../assets/svgs/svg-icons.js";
 
 const Header = () => {
 	// Create element

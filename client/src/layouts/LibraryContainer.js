@@ -1,14 +1,14 @@
-import CreateElement from "../utils/CreateElement";
-import LibrarySkeleton from "../components/skeleton/LibrarySkeleton";
+import CreateElement from "../utils/create-element.js";
+import LibrarySkeleton from "../components/skeleton/LibrarySkeleton.js";
 import {
 	chevronDownSvg,
 	heartFillSvg,
 	recentSvg,
 	uploadSvg,
-} from "../assets/svgs/svgIcons";
-import LibraryPlaylistCard from "../components/LibraryPlaylistCard";
-import LibraryArtistCard from "../components/LibraryArtistCard";
-import { mobileScreen } from "../core/screenBreakPoints";
+} from "../assets/svgs/svg-icons.js";
+import LibraryPlaylistCard from "../components/LibraryPlaylistCard.js";
+import LibraryArtistCard from "../components/LibraryArtistCard.js";
+import { mobileScreen } from "../core/screen-break-points.js";
 import { buttonWrapper } from "../components/HeaderBtnContainer.js";
 
 const LibraryContainer = () => {

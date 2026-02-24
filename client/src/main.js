@@ -13,8 +13,8 @@ import {
 	bigScreen,
 	largeScreen,
 	mobileScreen,
-} from "./core/screenBreakPoints.js";
-import { initApp } from "./core/initApp.js";
+} from "./core/screen-break-points.js";
+import { initApp } from "./core/init-app.js";
 import { FormPage } from "./pages/FormPage.js";
 import { NoResourcePage } from "./pages/NoResourcePage.js";
 import { VerificationPage } from "./pages/VerificationPage.js";
@@ -23,7 +23,6 @@ import { ForgotPasswordFormPage } from "./pages/ForgotPasswordFormPage.js";
 import "./styles/base.css";
 import "./styles/skeleton.css";
 import "./styles/media.css";
-import CreateElement from "./utils/CreateElement.js";
 
 const renderApp = () => {
 	const clearApp = () => {

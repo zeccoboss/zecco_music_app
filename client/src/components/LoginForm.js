@@ -1,6 +1,6 @@
-import CreateElement from "../utils/CreateElement.js";
-import { homeSvg } from "../assets/svgs/svgIcons.js";
-import { validateLogin } from "../validators/validateLogin.js";
+import CreateElement from "../utils/create-element.js";
+import { homeSvg } from "../assets/svgs/svg-icons.js";
+import { validateLogin } from "../validators/validate-login.js";
 
 const loginFormInstance = new CreateElement("forms");
 

@@ -1,6 +1,6 @@
 import musicImage from "../assets/images/favicon.png";
-import { threeDotMenuSvg } from "../assets/svgs/svgIcons";
-import CreateElement from "../utils/CreateElement";
+import { threeDotMenuSvg } from "../assets/svgs/svg-icons.js";
+import CreateElement from "../utils/create-element.js";
 
 const LibraryArtistCard = () => {
 	const libraryArtistCard = new CreateElement("section");

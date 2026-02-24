@@ -2,9 +2,9 @@ import {
 	ResetPasswordForm,
 	resetPasswordFormInstance,
 } from "../components/ResetPasswordForm.js";
-import handleFormNavigation from "../helpers/handleFormNavigation.js";
+import handleFormNavigation from "../helpers/handle-form-navigation.js";
 import { router } from "../routes/router.js";
-import CreateElement from "../utils/CreateElement.js";
+import CreateElement from "../utils/create-element.js";
 
 const forgotPasswordFormPageInstance = new CreateElement("div");
 forgotPasswordFormPageInstance.addClass("frt_pwd_frm_page");

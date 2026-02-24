@@ -1,6 +1,6 @@
-import restoreDefaultLayout from "../helpers/restoreDefaultLayout.js";
+import restoreDefaultLayout from "../helpers/restore-default-layout.js";
 import { router } from "../routes/router.js";
-import CreateElement from "../utils/CreateElement.js";
+import CreateElement from "../utils/create-element.js";
 
 // Create element
 const noResourcePageInstance = new CreateElement("div");

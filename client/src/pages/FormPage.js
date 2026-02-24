@@ -1,6 +1,6 @@
 import { LoginForm } from "../components/LoginForm.js";
 import { RegisterForm } from "../components/RegisterForm.js";
-import CreateElement from "../utils/CreateElement.js";
+import CreateElement from "../utils/create-element.js";
 
 // Create instance
 const formPageInstance = new CreateElement("div");

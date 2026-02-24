@@ -1,4 +1,4 @@
-import CreateElement from "../../utils/CreateElement";
+import CreateElement from "../../utils/create-element.js";
 
 const LibrarySkeleton = () => {
 	const librarySkeleton = new CreateElement("section");

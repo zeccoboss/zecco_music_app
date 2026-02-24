@@ -1,8 +1,8 @@
-import handleFormNavigation from "../helpers/handleFormNavigation.js";
+import handleFormNavigation from "../helpers/handle-form-navigation.js";
 import { forgotPasswordFormPageInstance } from "../pages/ForgotPasswordFormPage.js";
 import { router } from "../routes/router.js";
-import CreateElement from "../utils/CreateElement";
-import { homeSvg } from "../assets/svgs/svgIcons.js";
+import CreateElement from "../utils/create-element.js";
+import { homeSvg } from "../assets/svgs/svg-icons.js";
 
 const resetPasswordFormInstance = new CreateElement("form");
 

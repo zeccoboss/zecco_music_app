@@ -1,10 +1,10 @@
 // import { navigateSearch } from "../events/navigateSearch.js";
 // import { pushHistory } from "../routes/router.js";
-import { magnifierSvg, musicIconSvg } from "../assets/svgs/svgIcons.js";
-import CreateElement from "../utils/CreateElement.js";
+import { magnifierSvg, musicIconSvg } from "../assets/svgs/svg-icons.js";
+import CreateElement from "../utils/create-element.js";
 import defaultProfile from "../assets/images/default-profile.png";
 import { HeaderBtnCtn } from "../components/HeaderBtnContainer.js";
-import { manageHeaderBtns } from "../utils/manageHeaderBtns.js";
+import { manageHeaderBtns } from "../utils/manage-header-btns.js";
 
 const MobileHeader = () => {
 	const mobileHeaderInstance = new CreateElement("header");

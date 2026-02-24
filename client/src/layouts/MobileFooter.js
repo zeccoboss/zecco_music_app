@@ -4,10 +4,10 @@ import {
 	librarySvg,
 	magnifierSvg,
 	personProfileSVG,
-} from "../assets/svgs/svgIcons.js";
-import CreateElement from "../utils/CreateElement.js";
-import { adjustMobileFooterSvg } from "../helpers/adjustSvgSize.js";
-import { mobileScreen } from "../core/screenBreakPoints.js";
+} from "../assets/svgs/svg-icons.js";
+import CreateElement from "../utils/create-element.js";
+import { adjustMobileFooterSvg } from "../helpers/adjust-svg-size.js";
+import { mobileScreen } from "../core/screen-break-points.js";
 
 const MobileFooter = () => {
 	// Create element

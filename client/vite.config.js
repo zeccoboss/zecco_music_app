@@ -1,11 +1,10 @@
-console.log("Vite config Loaded");
-
 import { defineConfig } from "vite";
+// const envronment =
 
 export default defineConfig({
-	base: "/zecco_music_app/",
+	base: "/",
 	server: {
 		host: true,
-		allowedHosts: "9c2b-102-91-98-68.ngrok-free.app",
+		allowedHosts: "",
 	},
 });

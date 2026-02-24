@@ -1,9 +1,9 @@
 import defaultProfile from "../assets/images/default-profile.png";
-import { cameraSvg, pencilSvg } from "../assets/svgs/svgIcons.js";
+import { cameraSvg, pencilSvg } from "../assets/svgs/svg-icons.js";
 import { buttonWrapper } from "../components/HeaderBtnContainer.js";
-import appConfig from "../config/AppConfig.js";
-import { mobileScreen } from "../core/screenBreakPoints.js";
-import CreateElement from "../utils/CreateElement.js";
+import appConfig from "../config/app-config.js";
+// import { mobileScreen } from "../core/screen-break-points.js";
+import CreateElement from "../utils/create-element.js";
 
 const ProfileContainer = () => {
 	const date = `${appConfig.date.getDate()}-${appConfig.date.getMonth()}-${appConfig.date.getFullYear()}`;

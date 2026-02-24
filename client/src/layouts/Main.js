@@ -1,9 +1,9 @@
-import CreateElement from "../utils/CreateElement";
-import { HomeContainer } from "./HomeContainer";
-import { LibraryContainer } from "./LibraryContainer";
-import { ProfileContainer } from "./ProfileContainer";
-import { SearchContainer } from "./SearchContainer";
-import { SettingsContainer } from "./SettingContainer";
+import CreateElement from "../utils/create-element.js";
+import { HomeContainer } from "./HomeContainer.js";
+import { LibraryContainer } from "./LibraryContainer.js";
+import { ProfileContainer } from "./ProfileContainer.js";
+import { SearchContainer } from "./SearchContainer.js";
+import { SettingsContainer } from "./SettingContainer.js";
 
 const Main = async () => {
 	// Create element

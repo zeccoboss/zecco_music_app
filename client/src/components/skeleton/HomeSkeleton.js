@@ -1,4 +1,4 @@
-import CreateElement from "../../utils/CreateElement";
+import CreateElement from "../../utils/create-element.js";
 
 // Create element
 const homeSkeletonInstance = new CreateElement("div");

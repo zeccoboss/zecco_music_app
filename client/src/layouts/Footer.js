@@ -1,4 +1,4 @@
-import CreateElement from "../utils/CreateElement";
+import CreateElement from "../utils/create-element.js";
 import {
 	heartSvg,
 	loopSvg,
@@ -8,9 +8,9 @@ import {
 	skipBack,
 	shuffleSvg,
 	threeDotMenuSvg,
-} from "../assets/svgs/svgIcons";
+} from "../assets/svgs/svg-icons.js";
 import musicImage from "../assets/images/favicon.png";
-import { adjustFooterSvg } from "../helpers/adjustSvgSize";
+import { adjustFooterSvg } from "../helpers/adjust-svg-size.js";
 
 // Return footer element
 const Footer = () => {

@@ -1,6 +1,6 @@
 import LoginForm from "../components/LoginForm.js";
 import SignpForm from "../components/SignupForm.js";
-import CreateElement from "../utils/CreateElement.js";
+import CreateElement from "../utils/create-element.js";
 
 const ExtraContent = () => {
 	const extraContent = new CreateElement("div");

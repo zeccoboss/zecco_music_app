@@ -1,5 +1,5 @@
 import { MiniPlayer } from "../components/MiniPlayer.js";
-import CreateElement from "../utils/CreateElement.js";
+import CreateElement from "../utils/create-element.js";
 import { HomeContainer } from "./HomeContainer.js";
 import { LibraryContainer } from "./LibraryContainer.js";
 import { ProfileContainer } from "./ProfileContainer.js";

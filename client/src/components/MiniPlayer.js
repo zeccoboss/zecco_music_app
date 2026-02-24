@@ -1,5 +1,5 @@
-import CreateElement from "../utils/CreateElement.js";
-import { musicListSvg, playSvg } from "../assets/svgs/svgIcons.js";
+import CreateElement from "../utils/create-element.js";
+import { musicListSvg, playSvg } from "../assets/svgs/svg-icons.js";
 import music_cover from "../assets/images/favicon.png";
 
 // Create element

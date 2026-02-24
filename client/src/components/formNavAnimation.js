@@ -1,5 +1,5 @@
 import loadingImg from "../assets/images/logo.jpg";
-import { overlayInstance } from "../layouts/Overlay";
+import { overlayInstance } from "../layouts/Overlay.js";
 
 const formNavAnimation = () => {
 	overlayInstance.innerHTML = "";

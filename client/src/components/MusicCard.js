@@ -1,11 +1,15 @@
-import { adjustMusicCardSvg } from "../helpers/adjustSvgSize.js";
+import { adjustMusicCardSvg } from "../helpers/adjust-svg-size.js";
 import {
 	bigScreen,
 	largeScreen,
 	mobileScreen,
-} from "../core/screenBreakPoints.js";
-import CreateElement from "../utils/CreateElement.js";
-import { heartSvg, playSvg, threeDotMenuSvg } from "../assets/svgs/svgIcons.js";
+} from "../core/screen-break-points.js";
+import CreateElement from "../utils/create-element.js";
+import {
+	heartSvg,
+	playSvg,
+	threeDotMenuSvg,
+} from "../assets/svgs/svg-icons.js";
 import musicImage from "../assets/images/favicon.png";
 
 const MusicCard = (audio = null) => {

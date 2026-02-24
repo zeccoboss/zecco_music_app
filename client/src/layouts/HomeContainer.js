@@ -1,11 +1,11 @@
-import { audioService } from "../services/audioService.js";
-import CreateElement from "../utils/CreateElement.js";
-import { getTag } from "../helpers/selectElement.js";
+import { audioService } from "../services/audio-service.js";
+import CreateElement from "../utils/create-element.js";
+import { getTag } from "../helpers/select-element.js";
 import MusicCard from "../components/MusicCard.js";
 import { buttonWrapper } from "../components/HeaderBtnContainer.js";
-import { mobileScreen } from "../core/screenBreakPoints.js";
+import { mobileScreen } from "../core/screen-break-points.js";
 import { HomeSkeleton } from "../components/skeleton/HomeSkeleton.js";
-import { buildNode } from "../utils/buildNode.js";
+import { buildNode } from "../utils/build-node.js";
 
 const HomeContainer = async () => {
 	const homeContainerInstance = new CreateElement("section");

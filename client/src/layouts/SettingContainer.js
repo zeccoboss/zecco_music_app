@@ -1,7 +1,7 @@
 import defaultProfile from "../assets/images/default-profile.png";
-import { chevronDownSvg } from "../assets/svgs/svgIcons.js";
-import appConfig from "../config/AppConfig.js";
-import CreateElement from "../utils/CreateElement.js";
+import { chevronDownSvg } from "../assets/svgs/svg-icons.js";
+import appConfig from "../config/app-config.js";
+import CreateElement from "../utils/create-element.js";
 
 // Return the ...
 const SettingsContainer = () => {

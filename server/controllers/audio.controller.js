@@ -3,7 +3,7 @@ const metaManager = require("../metadata/meta-manager.metadata");
 
 const getAllAudios = async (_req, res) => {
 	try {
-		const localMedia = await LocalMedia.find();
+		const localMedia = await AudioModel.find();
 		(async () => res.json(await localMedia))();
 	} catch (error) {
 		console.log(error);
@@ -22,7 +22,6 @@ const uploadAudio = async (req, res) => {
 
 	// Check if theres user
 	if (!userId) return res.status(406).json({ error: "Cant proceed upload" });
-	console.log(userId);
 
 	const metadata = await metaManager.processAudio(userId, req.file);
 	res.json(metadata);

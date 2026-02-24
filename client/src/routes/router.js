@@ -1,4 +1,4 @@
-import { routes } from "./routesConfig.routes";
+import { routes } from "./routes-config.routes.js";
 
 class Router {
 	// Define routes

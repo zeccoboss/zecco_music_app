@@ -1,6 +1,6 @@
-import { cancelSvg, magnifierSvg } from "../assets/svgs/svgIcons";
-import { mobileScreen } from "../core/screenBreakPoints";
-import CreateElement from "../utils/CreateElement";
+import { cancelSvg, magnifierSvg } from "../assets/svgs/svg-icons.js";
+import { mobileScreen } from "../core/screen-break-points.js";
+import CreateElement from "../utils/create-element.js";
 
 const homeBtnCtnrInstance = new CreateElement("div");
 homeBtnCtnrInstance.addClass("home_btns_ctn");

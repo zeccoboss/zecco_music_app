@@ -1,4 +1,5 @@
-import CreateElement from "../utils/CreateElement.js";
+import CreateElement from "../utils/create-element.js";
+
 const defaultContent = `<li>No content passed</li>`;
 
 const DropDownList = (id = "no_content", className = "no_content") => {

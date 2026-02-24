@@ -1,6 +1,6 @@
-import { homeSvg } from "../assets/svgs/svgIcons";
-import CreateElement from "../utils/CreateElement";
-import { validateRegister } from "../validators/validateRegister";
+import { homeSvg } from "../assets/svgs/svg-icons.js";
+import CreateElement from "../utils/create-element.js";
+import { validateRegister } from "../validators/validate-register.js";
 
 const registerFormInstance = new CreateElement("forms");
 

@@ -1,4 +1,4 @@
-import CreateElement from "../utils/CreateElement.js";
+import CreateElement from "../utils/create-element.js";
 
 const buttonLoadingSpinner = new CreateElement("div");
 buttonLoadingSpinner.addClass("button_loading_spinner");

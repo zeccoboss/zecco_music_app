@@ -1,8 +1,8 @@
-import { navigateHome } from "../events/navigateHome.js";
-import { navigateLibrary } from "../events/navigateLibrary.js";
-import { navigateSearch } from "../events/navigateSearch.js";
-import CreateElement from "../utils/CreateElement.js";
-import { homeSvg, librarySvg, magnifierSvg } from "../assets/svgs/svgIcons.js";
+import { navigateHome } from "../events/navigate-home.js";
+import { navigateLibrary } from "../events/navigate-library.js";
+import { navigateSearch } from "../events/navigate-search.js";
+import CreateElement from "../utils/create-element.js";
+import { homeSvg, librarySvg, magnifierSvg } from "../assets/svgs/svg-icons.js";
 
 const Aside = () => {
 	// Create element

@@ -8,14 +8,15 @@ const {
 const appConfig = require("../config/app.config");
 
 const handleRegister = async (req, res) => {
-	try {
-		const { username, email, password } = req.body; // Retrieve user details from req
-		const existingEmail = await User.findOne({ email: email + "mm" });
-		const token = crypto.randomBytes(32).toString("hex");
+	const { username, email, password } = req.body; // Retrieve user details from req
+	const existingEmail = await User.findOne({ email: email });
+	const token = crypto.randomBytes(32).toString("hex");
 
-		if (!username || !password || !email) {
-			return res.status(400).json({ error: "All fields are required" });
-		} else if (existingEmail) {
+	if (!username || !password || !email)
+		return res.status(400).json({ error: "All fields are required" });
+
+	try {
+		if (existingEmail) {
 			// return res.status(409).json({ error: `Email already exist` });
 			console.log("Email exist thou");
 		} else {
@@ -36,7 +37,7 @@ const handleRegister = async (req, res) => {
 				verificationToken: hashedToken,
 			});
 
-			const userId = user._id;
+			// const userId = user._id;
 			// const userMedia = await UserMedia.create({
 			// 	owner: userId,
 			// 	category: 'local',
