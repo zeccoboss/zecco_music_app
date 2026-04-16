@@ -1,0 +1,77 @@
+7e18508f-4dd3-4097-8cbe-4b4bcebb940c	19022026	17:25:23	Error	Not allowed by CORS
+56b4e299-04c3-42d5-ba99-a6337869f6e4	19022026	17:25:23	Error	Not allowed by CORS
+03af8135-6164-4f3c-aa97-7f828bac180e	19022026	17:25:23	Error	Not allowed by CORS
+1bf952d9-a8bb-4f89-8bd0-9950eaacea52	19022026	17:25:23	Error	Not allowed by CORS
+9c78e657-5736-4cca-a763-af5b84c60347	19022026	17:25:23	Error	Not allowed by CORS
+ae1919fc-0e17-4d03-8933-aaf28996b3c2	19022026	17:25:23	Error	Not allowed by CORS
+2f57fda5-50d6-4350-9992-419b98999ce1	19022026	17:25:23	Error	Not allowed by CORS
+38eefff2-7993-44c7-908a-ecd894456c4e	19022026	17:25:23	Error	Not allowed by CORS
+0000db1b-c5f9-4de1-aca5-3dc64dfe62b7	19022026	17:25:23	Error	Not allowed by CORS
+bcc3f73e-dfe5-4645-b3a2-d476029350a9	19022026	17:25:23	Error	Not allowed by CORS
+3e9e1f44-f160-4806-a7b9-662786676392	19022026	17:25:23	Error	Not allowed by CORS
+ea84c3b4-4fc2-402b-b852-eba991da1c00	19022026	17:25:23	Error	Not allowed by CORS
+735da2ce-8fad-4cfe-9c49-9373367a3adb	19022026	17:25:23	Error	Not allowed by CORS
+91a6fee6-ad43-44c5-b9ba-c5414e8d3946	19022026	17:25:23	Error	Not allowed by CORS
+1cad6b50-58f6-4e66-98a1-81e5ecb66210	19022026	17:25:23	Error	Not allowed by CORS
+d4e218f0-d9c5-4198-8d21-49a50f079515	19022026	17:25:30	Error	Not allowed by CORS
+24615d86-0990-4730-9122-7d037303fff5	19022026	17:25:41	Error	Not allowed by CORS
+7c2dc26a-4d87-4216-97f6-6904cd8f68d0	19022026	17:25:53	Error	Not allowed by CORS
+1316c1e1-42b5-4d63-8b17-cb9bc5ed5168	19022026	17:26:35	Error	Not allowed by CORS
+addccb2f-285b-4a25-a9ba-a1221039fb6f	20022026	12:12:14	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/codes/zecco_music_app/server/public/views/notFound.html'
+3c4ff86e-a287-4ab9-b749-38e24de8d6ea	20022026	12:12:14	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/codes/zecco_music_app/server/public/views/notFound.html'
+fd07c6a1-b4fb-4b81-bca4-1b32539dfe1d	20022026	12:21:43	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/codes/zecco_music_app/server/public/views/notFound.html'
+97a1ad7c-ae82-47b8-8303-14acb4ed0156	20022026	12:21:43	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/codes/zecco_music_app/server/public/views/notFound.html'
+79e02166-f861-4b92-bf48-0120e2762ed0	20022026	16:31:37	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/codes/zecco_music_app/server/public/views/notFound.html'
+fe4a6ab4-a54d-438c-8ee4-3e35ba4e050f	15042026	15:05:16	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+73e9529b-5d82-415d-95c4-56d464c16b56	15042026	15:05:16	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+9be6e2e2-8644-4b89-844b-a0d4fde0bb78	15042026	15:05:16	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+153e7451-ab6d-4841-9ffc-a2cc6c8acee5	15042026	15:05:17	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+2a0043b6-f1de-46ed-9923-e4979d4e9557	15042026	15:05:21	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+70450f1e-c883-45ef-be2d-0bef265d2014	15042026	15:05:21	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+20e87aae-9750-4238-abde-4fb9004e714a	15042026	20:47:22	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+c63f9132-3aa5-4cf5-897b-b4c06433e989	15042026	20:47:22	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+e88dde49-75fa-457b-902a-32576b452908	15042026	20:47:22	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+7233a180-eaf9-448c-b64a-eeaf742d4823	15042026	20:47:22	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+5edc8950-c179-4f4c-9df6-4a84fd59989f	15042026	21:20:21	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+8f806f02-ffda-44ed-a5a8-a7055ca2c39c	15042026	21:20:21	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+c917932f-dc33-46ee-9f0d-6a41f745eea5	15042026	21:20:31	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+c7fd114c-4e2e-403a-84d7-e9582b3cc9a9	15042026	21:20:31	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+1e270c3a-2807-41f9-97d6-b9d346b3a6d3	15042026	21:20:35	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+de25e538-066f-417c-9ab5-ca4eb77c4741	15042026	21:20:35	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+8aac2f46-af66-4311-a63a-02a25a65af06	15042026	21:21:23	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+3d6bc669-13b8-4e58-a3ad-d9bb3ac94f1e	15042026	21:21:23	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+2a2025ac-fb6c-4cb8-ae24-8af1dae29f73	15042026	21:21:24	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+be82f581-26f3-4b56-b1b9-c7f3e8ca7349	15042026	21:21:24	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+8acb0a40-4b78-47d7-bdd6-ee73be8a35fa	15042026	21:21:25	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+65872710-51e4-4aeb-a68e-ee17f2a006e0	15042026	21:21:25	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+cd3dfb20-ef70-4b32-9770-13e8a058cef4	15042026	21:21:50	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/src/public/views/index.html'
+c391321d-6383-4976-a0bf-995b34fc6f7c	15042026	21:21:50	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+893a27a1-d001-4b95-a57d-cb2900eb73c8	15042026	21:22:52	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+393d6718-6096-4070-8d79-f0a33cc3d844	15042026	21:23:22	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+81ce3a7b-0922-44f0-a168-4c28919983cc	15042026	21:24:07	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/src/public/views/index.html'
+35124551-f7a7-4f89-b8c2-25f95cae5d09	15042026	21:24:07	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+c44d48e6-9adf-4f0a-aa79-700f20d8f80e	15042026	21:25:47	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/src/public/views/index.html'
+cd3b68ff-d75b-4c63-aab1-e8da23b6b0d0	15042026	21:25:47	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+0fe1f63f-6f2c-4b3c-b9fd-4e4dcd0443ca	15042026	21:25:50	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/src/public/views/index.html'
+fd86e93d-0c3d-40c6-bd07-f8eb4f948f50	15042026	21:25:51	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+5496a364-ba61-40a0-99d2-64e1236a6403	15042026	21:27:03	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/src/routes/public/views/index.html'
+677e3bbc-a10f-4c97-8927-f1c369325b42	15042026	21:27:03	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+bfc53ee4-43f3-4060-a6fb-ab35c2898336	15042026	21:27:17	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/src/public/views/index.html'
+0e6b9626-5a80-4e01-9488-3ac10ebad382	15042026	21:27:17	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+bb72be1c-1730-43be-b697-82bb1b6c0b0f	15042026	21:27:28	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+961a8057-0b94-48f2-a097-10c16582b378	15042026	21:27:28	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+13428c7a-ca78-49f2-ad10-d46194305beb	15042026	21:27:57	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+d1907f2b-2fc5-4324-93f5-42039f720968	15042026	21:27:57	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+053f8694-3e49-4a79-8b1b-4609ca4a479c	15042026	21:30:07	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+7f46426b-2622-41ee-b1a7-e68282bb10a0	15042026	21:30:08	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+9d523b28-50ff-45b8-881a-50202b7067f9	15042026	21:30:22	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+4ea8c02c-dd2d-4953-a92a-a1a39763f39c	15042026	21:30:22	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+b212a8ed-d997-4ffc-9ad3-04c5e118882c	15042026	21:30:36	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+67a62aa7-bb34-4841-b7d6-26a136a36f2e	15042026	21:30:36	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/notFound.html'
+2d24fb58-b527-4909-b3dd-ffb9565c8c61	15042026	21:31:06	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/no-resource.html'
+37480b67-d94d-40f5-8e63-94d50cdd0d37	15042026	21:31:06	Error	ENOENT: no such file or directory, stat '/home/zecco/Desktop/zecco_music_app/server/public/views/no-resource.html'
+6a1b61a2-cd20-4b36-b7c7-657459013c48	16042026	14:30:16	TypeError	Cannot read properties of undefined (reading 'buffer')
+12648c94-11b7-4eeb-98ed-e0660747a1bc	16042026	16:53:39	ReferenceError	lastUserVerificationSentAt is not defined
+6daeed62-f334-4f46-9908-b3d828d8c11c	16042026	16:58:12	TypeError	crypto.randomBytes is not a function
+0e7ed973-ce7b-4cb6-bcb4-83fd28fc912c	16042026	17:02:58	Error	Cannot set headers after they are sent to the client
+ff613b2e-e3b0-4b49-8f88-1c2f1b560e74	16042026	17:03:12	Error	Cannot set headers after they are sent to the client

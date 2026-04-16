@@ -2,16 +2,16 @@ require("dotenv").config();
 const express = require("express");
 const path = require("node:path");
 const cors = require("cors");
-const { corsOptions } = require("./config/cors-options.config");
-const { logger } = require("./middlewares/event-handler.middleware");
-const { errorLogger } = require("./middlewares/error-handler.middleware");
-const initAdmin = require("./core/init-admin.core");
+const { corsOptions } = require("./src/config/cors-options.config");
+const { logger } = require("./src/middlewares/event-handler.middleware");
+const { errorLogger } = require("./src/middlewares/error-handler.middleware");
+const initAdmin = require("./src/core/init-admin.core");
 const cookieParser = require("cookie-parser");
-const verifyJWT = require("./middlewares/verify-jwt.middleware");
-const { credentials } = require("./middlewares/credentials.middleware");
-const { connectDB } = require("./config/db.config");
+const verifyJWT = require("./src/middlewares/verify-jwt.middleware");
+const { credentials } = require("./src/middlewares/credentials.middleware");
+const { connectDB } = require("./src/config/db.config");
 const mongoose = require("mongoose");
-const appConfig = require("./config/app.config");
+const appConfig = require("./src/config/app.config");
 
 connectDB(); // Connect to mongodb
 const app = express(); // Create App
@@ -31,17 +31,17 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 // Server html page
-app.use("/", require("./routes/root.route"));
+app.use("/", require("./src/routes/root.route"));
 
-app.use("/auth", require("./routes/auth.route"));
-app.use("/profile", require("./routes/profile.route"));
-app.use("/refresh", require("./routes/refresh.route")); // Routes
-app.use("/users", verifyJWT, require("./routes/api/users.route")); // Users routes
-app.use("/api/media/audio", require("./routes/api/audios.route")); // Music routes
+app.use("/auth", require("./src/routes/auth.route"));
+app.use("/profile", require("./src/routes/profile.route"));
+app.use("/refresh", require("./src/routes/refresh.route")); // Routes
+app.use("/users", verifyJWT, require("./src/routes/api/users.route")); // Users routes
+app.use("/api/media/audio", require("./src/routes/api/audios.route")); // Music routes
 
 // Serve 404 page
 app.use((_, res) => {
-	const filePath = path.join(__dirname, "public", "views", "notFound.html");
+	const filePath = path.join(__dirname, "public", "views", "no-resource.html");
 	res.status(404).sendFile(filePath);
 });
 
