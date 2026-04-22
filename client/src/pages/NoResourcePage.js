@@ -2,39 +2,71 @@ import restoreDefaultLayout from "../helpers/restore-default-layout.js";
 import { router } from "../routes/router.js";
 import CreateElement from "../utils/create-element.js";
 
-// Create element
-const noResourcePageInstance = new CreateElement("div");
+const NoResourcePage = () => {
+	// Create element
+	const page = new CreateElement("div");
 
-// Set attributes
-noResourcePageInstance.addClass("no_resource_page");
-noResourcePageInstance.setId("no-resource-page");
-// show_not_found_page;
+	// Set attributes
+	page.addClass("app-page").setId("no-resource-page");
 
-noResourcePageInstance.innerHTML = `
-	<h1>404</h1>	
-	<p>Resource not found</p>
-	<a href="/" class="nfp-link">Return Home</a>
-`;
+	page.innerHTML = `
+		<div class="no_resource_page">
+			<!-- bg blobs -->
+			<div class="bg-blob blob-1"></div>
+			<div class="bg-blob blob-2"></div>
+			<div class="bg-blob blob-3"></div>
 
-// notFoundPage.style(`
-// 	display: flex;
-// 	place-content: center;1
-// 	font-family: Verdana, Geneva, Tahoma, sans-serif;
-// 	padding-top: 3rem;
-// 	color: hsla(0, 80%, 80%);
-// `);
+			<!-- floating notes -->
+			<div class="note">🎵</div>
+			<div class="note">🎶</div>
+			<div class="note">🎵</div>
+			<div class="note">🎶</div>
+			<div class="note">♪</div>
+			<div class="note">♫</div>
 
-const rtnHomeBtn = noResourcePageInstance.getChild(".nfp-link");
+			<!-- logo -->
+			<div class="top-logo">
+				<div class="top-logo-icon">🎵</div>
+				<div class="top-logo-text">Zecco<span>Stream</span></div>
+			</div>
 
-rtnHomeBtn.addEventListener("click", (e) => {
-	e.preventDefault();
-	if (noResourcePageInstance.hasClass("show_no_resource_page"))
-		noResourcePageInstance.removeClass("show_no_resource_page");
+			<!-- vinyl 
+			<div class="vinyl-wrap">
+				<div class="vinyl">
+					<div class="vinyl-scratch"></div>
+					<div class="vinyl-scratch vinyl-scratch-2"></div>
+				</div>
+				<div class="vinyl-center">😵</div>
+			</div>-->
 
-	// router.navigateTo(e.target.href);
-});
+			<!-- content -->
+			<div class="content">
+				<div class="error-num">404</div>
+				<div class="error-title">Resource not found</div>
+				<div class="error-sub">
+					Looks like this track got lost in the mix. The page you're looking
+					for doesn't exist or may have been moved.
+				</div>
 
-//
-const NoResourcePage = () => noResourcePageInstance.getElement();
+				<div class="btn-group">
+					<a href="/" class="btn-home">🏠 &nbsp;Return Home</a>
+					<a href="javascript:history.back()" class="btn-back"
+						>← &nbsp;Go Back</a
+					>
+				</div>
+			</div>
 
-export { noResourcePageInstance, NoResourcePage };
+			<div class="quick-links">
+				<a href="/search" class="quick-link">🔍 Search</a>
+				<a href="/library" class="quick-link">📚 Library</a>
+				<a href="/upload" class="quick-link">⬆️ Upload</a>
+				<a href="/profile" class="quick-link">👤 Profile</a>
+			</div>
+		</div>
+
+	`;
+
+	return page.getElement();
+};
+
+export { NoResourcePage };

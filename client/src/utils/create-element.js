@@ -18,14 +18,17 @@ class CreateElement {
 			console.warn(`${name}, Not a valid attribute`);
 			return;
 		} else this.element.setAttribute(name, value);
+		return this;
 	}
 
 	append(...items) {
 		this.element.append(...items);
+		return this;
 	}
 
 	appendChild(child) {
 		this.element.appendChild(child);
+		return this;
 	}
 
 	appendContent(...items) {
@@ -40,14 +43,17 @@ class CreateElement {
 				console.warn("Unknown content type: ", item);
 			}
 		});
+		return this;
 	}
 
 	addEvent(type, handler) {
 		this.element.addEventListener(`${type}`, handler);
+		return this;
 	}
 
 	remove() {
 		this.element.remove();
+		return this;
 	}
 
 	getElement() {
@@ -69,16 +75,19 @@ class CreateElement {
 
 	disableElement(value) {
 		this.element.disabled = value;
+		return this;
 	}
 
 	setId(id) {
 		this.element.id = id;
+		return this;
 	}
 
 	addClass(...items) {
 		items.forEach((cl) => {
 			if (cl !== "") this.element.classList.add(cl);
 		});
+		return this;
 	}
 
 	hasClass(identifier) {
@@ -89,26 +98,32 @@ class CreateElement {
 		items.forEach((cl) => {
 			if (cl !== "") this.element.classList.remove(cl);
 		});
+		return this;
 	}
 
 	placeholder(placeholder) {
 		this.element.placeholder = placeholder;
+		return this;
 	}
 
 	columns(columns) {
 		this.element.cols = columns;
+		return this;
 	}
 
 	rows(rows) {
 		this.element.rows = rows;
+		return this;
 	}
 
 	setValue(value) {
 		this.element.value = value;
+		return this;
 	}
 
 	clearValue(value = "") {
 		this.element.value = value;
+		return this;
 	}
 
 	set innerText(text) {
@@ -136,6 +151,7 @@ class CreateElement {
 			return;
 		}
 		this.element.style[key] = value;
+		return this;
 	}
 }
 

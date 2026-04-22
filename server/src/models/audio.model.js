@@ -9,6 +9,7 @@ const audioSchema = new Schema(
 			index: true,
 			type: Schema.Types.ObjectId,
 		},
+		uuid: { type: String, required: true },
 		category: { type: String, default: "uploaded" },
 		codec: { type: String, default: null },
 		name: { type: String },
@@ -20,7 +21,6 @@ const audioSchema = new Schema(
 		sampleRate: { type: Number, default: null },
 		album: { type: String, default: null },
 		genre: {
-			enum: ["hip hop", "afrobeat"],
 			type: [String],
 			default: [],
 		},
@@ -33,13 +33,23 @@ const audioSchema = new Schema(
 			index: true,
 			ref: "Image",
 		},
-		videoId: { type: Schema.Types.ObjectId, required: false, ref: "Video" },
+		size: { type: String, required: true },
+		videoId: { type: Schema.Types.ObjectId, default: null, ref: "Video" },
 		year: { type: Number, default: null },
-		bucketName: { type: String, default: "audios" },
+		storage: {
+			key: { type: String, required: true },
+			baseUrl: { type: String, required: true },
+			type: { type: String, required: true, enum: ["s3", "local"] },
+		},
 		path: { type: String, default: null },
 		format: { type: String, required: true, default: "audio/mpeg" },
 	},
-	{ timestamps: true },
+	{
+		timestamps: true,
+		toJSON: {
+			virtuals: true,
+		},
+	},
 );
 
 const AudioModel = mongoose.model("Audio", audioSchema);

@@ -2,11 +2,17 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { rolesList } = require("../config/roles-list.config");
 const crypto = require("node:crypto");
-const {
-	sendVerificationMail,
-} = require("../helpers/send-verification-mail.helpers");
+const { sendVerificationMail } = require("../helpers/mailer.helper");
 const appConfig = require("../config/app.config");
 const UserModel = require("../models/user.model");
+const {
+	avaterImageHandler,
+	bannerImageHandler,
+} = require("../helpers/handle-images.helpers");
+const { v4: uuidV4 } = require("uuid");
+
+// Get the image extension by giving file path then use for banner & avater format field
+const imageExt = (path) => path.slice(path.lastIndexOf(".") + 1);
 
 const handleRegister = async (req, res) => {
 	const { username, email, password } = req.body; // Retrieve user details from req
@@ -29,6 +35,7 @@ const handleRegister = async (req, res) => {
 
 		// Create new user
 		const user = await UserModel.create({
+			uuid: uuidV4(),
 			username,
 			email,
 			password: await bcrypt.hash(`${password}`, 10),
@@ -41,8 +48,35 @@ const handleRegister = async (req, res) => {
 			lastUserVerificationSentAt: Date.now(),
 		});
 
+		const avatarConfig = {
+			id: user._id,
+			name: "user-avatar",
+			path: appConfig.local.userAvatarPath,
+			format: `image/${imageExt(appConfig.local.userAvatarPath)}`,
+		};
+
+		const bannerConfig = {
+			id: user._id,
+			name: "user-banner",
+			path: appConfig.local.bannerPath,
+			format: `image/${imageExt(appConfig.local.bannerPath)}`,
+		};
+
+		const [banner, avatar] = await Promise.all([
+			avaterImageHandler(avatarConfig),
+			bannerImageHandler(bannerConfig),
+		]);
+
+		// add the missing id to the user field
+		user.coverImageId = banner._id;
+		user.avatarImageId = avatar._id;
+
+		// Save the updated field
+		await user.save();
+
 		// call Send verification email
-		sendVerificationMail(user.email, token);
+		const info = await sendVerificationMail(user.email, token);
+		console.log(info.accepted);
 
 		res.status(201).json({
 			message: "user created, check your email for verification...",

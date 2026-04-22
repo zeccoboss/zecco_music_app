@@ -1,22 +1,26 @@
 import appConfig from "../config/app-config.js";
-import { clearActiveNav } from "../helpers/clear-active-nav.js";
-import { clearActiveSections } from "../helpers/clear-active-sections.js";
-import { manageHeaderBtns } from "./manage-header-btns.js";
+import { clearActivePage } from "../helpers/active-page-helpers.js";
+import {
+	applyActiveNav,
+	clearActiveNav,
+	clearActiveSection,
+} from "../helpers/nav-helpers.js";
 
 const RenderHome = async () => {
-	const homeSection = document.querySelector(".home_section");
+	const homeSection = document.querySelector(".home-section");
 
-	appConfig.pageTitle = "Music";
+	appConfig.page_title = "Music";
 	// const extraContent = document.querySelector(".extra_content");
 	// const overlay = document.querySelector(".overlay");
 
-	// Clear all active sections and nav links
-	clearActiveSections();
-	clearActiveNav();
+	clearActiveSection(); // Clear all active sections
+	clearActiveNav(); // Clear all active   nav links
+	applyActiveNav("home-nav-link"); // Accepts the selector queries the link tag and applies the class
 
-	manageHeaderBtns("Music", "home_btns_ctn");
+	// For Active page
+	clearActivePage();
 
-	homeSection.classList.add("active_section");
+	homeSection.classList.add("active-section");
 };
 
 export default RenderHome;

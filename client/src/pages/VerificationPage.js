@@ -5,7 +5,7 @@ const verificationPage = new CreateElement("div");
 
 // Set attributes
 verificationPage.setId("verification-page");
-verificationPage.addClass("verification_page", "");
+verificationPage.addClass("verification_page", "app-page");
 // show_verification_page;
 
 // Create a function to return the component

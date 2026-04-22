@@ -1,8 +1,4 @@
-import { loginFormInstance } from "../components/LoginForm.js";
-import { registerFormInstance } from "../components/RegisterForm.js";
 import { overlayInstance } from "../layouts/Overlay.js";
-import { forgotPasswordFormPageInstance } from "../pages/ForgotPasswordFormPage.js";
-import { formPageInstance as formPage } from "../pages/FormPage.js";
 import loadingImg from "../assets/images/logo.jpg";
 
 const handleFormNavigation = (duration, formPageInstance, flag) => {

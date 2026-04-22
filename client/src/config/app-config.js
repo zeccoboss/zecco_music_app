@@ -1,40 +1,21 @@
 class AppConfig {
-	#appName = "ZeccoMusicApp";
+	#appName = "ZeccoStream";
 	#creator = "ZECCO";
 	#devs = ["ZECCO"];
 
-	#globalDocument = document; // get reference to the document object
 	#apiDevUrl = "http://localhost:3500";
 	#apiBaseUrl = null;
 
-	get appName() {
+	get app_name() {
 		return this.#appName;
 	}
 
-	set pageTitle(title = "Home") {
-		this.#globalDocument.title = title;
+	set page_title(title = "Home") {
+		document.title = title;
 	}
 
-	get pageTitle() {
-		const title = this.#globalDocument.title;
-		return title;
-	}
-
-	get apiUrl() {
+	get api_url() {
 		return this.#apiBaseUrl ?? this.#apiDevUrl;
-	}
-
-	get getAppData() {
-		return {
-			appName: this.#appName,
-			creator: this.#creator,
-			developers: this.#devs,
-		};
-	}
-
-	get date() {
-		const date = new Date();
-		return date;
 	}
 }
 

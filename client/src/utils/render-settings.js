@@ -1,28 +1,32 @@
 import appConfig from "../config/app-config.js";
 import { settingsContainerEvents } from "../events/settings-container-events.js";
-import { clearActiveNav } from "../helpers/clear-active-nav.js";
-import { clearActiveSections } from "../helpers/clear-active-sections.js";
+import { clearActivePage } from "../helpers/active-page-helpers.js";
+import {
+	applyActiveNav,
+	clearActiveNav,
+	clearActiveSection,
+} from "../helpers/nav-helpers.js";
 import { getTag } from "../helpers/select-element.js";
 // import { settingsContainerInstance } from "../layouts/SettingsContainer.js";
 import { manageHeaderBtns } from "./manage-header-btns.js";
 
 //
 const RenderSettings = async () => {
-	appConfig.pageTitle = "Settings"; // Change title of the page
+	appConfig.page_title = "Settings"; // Change title of the page
 	const settingsContainer = getTag(".settings_section"); // Get the section
 
 	// const settingsContainer = getTag()
 
 	// Clear all active sections and nav links
-	clearActiveSections();
+	clearActiveSection();
 	clearActiveNav();
-
-	manageHeaderBtns("Settings", "settings_btns_ctn");
+	applyActiveNav("settings-nav-link");
 
 	// Call the event handler
-	settingsContainerEvents(settingsContainer);
+	// Clears active page if available
+	clearActivePage();
 
-	settingsContainer.classList.add("active_section");
+	settingsContainer.classList.add("active-section");
 	// settingsContainerInstance.addClass("active_section");
 };
 

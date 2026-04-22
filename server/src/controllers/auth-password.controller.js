@@ -3,7 +3,8 @@ const crypto = require("node:crypto");
 const UserModel = require("../models/user.model");
 const {
 	sendVerificationMail,
-} = require("../helpers/send-verification-mail.helpers");
+	sendPasswordResetMail,
+} = require("../helpers/mailer.helper");
 
 const handleForgotPassword = async (req, res) => {
 	try {
@@ -27,8 +28,9 @@ const handleForgotPassword = async (req, res) => {
 		user.lastPasswordVerificationSentAt = Date.now();
 
 		await user.save();
+		(user.email, token);
 
-		sendVerificationMail(email, token); // To be removed later
+		sendPasswordResetMail(email, token); // To be removed later
 
 		// sendPasswordResetMail(email, token);
 		res.status(200).json({ message: "Password reset email sent" });

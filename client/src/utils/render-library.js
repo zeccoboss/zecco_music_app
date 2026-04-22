@@ -1,26 +1,24 @@
 import appConfig from "../config/app-config";
-import { libraryContainerEvents } from "../events/library-container-events";
-import { clearActiveNav } from "../helpers/clear-active-nav";
-import { clearActiveSections } from "../helpers/clear-active-sections";
+import { clearActivePage } from "../helpers/active-page-helpers";
+import {
+	applyActiveNav,
+	clearActiveNav,
+	clearActiveSection,
+} from "../helpers/nav-helpers";
 import { getTag } from "../helpers/select-element";
-import { manageHeaderBtns } from "./manage-header-btns";
 
 const RenderLibrary = async () => {
 	const library = getTag(".library_section"); // Get the section
-	appConfig.pageTitle = "Library"; // Change title of the page
+	appConfig.page_title = "Library"; //
 
-	// const librarySection = getTag(".library_section");
-
-	// Clear all active sections and nav links
-	clearActiveSections();
+	clearActiveSection();
 	clearActiveNav();
+	applyActiveNav("lib-nav-link");
 
-	manageHeaderBtns("Library", "library_btns_ctn");
+	// Clears active page if available
+	clearActivePage();
 
-	// Add
-	libraryContainerEvents(library);
-
-	library.classList.add("active_section");
+	library.classList.add("active-section");
 };
 
 export default RenderLibrary;

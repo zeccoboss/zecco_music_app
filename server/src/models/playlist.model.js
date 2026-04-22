@@ -9,6 +9,7 @@ const PlaylistSchema = new Schema(
 			index: true,
 			type: Schema.Types.ObjectId,
 		},
+		uuid: { type: String, required: true },
 		audioIds: {
 			type: [{ type: Schema.Types.ObjectId, ref: "Audio" }],
 			default: [],

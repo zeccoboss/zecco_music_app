@@ -56,15 +56,3 @@ mongoose.connection.once("open", () => {
 		console.log("");
 	});
 });
-
-//  For testing purpose
-// (async () => {
-// const buckets = await minioClient.listBuckets();
-// console.log(buckets);
-// const mtm = new MetaManager("Public");
-// const data = await mtm.processFile({
-// 	path: "public/audios/Happiest Year (Afro Mara) | val9ja.mp3",
-// 	flag: "Path",
-// });
-// console.log(data);
-// })();

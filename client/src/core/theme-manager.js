@@ -99,3 +99,32 @@ class ThemeManager {
 }
 
 export const themeManager = new ThemeManager();
+
+`:root {
+  --cover-gradient-start: hsla(220, 20%, 16%, 0.95);
+  --cover-gradient-mid:   hsla(220, 14%, 12%, 0.92);
+  --cover-gradient-end:   hsla(220, 10%, 10%, 0.88);
+}
+
+/* Override in ThemeManager's #themes object */
+Dark: {
+  "--cover-gradient-start": "hsla(220, 20%, 16%, 0.95)",
+  "--cover-gradient-mid":   "hsla(220, 14%, 12%, 0.92)",
+  "--cover-gradient-end":   "hsla(220, 10%, 10%, 0.88)",
+},
+Light: {
+  "--cover-gradient-start": "hsla(213, 60%, 88%, 0.9)",
+  "--cover-gradient-mid":   "hsla(220, 40%, 92%, 0.85)",
+  "--cover-gradient-end":   "hsla(230, 30%, 94%, 0.8)",
+},
+
+/* Then in your CSS */
+.profile-cover-wrap,
+.featured {
+  background: linear-gradient(
+    135deg,
+    var(--cover-gradient-start) 0%,
+    var(--cover-gradient-mid)   50%,
+    var(--cover-gradient-end)   100%
+  );
+}`;

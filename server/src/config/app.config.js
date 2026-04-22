@@ -1,8 +1,6 @@
 const { v4: uuidV4 } = require("uuid");
 class AppConfig {
-	constructor() {
-		this.appName = "ZeccoMusicApp";
-	}
+	#appName = "ZeccoStreams";
 
 	#port = process.env.NODE_ENV === "production" ? process.env.PORT : 3500;
 	#client_base_url = null;
@@ -12,6 +10,10 @@ class AppConfig {
 		return process.env.NODE_ENV === "production"
 			? process.env.BASE_URL
 			: `http://localhost:${this.port}`;
+	}
+
+	get appName() {
+		return this.#appName;
 	}
 
 	get port() {
@@ -35,19 +37,20 @@ class AppConfig {
 		}
 		const time = new Date().toTimeString();
 		const date = `${new Date().toDateString()}-${time.slice(0, time.indexOf(" "))}`;
-		return `${this.appName}-${type}-${uuidV4()}-${date}`;
+		return `${this.#appName}-${type}-${uuidV4()}-${date}`;
 	}
 
-	audioName() {
+	get audioName() {
 		const time = new Date().toTimeString();
 		const date = `${new Date().toDateString()}-${time.slice(0, time.indexOf(" "))}`;
-		return `${this.appName}-${uuidV4()}-${date}`;
+		return `${this.#appName}-${uuidV4()}-${date}`;
 	}
 
 	// Get the path for local
 	local = {
 		bannerPath: "images/user-banner.jpg",
-		avatarPath: "images/admin-avatar.png",
+		adminAvatarPath: "images/admin-avatar.png",
+		userAvatarPath: "images/user-avatar.png",
 		coverPath: "images/audio-cover.png",
 	};
 }

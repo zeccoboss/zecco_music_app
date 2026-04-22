@@ -1,5 +1,5 @@
 const ImageModel = require("../models/image.model");
-const appConfig = require("../config/app.config");
+const { v4: uuidV4 } = require("uuid");
 
 const validateConfig = (data) => {
 	if (!data) return console.error("No config object passed");
@@ -14,6 +14,7 @@ function avaterImageHandler(config) {
 	validateConfig(config);
 
 	return ImageModel.create({
+		uuid: uuidV4(),
 		ownerId: config.id,
 		category: "avatar",
 		bucket: "local",
@@ -31,6 +32,7 @@ function bannerImageHandler(config) {
 
 	return ImageModel.create({
 		ownerId: config.id,
+		uuid: uuidV4(),
 		category: "banner",
 		bucket: "local",
 		static: true,
@@ -47,6 +49,7 @@ function coverImage(config) {
 
 	return ImageModel.create({
 		ownerId: config.id,
+		uuid: uuidV4(),
 		name: config.name,
 		path: config.path,
 		format: config.format,

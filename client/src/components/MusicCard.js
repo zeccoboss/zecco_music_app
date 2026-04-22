@@ -1,4 +1,4 @@
-import { adjustMusicCardSvg } from "../helpers/adjust-svg-size.js";
+// biome-ignore assist/source/organizeImports: <I will organize later>
 import {
 	bigScreen,
 	largeScreen,
@@ -41,19 +41,6 @@ const MusicCard = (audio = null) => {
 			<button class="card_options_btn">${threeDotMenuSvg}</button>
 		</div>
 	`;
-
-	const musicCardSvgs = musicCard.getChildren("svg", "element");
-	if (mobileScreen.matches) {
-		adjustMusicCardSvg(musicCardSvgs, 16);
-	} else if (bigScreen.matches) {
-		adjustMusicCardSvg(musicCardSvgs, 18);
-	} else if (largeScreen.matches) {
-		adjustMusicCardSvg(musicCardSvgs, 18);
-	}
-
-	const overlaySvg = musicCard.getChild(".bi-play-fill", "class");
-	overlaySvg.setAttribute("height", "35");
-	overlaySvg.setAttribute("width", "35");
 
 	musicCard.addEvent("mouseover", (e) => {
 		const cardOverlay = e.currentTarget.querySelector(".card_overlay");

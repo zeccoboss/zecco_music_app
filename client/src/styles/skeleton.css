@@ -6,7 +6,7 @@
 	height: 5rem;
 	margin: 0.02rem;
 	/* padding: var(--space); */
-
+	max-width: 100%;
 	& .mcs_img {
 		background-color: rgba(172, 163, 163, 0.155);
 		width: 4.5rem;

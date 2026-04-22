@@ -23,26 +23,26 @@ const sidebarHandler = () => {
 		toggleBtn.innerHTML = panelOpenSvg;
 		setToLocalStorage("SideBar", "expand");
 	} else if (sideBarState === "shrink") {
-		container.classList.add("shrink_sidebar");
-		toggleBtn.innerHTML = panelCloseSvg;
-		setToLocalStorage("SideBar", "shrink");
+		// container.classList.add("shrink_sidebar");
+		// toggleBtn.innerHTML = panelCloseSvg;
+		// setToLocalStorage("SideBar", "shrink");
 	}
 	// })();
 
 	// Add event to the sidebar toggle button
-	toggleBtn.addEventListener("click", (e) => {
-		const currentTarget = e.currentTarget;
+	// toggleBtn.addEventListener("click", (e) => {
+	// 	const currentTarget = e.currentTarget;
 
-		if (container.classList.contains("shrink_sidebar")) {
-			container.classList.remove("shrink_sidebar");
-			currentTarget.innerHTML = panelOpenSvg;
-			setToLocalStorage("SideBar", "expand");
-		} else {
-			container.classList.add("shrink_sidebar");
-			currentTarget.innerHTML = panelCloseSvg;
-			setToLocalStorage("SideBar", "shrink");
-		}
-	});
+	// 	if (container.classList.contains("shrink_sidebar")) {
+	// 		container.classList.remove("shrink_sidebar");
+	// 		currentTarget.innerHTML = panelOpenSvg;
+	// 		setToLocalStorage("SideBar", "expand");
+	// 	} else {
+	// 		container.classList.add("shrink_sidebar");
+	// 		currentTarget.innerHTML = panelCloseSvg;
+	// 		setToLocalStorage("SideBar", "shrink");
+	// 	}
+	// });
 };
 
 export { sidebarHandler };

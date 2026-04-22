@@ -1,21 +1,25 @@
 import appConfig from "../config/app-config.js";
-import { clearActiveNav } from "../helpers/clear-active-nav.js";
-import { clearActiveSections } from "../helpers/clear-active-sections.js";
+import { clearActivePage } from "../helpers/active-page-helpers.js";
+import {
+	applyActiveNav,
+	clearActiveNav,
+	clearActiveSection,
+} from "../helpers/nav-helpers.js";
 import { getTag } from "../helpers/select-element.js";
-import { manageHeaderBtns } from "./manage-header-btns.js";
 
 const RenderProfile = () => {
 	const profileSection = getTag(".profile_section"); // Get the section
-	appConfig.pageTitle = "Profile";
+	appConfig.page_title = "Profile";
 
 	// Clear all active sections and nav links
-	clearActiveSections();
+	clearActiveSection();
 	clearActiveNav();
+	applyActiveNav("profile-nav-link");
 
-	manageHeaderBtns("Profile", "profile_btns_ctn");
+	// Clears active page if available
+	clearActivePage();
 
-	// profileContainerInstance.addClass("active_section");
-	profileSection.classList.add("active_section");
+	profileSection.classList.add("active-section");
 };
 
 export default RenderProfile;

@@ -1,162 +1,90 @@
-import Aside from "./layouts/Aside.js";
-import { Container } from "./layouts/Container.js";
-// import ExtraContent from "./layouts/ExtraContent.js";
-import { Footer } from "./layouts/Footer.js";
-import { Header } from "./layouts/Header";
-import { Main } from "./layouts/Main.js";
-import { MobileFooter } from "./layouts/MobileFooter";
-import { MobileHeader } from "./layouts/MobileHeader.js";
-import { MobileMain } from "./layouts/MobileMain.js";
-import { Overlay } from "./layouts/Overlay.js";
-import StartupScreen from "./layouts/StartupScreen.js";
+import { initApp } from "./core/init-app.js";
 import {
 	bigScreen,
 	largeScreen,
 	mobileScreen,
 } from "./core/screen-break-points.js";
-import { initApp } from "./core/init-app.js";
-import { FormPage } from "./pages/FormPage.js";
+import Aside from "./layouts/desktop/Aside.js";
+import { Footer } from "./layouts/desktop/Footer";
+import { Main } from "./layouts/desktop/Main.js";
+import { MobileFooter } from "./layouts/mobile/MobileFooter";
+import { MobileHeader } from "./layouts/mobile/MobileHeader.js";
+import { MobileMain } from "./layouts/mobile/MobileMain";
+import { MiniPlayer } from "./layouts/mobile/MobileMiniPlayer.js";
+import { Overlay } from "./layouts/Overlay.js";
+import DesktopFullPlayer from "./pages/desktop/DesktopFullPlayer.js";
+import { DesktopLoginPage } from "./pages/desktop/DesktopLoginPage.js";
+import { DesktopPasswordPage } from "./pages/desktop/DesktopPasswordPage.js";
+import { DesktopRegisterPage } from "./pages/desktop/DesktopRegisterPage.js";
+import MobileFullPlayer from "./pages/mobile/MobileFullPlayer.js";
+import { MobileLoginPage } from "./pages/mobile/MobileLoginPage.js";
+import { MobilePasswordPage } from "./pages/mobile/MobilePasswordPage.js";
+import { MobileRegisterPage } from "./pages/mobile/MobileRegisterPage.js";
 import { NoResourcePage } from "./pages/NoResourcePage.js";
-import { VerificationPage } from "./pages/VerificationPage.js";
-import { ForgotPasswordFormPage } from "./pages/ForgotPasswordFormPage.js";
-
 import "./styles/base.css";
-import "./styles/skeleton.css";
 import "./styles/media.css";
 
 const renderApp = () => {
-	const clearApp = () => {
-		const app = document.querySelector("#app");
-		// const ctns = document.querySelectorAll("#app > div");
-		// if (ctns) for (const c of ctns) c.innerHTML = "";
+	const app = document.querySelector("#app");
 
-		app.innerHTML = ""; // Clear the app
+	const clearApp = () => {
+		app.innerHTML = "";
 	};
 
 	const applyMobileContent = async (message) => {
-		console.warn("Clearing app..");
 		clearApp();
-		console.warn("Appending app content...");
-
-		// Add Components to app
 		app.append(
-			MobileHeader(),
 			await MobileMain(),
+			MiniPlayer(),
 			MobileFooter(),
-			// StartupScreen(),
-			Overlay(),
 			NoResourcePage(),
-			VerificationPage(),
-			FormPage(),
-			ForgotPasswordFormPage(),
-			// ExtraContent()
-			// ProfilePage()
+			MobileLoginPage(),
+			MobileRegisterPage(),
+			MobileFullPlayer(),
+			MobilePasswordPage(),
+			// Overlay(),
+			// VerificationPage(),
+			// FormPage(),
+			// ForgotPasswordFormPage(),
 		);
-
 		console.warn(message);
-
-		// Start it's functionality ones DOM is completely built
-		document.addEventListener(
-			"DOMContentLoaded",
-			initApp("Starting Application..."),
-		);
-
-		console.log(""); // empty string to show app is fully loaded from additional logs
+		initApp("Starting Application...");
 	};
 
-	const applyBigScreenContent = async (message) => {
-		console.warn("Clearing app...");
+	const applyDesktopContent = async (message) => {
 		clearApp();
-		console.warn("Appending app content...");
-
-		// Add Components to app
 		app.append(
-			Header(),
-			await Container(Main, Aside),
+			Aside(),
+			await Main(),
 			Footer(),
-			// StartupScreen(),
-			Overlay(),
 			NoResourcePage(),
-			VerificationPage(),
-			// ExtraContent(),
-			FormPage(),
-			ForgotPasswordFormPage(),
+			DesktopFullPlayer(),
+			DesktopLoginPage(),
+			DesktopRegisterPage(),
+			DesktopPasswordPage(),
+			// Overlay(),
+			// VerificationPage(),
+			// FormPage(),
+			// ForgotPasswordFormPage(),
 		);
-
 		console.warn(message);
-
-		// Start it's functionality ones DOM is completely built
-		document.addEventListener(
-			"DOMContentLoaded",
-			initApp("Starting Application..."),
-		);
-
-		console.log(""); // empty string to show app is fully loaded from additional logs
+		initApp("Starting Application...");
 	};
 
-	const applyLargeScreenContent = async (message) => {
-		console.warn("Clearing app...");
-		clearApp();
-		console.warn("Appending app content...");
+	// Initial render
+	if (mobileScreen.matches) applyMobileContent("[Screen Size]: Mobile!");
+	else applyDesktopContent("[Screen Size]: Desktop!");
 
-		// Add Components to app
-		app.append(
-			Header(),
-			await Container(Main, Aside),
-			Footer(),
-			// StartupScreen(),
-			Overlay(),
-			NoResourcePage(),
-			VerificationPage(),
-			ForgotPasswordFormPage(),
-			FormPage(),
-			// ExtraContent()
-		);
-
-		console.warn(message);
-
-		// Start it's functionality ones DOM is completely built
-		document.addEventListener(
-			"DOMContentLoaded",
-			initApp("Starting Application..."),
-		);
-
-		console.log(""); // empty string to show app is fully loaded from additional logs
-	};
-
-	// Check screen size and pass appropriate layouts
-	if (mobileScreen.matches) {
-		applyMobileContent("[Screen Size]: Mobile screen!");
-	} else if (bigScreen.matches) {
-		applyBigScreenContent("[Screen Size]: Big screen!");
-	} else if (largeScreen.matches) {
-		applyLargeScreenContent("[Screen Size]: Large screen!");
-	}
-
-	// Listen to changes on screen size and render the corresponding layouts
+	// Respond to screen size changes
 	mobileScreen.addEventListener("change", (e) => {
-		if (e.target.matches)
-			applyMobileContent(
-				"[Mobile Screen]: Listened and changed to mobile device screen.",
-			);
+		if (e.matches) applyMobileContent("[Screen]: Switched to mobile.");
 	});
-
-	// Listen to changes on screen size and render the corresponding layouts
 	bigScreen.addEventListener("change", (e) => {
-		if (e.target.matches)
-			applyBigScreenContent(
-				`[Big Screen]: Listened and changed to device Big device screen.`,
-			);
+		if (e.matches) applyDesktopContent("[Screen]: Switched to big.");
 	});
-
-	// Listen to changes on screen size and render the corresponding layouts
 	largeScreen.addEventListener("change", (e) => {
-		if (e.target.matches)
-			applyLargeScreenContent(
-				`[Large Screen]: Listened and changed to device Large device screen.`,
-			);
+		if (e.matches) applyDesktopContent("[Screen]: Switched to large.");
 	});
 };
 
-// Render Application
 renderApp();

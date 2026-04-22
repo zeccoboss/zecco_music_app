@@ -1,5 +1,5 @@
 import handleFormNavigation from "../helpers/handle-form-navigation.js";
-import { forgotPasswordFormPageInstance } from "../pages/ForgotPasswordFormPage.js";
+import { forgotPasswordFormPageInstance } from "../pages/DesktopPasswordPage.js";
 import { router } from "../routes/router.js";
 import CreateElement from "../utils/create-element.js";
 import { homeSvg } from "../assets/svgs/svg-icons.js";

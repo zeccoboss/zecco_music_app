@@ -1,14 +1,15 @@
 import appConfig from "../config/app-config.js";
-import handleFormNavigation from "../helpers/handle-form-navigation.js";
-import { overlayInstance } from "../layouts/Overlay.js";
-import { formPageInstance } from "../pages/FormPage.js";
+import { setActivePage } from "../helpers/active-page-helpers.js";
 
 const RenderLoginForm = () => {
-	appConfig.pageTitle = "Login";
-	// Clear from page and add a new form to the DOM
+	appConfig.page_title = "Login";
 
-	// Show loading spinner before
-	handleFormNavigation(1500, formPageInstance, "login");
+	// const loginPage = document.getElementById
+	// loginPage.classList.add("active-app-page");
+	const page = document.getElementById("login-page");
+
+	// Show the page
+	setActivePage(page, "active-app-page");
 };
 
 export default RenderLoginForm;

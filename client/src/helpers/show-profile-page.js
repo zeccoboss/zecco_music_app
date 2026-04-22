@@ -1,7 +1,7 @@
-import { clearActiveSections } from "./clear-active-sections.js";
+import { clearActiveSection } from "./clear-active-sections.js";
 
 function showProfilePage() {
-	clearActiveSections();
+	clearActiveSection();
 	const profilePage = document.querySelector("#profile-page");
 	profilePage.classList.add("show_profile_page");
 	console.log("Profile section");

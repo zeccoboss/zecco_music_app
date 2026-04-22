@@ -1,13 +1,13 @@
 import RenderHome from "../utils/render-home";
 import RenderLibrary from "../utils/render-library";
 import RenderLoginForm from "../utils/render-login-form";
-import RenderMusicUploadPage from "../utils/render-music-upload-page";
-import RenderNoResourcePage from "../utils/render-no-resource-page";
+import RenderNoResourcePage from "../utils/render-no-resource";
 import RenderProfile from "../utils/render-profile";
 import RenderRegisterForm from "../utils/render-register-form";
 import RenderResetPasswordPage from "../utils/render-reset-password-page";
 import RenderSearch from "../utils/render-search";
 import RenderSettings from "../utils/render-settings";
+import RenderUploads from "../utils/render-uploads";
 import RenderVerifyUserPage from "../utils/render-verify-user-page";
 
 // Declare all routes
@@ -21,6 +21,11 @@ const routes = [
 		// (/library) Library
 		pattern: /^\/library$/,
 		handler: RenderLibrary,
+	},
+	{
+		// (/library) Library
+		pattern: /^\/upload$/,
+		handler: RenderUploads,
 	},
 	{
 		// (/library) Library
@@ -52,11 +57,11 @@ const routes = [
 		pattern: /^\/register$/,
 		handler: RenderRegisterForm,
 	},
-	{
-		// (/media/audio/upload) Page to upload songs
-		pattern: /^\/media\/audio\/upload$/,
-		handler: RenderMusicUploadPage,
-	},
+	// {
+	// 	// (/media/audio/upload) Page to upload songs
+	// 	pattern: /^\/media\/audio\/upload$/,
+	// 	handler: RenderMusicUploadPage,
+	// },
 	{
 		// (/media/image/profile/upload) Page to upload profiles
 		pattern: /^\/media\/image\/profile\/upload$/,

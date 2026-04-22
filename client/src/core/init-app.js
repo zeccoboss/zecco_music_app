@@ -6,6 +6,7 @@ import { themeManager } from "./theme-manager.js";
 import { sidebarHandler } from "../events/sidebar-handler.js";
 import { mobileScreen } from "./screen-break-points.js";
 import { globalEventHandler } from "../events/global-event-handler.js";
+import { initHomeTabs } from "../utils/init-home-tabs.js";
 
 // Core function to connect functionality
 const initApp = async (message) => {
@@ -15,7 +16,8 @@ const initApp = async (message) => {
 	preventLinksBehavior(); // Prevent page refresh when an anchor tag is clicked
 	headerEvent(); // Add event to the header
 	themeManager.init(); // Initialize the application theme
-	if (!mobileScreen.matches) sidebarHandler(); // Only call when on larger screen's
+	// if (!mobileScreen.matches) sidebarHandler(); // Only call when on larger screen's
+	initHomeTabs(true);
 };
 
 export { initApp };

@@ -1,8 +1,6 @@
 const crypto = require("node:crypto");
 const UserModel = require("../models/user.model");
-const {
-	sendVerificationMail,
-} = require("../helpers/send-verification-mail.helpers");
+const { resendVerificationMail } = require("../helpers/mailer.helper");
 
 const handleVerifyEmail = async (req, res) => {
 	const { token } = req.params; // raw token from the email link
@@ -51,7 +49,7 @@ const handleResendEmailVerification = async (req, res) => {
 	await user.save();
 
 	// call Send verification email
-	sendVerificationMail(user.email, token);
+	resendVerificationMail(user.email, token);
 	res.status(200).json({ message: "Verification email resent" });
 };
 
