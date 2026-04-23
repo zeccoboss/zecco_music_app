@@ -3,7 +3,10 @@ import RenderLibrary from "../utils/render-library";
 import RenderLoginForm from "../utils/render-login-form";
 import RenderNoResourcePage from "../utils/render-no-resource";
 import RenderProfile from "../utils/render-profile";
-import RenderRegisterForm from "../utils/render-register-form";
+import {
+	RenderRegisterStepOne,
+	RenderRegisterStepTwo,
+} from "../utils/render-register-form";
 import RenderResetPasswordPage from "../utils/render-reset-password-page";
 import RenderSearch from "../utils/render-search";
 import RenderSettings from "../utils/render-settings";
@@ -53,9 +56,14 @@ const routes = [
 		handler: RenderLoginForm,
 	},
 	{
-		// (/register) Register form on form page
-		pattern: /^\/register$/,
-		handler: RenderRegisterForm,
+		// (/register/step-one) Register form on form page
+		pattern: /^\/register\/step-one$/,
+		handler: RenderRegisterStepOne,
+	},
+	{
+		// (/register/step-two) Register form on form page
+		pattern: /^\/register\/step-two$/,
+		handler: RenderRegisterStepTwo,
 	},
 	// {
 	// 	// (/media/audio/upload) Page to upload songs

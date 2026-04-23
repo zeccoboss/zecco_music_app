@@ -31,7 +31,7 @@ const MobileRegisterPage = () => {
 		},
 		get step_one() {
 			const html = `
-					<div class="auth-steps-ctn">
+					<div class="auth-steps-ctn" id="register-step-one">
 						<div class="mob-steps">
 							<div class="mob-step active"></div>
 							<div class="mob-step"></div>
@@ -87,7 +87,7 @@ const MobileRegisterPage = () => {
 		},
 		get step_two() {
 			const html = `
-				<div class="auth-steps-ctn">
+				<div class="auth-steps-ctn" id="register-step-two">
 					<div class="mob-steps">
 						<div class="mob-step done"></div>
 						<div class="mob-step active"></div>

@@ -1,68 +1,30 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<link rel="stylesheet" href="./src/styles/base.css" />
-	</head>
-	<body>
-		<div id="app">
-			<aside id="sidebar" class="sidebar">
-				<div class="logo">
-					<div class="logo-icon">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							fill="currentColor"
-							class="bi bi-music-note"
-							viewBox="0 0 16 16"
-						>
-							<path
-								d="M9 13c0 1.105-1.12 2-2.5 2S4 14.105 4 13s1.12-2 2.5-2 2.5.895 2.5 2"
-							></path>
-							<path fill-rule="evenodd" d="M9 3v10H8V3z"></path>
-							<path
-								d="M8 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 13 2.22V4L8 5z"
-							></path>
-						</svg>
-					</div>
-					<h1 class="logo-text">Zecco<span>Stream</span></h1>
-				</div>
-				<nav class="nav">
-					<div class="nav-label">Menu</div>
-					<div class="nav-item">
-						<a
-							href="/"
-							id="home-nav-link"
-							class="nav-links active active-nav"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="20"
-								height="20"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								class="lucide lucide-house-icon lucide-house"
-							>
-								<path
-									d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"
-								></path>
-								<path
-									d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-								></path>
-							</svg>
+<body>
+	<div id="app">
+		<main class="mobile-main" id="mobile-main">
+			<section class="home-section main-sections" id="home-section">
+				<nav class="home-tabs">
+					<button class="home-tab active-tab" data-tab="discover">
+						Discover
+					</button>
+					<button class="home-tab auth-tab" data-tab="explore">
+						Explore
+					</button>
+					<button class="home-tab auth-tab" data-tab="for-you">
+						For You
+					</button>
+				</nav>
 
-							<span>Home</span>
-						</a>
-					</div>
-					<div class="nav-item">
-						<a href="/search" id="search-nav-link" class="nav-links">
+				<section
+					id="home-discover-section"
+					class="h-tab-content active-tab-content"
+					data-content="discover"
+				>
+					<header class="main-header">
+						<div>
+							<div class="home-greeting">Good evening 👋</div>
+							<div class="page-title">Discover</div>
+						</div>
+						<div class="search">
 							<svg
 								xmlns='="http://www.w3.org/2000/svg"'
 								width="16"
@@ -75,22 +37,1259 @@
 									d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
 								></path>
 							</svg>
+							&nbsp;Search...
+						</div>
+					</header>
 
-							<span>Search</span>
-						</a>
+					<!-- Featured -->
+					<div class="featured">
+						<div class="vinyl"></div>
+						<div class="featured-tag">🔥 Trending Now</div>
+						<div class="featured-title">Your Daily Mix</div>
+						<div class="featured-sub">
+							Curated for your taste · 24 songs
+						</div>
+						<div class="featured-btns">
+							<button class="btn-play">▶ &nbsp;Play All</button>
+							<button class="btn-ghost">+ &nbsp;Save</button>
+						</div>
 					</div>
-					<div class="nav-item">
+
+					<!-- New Uploads -->
+					<div class="home-block">
+						<div class="section-head">
+							<div class="section-title">New Uploads</div>
+							<div class="section-link">See all →</div>
+						</div>
+						<div class="cards" id="discover-new-uploads">
+							<div class="card playing">
+								<div class="eq">
+									<div class="bar"></div>
+									<div class="bar"></div>
+									<div class="bar"></div>
+								</div>
+								<div class="card-cover cc1">
+									🎵
+									<div class="play-ov">
+										<div class="play-c">⏸</div>
+									</div>
+								</div>
+								<div class="card-title">Midnight Drive</div>
+								<div class="card-artist">Artist Name</div>
+							</div>
+							<div class="card">
+								<div class="card-cover cc2">
+									🎸
+									<div class="play-ov">
+										<div class="play-c">▶</div>
+									</div>
+								</div>
+								<div class="card-title">Golden Hour</div>
+								<div class="card-artist">Artist Name</div>
+							</div>
+							<div class="card">
+								<div class="card-cover cc3">
+									🎹
+									<div class="play-ov">
+										<div class="play-c">▶</div>
+									</div>
+								</div>
+								<div class="card-title">Calm Waters</div>
+								<div class="card-artist">Artist Name</div>
+							</div>
+							<div class="card">
+								<div class="card-cover cc4">
+									🥁
+									<div class="play-ov">
+										<div class="play-c">▶</div>
+									</div>
+								</div>
+								<div class="card-title">Urban Pulse</div>
+								<div class="card-artist">Artist Name</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Top Artists -->
+					<div class="home-block">
+						<div class="section-head">
+							<div class="section-title">Top Artists</div>
+							<div class="section-link">See all →</div>
+						</div>
+						<div class="artists-row" id="discover-top-artists">
+							<!-- populated from API -->
+						</div>
+					</div>
+				</section>
+
+				<section
+					id="home-explore-section"
+					class="h-tab-content"
+					data-content="explore"
+				>
+					<header class="main-header">
+						<div class="page-title">Explore</div>
+					</header>
+
+					<!-- From followed artists -->
+					<div class="home-block">
+						<div class="section-head">
+							<div class="section-title">From Artists You Follow</div>
+							<div class="section-link">See all →</div>
+						</div>
+						<div class="cards" id="explore-following-tracks">
+							<!-- populated from API -->
+						</div>
+					</div>
+
+					<!-- Followers activity -->
+					<div class="home-block">
+						<div class="section-head">
+							<div class="section-title">
+								Your Followers Are Listening To
+							</div>
+							<div class="section-link">See all →</div>
+						</div>
+						<div class="cards" id="explore-followers-activity">
+							<!-- populated from API -->
+						</div>
+					</div>
+
+					<!-- Suggested artists -->
+					<div class="home-block">
+						<div class="section-head">
+							<div class="section-title">Artists You Might Like</div>
+						</div>
+						<div class="artists-row" id="explore-suggested-artists">
+							<!-- populated from API -->
+						</div>
+					</div>
+				</section>
+
+				<section
+					id="home-foryou-section"
+					class="h-tab-content"
+					data-content="for-you"
+				>
+					<header class="main-header">
+						<div class="page-title">For You</div>
+					</header>
+
+					<!-- Recent plays -->
+					<div class="home-block">
+						<div class="section-head">
+							<div class="section-title">Recently Played</div>
+							<div class="section-link">See all →</div>
+						</div>
+						<div class="track-list" id="foryou-recent-plays">
+							<!-- populated from API -->
+						</div>
+					</div>
+
+					<!-- Playlists -->
+					<div class="home-block">
+						<div class="section-head">
+							<div class="section-title">Your Playlists</div>
+							<div class="section-link">See all →</div>
+						</div>
+						<div class="cards" id="foryou-playlists">
+							<!-- populated from API -->
+						</div>
+					</div>
+
+					<!-- Uploaded tracks -->
+					<div class="home-block">
+						<div class="section-head">
+							<div class="section-title">Your Uploads</div>
+							<div class="section-link">See all →</div>
+						</div>
+						<div class="track-list" id="foryou-uploads">
+							<!-- populated from API -->
+						</div>
+					</div>
+
+					<!-- Liked songs -->
+					<div class="home-block">
+						<div class="section-head">
+							<div class="section-title">Liked Songs</div>
+							<div class="section-link">See all →</div>
+						</div>
+						<div class="track-list" id="foryou-liked">
+							<!-- populated from API -->
+						</div>
+					</div>
+				</section>
+
+				<div class="auth-gate" id="home-auth-gate" style="display: none">
+					<div class="auth-gate-icon">🔒</div>
+					<h3 class="auth-gate-title">Login to continue</h3>
+					<p class="auth-gate-sub">
+						This section is available for registered users only.
+					</p>
+					<div class="auth-gate-btns">
+						<a href="/login" class="btn-play">Login</a>
+						<a href="/register" class="btn-ghost">Sign up</a>
+					</div>
+				</div>
+			</section>
+			<section class="library_section main-sections" id="library-section">
+				<section>
+					<div class="library-lib-header">
+						<div class="library-header-row">
+							<div class="library-page-title">Library</div>
+							<div class="library-header-actions">
+								<div class="library-header-btn">＋</div>
+								<div class="library-header-btn">⋯</div>
+							</div>
+						</div>
+						<div class="library-filter-tabs">
+							<div class="library-filter-tab">All</div>
+							<div class="library-filter-tab active">Liked</div>
+							<div class="library-filter-tab">Uploaded</div>
+							<div class="library-filter-tab">Playlists</div>
+							<div class="library-filter-tab">Following</div>
+						</div>
+					</div>
+					<div class="library-scroll">
+						<div class="library-content">
+							<div class="lib-hero-card" style="margin-bottom: 4px">
+								<div class="lib-hero-cover lhc1">❤️</div>
+								<div class="lib-hero-info">
+									<div class="lib-hero-title">Liked Songs</div>
+									<div class="lib-hero-sub">24 songs · 1hr 32min</div>
+								</div>
+								<div class="lib-hero-play">▶</div>
+							</div>
+							<div>
+								<div class="track-row playing">
+									<div class="eq">
+										<div class="bar"></div>
+										<div class="bar"></div>
+										<div class="bar"></div>
+									</div>
+									<div class="track-cover tc1">🎵</div>
+									<div class="track-info">
+										<div class="track-title">Midnight Drive</div>
+										<div class="track-artist">Artist Name</div>
+									</div>
+									<div class="track-right">
+										<div class="track-dur">3:45</div>
+										<div class="track-dots">⋯</div>
+									</div>
+								</div>
+								<div class="track-row">
+									<div class="track-num">2</div>
+									<div class="track-cover tc2">🎸</div>
+									<div class="track-info">
+										<div class="track-title">Golden Hour</div>
+										<div class="track-artist">Artist Name</div>
+									</div>
+									<div class="track-right">
+										<div class="track-dur">4:12</div>
+										<div class="track-dots">⋯</div>
+									</div>
+								</div>
+								<div class="track-row">
+									<div class="track-num">3</div>
+									<div class="track-cover tc3">🎹</div>
+									<div class="track-info">
+										<div class="track-title">Calm Waters</div>
+										<div class="track-artist">Artist Name</div>
+									</div>
+									<div class="track-right">
+										<div class="track-dur">2:58</div>
+										<div class="track-dots">⋯</div>
+									</div>
+								</div>
+								<div class="track-row">
+									<div class="track-num">4</div>
+									<div class="track-cover tc4">🥁</div>
+									<div class="track-info">
+										<div class="track-title">Urban Pulse</div>
+										<div class="track-artist">Artist Name</div>
+									</div>
+									<div class="track-right">
+										<div class="track-dur">3:22</div>
+										<div class="track-dots">⋯</div>
+									</div>
+								</div>
+								<div class="track-row">
+									<div class="track-num">5</div>
+									<div class="track-cover tc5">🎺</div>
+									<div class="track-info">
+										<div class="track-title">Lagos Nights</div>
+										<div class="track-artist">Artist Name</div>
+									</div>
+									<div class="track-right">
+										<div class="track-dur">4:02</div>
+										<div class="track-dots">⋯</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<div class="library-lib-header">
+						<div class="library-header-row">
+							<div class="library-page-title">Library</div>
+							<div class="library-header-actions">
+								<div class="library-header-btn">＋</div>
+								<div class="library-header-btn">⋯</div>
+							</div>
+						</div>
+						<div class="library-filter-tabs">
+							<div class="library-filter-tab active">All</div>
+							<div class="library-filter-tab">Liked</div>
+							<div class="library-filter-tab">Uploaded</div>
+							<div class="library-filter-tab">Playlists</div>
+							<div class="library-filter-tab">Following</div>
+						</div>
+					</div>
+					<div class="library-scroll">
+						<div class="library-content">
+							<!-- hero cards -->
+							<div class="lib-hero-cards">
+								<div class="lib-hero-card">
+									<div class="lib-hero-cover lhc1">❤️</div>
+									<div class="lib-hero-info">
+										<div class="lib-hero-title">Liked Songs</div>
+										<div class="lib-hero-sub">24 songs</div>
+									</div>
+									<div class="lib-hero-play">▶</div>
+								</div>
+								<div class="lib-hero-card">
+									<div class="lib-hero-cover lhc2">⬆️</div>
+									<div class="lib-hero-info">
+										<div class="lib-hero-title">My Uploads</div>
+										<div class="lib-hero-sub">8 tracks</div>
+									</div>
+									<div class="lib-hero-play">▶</div>
+								</div>
+								<div class="lib-hero-card">
+									<div class="lib-hero-cover lhc3">🕐</div>
+									<div class="lib-hero-info">
+										<div class="lib-hero-title">Recently Played</div>
+										<div class="lib-hero-sub">12 songs</div>
+									</div>
+									<div class="lib-hero-play">▶</div>
+								</div>
+							</div>
+
+							<!-- playlists -->
+							<div>
+								<div class="sec-head">
+									<div class="sec-title">Playlists</div>
+									<div class="sec-link">See all</div>
+								</div>
+								<div class="playlist-grid">
+									<div class="playlist-card">
+										<div class="playlist-cover-grid">
+											<div class="pcg-item pcg1">🎵</div>
+											<div class="pcg-item pcg2">🎸</div>
+											<div class="pcg-item pcg3">🎹</div>
+											<div class="pcg-item pcg4">🥁</div>
+										</div>
+										<div class="playlist-title">Afro Vibes</div>
+										<div class="playlist-sub">12 songs</div>
+									</div>
+									<div class="playlist-card">
+										<div class="playlist-cover pc2">🌙</div>
+										<div class="playlist-title">Night Drive</div>
+										<div class="playlist-sub">8 songs</div>
+									</div>
+									<div class="playlist-card">
+										<div class="playlist-cover pc3">🌅</div>
+										<div class="playlist-title">Morning Mix</div>
+										<div class="playlist-sub">15 songs</div>
+									</div>
+									<div class="playlist-card" style="cursor: pointer">
+										<div class="playlist-card-add">＋</div>
+										<div
+											class="playlist-title"
+											style="color: var(--text-3)"
+										>
+											New Playlist
+										</div>
+										<div class="playlist-sub">Create</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- following artists -->
+							<div>
+								<div class="sec-head">
+									<div class="sec-title">Following</div>
+									<div class="sec-link">See all</div>
+								</div>
+								<div class="artist-row">
+									<div class="artist-chip">
+										<div class="artist-avatar aa1">🎤</div>
+										<div class="artist-name">ArtistOne</div>
+									</div>
+									<div class="artist-chip">
+										<div class="artist-avatar aa2">🎸</div>
+										<div class="artist-name">ArtistTwo</div>
+									</div>
+									<div class="artist-chip">
+										<div class="artist-avatar aa3">🎹</div>
+										<div class="artist-name">ArtistThree</div>
+									</div>
+									<div class="artist-chip">
+										<div class="artist-avatar aa4">🥁</div>
+										<div class="artist-name">ArtistFour</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<div class="library-lib-header">
+						<div class="library-header-row">
+							<div class="library-page-title">Library</div>
+						</div>
+						<div class="library-filter-tabs">
+							<div class="library-filter-tab active">All</div>
+							<div class="library-filter-tab">Liked</div>
+							<div class="library-filter-tab">Uploaded</div>
+							<div class="library-filter-tab">Playlists</div>
+							<div class="library-filter-tab">Following</div>
+						</div>
+					</div>
+					<div class="library-scroll">
+						<div class="lib-auth-gate">
+							<div class="lib-auth-icon">📚</div>
+							<div class="lib-auth-title">Your Library</div>
+							<div class="lib-auth-sub">
+								Login to access your liked songs, playlists, uploads and
+								artists you follow.
+							</div>
+							<div class="lib-auth-btns">
+								<button class="btn-accent">Login</button>
+								<button class="btn-ghost">Sign up</button>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<div class="library-lib-header">
+						<div class="library-header-row">
+							<div class="library-page-title">Library</div>
+							<div class="library-header-actions">
+								<div class="library-header-btn">＋</div>
+							</div>
+						</div>
+						<div class="library-filter-tabs">
+							<div class="library-filter-tab">All</div>
+							<div class="library-filter-tab">Liked</div>
+							<div class="library-filter-tab">Uploaded</div>
+							<div class="library-filter-tab active">Playlists</div>
+							<div class="library-filter-tab">Following</div>
+						</div>
+					</div>
+					<div class="library-scroll">
+						<div class="library-content">
+							<div class="sec-head">
+								<div class="sec-title">Your Playlists</div>
+								<div class="sec-count">3 playlists</div>
+							</div>
+							<div class="playlist-grid">
+								<div class="playlist-card">
+									<div class="playlist-cover-grid">
+										<div class="pcg-item pcg1">🎵</div>
+										<div class="pcg-item pcg2">🎸</div>
+										<div class="pcg-item pcg3">🎹</div>
+										<div class="pcg-item pcg4">🥁</div>
+									</div>
+									<div class="playlist-title">Afro Vibes</div>
+									<div class="playlist-sub">12 songs</div>
+								</div>
+								<div class="playlist-card">
+									<div class="playlist-cover pc2">🌙</div>
+									<div class="playlist-title">Night Drive</div>
+									<div class="playlist-sub">8 songs</div>
+								</div>
+								<div class="playlist-card">
+									<div class="playlist-cover pc3">🌅</div>
+									<div class="playlist-title">Morning Mix</div>
+									<div class="playlist-sub">15 songs</div>
+								</div>
+								<div class="playlist-card">
+									<div class="playlist-cover pc4">🎊</div>
+									<div class="playlist-title">Party Hits</div>
+									<div class="playlist-sub">20 songs</div>
+								</div>
+								<div class="playlist-card">
+									<div class="playlist-card-add">＋</div>
+									<div
+										class="playlist-title"
+										style="color: var(--text-3)"
+									>
+										New Playlist
+									</div>
+									<div class="playlist-sub">Create</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</section>
+			<section
+				class="search_section main-sections active-section"
+				id="search-section"
+			>
+				<div class="mob-search-header">
+					<div class="mob-header-top">
+						<div class="mob-page-title">Search</div>
+					</div>
+					<div class="search-input-wrap">
+						<span class="search-icon">🔍</span>
+						<input
+							class="search-input"
+							placeholder="Songs, artists, genres..."
+						/>
+					</div>
+					<div class="filter-chips">
+						<div class="filter-chip active">All</div>
+						<div class="filter-chip">Tracks</div>
+						<div class="filter-chip">Artists</div>
+						<div class="filter-chip">Genres</div>
+					</div>
+				</div>
+
+				<div class="mob-scroll">
+					<div class="mob-content">
+						<!-- auth gate banner -->
+						<div class="search-auth-gate">
+							<div class="auth-gate-icon-small">🔐</div>
+							<div class="auth-gate-title-small">
+								More with an account
+							</div>
+							<div class="auth-gate-sub-small">
+								Login to see personalized results, recent searches and
+								more.
+							</div>
+							<div class="auth-gate-btns-small">
+								<a href="/login" class="btn-accent-sm">Login</a>
+								<a href="/register" class="btn-ghost-sm">Sign up</a>
+							</div>
+						</div>
+
+						<!-- browse genres -->
+						<div class="browse-label">Browse by Genre</div>
+						<div class="genre-grid">
+							<div class="genre-card gc1">
+								<span class="genre-card-emoji">🎵</span
+								><span class="genre-card-name">Afrobeats</span>
+							</div>
+							<div class="genre-card gc2">
+								<span class="genre-card-emoji">🎸</span
+								><span class="genre-card-name">Highlife</span>
+							</div>
+							<div class="genre-card gc3">
+								<span class="genre-card-emoji">🥁</span
+								><span class="genre-card-name">Amapiano</span>
+							</div>
+							<div class="genre-card gc4">
+								<span class="genre-card-emoji">🎹</span
+								><span class="genre-card-name">Gospel</span>
+							</div>
+							<div class="genre-card gc5">
+								<span class="genre-card-emoji">🎤</span
+								><span class="genre-card-name">Hip-Hop</span>
+							</div>
+							<div class="genre-card gc6">
+								<span class="genre-card-emoji">🎺</span
+								><span class="genre-card-name">Afropop</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="mob-scroll">
+					<div class="mob-content">
+						<div>
+							<div class="sec-head">
+								<div class="sec-title">Recent Searches</div>
+								<div class="sec-link">Clear all</div>
+							</div>
+							<div class="recent-item">
+								<div class="recent-icon">🎵</div>
+								<div class="recent-text">
+									<div class="recent-label">Afrobeats Mix</div>
+									<div class="recent-type">Track</div>
+								</div>
+								<div class="recent-remove">✕</div>
+							</div>
+							<div class="recent-item">
+								<div class="recent-icon">👤</div>
+								<div class="recent-text">
+									<div class="recent-label">Burna Boy</div>
+									<div class="recent-type">Artist</div>
+								</div>
+								<div class="recent-remove">✕</div>
+							</div>
+							<div class="recent-item">
+								<div class="recent-icon">🎵</div>
+								<div class="recent-text">
+									<div class="recent-label">Midnight Drive</div>
+									<div class="recent-type">Track</div>
+								</div>
+								<div class="recent-remove">✕</div>
+							</div>
+							<div class="recent-item">
+								<div class="recent-icon">🎸</div>
+								<div class="recent-text">
+									<div class="recent-label">Highlife</div>
+									<div class="recent-type">Genre</div>
+								</div>
+								<div class="recent-remove">✕</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="mob-scroll">
+					<div class="mob-content">
+						<div class="no-results">
+							<div class="no-results-icon">🎵</div>
+							<div class="no-results-title">No results found</div>
+							<div class="no-results-sub">
+								We couldn't find anything for "xyzqwerty123". Try a
+								different search.
+							</div>
+						</div>
+						<div class="browse-label">Try these instead</div>
+						<div class="genre-grid">
+							<div class="genre-card gc1">
+								<span class="genre-card-emoji">🎵</span
+								><span class="genre-card-name">Afrobeats</span>
+							</div>
+							<div class="genre-card gc2">
+								<span class="genre-card-emoji">🎸</span
+								><span class="genre-card-name">Highlife</span>
+							</div>
+							<div class="genre-card gc3">
+								<span class="genre-card-emoji">🥁</span
+								><span class="genre-card-name">Amapiano</span>
+							</div>
+							<div class="genre-card gc4">
+								<span class="genre-card-emoji">🎹</span
+								><span class="genre-card-name">Gospel</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="mob-search-header">
+					<div class="mob-header-top">
+						<div class="mob-page-title">Search</div>
+					</div>
+					<div class="search-input-wrap">
+						<span class="search-icon">🔍</span>
+						<input class="search-input active" value="Afrobeats" />
+						<div class="search-clear">✕</div>
+					</div>
+					<div class="filter-chips">
+						<div class="filter-chip active">All</div>
+						<div class="filter-chip">Tracks</div>
+						<div class="filter-chip">Artists</div>
+						<div class="filter-chip">Genres</div>
+					</div>
+				</div>
+				<div class="mob-scroll">
+					<div class="mob-content">
+						<!-- top result -->
+						<div>
+							<div class="sec-head">
+								<div class="sec-title">Top Result</div>
+							</div>
+							<div class="track-row playing">
+								<div class="eq">
+									<div class="bar"></div>
+									<div class="bar"></div>
+									<div class="bar"></div>
+								</div>
+								<div class="track-cover tc1">🎵</div>
+								<div class="track-info">
+									<div class="track-title">Midnight Drive</div>
+									<div class="track-artist">
+										Artist Name · Afrobeats
+									</div>
+								</div>
+								<div class="track-right">
+									<div class="track-duration">3:45</div>
+									<div class="track-dots">⋯</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- tracks -->
+						<div>
+							<div class="sec-head">
+								<div class="sec-title">Tracks</div>
+								<div class="sec-link">See all</div>
+							</div>
+							<div class="track-row">
+								<div class="track-num">1</div>
+								<div class="track-cover tc2">🎸</div>
+								<div class="track-info">
+									<div class="track-title">Golden Hour</div>
+									<div class="track-artist">Artist Name</div>
+								</div>
+								<div class="track-right">
+									<div class="track-duration">4:12</div>
+									<div class="track-dots">⋯</div>
+								</div>
+							</div>
+							<div class="track-row">
+								<div class="track-num">2</div>
+								<div class="track-cover tc3">🎹</div>
+								<div class="track-info">
+									<div class="track-title">Calm Waters</div>
+									<div class="track-artist">Artist Name</div>
+								</div>
+								<div class="track-right">
+									<div class="track-duration">2:58</div>
+									<div class="track-dots">⋯</div>
+								</div>
+							</div>
+							<div class="track-row">
+								<div class="track-num">3</div>
+								<div class="track-cover tc4">🥁</div>
+								<div class="track-info">
+									<div class="track-title">Urban Pulse</div>
+									<div class="track-artist">Artist Name</div>
+								</div>
+								<div class="track-right">
+									<div class="track-duration">3:22</div>
+									<div class="track-dots">⋯</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- artists -->
+						<div>
+							<div class="sec-head">
+								<div class="sec-title">Artists</div>
+								<div class="sec-link">See all</div>
+							</div>
+							<div class="artist-row">
+								<div class="artist-chip">
+									<div class="artist-avatar aa1">🎤</div>
+									<div class="artist-name">ArtistOne</div>
+								</div>
+								<div class="artist-chip">
+									<div class="artist-avatar aa2">🎸</div>
+									<div class="artist-name">ArtistTwo</div>
+								</div>
+								<div class="artist-chip">
+									<div class="artist-avatar aa3">🎹</div>
+									<div class="artist-name">ArtistThree</div>
+								</div>
+								<div class="artist-chip">
+									<div class="artist-avatar aa4">🥁</div>
+									<div class="artist-name">ArtistFour</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section
+				class="mobile-section main-sections profile_section"
+				id="mobile-section"
+			>
+				<div class="mobile-profile">
+					<!-- Cover -->
+					<div class="mobile-cover">
+						<div class="mobile-cover-glow"></div>
+						<div class="mobile-cover-pattern"></div>
+						<div class="mobile-cover-edit">📷 Edit Cover</div>
+					</div>
+
+					<!-- Identity -->
+					<div class="mobile-identity">
+						<div
+							style="
+								display: flex;
+								justify-content: space-between;
+								align-items: flex-end;
+							"
+						>
+							<div class="mobile-avatar-wrap">
+								<div class="mobile-avatar">🧑</div>
+								<div class="mobile-avatar-edit">✏️</div>
+							</div>
+							<div class="mobile-edit-btn">✏️ Edit Profile</div>
+						</div>
+
+						<div class="mobile-name-row">
+							<div>
+								<div class="mobile-name">ZECCOBOSS</div>
+								<div class="mobile-uid">ID: 478984397664387298</div>
+							</div>
+						</div>
+
+						<!-- Stats card -->
+						<div class="mobile-stats">
+							<div class="mobile-stat">
+								<span class="mobile-stat-num">0</span>
+								<span class="mobile-stat-label">Following</span>
+							</div>
+							<div class="mobile-stat-divider"></div>
+							<div class="mobile-stat">
+								<span class="mobile-stat-num">0</span>
+								<span class="mobile-stat-label">Followers</span>
+							</div>
+							<div class="mobile-stat-divider"></div>
+							<div class="mobile-stat">
+								<span class="mobile-stat-num">0</span>
+								<span class="mobile-stat-label">Uploads</span>
+							</div>
+						</div>
+
+						<div class="mobile-bio-block">
+							<div class="mobile-bio">About me</div>
+							<div class="mobile-since">Member since 13-3-2026</div>
+						</div>
+					</div>
+
+					<!-- Tabs + content -->
+					<div class="mobile-content">
+						<div class="mobile-tabs">
+							<button class="mobile-tab active">Playlists</button>
+							<button class="mobile-tab">Uploads</button>
+							<button class="mobile-tab">Liked</button>
+						</div>
+						<div class="mobile-panel">
+							<div class="mobile-empty-icon">🎵</div>
+							<div class="mobile-empty-title">No playlists yet</div>
+							<div class="mobile-empty-sub">
+								Create your first playlist to get started
+							</div>
+							<button class="mobile-empty-btn">+ Create Playlist</button>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="settings_section main-sections">
+				<div class="mobile-settings-page">
+					<div class="mobile-settings-header">
+						<div class="mobile-settings-title">Settings</div>
+					</div>
+
+					<!-- Profile card -->
+					<div class="mobile-settings-profile">
+						<div class="mobile-settings-avatar">ZB</div>
+						<div>
+							<div class="mobile-settings-name">ZECCOBOSS</div>
+							<div class="mobile-settings-plan">
+								Free plan · Edit profile
+							</div>
+						</div>
+						<span class="mobile-settings-chevron">›</span>
+					</div>
+
+					<div class="mobile-settings-list">
+						<div class="mobile-settings-group-label">Account</div>
+						<div class="mobile-settings-item">
+							<div class="mobile-settings-icon si-purple">🔒</div>
+							<div class="mobile-settings-text">
+								<div class="mobile-settings-title">Change Password</div>
+								<div class="mobile-settings-sub">
+									Update your password
+								</div>
+							</div>
+							<div class="mobile-settings-right">›</div>
+						</div>
+						<div class="mobile-settings-item">
+							<div class="mobile-settings-icon si-blue">🛡️</div>
+							<div class="mobile-settings-text">
+								<div class="mobile-settings-title">Privacy</div>
+								<div class="mobile-settings-sub">
+									Profile visibility · Activity
+								</div>
+							</div>
+							<div class="mobile-settings-right">›</div>
+						</div>
+
+						<div class="mobile-settings-group-label">Preferences</div>
+						<div class="mobile-settings-item">
+							<div class="mobile-settings-icon si-blue">🎨</div>
+							<div class="mobile-settings-text">
+								<div class="mobile-settings-title">Appearance</div>
+								<div class="mobile-settings-sub">Dark</div>
+							</div>
+							<div class="mobile-settings-right">›</div>
+						</div>
+						<div class="mobile-settings-item">
+							<div class="mobile-settings-icon si-yellow">🔔</div>
+							<div class="mobile-settings-text">
+								<div class="mobile-settings-title">Notifications</div>
+								<div class="mobile-settings-sub">
+									Followers, likes, uploads
+								</div>
+							</div>
+							<div class="mobile-settings-right">›</div>
+						</div>
+						<div class="mobile-settings-item">
+							<div class="mobile-settings-icon si-green">🎵</div>
+							<div class="mobile-settings-text">
+								<div class="mobile-settings-title">Audio Quality</div>
+								<div class="mobile-settings-sub">Auto</div>
+							</div>
+							<div class="mobile-settings-right">›</div>
+						</div>
+						<div class="mobile-settings-item">
+							<div class="mobile-settings-icon si-orange">🌍</div>
+							<div class="mobile-settings-text">
+								<div class="mobile-settings-title">
+									Language &amp; Region
+								</div>
+								<div class="mobile-settings-sub">English · Nigeria</div>
+							</div>
+							<div class="mobile-settings-right">›</div>
+						</div>
+
+						<div class="mobile-settings-group-label">Danger</div>
+						<div
+							class="mobile-settings-item"
+							style="
+								border-color: rgba(255, 74, 74, 0.2);
+								background: rgba(255, 74, 74, 0.05);
+							"
+						>
+							<div class="mobile-settings-icon si-red">🗑️</div>
+							<div class="mobile-settings-text">
+								<div
+									class="mobile-settings-title"
+									style="color: var(--error)"
+								>
+									Delete Account
+								</div>
+								<div class="mobile-settings-sub">
+									Permanently remove your account
+								</div>
+							</div>
+							<div
+								class="mobile-settings-right"
+								style="color: var(--error)"
+							>
+								›
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="upload_section main-sections" id="upload-section">
+				<header class="upload-ctn-header">
+					<div class="upload-ctn-logo">
+						<div class="upload-ctn-logo-icon">🎵</div>
+						<div class="upload-ctn-logo-text">
+							Zecco<span>Stream</span>
+						</div>
+					</div>
+					<div class="upload-ctn-avatar">?</div>
+				</header>
+
+				<div class="upload-ctn-main">
+					<div class="upload-ctn-upload">
+						<div class="upload-ctn-upload-header">
+							<div class="upload-ctn-upload-title">Upload</div>
+							<div class="upload-ctn-upload-sub">Share your music</div>
+						</div>
+						<div class="upload-ctn-auth-gate">
+							<div class="upload-ctn-auth-ring">🎤</div>
+							<div class="upload-ctn-auth-title">
+								Ready to share your music?
+							</div>
+							<div class="upload-ctn-auth-sub">
+								Log in or create an account to start uploading your
+								tracks.
+							</div>
+							<div class="upload-ctn-auth-btns">
+								<a href="/login" class="upload-ctn-btn-accent">Login</a>
+								<a href="/register" class="upload-ctn-btn-ghost"
+									>Sign up</a
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="upload-ctn-main">
+					<div class="upload-ctn-upload">
+						<div class="upload-ctn-upload-header">
+							<div class="upload-ctn-upload-title">Upload Track</div>
+							<div class="upload-ctn-upload-sub">
+								Share your music with the world
+							</div>
+						</div>
+						<div class="upload-ctn-dropzone">
+							<div class="upload-ctn-dz-icon">🎵</div>
+							<div class="upload-ctn-dz-title">Drop audio file here</div>
+							<div class="upload-ctn-dz-sub">
+								Drag &amp; drop or tap to browse<br />Max file size:
+								50MB
+							</div>
+							<div class="upload-ctn-dz-formats">
+								<span class="upload-ctn-format">MP3</span>
+								<span class="upload-ctn-format">WAV</span>
+								<span class="upload-ctn-format">FLAC</span>
+								<span class="upload-ctn-format">AAC</span>
+								<span class="upload-ctn-format">OGG</span>
+							</div>
+							<button class="upload-ctn-dz-btn">Browse Files</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="upload-ctn-main">
+					<div class="upload-ctn-upload">
+						<div class="upload-ctn-upload-header">
+							<div class="upload-ctn-upload-title">Upload Track</div>
+							<div class="upload-ctn-upload-sub">Please wait...</div>
+						</div>
+
+						<div class="upload-ctn-file-preview" style="opacity: 0.6">
+							<div class="upload-ctn-file-cover">🎵</div>
+							<div class="upload-ctn-file-info">
+								<div class="upload-ctn-file-name">
+									midnight_drive_final.mp3
+								</div>
+								<div class="upload-ctn-file-metas">
+									<div class="upload-ctn-file-meta">
+										<span class="upload-ctn-file-meta-label"
+											>Size</span
+										>
+										<span class="upload-ctn-file-meta-val"
+											>8.4 MB</span
+										>
+									</div>
+									<div class="upload-ctn-file-meta">
+										<span class="upload-ctn-file-meta-label"
+											>Genre</span
+										>
+										<span class="upload-ctn-file-meta-val"
+											>Afrobeats</span
+										>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="upload-ctn-progress">
+							<div class="upload-ctn-progress-head">
+								<span class="upload-ctn-progress-label"
+									>Uploading track...</span
+								>
+								<span class="upload-ctn-progress-pct">65%</span>
+							</div>
+							<div class="upload-ctn-progress-bar">
+								<div class="upload-ctn-progress-fill"></div>
+							</div>
+							<span class="upload-ctn-progress-sub"
+								>Do not close this page</span
+							>
+						</div>
+
+						<div class="upload-ctn-submit-block">
+							<div class="upload-ctn-submit-note">
+								<span>Uploading to server...</span><br />
+								Metadata will be extracted automatically.
+							</div>
+							<button class="upload-ctn-submit-btn" disabled="">
+								Uploading... ⏳
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="upload-ctn-main">
+					<div class="upload-ctn-upload">
+						<div class="upload-ctn-upload-header">
+							<div class="upload-ctn-upload-title">Upload Track</div>
+							<div class="upload-ctn-upload-sub">
+								Review before uploading
+							</div>
+						</div>
+
+						<div class="upload-ctn-file-preview">
+							<div class="upload-ctn-file-cover">🎵</div>
+							<div class="upload-ctn-file-info">
+								<div class="upload-ctn-file-name">
+									midnight_drive_final.mp3
+								</div>
+								<div class="upload-ctn-file-metas">
+									<div class="upload-ctn-file-meta">
+										<span class="upload-ctn-file-meta-label"
+											>Size</span
+										>
+										<span class="upload-ctn-file-meta-val"
+											>8.4 MB</span
+										>
+									</div>
+									<div class="upload-ctn-file-meta">
+										<span class="upload-ctn-file-meta-label"
+											>Duration</span
+										>
+										<span class="upload-ctn-file-meta-val">3:45</span>
+									</div>
+									<div class="upload-ctn-file-meta">
+										<span class="upload-ctn-file-meta-label"
+											>Format</span
+										>
+										<span class="upload-ctn-file-meta-val">MP3</span>
+									</div>
+								</div>
+							</div>
+							<button class="upload-ctn-file-remove">✕</button>
+						</div>
+
+						<div class="upload-ctn-form">
+							<div class="upload-ctn-field">
+								<label class="upload-ctn-field-label">
+									Genre <span class="upload-ctn-required">*</span>
+								</label>
+								<div class="upload-ctn-select-wrap">
+									<select class="upload-ctn-select">
+										<option value="" disabled="" selected="">
+											Select genre
+										</option>
+										<optgroup label="🇳🇬 Nigerian">
+											<option>Afrobeats</option>
+											<option>Afropop</option>
+											<option>Highlife</option>
+											<option>Amapiano</option>
+											<option>Fuji</option>
+											<option>Juju</option>
+											<option>Afro-Gospel</option>
+										</optgroup>
+										<optgroup label="🌍 Global">
+											<option>Hip-Hop</option>
+											<option>R&amp;B</option>
+											<option>Pop</option>
+											<option>Gospel</option>
+											<option>Jazz</option>
+											<option>Electronic</option>
+											<option>Reggae</option>
+											<option>Rock</option>
+											<option>Other</option>
+										</optgroup>
+									</select>
+								</div>
+								<span class="upload-ctn-genre-note"
+									>⚠ Required to publish your track</span
+								>
+							</div>
+
+							<div class="upload-ctn-field">
+								<label class="upload-ctn-field-label">Visibility</label>
+								<div class="upload-ctn-vis-toggle">
+									<button class="upload-ctn-vis-btn active">
+										🌍 Public
+									</button>
+									<button class="upload-ctn-vis-btn">
+										🔒 Private
+									</button>
+								</div>
+							</div>
+
+							<div class="upload-ctn-submit-block">
+								<div class="upload-ctn-submit-note">
+									Metadata extracted automatically by server.<br />
+									<span>Genre is required.</span>
+								</div>
+								<button class="upload-ctn-submit-btn">
+									Upload Track ↑
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<section class="mini-player" id="mini-player">
+			<div class="mini-player-thumb">🎵</div>
+			<div class="mini-player-info">
+				<div class="mini-player-title">Midnight Drive</div>
+				<div class="mini-player-artist">Artist Name</div>
+			</div>
+			<button class="mini-player-ctrl">⏸</button>
+		</section>
+		<footer class="footer" id="footer">
+			<nav class="mob-footer">
+				<ul class="footer-nav-list">
+					<li id="home" class="home mobile-nav-item">
+						<a
+							href="/"
+							id="home-nav-link"
+							class="nav-links mobile-nav-links"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								class="lucide lucide-house-icon lucide-house footer-svg"
+							>
+								<path
+									d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"
+								></path>
+								<path
+									d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+								></path>
+							</svg>
+
+							<span class="mobile-nav-label">Home</span>
+						</a>
+					</li>
+
+					<li id="/search" class="">
+						<a
+							href="/search"
+							id="search-nav-link"
+							class="nav-links mobile-nav-links active-nav"
+						>
+							<svg
+								xmlns='="http://www.w3.org/2000/svg"'
+								width="16"
+								height="16"
+								fill="currentColor"
+								class="bi bi-search footer-svg"
+								viewBox="0 0 16 16"
+							>
+								<path
+									d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+								></path>
+							</svg>
+
+							<span class="mobile-nav-label">Search</span>
+						</a>
+					</li>
+
+					<li id="library" class="library">
 						<a
 							href="/library"
 							id="lib-nav-link"
-							class="nav-links library-nav"
+							class="nav-links mobile-nav-links"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="16"
 								height="16"
 								fill="currentColor"
-								class="bi bi-menu-button-wide"
+								class="bi bi-menu-button-wide footer-svg"
 								viewBox="0 0 16 16"
 							>
 								<path
@@ -101,17 +1300,34 @@
 								></path>
 							</svg>
 
-							<span>Library</span>
+							<span class="mobile-nav-label">Library</span>
 						</a>
-					</div>
-					<div class="nav-item">
-						<a href="/uploads" id="upload-nav-link" class="nav-links">
+					</li>
+
+					<!--<li id="/profile" class="profile">
+					<a href="/profile" class="nav-links  mobile-nav-links">
+						
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+    </svg>
+
+						<span class="mobile-nav-label">Profile</span>
+					</a>
+				</li>-->
+
+					<li id="/upload" class="upload">
+						<a
+							href="/upload"
+							id="upload-nav-link"
+							class="nav-links mobile-nav-links"
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="16"
 								height="16"
 								fill="currentColor"
-								class="bi bi-upload"
+								class="bi bi-upload footer-svg"
 								viewBox="0 0 16 16"
 							>
 								<path
@@ -122,463 +1338,363 @@
 								></path>
 							</svg>
 
-							<span>Upload</span>
+							<span class="mobile-nav-label">Upload</span>
 						</a>
+					</li>
+
+					<!--<li id="/profile" class="profile">
+					<a href="/settings" id="settings-nav-link" class="nav-links  mobile-nav-links">
+						
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+  </svg>
+
+						<span class="mobile-nav-label">Settings</span>
+					</a>
+				</li>-->
+				</ul>
+			</nav>
+		</footer>
+		<div class="app-page" id="no-resource-page">
+			<div class="no_resource_page">
+				<!-- bg blobs -->
+				<div class="bg-blob blob-1"></div>
+				<div class="bg-blob blob-2"></div>
+				<div class="bg-blob blob-3"></div>
+
+				<!-- floating notes -->
+				<div class="note">🎵</div>
+				<div class="note">🎶</div>
+				<div class="note">🎵</div>
+				<div class="note">🎶</div>
+				<div class="note">♪</div>
+				<div class="note">♫</div>
+
+				<!-- logo -->
+				<div class="top-logo">
+					<div class="top-logo-icon">🎵</div>
+					<div class="top-logo-text">Zecco<span>Stream</span></div>
+				</div>
+
+				<!-- vinyl 
+			<div class="vinyl-wrap">
+				<div class="vinyl">
+					<div class="vinyl-scratch"></div>
+					<div class="vinyl-scratch vinyl-scratch-2"></div>
+				</div>
+				<div class="vinyl-center">😵</div>
+			</div>-->
+
+				<!-- content -->
+				<div class="content">
+					<div class="error-num">404</div>
+					<div class="error-title">Resource not found</div>
+					<div class="error-sub">
+						Looks like this track got lost in the mix. The page you're
+						looking for doesn't exist or may have been moved.
 					</div>
-				</nav>
-				<nav class="nav">
-					<div class="nav-label">Account</div>
-					<div class="nav-item">
-						<a href="/profile" id="profile-nav-link" class="nav-links">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								fill="currentColor"
-								class="bi bi-person-circle"
-								viewBox="0 0 16 16"
-							>
-								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
-								<path
-									fill-rule="evenodd"
-									d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
-								></path>
-							</svg>
 
-							<span>Profile</span>
-						</a>
-					</div>
-					<div class="nav-item">
-						<a href="/settings" id="settings-nav-link" class="nav-links">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								fill="currentColor"
-								class="bi bi-gear"
-								viewBox="0 0 16 16"
-							>
-								<path
-									d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"
-								></path>
-								<path
-									d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"
-								></path>
-							</svg>
-
-							<span>Settings</span>
-						</a>
-					</div>
-				</nav>
-				<footer class="sidebar-footer">
-					<div class="avatar">ZB</div>
-					<div>
-						<div class="avatar-name">ZECCOBOSS</div>
-						<div class="avatar-plan">Free plan</div>
-					</div>
-				</footer>
-			</aside>
-			<main class="main" id="main">
-				<section
-					class="home-section main-sections active-section"
-					id="home-section"
-				>
-					<nav class="home-tabs">
-						<button class="home-tab active-tab" data-tab="discover">
-							Discover
-						</button>
-						<button class="home-tab auth-tab" data-tab="explore">
-							Explore
-						</button>
-						<button class="home-tab auth-tab" data-tab="for-you">
-							For You
-						</button>
-					</nav>
-
-					<section
-						id="home-discover-section"
-						class="h-tab-content active-tab-content"
-						data-content="discover"
-					>
-						<header class="main-header">
-							<div>
-								<div class="home-greeting">Good evening 👋</div>
-								<div class="page-title">Discover</div>
-							</div>
-							<div class="search">
-								<svg
-									xmlns='="http://www.w3.org/2000/svg"'
-									width="16"
-									height="16"
-									fill="currentColor"
-									class="bi bi-search"
-									viewBox="0 0 16 16"
-								>
-									<path
-										d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
-									></path>
-								</svg>
-								&nbsp;Search...
-							</div>
-						</header>
-
-						<!-- Featured -->
-						<div class="featured">
-							<div class="vinyl"></div>
-							<div class="featured-tag">🔥 Trending Now</div>
-							<div class="featured-title">Your Daily Mix</div>
-							<div class="featured-sub">
-								Curated for your taste · 24 songs
-							</div>
-							<div class="featured-btns">
-								<button class="btn-play">▶ &nbsp;Play All</button>
-								<button class="btn-ghost">+ &nbsp;Save</button>
-							</div>
-						</div>
-
-						<!-- New Uploads -->
-						<div class="home-block">
-							<div class="section-head">
-								<div class="section-title">New Uploads</div>
-								<div class="section-link">See all →</div>
-							</div>
-							<div class="cards" id="discover-new-uploads">
-								<div class="card playing">
-									<div class="eq">
-										<div class="bar"></div>
-										<div class="bar"></div>
-										<div class="bar"></div>
-									</div>
-									<div class="card-cover cc1">
-										🎵
-										<div class="play-ov">
-											<div class="play-c">⏸</div>
-										</div>
-									</div>
-									<div class="card-title">Midnight Drive</div>
-									<div class="card-artist">Artist Name</div>
-								</div>
-								<div class="card">
-									<div class="card-cover cc2">
-										🎸
-										<div class="play-ov">
-											<div class="play-c">▶</div>
-										</div>
-									</div>
-									<div class="card-title">Golden Hour</div>
-									<div class="card-artist">Artist Name</div>
-								</div>
-								<div class="card">
-									<div class="card-cover cc3">
-										🎹
-										<div class="play-ov">
-											<div class="play-c">▶</div>
-										</div>
-									</div>
-									<div class="card-title">Calm Waters</div>
-									<div class="card-artist">Artist Name</div>
-								</div>
-								<div class="card">
-									<div class="card-cover cc4">
-										🥁
-										<div class="play-ov">
-											<div class="play-c">▶</div>
-										</div>
-									</div>
-									<div class="card-title">Urban Pulse</div>
-									<div class="card-artist">Artist Name</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- Top Artists -->
-						<div class="home-block">
-							<div class="section-head">
-								<div class="section-title">Top Artists</div>
-								<div class="section-link">See all →</div>
-							</div>
-							<div class="artists-row" id="discover-top-artists">
-								<!-- populated from API -->
-							</div>
-						</div>
-					</section>
-
-					<section
-						id="home-explore-section"
-						class="h-tab-content"
-						data-content="explore"
-					>
-						<header class="main-header">
-							<div class="page-title">Explore</div>
-						</header>
-
-						<!-- From followed artists -->
-						<div class="home-block">
-							<div class="section-head">
-								<div class="section-title">From Artists You Follow</div>
-								<div class="section-link">See all →</div>
-							</div>
-							<div class="cards" id="explore-following-tracks">
-								<!-- populated from API -->
-							</div>
-						</div>
-
-						<!-- Followers activity -->
-						<div class="home-block">
-							<div class="section-head">
-								<div class="section-title">
-									Your Followers Are Listening To
-								</div>
-								<div class="section-link">See all →</div>
-							</div>
-							<div class="cards" id="explore-followers-activity">
-								<!-- populated from API -->
-							</div>
-						</div>
-
-						<!-- Suggested artists -->
-						<div class="home-block">
-							<div class="section-head">
-								<div class="section-title">Artists You Might Like</div>
-							</div>
-							<div class="artists-row" id="explore-suggested-artists">
-								<!-- populated from API -->
-							</div>
-						</div>
-					</section>
-
-					<section
-						id="home-foryou-section"
-						class="h-tab-content"
-						data-content="for-you"
-					>
-						<header class="main-header">
-							<div class="page-title">For You</div>
-						</header>
-
-						<!-- Recent plays -->
-						<div class="home-block">
-							<div class="section-head">
-								<div class="section-title">Recently Played</div>
-								<div class="section-link">See all →</div>
-							</div>
-							<div class="track-list" id="foryou-recent-plays">
-								<!-- populated from API -->
-							</div>
-						</div>
-
-						<!-- Playlists -->
-						<div class="home-block">
-							<div class="section-head">
-								<div class="section-title">Your Playlists</div>
-								<div class="section-link">See all →</div>
-							</div>
-							<div class="cards" id="foryou-playlists">
-								<!-- populated from API -->
-							</div>
-						</div>
-
-						<!-- Uploaded tracks -->
-						<div class="home-block">
-							<div class="section-head">
-								<div class="section-title">Your Uploads</div>
-								<div class="section-link">See all →</div>
-							</div>
-							<div class="track-list" id="foryou-uploads">
-								<!-- populated from API -->
-							</div>
-						</div>
-
-						<!-- Liked songs -->
-						<div class="home-block">
-							<div class="section-head">
-								<div class="section-title">Liked Songs</div>
-								<div class="section-link">See all →</div>
-							</div>
-							<div class="track-list" id="foryou-liked">
-								<!-- populated from API -->
-							</div>
-						</div>
-					</section>
-
-					<div class="auth-gate" id="home-auth-gate" style="display: none">
-						<div class="auth-gate-icon">🔒</div>
-						<h3 class="auth-gate-title">Login to continue</h3>
-						<p class="auth-gate-sub">
-							This section is available for registered users only.
-						</p>
-						<div class="auth-gate-btns">
-							<a href="/login" class="btn-play">Login</a>
-							<a href="/register" class="btn-ghost">Sign up</a>
-						</div>
-					</div>
-				</section>
-				<section class="library_section main-sections" id="library-section">
-					<h1>Library content</h1>
-
-					<h1>Library content</h1>
-
-					<h1>Library content</h1>
-				</section>
-				<section class="search_section main-sections" id="search-section">
-					<div class="recent_search_container">
-						<p>No search yet...</p>
-					</div>
-				</section>
-				<section
-					class="profile_section main-sections"
-					id="profile-section"
-				></section>
-				<section class="settings_section main-sections"></section>
-				<section
-					class="upload_section main-sections"
-					id="upload-section"
-				></section>
-			</main>
-			<footer class="player" id="footer">
-				<div class="player-track">
-					<div class="player-thumb">🎵</div>
-					<div>
-						<div class="player-title">Midnight Drive</div>
-						<div class="player-artist">Artist Name</div>
-					</div>
-					<div class="player-like">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							fill="currentColor"
-							class="bi bi-heart"
-							viewBox="0 0 16 16"
+					<div class="btn-group">
+						<a href="/" class="btn-home">🏠 &nbsp;Return Home</a>
+						<a href="javascript:history.back()" class="btn-back"
+							>← &nbsp;Go Back</a
 						>
-							<path
-								d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"
-							></path>
-						</svg>
 					</div>
 				</div>
 
-				<div class="player-center">
-					<div class="ctrl-btns">
-						<button class="ctrl">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								fill="currentColor"
-								class="bi bi-shuffle"
-								viewBox="0 0 16 16"
-							>
-								<path
-									fill-rule="evenodd"
-									d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.6 9.6 0 0 0 7.556 8a9.6 9.6 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.6 10.6 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.6 9.6 0 0 0 6.444 8a9.6 9.6 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5"
-								></path>
-								<path
-									d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192"
-								></path>
-							</svg>
-						</button>
-						<button class="ctrl">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								fill="currentColor"
-								class="bi bi-skip-start"
-								viewBox="0 0 16 16"
-							>
-								<path
-									d="M4 4a.5.5 0 0 1 1 0v3.248l6.267-3.636c.52-.302 1.233.043 1.233.696v7.384c0 .653-.713.998-1.233.696L5 8.752V12a.5.5 0 0 1-1 0zm7.5.633L5.696 8l5.804 3.367z"
-								></path>
-							</svg>
-						</button>
-						<button class="ctrl main">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								fill="currentColor"
-								class="bi bi-play-fill"
-								viewBox="0 0 16 16"
-							>
-								<path
-									d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"
-								></path>
-							</svg>
-						</button>
-						<button class="ctrl">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								fill="currentColor"
-								class="bi bi-skip-end"
-								viewBox="0 0 16 16"
-							>
-								<path
-									d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.713 3.31 4 3.655 4 4.308v7.384c0 .653.713.998 1.233.696L11.5 8.752V12a.5.5 0 0 0 1 0zM5 4.633 10.804 8 5 11.367z"
-								></path>
-							</svg>
-						</button>
-						<button class="ctrl">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								fill="currentColor"
-								class="bi bi-repeat"
-								viewBox="0 0 16 16"
-							>
-								<path
-									d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"
-								></path>
-							</svg>
-						</button>
-					</div>
-					<div class="progress">
-						<span class="time">1:24</span>
-						<div class="track">
-							<div class="track-fill"></div>
-						</div>
-						<span class="time" style="text-align: right">3:45</span>
-					</div>
+				<div class="quick-links">
+					<a href="/search" class="quick-link">🔍 Search</a>
+					<a href="/library" class="quick-link">📚 Library</a>
+					<a href="/upload" class="quick-link">⬆️ Upload</a>
+					<a href="/profile" class="quick-link">👤 Profile</a>
 				</div>
-
-				<div class="player-right">
-					<div class="vol">
-						<span class="vol-icon">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								fill="currentColor"
-								class="bi bi-volume-up-fill"
-								viewBox="0 0 16 16"
-							>
-								<path
-									d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303z"
-								></path>
-								<path
-									d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 3.89z"
-								></path>
-								<path
-									d="M8.707 11.182A4.5 4.5 0 0 0 10.025 8a4.5 4.5 0 0 0-1.318-3.182L8 5.525A3.5 3.5 0 0 1 9.025 8 3.5 3.5 0 0 1 8 10.475zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06"
-								></path>
-							</svg>
-						</span>
-						<div class="vol-track">
-							<div class="vol-fill"></div>
-						</div>
-					</div>
-					<div class="queue-btn">≡ Queue</div>
-				</div>
-			</footer>
-			<div class="no_resource_page mask" id="no-resource-page">
-				<h1>404</h1>
-				<p>Resource not found</p>
-				<a href="/" class="nfp-link">Return Home</a>
 			</div>
 		</div>
-		<script type="module" src="./src/main.js?t=1776546881095"></script>
-	</body>
-</html>
+		<div class="login-page mobile-form-page app-page" id="login-page">
+			<div class="mob-auth-page">
+				<div class="mob-auth-top">
+					<div class="mob-brand">
+						<div class="mob-brand-icon">🎵</div>
+						<div class="mob-brand-text">Zecco<span>Stream</span></div>
+					</div>
+					<a href="/" class="mob-home-link">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-house-icon lucide-house"
+						>
+							<path
+								d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"
+							></path>
+							<path
+								d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+							></path>
+						</svg>
+					</a>
+				</div>
+				<div class="mob-auth-heading">Welcome back</div>
+				<div class="mob-auth-sub">Login to continue to ZeccoStream</div>
+
+				<div class="mob-oauth">
+					<button class="mob-oauth-btn">
+						<span class="oauth-icon">G</span> Continue with Google
+					</button>
+					<button class="mob-oauth-btn">
+						<span class="oauth-icon">⌥</span> Continue with GitHub
+					</button>
+				</div>
+
+				<div class="mob-divider">
+					<div class="mob-divider-line"></div>
+					<span class="mob-divider-text">or continue with email</span>
+					<div class="mob-divider-line"></div>
+				</div>
+
+				<div class="mob-field">
+					<label class="mob-field-label">Email address</label>
+					<input
+						class="mob-input"
+						placeholder="youremail@example.com"
+						type="email"
+					/>
+				</div>
+				<div class="mob-field">
+					<label class="mob-field-label">Password</label>
+					<input
+						class="mob-input"
+						placeholder="Enter password"
+						type="password"
+					/>
+				</div>
+
+				<a href="/forgot-password" class="mob-forgot" style="display: block"
+					>Forgot password?</a
+				>
+
+				<button class="mob-submit-btn">Login</button>
+				<div class="mob-switch">
+					Don't have an account? <a href="/register">Sign up</a>
+				</div>
+			</div>
+		</div>
+		<div
+			class="register-page mob-auth-page mobile-form-page app-page"
+			id="register-page"
+		>
+			<header class="mob-auth-top">
+				<div class="mob-brand">
+					<div class="mob-brand-icon">🎵</div>
+					<div class="mob-brand-text">Zecco<span>Stream</span></div>
+				</div>
+				<a href="/" class="mob-home-link">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="lucide lucide-house-icon lucide-house"
+					>
+						<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+						<path
+							d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+						></path>
+					</svg>
+				</a>
+			</header>
+
+			<div class="auth-steps-ctn">
+				<div class="mob-steps">
+					<div class="mob-step active"></div>
+					<div class="mob-step"></div>
+				</div>
+
+				<div class="mob-auth-heading">Create account</div>
+				<div class="mob-auth-sub">Step 1 of 2 — Your details</div>
+
+				<div class="mob-oauth">
+					<button class="mob-oauth-btn">
+						<span class="oauth-icon">G</span> Sign up with Google
+					</button>
+					<button class="mob-oauth-btn">
+						<span class="oauth-icon">⌥</span> Sign up with GitHub
+					</button>
+				</div>
+
+				<div class="mob-divider">
+					<div class="mob-divider-line"></div>
+					<span class="mob-divider-text">or use email</span>
+					<div class="mob-divider-line"></div>
+				</div>
+
+				<div class="mob-field">
+					<label class="mob-field-label">Username</label>
+					<input class="mob-input" placeholder="Choose a username" />
+				</div>
+				<div class="mob-field">
+					<label class="mob-field-label">Email address</label>
+					<input
+						class="mob-input"
+						placeholder="youremail@example.com"
+						type="email"
+					/>
+				</div>
+
+				<button class="mob-submit-btn" style="margin-top: 8px">
+					Next →
+				</button>
+				<div class="mob-switch">
+					Already have an account? <a href="/login">Login</a>
+				</div>
+			</div>
+
+			<div class="auth-steps-ctn">
+				<div class="mob-steps">
+					<div class="mob-step done"></div>
+					<div class="mob-step active"></div>
+				</div>
+
+				<div class="mob-auth-heading">Set password</div>
+				<div class="mob-auth-sub">Step 2 of 2 — Secure your account</div>
+
+				<div class="mob-field">
+					<label class="mob-field-label">Password</label>
+					<input
+						class="mob-input"
+						placeholder="Create a password"
+						type="password"
+					/>
+				</div>
+				<div class="pwd-strength">
+					<div class="pwd-bars">
+						<div class="pwd-bar medium"></div>
+						<div class="pwd-bar medium"></div>
+						<div class="pwd-bar"></div>
+						<div class="pwd-bar"></div>
+					</div>
+					<span class="pwd-label medium"
+						>Medium — add numbers or symbols</span
+					>
+				</div>
+
+				<div class="mob-field">
+					<label class="mob-field-label">Confirm password</label>
+					<input
+						class="mob-input"
+						placeholder="Repeat your password"
+						type="password"
+					/>
+				</div>
+
+				<button class="mob-submit-btn" style="margin-top: 8px">
+					Create Account
+				</button>
+				<div class="mob-switch" style="cursor: pointer">
+					← Back to step 1
+				</div>
+			</div>
+		</div>
+		<section class="mobile-full-player app-page" id="full-player">
+			<div class="full-player-player-bg"></div>
+
+			<div class="full-player-player-topbar">
+				<div class="full-player-player-collapse">∨</div>
+				<div class="full-player-player-label">Now Playing</div>
+				<div class="full-player-player-dots">⋯</div>
+			</div>
+
+			<div class="full-player-artwork-wrap">
+				<div class="full-player-artwork">🎵</div>
+			</div>
+
+			<div class="full-player-track-info">
+				<div class="full-player-track-text">
+					<div class="full-player-track-title">Midnight Drive</div>
+					<div class="full-player-track-artist">
+						Artist Name · Afrobeats
+					</div>
+				</div>
+				<div class="full-player-track-like liked">❤️</div>
+			</div>
+
+			<div class="full-player-progress-wrap">
+				<div class="full-player-progress-bar">
+					<div class="full-player-progress-fill"></div>
+				</div>
+				<div class="full-player-progress-times">
+					<span class="full-player-progress-time">1:24</span>
+					<span class="full-player-progress-time">3:45</span>
+				</div>
+			</div>
+
+			<div class="full-player-controls">
+				<div class="full-player-ctrl-side">
+					<button class="full-player-ctrl active">⇄</button>
+					<button class="full-player-ctrl">⏮</button>
+				</div>
+				<button class="full-player-ctrl-play">⏸</button>
+				<div class="full-player-ctrl-side">
+					<button class="full-player-ctrl">⏭</button>
+					<button class="full-player-ctrl">↻</button>
+				</div>
+			</div>
+
+			<div class="full-player-volume">
+				<span class="full-player-vol-icon">🔈</span>
+				<div class="full-player-vol-bar">
+					<div class="full-player-vol-fill"></div>
+				</div>
+				<span class="full-player-vol-icon">🔊</span>
+			</div>
+
+			<div class="full-player-extra-actions">
+				<div class="full-player-extra-btn">
+					<div class="full-player-extra-icon">➕</div>
+					<span class="full-player-extra-label">Add to</span>
+				</div>
+				<div class="full-player-extra-btn">
+					<div class="full-player-extra-icon">↗️</div>
+					<span class="full-player-extra-label">Share</span>
+				</div>
+				<div class="full-player-extra-btn">
+					<div class="full-player-extra-icon">👤</div>
+					<span class="full-player-extra-label">Artist</span>
+				</div>
+				<div class="full-player-extra-btn">
+					<div class="full-player-extra-icon">⬇️</div>
+					<span class="full-player-extra-label">Save</span>
+				</div>
+			</div>
+
+			<div class="full-player-queue-pill">
+				<span class="full-player-queue-icon">≡</span>
+				<div class="full-player-queue-text">
+					<div class="full-player-queue-label">Up Next</div>
+					<div class="full-player-queue-sub">
+						Golden Hour · Calm Waters · +4 more
+					</div>
+				</div>
+				<span class="full-player-queue-arrow">›</span>
+			</div>
+		</section>
+		<div
+			class="forgot-password-page mobile-form-page app-page"
+			id="forgot-password-page"
+		>
+			An email has been sent to example@example.com
+		</div>
+	</div>
+	<script type="module" src="./src/main.js"></script>
+</body>

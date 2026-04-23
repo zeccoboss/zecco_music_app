@@ -8,7 +8,6 @@ import Aside from "./layouts/desktop/Aside.js";
 import { Footer } from "./layouts/desktop/Footer";
 import { Main } from "./layouts/desktop/Main.js";
 import { MobileFooter } from "./layouts/mobile/MobileFooter";
-import { MobileHeader } from "./layouts/mobile/MobileHeader.js";
 import { MobileMain } from "./layouts/mobile/MobileMain";
 import { MiniPlayer } from "./layouts/mobile/MobileMiniPlayer.js";
 import { Overlay } from "./layouts/Overlay.js";

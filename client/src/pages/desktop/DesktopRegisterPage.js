@@ -30,7 +30,7 @@ const DesktopRegisterPage = () => {
 						>
 					</div>
 				</div>
-				<div class="desk-form-side">
+				<div class="desk-form-side auth-steps-ctn" id="register-step-two" >
 					<div class="desk-steps">
 						<div class="desk-step active"></div>
 						<div class="desk-step"></div>
@@ -40,7 +40,7 @@ const DesktopRegisterPage = () => {
 						Step 1 of 2 — Enter your details
 					</div>
 
-					<div class="desk-oauth">
+					<div class="desk-oauth" >
 						<button class="desk-oauth-btn">
 							<span>G</span> Google
 						</button>
