@@ -1,61 +1,51 @@
 const ImageModel = require("../models/image.model");
 const { v4: uuidV4 } = require("uuid");
 
-const validateConfig = (data) => {
-	if (!data) return console.error("No config object passed");
-	if (!data.name) return console.error("Image name required");
-	if (!data.path) return console.error("Image path required");
-	if (!data.format) return console.error("Image format required");
-};
+// Get the image extension by giving file path then use for banner & avater format field
+const getImageExtension = (key) => key.slice(key.lastIndexOf(".") + 1);
 
 /* === For user avatar === */
 function avaterImageHandler(config) {
-	// The config needs to be an object that has {id: jhe33ig2t67t8, name: fileName, extension: jpg}
-	validateConfig(config);
+	const uuid = uuidV4(); // generate a special uuid
 
+	// Create the image in DB and return the metadata
 	return ImageModel.create({
-		uuid: uuidV4(),
-		ownerId: config.id,
+		uuid: uuid,
+		name: `user-avatar-${uuid}`,
 		category: "avatar",
-		bucket: "local",
-		static: true,
-		name: config.name,
-		path: config.path,
-		format: config.format,
+		...config,
 	});
 }
 
 /* === For user banner === */
 function bannerImageHandler(config) {
-	// The config needs to be an object that has {id: jhe33ig2t67t8, name: fileName, extension: jpg,static: false}
-	validateConfig(config);
+	const uuid = uuidV4(); // generate a special uuid
 
+	// Create the image in DB and return the metadata
 	return ImageModel.create({
-		ownerId: config.id,
-		uuid: uuidV4(),
+		uuid: uuid,
+		name: `user-banner-${uuid}`,
 		category: "banner",
-		bucket: "local",
-		static: true,
-		name: config.name,
-		path: config.path,
-		format: config.format,
+		...config,
 	});
 }
 
 /* === For music covers === */
 function coverImage(config) {
-	// The config needs to be an object that has {id: jhe33ig2t67t8, name: fileName, extension: jpg,static: false}
-	validateConfig(config);
+	const uuid = uuidV4(); // generate a special uuid
 
+	// Create the image in DB and return the metadata
 	return ImageModel.create({
-		ownerId: config.id,
-		uuid: uuidV4(),
-		name: config.name,
-		path: config.path,
-		format: config.format,
-		bucket: "images",
-		static: false,
+		uuid: uuid,
+		name: `audio-cover-${uuid}`,
+		category: "cover",
+		...config,
 	});
 }
 
-module.exports = { avaterImageHandler, bannerImageHandler, coverImage };
+module.exports = {
+	avaterImageHandler,
+	bannerImageHandler,
+	coverImage,
+	getImageExtension,
+};

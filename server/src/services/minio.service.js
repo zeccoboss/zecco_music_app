@@ -1,124 +1,161 @@
+const { GetObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const { PutObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const minioClient = require("../config/minio.config");
-const { Readable } = require("node:stream");
-const appConfig = require("../config/app.config");
 
-class MinIOService {
-	static async storeAudioCover(cover) {
-		if (!cover || cover instanceof Object === false) {
-			console.error("[Object Storage]: Not valid audio cover");
-			return null;
-		}
+const BUCKETS = {
+	images: "images",
+	audios: "audios",
+};
 
-		// generate extension
-		const ext = `.${cover.format.slice(cover.format.indexOf("/") + 1)}`;
+/**
+ * Upload a buffer to MinIO.
+ * @param {object} opts
+ * @param {"images"|"audios"} opts.bucket
+ * @param {string}  opts.key        - Object key (filename/path inside bucket)
+ * @param {Buffer}  opts.buffer     - File data
+ * @param {string}  opts.mimeType   - e.g. "image/jpeg"
+ * @returns {Promise<string|null>}  - The stored key, or null on failure
+ */
+const uploadObject = async ({ bucket, key, buffer, mimeType }) => {
+	try {
+		await minioClient.send(
+			new PutObjectCommand({
+				Bucket: bucket,
+				Key: key,
+				Body: buffer,
+				ContentType: mimeType,
+				ContentLength: buffer.length, // Avoids chunked-encoding issues with MinIO
+			}),
+		);
+		return key;
+	} catch (err) {
+		console.error(
+			`[MinIO] Upload failed — bucket: ${bucket}, key: ${key}`,
+			err,
+		);
+		return null;
+	}
+};
 
-		const stream = Readable.from(Buffer.from(cover.data));
-		if (!stream) {
-			console.error("[Object Storage]: Not a valid image stream");
-			return null;
-		}
-		const bucket = "images";
+/**
+ * Delete an object from MinIO.
+ * @param {object} opts
+ * @param {"images"|"audios"} opts.bucket
+ * @param {string} opts.key
+ * @returns {Promise<boolean>}
+ */
+const deleteObject = async ({ bucket, key }) => {
+	try {
+		await minioClient.send(
+			new DeleteObjectCommand({ Bucket: bucket, Key: key }),
+		);
+		return true;
+	} catch (err) {
+		console.error(
+			`[MinIO] Delete failed — bucket: ${bucket}, key: ${key}`,
+			err,
+		);
+		return false;
+	}
+};
 
-		//
-		const etag = await new Promise((resolve, reject) => {
-			minioClient.putObject(
-				bucket,
-				`${cover.fileName}${ext}`,
-				stream,
-				{ "Content-Type": cover?.format ?? "image/jpeg" },
-				(err, etag) => {
-					if (err) reject(err);
-					resolve(etag);
-				},
-			);
-		});
-
-		return etag ? `${bucket}/${cover.fileName}${ext}` : null;
+/**
+ * Store an audio cover image.
+ * @param {{ data: Buffer, format: string, fileName: string }} cover
+ * @returns {Promise<string|null>} Stored key or null
+ */
+const storeAudioCover = async (cover) => {
+	if (!cover || typeof cover !== "object") {
+		console.error("[MinIO] Invalid audio cover object");
+		return null;
 	}
 
-	static async storeAudio(file) {
-		if (!file || file instanceof Object === false) {
-			console.error("[Object Storage]: Not valid audio");
-			return null;
-		}
+	const ext = cover.format.slice(cover.format.indexOf("/") + 1);
+	const key = `${cover.fileName}.${ext}`;
 
-		// generate extension
-		const ext = `.${file.originalname.slice(file.originalname.lastIndexOf(".") + 1)}`;
-		const bucket = "audios";
+	return uploadObject({
+		bucket: BUCKETS.images,
+		key,
+		buffer: Buffer.from(cover.data),
+		mimeType: cover.format ?? "image/jpeg",
+	});
+};
 
-		try {
-			//
-			const etag = await new Promise((resolve, reject) => {
-				minioClient.putObject(
-					bucket,
-					`${appConfig.audioName}${ext}`,
-					file.buffer,
-					{ "Content-Type": file?.mimetype ?? "audio/mpeg" },
-					(err, etag) => {
-						if (err) reject(err);
-						resolve(etag);
-					},
-				);
-			});
-
-			return etag ? `${bucket}/${appConfig.audioName()}${ext}` : null;
-		} catch (err) {
-			console.error("[MinIOService]: ", err);
-			return null;
-		}
+/**
+ * Store an audio file.
+ * @param {Express.Multer.File} file  - Multer file object (memory storage)
+ * @param {string} audioName          - Generated unique name for the file
+ * @returns {Promise<string|null>} Stored key or null
+ */
+const storeAudio = async (file, audioName) => {
+	if (!file || typeof file !== "object") {
+		console.error("[MinIO] Invalid audio file object");
+		return null;
 	}
 
-	static async storeImage(image) {
-		console.log(image);
+	const ext = file.originalname.slice(file.originalname.lastIndexOf(".") + 1);
+	const key = `${audioName}.${ext}`;
+
+	return uploadObject({
+		bucket: BUCKETS.audios,
+		key,
+		buffer: file.buffer,
+		mimeType: file.mimetype ?? "audio/mpeg",
+	});
+};
+
+/**
+ * Store a user image (avatar or cover photo).
+ * @param {Express.Multer.File} file  - Multer file object (memory storage)
+ * @param {string} uniqueName         - Pre-generated unique filename (no extension)
+ * @returns {Promise<string|null>} Stored key or null
+ */
+const storeImage = async (file, uniqueName) => {
+	if (!file || typeof file !== "object") {
+		console.error("[MinIO] Invalid image file object");
+		return null;
 	}
 
-	/*
-	async uploadFile({
-		fileName,
-		media,
-		flag,
-		extension,
-		path,
-		bucketName,
-		contentType,
-	}) {
-		if (!fileName) return console.error("File 'name' required");
-		if (!flag) return console.error("Flag required to store Object");
+	const ext = file.mimetype.slice(file.mimetype.indexOf("/") + 1);
+	const key = `${uniqueName}.${ext}`;
 
-		if (!media) return null;
+	return uploadObject({
+		bucket: BUCKETS.images,
+		key,
+		buffer: file.buffer,
+		mimeType: file.mimetype,
+	});
+};
 
-		let stream = null;
-		if (flag === "Buffer") stream = Readable.from(Buffer.from(media));
-		if (flag === "Stream") stream = media;
-		if (flag === "Path") stream = fs.createReadStream(path);
-
-		// If theres no stream at any occasion don't proceed uploading of files
-		if (!stream) return null;
-
-		try {
-			const etag = await new Promise((resolve, reject) => {
-				minioClient.putObject(
-					bucketName,
-					`${fileName}.${extension}`,
-					stream,
-					{ contentType },
-					(err, etag) => {
-						if (err) reject(err);
-						resolve(etag);
-					},
-				);
-			});
-
-			// const url = dir
-			// 	? `${bucketName}/${dir}/${fileName}.${extension}`
-			// 	: `${bucketName}/${fileName}.${extension}`;
-			return etag ? `${bucketName}/${fileName}.${extension}` : null;
-		} catch (err) {
-			console.log(err);
-			return null;
-		}
+/**
+ * Generate a short-lived presigned URL for direct MinIO access.
+ * @param {object} opts
+ * @param {string} opts.bucket
+ * @param {string} opts.key
+ * @param {number} opts.expiresIn - seconds (default 60)
+ * @returns {Promise<string|null>}
+ */
+const getPresignedUrl = async ({ bucket, key, expiresIn = 60 }) => {
+	try {
+		const command = new GetObjectCommand({ Bucket: bucket, Key: key });
+		const url = await getSignedUrl(minioClient, command, { expiresIn });
+		return url;
+	} catch (err) {
+		console.error(
+			`[MinIO] Presigned URL failed — bucket: ${bucket}, key: ${key}`,
+			err,
+		);
+		return null;
 	}
-	*/
-}
-module.exports = MinIOService;
-// module.exports = { storeImage };
+};
+
+module.exports = {
+	uploadObject,
+	deleteObject,
+	storeAudioCover,
+	storeAudio,
+	storeImage,
+	getPresignedUrl, // 👈 add this to existing exports
+	BUCKETS,
+};

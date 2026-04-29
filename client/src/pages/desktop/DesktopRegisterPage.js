@@ -10,7 +10,7 @@ const DesktopRegisterPage = () => {
 	const state = {
 		get step_one() {
 			const html = `
-				<div class="desk-brand-side">
+				<div class="desk-brand-side app-sub-sections">
 					<div class="desk-vinyl"></div>
 					<div class="desk-brand-logo">
 						<div class="desk-brand-icon-wrap">🎵</div>

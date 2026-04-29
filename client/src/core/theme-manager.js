@@ -1,4 +1,5 @@
 import { checkedSvg as ckSvg } from "../assets/svgs/svg-icons.js";
+import appConfig from "../config/app-config.js";
 import {
 	getLocalStorageData,
 	setToLocalStorage,
@@ -10,22 +11,7 @@ class ThemeManager {
 	#app = getTag("#app");
 	#storedTheme = getLocalStorageData("Theme");
 	#globalTheme = window.matchMedia("(prefers-color-scheme: dark)"); // Checks for dark mood
-	#themes = {
-		Dark: {
-			"--background": "hsl(0, 0%, 10%)",
-			"--text": "hsl(0, 3%, 89%)",
-			"--accent": "hsl(213, 100%, 50%)",
-			"--muted": "rgb(187, 187, 187)",
-			"--svg-color": "rgb(221, 221, 221)",
-		},
-		Light: {
-			"--background": "hsl(0, 0%, 100%)",
-			"--text": "hsl(0, 2%, 12%)",
-			"--accent": "hsl(213, 100%, 50%)",
-			"--muted": "rgb(86, 85, 85)",
-			"--svg-color": "rgb(21, 20, 20)",
-		},
-	};
+	#themes = appConfig.themes;
 
 	#systemDarkMood = () => this.#syncTheme("Dark", "System"); // Sync the changes to the page
 	#systemLightMood = () => this.#syncTheme("Light", "System"); // Sync the changes to the page

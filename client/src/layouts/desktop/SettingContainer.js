@@ -69,7 +69,8 @@ const SettingsContainer = () => {
 								<div class="theme-btns">
 									<button class="theme-btn active">🌙 Dark</button>
 									<button class="theme-btn">☀️ Light</button>
-									<button class="theme-btn">💻 System</button>
+									<button class="theme-btn" data-theme-placeholder
+									>💻 System</button>
 								</div>
 							</div>
 

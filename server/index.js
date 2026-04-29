@@ -17,12 +17,12 @@ connectDB(); // Connect to mongodb
 const app = express(); // Create App
 const PORT = appConfig.port; // Get PORT
 
-app.use(credentials); //
+app.use(credentials); // Handle options credentials check - before CORS! and fetch cookies credentials requirement
 app.use(cors(corsOptions)); // CORS
 app.use(logger); // Logs all Events
 
 // Create admin on server start
-initAdmin();
+initAdmin(); // Initialize admin user if not exists
 
 // Middle wares
 app.use(express.urlencoded({ extended: false }));
@@ -33,11 +33,12 @@ app.use(cookieParser());
 // Server html page
 app.use("/", require("./src/routes/root.route"));
 
-app.use("/auth", require("./src/routes/auth.route"));
-app.use("/profile", require("./src/routes/profile.route"));
+// API routes
+app.use("/auth", require("./src/routes/auth/auth.route"));
 app.use("/refresh", require("./src/routes/refresh.route")); // Routes
 app.use("/users", verifyJWT, require("./src/routes/api/users.route")); // Users routes
-app.use("/api/media/audio", require("./src/routes/api/audios.route")); // Music routes
+app.use("/users", verifyJWT, require("./src/routes/api/user-images.route")); // 👈 add this
+app.use("/api/media/audio", require("./src/routes/api/user-audios.route")); // Music routes
 
 // Serve 404 page
 app.use((_, res) => {
@@ -49,10 +50,10 @@ app.use((_, res) => {
 app.use(errorLogger);
 
 mongoose.connection.once("open", () => {
-	console.log("  Connected to mongoDB"); //
+	console.log("Connected to mongoDB");
 	// Listen for request on port
 	app.listen(PORT, () => {
-		console.log(`   🔥 Server running on "http://localhost:${PORT}"`);
+		console.log(`🔥 Server running on "http://localhost:${PORT}"`);
 		console.log("");
 	});
 });

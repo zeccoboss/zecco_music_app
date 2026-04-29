@@ -1,22 +1,33 @@
 const bcrypt = require("bcrypt");
 const crypto = require("node:crypto");
 const UserModel = require("../models/user.model");
-const {
-	sendVerificationMail,
-	sendPasswordResetMail,
-} = require("../helpers/mailer.helper");
+const { sendPasswordResetMail } = require("../helpers/mailer.helper");
 
 const handleForgotPassword = async (req, res) => {
 	try {
 		const { email } = req.body;
-		if (!email)
-			return res.status(400).json({ error: "No or invalid email address" });
 
 		const user = await UserModel.findOne({ email });
 		if (!user) return res.status(404).json({ error: "User not found" });
 		if (!user.verified)
 			return res.status(400).json({ error: "User not verified" });
 
+		// ── Rate limit check ───────────────────────────────────────────────────
+		if (user.lastPasswordVerificationSentAt) {
+			const diff =
+				Date.now() -
+				new Date(user.lastPasswordVerificationSentAt).getTime();
+			const tenMinutes = 10 * 60 * 1000;
+			if (diff < tenMinutes) {
+				const retryAfter = Math.ceil((tenMinutes - diff) / 60000);
+				return res.status(429).json({
+					success: false,
+					message: `Please wait ${retryAfter} minute(s) before requesting another reset email`,
+				});
+			}
+		}
+
+		// ── Generate token ─────────────────────────────────────────────────────
 		const token = crypto.randomBytes(32).toString("hex");
 		const hashedToken = crypto
 			.createHash("sha256")
@@ -26,14 +37,22 @@ const handleForgotPassword = async (req, res) => {
 		user.passwordVerificationToken = hashedToken;
 		user.passwordVerificationTokenExpiry = Date.now() + 5 * 60 * 1000;
 		user.lastPasswordVerificationSentAt = Date.now();
-
 		await user.save();
-		(user.email, token);
 
-		sendPasswordResetMail(email, token); // To be removed later
+		// ── Send email ─────────────────────────────────────────────────────────
+		try {
+			await sendPasswordResetMail(email, token);
+		} catch (err) {
+			console.error("[ForgotPassword] Email send failed:", err);
+			return res
+				.status(500)
+				.json({ success: false, message: "Failed to send reset email" });
+		}
 
-		// sendPasswordResetMail(email, token);
-		res.status(200).json({ message: "Password reset email sent" });
+		res.status(200).json({
+			success: true,
+			message: "Password reset email sent",
+		});
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ error: "Password reset failed" });
@@ -42,8 +61,7 @@ const handleForgotPassword = async (req, res) => {
 
 const handleResetPassword = async (req, res) => {
 	try {
-		const { token } = req.params;
-		const { password } = req.body;
+		const { token, password } = req.body;
 
 		if (!password)
 			return res.status(400).json({ error: "Password required" });

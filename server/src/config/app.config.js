@@ -3,7 +3,7 @@ class AppConfig {
 	#appName = "ZeccoStreams";
 
 	#port = process.env.NODE_ENV === "production" ? process.env.PORT : 3500;
-	#client_base_url = null;
+	#client_base_url = "https://zecco-music-app.vercel.app/";
 	#client_dev_url = `http://localhost:5173/`;
 
 	get base() {
@@ -21,9 +21,10 @@ class AppConfig {
 	}
 
 	get client() {
-		return process.env.NODE_ENV === "production"
-			? this.#client_base_url
-			: this.#client_dev_url;
+		// return process.env.NODE_ENV === "production"
+		// 	? this.#client_base_url
+		// 	: this.#client_dev_url;
+		return this.#client_base_url ?? this.#client_dev_url;
 	}
 
 	date() {
@@ -48,10 +49,10 @@ class AppConfig {
 
 	// Get the path for local
 	local = {
-		bannerPath: "images/user-banner.jpg",
-		adminAvatarPath: "images/admin-avatar.png",
-		userAvatarPath: "images/user-avatar.png",
-		coverPath: "images/audio-cover.png",
+		bannerKey: "images/user-banner.jpg",
+		adminAvatarKey: "images/admin-avatar.png",
+		userAvatarKey: "images/user-avatar.png",
+		coverKey: "images/audio-cover.png",
 	};
 }
 

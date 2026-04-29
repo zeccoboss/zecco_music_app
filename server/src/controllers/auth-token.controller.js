@@ -1,34 +1,105 @@
 const crypto = require("node:crypto");
 const UserModel = require("../models/user.model");
 const { resendVerificationMail } = require("../helpers/mailer.helper");
+const {
+	avaterImageHandler,
+	bannerImageHandler,
+	getImageExtension,
+} = require("../helpers/handle-images.helpers");
+const {
+	getLocalMediaSize,
+	getLocalImageDimensions,
+} = require("../helpers/media.helpers");
+const appConfig = require("../config/app.config");
 
 const handleVerifyEmail = async (req, res) => {
-	const { token } = req.params; // raw token from the email link
+	try {
+		const { token } = req.params;
 
-	// Hash it and look it up
-	const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+		const hashedToken = crypto
+			.createHash("sha256")
+			.update(token)
+			.digest("hex");
 
-	const user = await UserModel.findOne({
-		verificationToken: hashedToken,
-		verificationTokenExpiry: { $gt: Date.now() },
-	});
+		const user = await UserModel.findOne({
+			verificationToken: hashedToken,
+			verificationTokenExpiry: { $gt: Date.now() },
+		});
 
-	if (!user)
-		return res.status(400).json({ error: "Invalid or expired token" });
+		if (!user) {
+			return res
+				.status(400)
+				.json({ success: false, message: "Invalid or expired token" });
+		}
 
-	user.verified = true;
-	user.verificationToken = undefined;
-	user.verificationTokenExpiry = undefined;
-	await user.save();
+		// ── Mark as verified ───────────────────────────────────────────────────
+		user.verified = true;
+		user.verificationToken = undefined;
+		user.verificationTokenExpiry = undefined;
 
-	res.status(200).json({ message: "Email verified successfully" });
+		// ── Create default images ──────────────────────────────────────────────
+		const avatarKey = appConfig.local.userAvatarKey;
+		const bannerKey = appConfig.local.bannerKey;
+
+		const [avatarDimensions, bannerDimensions] = await Promise.all([
+			getLocalImageDimensions(avatarKey),
+			getLocalImageDimensions(bannerKey),
+		]);
+
+		if (avatarDimensions && bannerDimensions) {
+			const [avatar, banner] = await Promise.all([
+				avaterImageHandler({
+					ownerId: user._id,
+					format: `image/${getImageExtension(avatarKey)}`,
+					size: getLocalMediaSize(avatarKey),
+					dimensions: avatarDimensions,
+					storage: {
+						key: avatarKey,
+						baseUrl: appConfig.base,
+						type: "local",
+					},
+				}),
+				bannerImageHandler({
+					ownerId: user._id,
+					format: `image/${getImageExtension(bannerKey)}`,
+					size: getLocalMediaSize(bannerKey),
+					dimensions: bannerDimensions,
+					storage: {
+						key: bannerKey,
+						baseUrl: appConfig.base,
+						type: "local",
+					},
+				}),
+			]);
+
+			user.avatarImageId = avatar._id;
+			user.coverImageId = banner._id;
+		} else {
+			// Don't block verification if image creation fails
+			console.error(
+				"[VerifyEmail] Could not load default image dimensions — skipping image creation",
+			);
+		}
+
+		await user.save();
+
+		return res
+			.status(200)
+			.json({ success: true, message: "Email verified successfully" });
+	} catch (err) {
+		console.error("[VerifyEmail]:", err);
+		return res
+			.status(500)
+			.json({ success: false, message: "Verification failed" });
+	}
 };
 
 const handleResendEmailVerification = async (req, res) => {
 	const user = await UserModel.findOne({ email: req.body.email });
 
 	if (!user) return res.status(404).json({ error: "User not found" });
-	if (user?.verified) res.status(400).json({ error: "Already verified" });
+	if (user?.verified)
+		return res.status(400).json({ error: "User already verified" });
 
 	const cooldown = 60 * 1000; // 1 minutes between resend
 	const timeLastSent = Date.now() - user.lastUserVerificationSentAt;
@@ -48,8 +119,16 @@ const handleResendEmailVerification = async (req, res) => {
 
 	await user.save();
 
-	// call Send verification email
-	resendVerificationMail(user.email, token);
+	// Send the email with the raw token (not hashed)
+	try {
+		await resendVerificationMail(user.email, token);
+	} catch (err) {
+		console.error("[ResendVerification] Email send failed:", err);
+		return res.status(500).json({
+			success: false,
+			message: "Failed to send verification email",
+		});
+	}
 	res.status(200).json({ message: "Verification email resent" });
 };
 

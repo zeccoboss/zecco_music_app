@@ -1,5 +1,3 @@
-import restoreDefaultLayout from "../helpers/restore-default-layout.js";
-import { router } from "../routes/router.js";
 import CreateElement from "../utils/create-element.js";
 
 const NoResourcePage = () => {

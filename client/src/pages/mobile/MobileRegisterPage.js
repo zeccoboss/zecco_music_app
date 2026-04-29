@@ -31,7 +31,7 @@ const MobileRegisterPage = () => {
 		},
 		get step_one() {
 			const html = `
-					<div class="auth-steps-ctn" id="register-step-one">
+					<div class="auth-steps-ctn app-sub-sections" id="register-step-one">
 						<div class="mob-steps">
 							<div class="mob-step active"></div>
 							<div class="mob-step"></div>
@@ -87,7 +87,7 @@ const MobileRegisterPage = () => {
 		},
 		get step_two() {
 			const html = `
-				<div class="auth-steps-ctn" id="register-step-two">
+				<div class="auth-steps-ctn app-sub-sections" id="register-step-two">
 					<div class="mob-steps">
 						<div class="mob-step done"></div>
 						<div class="mob-step active"></div>
@@ -95,7 +95,7 @@ const MobileRegisterPage = () => {
 
 					<div class="mob-auth-heading">Set password</div>
 					<div class="mob-auth-sub">
-						Step 2 of 2 — Secure your account
+						Step 2 of 2 — Secure your accoa cunt
 					</div>
 
 					<div class="mob-field">
@@ -119,18 +119,18 @@ const MobileRegisterPage = () => {
 					</div>
 
 					<div class="mob-field">
-						<label class="mob-field-label"
+						<label class="mob-field-label"a c
 							>Confirm password</label
 						>
 						<input class="mob-input" placeholder="Repeat your password" type="password"/>
 					</div>
 
-					<button class="mob-submit-btn" style="margin-top: 8px">
+					<button class="mob-submit-btn" style="margin-top: 8px" type="submit">
 						Create Account
 					</button>
-					<div class="mob-switch" style="cursor: pointer">
+					<a href="/register/step-one" class="mob-switch" style="cursor: pointer; display: block">
 						← Back to step 1
-					</div>
+					</a>
 				</div>
 			`;
 			return buildNode(html);

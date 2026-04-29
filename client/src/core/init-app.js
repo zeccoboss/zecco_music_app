@@ -15,8 +15,9 @@ const initApp = async (message) => {
 	globalEventHandler(); // For the document (managing of modals, popups...)
 	preventLinksBehavior(); // Prevent page refresh when an anchor tag is clicked
 	headerEvent(); // Add event to the header
-	themeManager.init(); // Initialize the application theme
-	// if (!mobileScreen.matches) sidebarHandler(); // Only call when on larger screen's
+
+	// themeManager.init(); // Initialize the application theme
+
 	initHomeTabs(true);
 };
 

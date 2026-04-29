@@ -3,8 +3,6 @@ import {
 	getLocalStorageData,
 	setToLocalStorage,
 } from "../helpers/get-local-storage-data";
-import { getTag } from "../helpers/select-element";
-import CreateElement from "../utils/create-element";
 
 const sidebarHandler = () => {
 	const toggleBtn = getTag(".sidebar_toggle_btn");

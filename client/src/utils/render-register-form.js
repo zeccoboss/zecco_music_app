@@ -1,13 +1,13 @@
 import appConfig from "../config/app-config.js";
 import { setActivePage } from "../helpers/active-page-helpers.js";
 
-// Render Register form
-const RenderRegisterForm = async () => {
-	appConfig.page_title = "Register";
+// // Render Register form
+// const RenderRegisterForm = async () => {
+// 	appConfig.page_title = "Register";
 
-	const page = document.getElementById("register-page");
-	setActivePage(page, "active-app-page");
-};
+// 	const page = document.getElementById("register-page");
+// 	setActivePage(page, "active-app-page");
+// };
 
 const hideFormCtn = () => {
 	const ctn = document.querySelector("show-auth-steps-ctn");

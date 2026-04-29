@@ -1,133 +1,178 @@
 const bcrypt = require("bcrypt");
 const UserModel = require("../models/user.model");
+const { rolesList } = require("../config/roles-list.config");
 
-// GET /users
+// ── GET /users ─────────────────────────────────────────────────────────────────
+// Admin only — enforced at route level with verifyRoles
 const getAllUsers = async (_req, res) => {
 	try {
 		const users = await UserModel.find().select(
-			"-password -refreshToken -verificationToken",
+			"-password -refreshToken -verificationToken -verificationTokenExpiry -lastPasswordVerificationSentAt -lasUserVerificationSentAt",
 		);
-		res.status(200).json(users);
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: error.message });
+		res.status(200).json({ success: true, count: users.length, data: users });
+	} catch (err) {
+		console.error("[Users] getAllUsers:", err);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error",
+		});
 	}
 };
 
-// GET /users/:id
+// ── GET /users/:id ─────────────────────────────────────────────────────────────
+// Public profile for strangers, full profile for owner and admin
 const getUser = async (req, res) => {
 	try {
 		const { id } = req.params;
+		const requesterId = req.user._id.toString();
+		const isOwner = requesterId === id;
+		const isAdmin = req.user.roles?.includes(rolesList.Admin);
 
 		const user = await UserModel.findById(id).select(
-			"-password -refreshToken -verificationToken",
+			"-password -refreshToken -verificationToken -verificationTokenExpiry -passwordVerificationToken -passwordVerificationTokenExpiry -lastPasswordVerificationSentAt -lastUserVerificationSentAt",
 		);
 
-		if (!user)
+		if (!user) {
 			return res
 				.status(404)
-				.json({ error: `User with ID: "${id}" not found` });
+				.json({ success: false, message: "User not found" });
+		}
 
-		res.status(200).json({ user });
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: error.message });
+		// Strangers get a stripped public profile
+		if (!isOwner && !isAdmin) {
+			return res.status(200).json({
+				success: true,
+				data: {
+					_id: user._id,
+					username: user.username,
+					fullname: user.fullname,
+					bio: user.bio,
+					avatarImageId: user.avatarImageId,
+					coverImageId: user.coverImageId,
+				},
+			});
+		}
+
+		// Owner and admin get the full profile
+		return res.status(200).json({ success: true, data: user });
+	} catch (err) {
+		console.error("[Users] getUser:", err);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error",
+		});
 	}
 };
 
-// POST /users  (admin creates a user directly, no verification flow)
+// ── POST /users ────────────────────────────────────────────────────────────────
+// Admin only — direct user creation bypassing verification
 const createUser = async (req, res) => {
 	try {
-		const { username, email, password } = req.body;
-
-		if (!username || !email || !password)
-			return res
-				.status(400)
-				.json({ error: "username, email, and password are required" });
+		const { username, fullname, email, password } = req.body;
 
 		const existingEmail = await UserModel.findOne({ email });
-		if (existingEmail)
-			return res.status(409).json({ error: "Email already exists" });
+		if (existingEmail) {
+			return res
+				.status(409)
+				.json({ success: false, message: "Email already exists" });
+		}
 
 		const user = await UserModel.create({
 			username,
+			fullname,
 			email,
 			password: await bcrypt.hash(password, 10),
-			roles: ["user"],
-			verified: true, // admin-created users skip verification
+			roles: [rolesList.User],
+			verified: true,
 			avatarImageId: null,
 			coverImageId: null,
 		});
 
-		res.status(201).json({
+		return res.status(201).json({
+			success: true,
 			message: "User created successfully",
-			user: {
-				id: user._id,
-				username: user.username,
-				email: user.email,
-			},
+			data: { _id: user._id, username: user.username, email: user.email },
 		});
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: error.message });
+	} catch (err) {
+		console.error("[Users] createUser:", err);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error",
+		});
 	}
 };
 
-// PATCH /users/:id
+// ── PUT /users/me ──────────────────────────────────────────────────────────────
+// Owner only — users update their own profile, never someone else's
 const updateUser = async (req, res) => {
 	try {
-		const { id } = req.params;
-		const { username, email } = req.body;
+		const userId = req.user._id; // always from token, never from params
+		const { username, fullname } = req.body;
 
-		const user = await UserModel.findById(id);
-		if (!user)
+		// Fetch the user to update
+		const user = await UserModel.findById(userId);
+		if (!user) {
 			return res
 				.status(404)
-				.json({ error: `User with ID: "${id}" not found` });
-
-		// Check new email isn't already taken by someone else
-		if (email && email !== user.email) {
-			const emailTaken = await UserModel.findOne({ email });
-			if (emailTaken)
-				return res.status(409).json({ error: "Email already in use" });
-			user.email = email;
+				.json({ success: false, message: "User not found" });
 		}
 
+		// Only update fields that were provided
 		if (username) user.username = username;
+		if (fullname) user.fullname = fullname;
+		if (req.body.bio !== undefined) user.bio = req.body.bio;
 
+		// Avatar and cover image updates would be handled in separate endpoints that manage file uploads and set avatarImageId and coverImageId accordingly
 		await user.save();
 
-		res.status(200).json({
-			message: `User with ID: "${id}" updated`,
-			user: {
-				id: user._id,
+		// Return the updated profile
+		return res.status(200).json({
+			success: true,
+			message: "Profile updated",
+			data: {
+				_id: user._id,
 				username: user.username,
-				email: user.email,
+				fullname: user.fullname,
 			},
 		});
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: error.message });
+	} catch (err) {
+		console.error("[Users] updateUser:", err);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error",
+		});
 	}
 };
 
-// DELETE /users/:id
+// ── DELETE /users/:id ──────────────────────────────────────────────────────────
+// Admin can delete anyone — user can only delete themselves
 const deleteUser = async (req, res) => {
 	try {
 		const { id } = req.params;
+		const requesterId = req.user._id.toString();
+		const isAdmin = req.user.roles?.includes("Admin");
+
+		if (!isAdmin && requesterId !== id) {
+			return res.status(403).json({ success: false, message: "Forbidden" });
+		}
 
 		const user = await UserModel.findByIdAndDelete(id);
-		if (!user)
+		if (!user) {
 			return res
 				.status(404)
-				.json({ error: `User with ID: "${id}" not found` });
+				.json({ success: false, message: "User not found" });
+		}
 
-		res.status(200).json({ message: `User with ID: "${id}" deleted` });
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: error.message });
+		return res
+			.status(200)
+			.json({ success: true, message: "User deleted successfully" });
+	} catch (err) {
+		console.error("[Users] deleteUser:", err);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error",
+		});
 	}
 };
 
 module.exports = { getAllUsers, getUser, createUser, updateUser, deleteUser };
-module.exports = { getAllUsers, createUser, deleteUser, updateUser, getUser };

@@ -1,10 +1,5 @@
 import { audioService } from "../../services/audio-service.js";
 import CreateElement from "../../utils/create-element.js";
-import { getTag } from "../../helpers/select-element.js";
-import MusicCard from "../../components/MusicCard.js";
-import { buttonWrapper } from "../../components/HeaderBtnContainer.js";
-import { mobileScreen } from "../../core/screen-break-points.js";
-import { HomeSkeleton } from "../../components/skeleton/HomeSkeleton.js";
 import { buildNode } from "../../utils/build-node.js";
 import { magnifierSvg } from "../../assets/svgs/svg-icons.js";
 

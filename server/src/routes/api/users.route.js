@@ -3,18 +3,22 @@ const usersControllers = require("../../controllers/users.controller");
 const { verifyRoles } = require("../../middlewares/verify-roles.middleware");
 const router = require("express").Router();
 
-router
-	.route("/")
-	.get(usersControllers.getAllUsers)
-	.post(
-		verifyRoles(rolesList.Editor, rolesList.Editor),
-		usersControllers.createUser,
-	)
-	.put(
-		verifyRoles(rolesList.Editor, rolesList.Editor),
-		usersControllers.updateUser,
-	)
-	.delete(verifyRoles(rolesList.Editor), usersControllers.deleteUser);
+const { validate } = require("../../middlewares/validate.middleware");
+const { updateUserSchema } = require("../../validators/user.validator");
+const createUserSchema =
+	require("../../validators/user.validator").createUserSchema;
+
+// users.route.js
+router.get("/", verifyRoles(rolesList.Admin), usersControllers.getAllUsers);
+router.get("/:id", usersControllers.getUser);
+router.post(
+	"/",
+	verifyRoles(rolesList.Admin),
+	validate(createUserSchema),
+	usersControllers.createUser,
+);
+router.put("/me", validate(updateUserSchema), usersControllers.updateUser); // 👈 /me not /:id
+router.delete("/:id", usersControllers.deleteUser); // ownership check is inside the controller
 
 router.get("/:id", usersControllers.getUser);
 

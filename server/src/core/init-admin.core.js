@@ -6,27 +6,48 @@ const appConfig = require("../config/app.config");
 const {
 	avaterImageHandler,
 	bannerImageHandler,
+	getImageExtension,
 } = require("../helpers/handle-images.helpers");
 const { welcomeAdmin } = require("../helpers/mailer.helper");
-const { transporter } = require("../services/mailer.service");
-
-// Get the image extension by giving file path then use for banner & avater format field
-const imageExt = (path) => path.slice(path.lastIndexOf(".") + 1);
+const {
+	getLocalMediaSize,
+	getLocalImageDimensions,
+} = require("../helpers/media.helpers");
 
 const initAdmin = async () => {
 	try {
-		// Querry if theres an existing admin
+		// Query if theres an existing admin
 		const adminExists = await UserModel.findOne({
 			roles: { $in: [rolesList.Admin] },
 		});
 		// Stop the process if admin is DB
 		if (adminExists) return console.log(" Admin already exists!");
 
+		// Get the keys for the admin avatar and banner images from the app config
+		const adminAvatarKey = appConfig.local.adminAvatarKey;
+		const adminBannerKey = appConfig.local.bannerKey;
+
+		// Get dimensions of the admin avatar and banner images
+		const adminAvatarDimensions =
+			await getLocalImageDimensions(adminAvatarKey);
+		const adminBannerDimensions =
+			await getLocalImageDimensions(adminBannerKey);
+
+		// Check if dimensions were successfully retrieved before proceeding
+		if (!adminAvatarDimensions || !adminBannerDimensions) {
+			console.error(
+				"Error retrieving image dimensions. Please check the image paths and formats.",
+			);
+			return;
+		}
+
 		// Get all values of the roles object
 		const rolesValues = Object.values(rolesList);
 
 		// Show status of creation
 		console.log("Creating Admin...");
+
+		// Create the admin user with the details from the environment variables and the retrieved image dimensions and sizes
 		const admin = await UserModel.create({
 			uuid: uuidV4(),
 			fullname: process.env.ADMIN_FULLNAME,
@@ -43,20 +64,31 @@ const initAdmin = async () => {
 			lastPasswordVerificationSentAt: undefined,
 		});
 
+		// Prepare the configuration for the admin avatar and banner images using the retrieved dimensions and sizes
 		const avatarConfig = {
-			id: admin._id,
-			name: "admin-avatar",
-			path: appConfig.local.adminAvatarPath,
-			format: `image/${imageExt(appConfig.local.adminAvatarPath)}`,
+			ownerId: admin._id,
+			format: `image/${getImageExtension(adminAvatarKey)}`,
+			size: getLocalMediaSize(adminAvatarKey),
+			dimensions: adminAvatarDimensions,
+			storage: {
+				key: adminAvatarKey,
+				baseUrl: appConfig.base,
+				type: "local",
+			},
 		};
-
 		const bannerConfig = {
-			id: admin._id,
-			name: "admin-banner",
-			path: appConfig.local.bannerPath,
-			format: `image/${imageExt(appConfig.local.bannerPath)}`,
+			ownerId: admin._id,
+			format: `image/${getImageExtension(adminBannerKey)}`,
+			size: getLocalMediaSize(adminBannerKey),
+			dimensions: adminBannerDimensions,
+			storage: {
+				key: adminBannerKey,
+				baseUrl: appConfig.base,
+				type: "local",
+			},
 		};
 
+		// Create the admin avatar and banner images using the prepared configuration and retrieve the created image documents to get their ids for the admin document
 		const [banner, avatar] = await Promise.all([
 			avaterImageHandler(avatarConfig),
 			bannerImageHandler(bannerConfig),
@@ -71,7 +103,7 @@ const initAdmin = async () => {
 
 		// Send a message to the admins email
 		const info = await welcomeAdmin(admin.email);
-		console.log(info.accepted);
+		console.log("[ADMIN_MAILER] :", info.accepted);
 
 		console.log("Admin created successfully!"); // Give confirmation message on success
 	} catch (err) {

@@ -19,9 +19,12 @@
 		"Svgs",
 		"topbar",
 		"useremail",
+		"uuidv",
 		"virtuals",
 		"VITE",
 		"zecco",
 		"ZECCOBOSS"
-	]
+	],
+	"workbench.activityBar.autoHide": true,
+	"workbench.activityBar.compact": false
 }
