@@ -1,0 +1,855 @@
+/* ══════════════════════════════════════
+   PROFILE — Shared styles
+   Covers: ProfileDesktop + ProfileMobile
+══════════════════════════════════════ */
+
+/* ── Page shell ── */
+.profile-page {
+	display: contents;
+}
+
+.profile-section,
+.profile-section-mobile {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	height: 100%;
+}
+
+/* ══════════════════════════════════════
+   DESKTOP — STATE WRAPPER
+══════════════════════════════════════ */
+.profile-state {
+	flex: 1;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+.profile-state--centered {
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 40px;
+	gap: 12px;
+}
+
+/* ── Scroll wrapper ── */
+.profile-scroll,
+.profile-mob-scroll {
+	flex: 1;
+	overflow-y: auto;
+	scrollbar-width: none;
+	display: flex;
+	flex-direction: column;
+}
+.profile-scroll::-webkit-scrollbar,
+.profile-mob-scroll::-webkit-scrollbar {
+	display: none;
+}
+
+/* ══════════════════════════════════════
+   AUTH GATE — shared
+══════════════════════════════════════ */
+.profile-auth-icon {
+	width: 76px;
+	height: 76px;
+	border-radius: 50%;
+	background: var(--glass);
+	border: 1px solid var(--glass-border);
+	display: grid;
+	place-items: center;
+	font-size: 2rem;
+	color: var(--text-2);
+	margin-bottom: 4px;
+}
+.profile-auth-title {
+	font-family: var(--font-head);
+	font-size: 1rem;
+	font-weight: 800;
+	color: var(--text-1);
+}
+.profile-auth-sub {
+	font-size: 0.65rem;
+	color: var(--text-3);
+	max-width: 240px;
+	line-height: 1.6;
+	margin-bottom: 4px;
+}
+.profile-auth-btns {
+	display: flex;
+	gap: 8px;
+}
+
+/* ══════════════════════════════════════
+   SHARED BUTTONS
+══════════════════════════════════════ */
+.profile-btn-accent {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 9px 22px;
+	border-radius: 50px;
+	background: var(--accent);
+	color: white;
+	font-size: 0.68rem;
+	font-weight: 600;
+	border: none;
+	cursor: pointer;
+	font-family: var(--font-body);
+	text-decoration: none;
+	transition:
+		opacity 0.2s,
+		transform 0.2s;
+}
+.profile-btn-accent:hover {
+	opacity: 0.88;
+	transform: translateY(-1px);
+}
+
+.profile-btn-ghost {
+	padding: 9px 18px;
+	border-radius: 50px;
+	background: var(--glass);
+	color: var(--text-1);
+	font-size: 0.68rem;
+	font-weight: 500;
+	border: 1px solid var(--glass-border);
+	cursor: pointer;
+	font-family: var(--font-body);
+	text-decoration: none;
+	transition: background 0.2s;
+}
+.profile-btn-ghost:hover {
+	background: var(--glass-hover);
+}
+
+.profile-edit-btn,
+.profile-follow-btn {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 16px;
+	border-radius: 50px;
+	font-size: 0.65rem;
+	font-weight: 500;
+	font-family: var(--font-body);
+	cursor: pointer;
+	transition: all 0.2s;
+	white-space: nowrap;
+}
+.profile-edit-btn {
+	background: var(--glass);
+	border: 1px solid var(--glass-border);
+	color: var(--text-1);
+}
+.profile-edit-btn:hover {
+	background: var(--glass-hover);
+	border-color: var(--glass-border-strong);
+}
+.profile-follow-btn {
+	background: var(--accent);
+	border: none;
+	color: white;
+}
+.profile-follow-btn:hover {
+	opacity: 0.88;
+}
+.profile-follow-btn.following {
+	background: var(--glass);
+	border: 1px solid var(--glass-border);
+	color: var(--text-1);
+}
+
+/* ══════════════════════════════════════
+   COVER PHOTO — shared
+══════════════════════════════════════ */
+.profile-cover,
+.profile-mob-cover {
+	position: relative;
+	width: 100%;
+	flex-shrink: 0;
+	overflow: hidden;
+	/* background: linear-gradient(
+		135deg,
+		hsla(213, 80%, 28%, 0.9) 0%,
+		hsla(265, 60%, 22%, 0.85) 50%,
+		hsla(340, 60%, 20%, 0.7) 100%
+	); */
+	background: -webkit-linear-gradient(
+		135deg,
+		rgb(198, 109, 109),
+		rgb(209, 207, 207),
+		rgb(54, 120, 144)
+	);
+}
+.profile-cover {
+	height: 180px;
+}
+.profile-mob-cover {
+	height: 130px;
+}
+
+.profile-cover-glow {
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(
+		ellipse at 70% 30%,
+		hsla(213, 100%, 60%, 0.18),
+		transparent 65%
+	);
+	pointer-events: none;
+}
+.profile-cover-img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+.profile-cover-edit {
+	position: absolute;
+	bottom: 10px;
+	right: 12px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 5px 11px;
+	border-radius: 50px;
+	background: rgba(0, 0, 0, 0.5);
+	border: 1px solid var(--glass-border-strong);
+	color: var(--text-1);
+	font-size: 0.58rem;
+	font-family: var(--font-body);
+	cursor: pointer;
+	backdrop-filter: blur(8px);
+	transition: background 0.2s;
+}
+.profile-cover-edit:hover {
+	background: rgba(0, 0, 0, 0.7);
+}
+
+/* ══════════════════════════════════════
+   IDENTITY BLOCK — shared
+══════════════════════════════════════ */
+.profile-identity {
+	display: flex;
+	flex-direction: column;
+	padding: 0 24px 20px;
+	margin-top: -44px;
+	gap: 10px;
+	flex-shrink: 0;
+}
+.profile-mob-identity {
+	display: flex;
+	flex-direction: column;
+	padding: 0 16px 16px;
+	margin-top: -36px;
+	gap: 8px;
+	flex-shrink: 0;
+}
+.profile-identity-top {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+.profile-identity-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding-bottom: 4px;
+}
+
+/* ── Avatar ── */
+.profile-avatar-wrap {
+	position: relative;
+	width: fit-content;
+	flex-shrink: 0;
+}
+.profile-avatar-img {
+	width: 82px;
+	height: 82px;
+	border-radius: 50%;
+	border: 3px solid var(--bg-base);
+	object-fit: cover;
+	display: block;
+}
+.profile-avatar-img--mob {
+	width: 68px;
+	height: 68px;
+}
+.profile-avatar-fallback {
+	width: 82px;
+	height: 82px;
+	border-radius: 50%;
+	border: 3px solid var(--bg-base);
+	background: linear-gradient(135deg, var(--accent), hsl(265, 80%, 60%));
+	display: none;
+	place-items: center;
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: white;
+}
+.profile-avatar-fallback--mob {
+	width: 68px;
+	height: 68px;
+	font-size: 1.2rem;
+}
+.profile-avatar-edit-btn {
+	position: absolute;
+	bottom: 3px;
+	right: 3px;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: var(--accent);
+	border: 2px solid var(--bg-base);
+	color: white;
+	display: grid;
+	place-items: center;
+	font-size: 0.58rem;
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+.profile-avatar-edit-btn:hover {
+	transform: scale(1.1);
+}
+
+/* ── Name + UID ── */
+.profile-name {
+	font-family: var(--font-head);
+	font-size: 1.2rem;
+	font-weight: 800;
+	color: var(--text-1);
+	letter-spacing: -0.3px;
+	line-height: 1.2;
+}
+.profile-name--mob {
+	font-size: 1rem;
+}
+.profile-uid {
+	font-size: 0.58rem;
+	color: var(--text-3);
+}
+.profile-bio {
+	font-size: 0.66rem;
+	color: var(--text-2);
+	line-height: 1.55;
+	max-width: 420px;
+}
+.profile-since {
+	font-size: 0.54rem;
+	color: var(--text-3);
+}
+
+/* ── Stats row — shared ── */
+.profile-stats,
+.profile-mob-stats {
+	display: flex;
+	align-items: center;
+	background: var(--glass);
+	border: 1px solid var(--glass-border);
+	border-radius: var(--radius-md);
+	overflow: hidden;
+}
+.profile-stat {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	padding: 10px 6px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+.profile-stat:hover {
+	background: var(--glass-hover);
+}
+.profile-stat-divider {
+	width: 1px;
+	height: 32px;
+	background: var(--glass-border);
+	flex-shrink: 0;
+}
+.profile-stat-num {
+	font-family: var(--font-head);
+	font-size: 1rem;
+	font-weight: 800;
+	color: var(--text-1);
+}
+.profile-stat-label {
+	font-size: 0.52rem;
+	color: var(--text-3);
+}
+
+/* ══════════════════════════════════════
+   DESKTOP — TABS + PANELS
+   Side tab layout at ≥720px
+══════════════════════════════════════ */
+.profile-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	border-top: 1px solid var(--glass-border);
+	min-height: 0;
+}
+.profile-tabs {
+	display: flex;
+	border-bottom: 1px solid var(--glass-border);
+	flex-shrink: 0;
+	padding: 0 24px;
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+.profile-tabs::-webkit-scrollbar {
+	display: none;
+}
+.profile-tab {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 11px 0;
+	flex: 1;
+	justify-content: center;
+	border: none;
+	border-bottom: 2px solid transparent;
+	background: transparent;
+	color: var(--text-3);
+	font-size: 0.65rem;
+	font-weight: 500;
+	font-family: var(--font-body);
+	cursor: pointer;
+	margin-bottom: -1px;
+	transition: all 0.2s;
+	white-space: nowrap;
+}
+.profile-tab:hover {
+	color: var(--text-2);
+}
+.profile-tab.active {
+	color: var(--text-1);
+	border-bottom-color: var(--text-1);
+	font-weight: 600;
+}
+.profile-panel {
+	display: none;
+	flex-direction: column;
+	flex: 1;
+	overflow-y: auto;
+	scrollbar-width: none;
+	padding: 16px 24px;
+	gap: 8px;
+}
+.profile-panel::-webkit-scrollbar {
+	display: none;
+}
+.active-profile-panel {
+	display: flex;
+}
+
+/* ── Panel empty state — shared ── */
+.profile-panel-empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 32px 20px;
+	text-align: center;
+	flex: 1;
+}
+.profile-panel-empty.hidden {
+	display: none;
+}
+.profile-panel-empty-icon {
+	font-size: 2.2rem;
+	opacity: 0.3;
+	color: var(--text-3);
+	margin-bottom: 4px;
+}
+.profile-panel-empty-title {
+	font-family: var(--font-head);
+	font-size: 0.85rem;
+	font-weight: 700;
+	color: var(--text-2);
+}
+.profile-panel-empty-sub {
+	font-size: 0.62rem;
+	color: var(--text-3);
+	max-width: 200px;
+	line-height: 1.6;
+	margin-bottom: 4px;
+}
+
+/* ── Playlist grid — shared ── */
+.profile-playlist-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+	gap: 10px;
+}
+
+/* ── Track list — shared ── */
+.profile-track-list {
+	display: flex;
+	flex-direction: column;
+}
+.profile-track-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 7px 8px;
+	border-radius: var(--radius-sm);
+	cursor: pointer;
+	transition: background 0.15s;
+}
+.profile-track-row:hover {
+	background: var(--glass);
+}
+.profile-track-cover {
+	width: 36px;
+	height: 36px;
+	border-radius: 8px;
+	flex-shrink: 0;
+	overflow: hidden;
+	background: linear-gradient(135deg, var(--accent), hsl(265, 80%, 60%));
+	display: grid;
+	place-items: center;
+	font-size: 0.9rem;
+}
+.profile-track-cover img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+.profile-track-info {
+	flex: 1;
+	min-width: 0;
+}
+.profile-track-title {
+	font-size: 0.67rem;
+	font-weight: 600;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: var(--text-1);
+}
+.profile-track-artist {
+	font-size: 0.55rem;
+	color: var(--text-3);
+	margin-top: 1px;
+}
+.profile-track-dur {
+	font-size: 0.54rem;
+	color: var(--text-3);
+	flex-shrink: 0;
+}
+.profile-track-row.playing .profile-track-title {
+	color: var(--text-1);
+	font-weight: 700;
+}
+
+/* ══════════════════════════════════════
+   MOBILE — STATE WRAPPER
+══════════════════════════════════════ */
+.profile-mob-state {
+	flex: 1;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+.profile-mob-state--centered {
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 40px;
+	gap: 12px;
+}
+
+/* ── Mobile tabs + panels ── */
+.profile-mob-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	border-top: 1px solid var(--glass-border);
+	min-height: 0;
+}
+.profile-mob-tabs {
+	display: flex;
+	border-bottom: 1px solid var(--glass-border);
+	flex-shrink: 0;
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+.profile-mob-tabs::-webkit-scrollbar {
+	display: none;
+}
+.profile-mob-tab {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	flex: 1;
+	padding: 10px 0;
+	justify-content: center;
+	border: none;
+	border-bottom: 2px solid transparent;
+	background: transparent;
+	color: var(--text-3);
+	font-size: 0.6rem;
+	font-weight: 500;
+	font-family: var(--font-body);
+	cursor: pointer;
+	margin-bottom: -1px;
+	transition: all 0.2s;
+	white-space: nowrap;
+}
+.profile-mob-tab.active {
+	color: var(--text-1);
+	border-bottom-color: var(--text-1);
+	font-weight: 600;
+}
+.profile-mob-panel {
+	display: none;
+	flex-direction: column;
+	flex: 1;
+	overflow-y: auto;
+	scrollbar-width: none;
+	padding: 12px 16px;
+	gap: 6px;
+}
+.profile-mob-panel::-webkit-scrollbar {
+	display: none;
+}
+.active-profile-mob-panel {
+	display: flex;
+}
+
+/* ══════════════════════════════════════
+   ERROR STATE — shared
+══════════════════════════════════════ */
+.profile-error-icon {
+	width: 68px;
+	height: 68px;
+	border-radius: 50%;
+	background: rgba(255, 74, 74, 0.08);
+	border: 1px solid rgba(255, 74, 74, 0.18);
+	display: grid;
+	place-items: center;
+	font-size: 1.6rem;
+	color: var(--error);
+	margin-bottom: 4px;
+}
+.profile-error-title {
+	font-family: var(--font-head);
+	font-size: 1rem;
+	font-weight: 800;
+	color: var(--error);
+}
+.profile-error-sub {
+	font-size: 0.65rem;
+	color: var(--text-3);
+	max-width: 240px;
+	line-height: 1.6;
+}
+
+/* ══════════════════════════════════════
+   SKELETON LOADER — shared
+══════════════════════════════════════ */
+@keyframes profile-shimmer {
+	0% {
+		background-position: -500px 0;
+	}
+	100% {
+		background-position: 500px 0;
+	}
+}
+.profile-sk {
+	background: linear-gradient(
+		90deg,
+		var(--glass) 25%,
+		rgba(255, 255, 255, 0.07) 50%,
+		var(--glass) 75%
+	);
+	background-size: 1000px 100%;
+	animation: profile-shimmer 1.4s infinite;
+	border-radius: 6px;
+}
+
+/* Desktop skeleton sizes */
+.profile-sk--cover {
+	width: 100%;
+	height: 180px;
+	border-radius: 0;
+	flex-shrink: 0;
+}
+.profile-sk--avatar {
+	width: 82px;
+	height: 82px;
+	border-radius: 50%;
+	border: 3px solid var(--bg-base);
+	margin-top: -44px;
+	flex-shrink: 0;
+}
+.profile-sk--btn {
+	height: 34px;
+	width: 110px;
+	border-radius: 50px;
+}
+.profile-sk--name {
+	height: 20px;
+	width: 55%;
+}
+.profile-sk--uid {
+	height: 10px;
+}
+.profile-sk--bio {
+	height: 11px;
+	width: 70%;
+}
+.profile-sk--stat-num {
+	height: 18px;
+	width: 34px;
+}
+.profile-sk--stat-label {
+	height: 9px;
+	width: 44px;
+}
+.profile-sk--tab {
+	height: 32px;
+	border-radius: var(--radius-sm);
+	margin-right: 6px;
+}
+.profile-sk--track-cover {
+	width: 36px;
+	height: 36px;
+	border-radius: 8px;
+	flex-shrink: 0;
+}
+.profile-sk--text-md {
+	height: 12px;
+	width: 100%;
+}
+.profile-sk--text-sm {
+	height: 9px;
+	width: 100%;
+}
+
+/* Mobile skeleton sizes */
+.profile-sk--cover-mob {
+	width: 100%;
+	height: 130px;
+	border-radius: 0;
+	flex-shrink: 0;
+}
+.profile-sk--avatar-mob {
+	width: 68px;
+	height: 68px;
+	border-radius: 50%;
+	border: 3px solid var(--bg-base);
+	margin-top: -36px;
+	flex-shrink: 0;
+}
+.profile-sk--btn-mob {
+	height: 30px;
+	width: 80px;
+	border-radius: 50px;
+}
+.profile-sk--name-mob {
+	height: 16px;
+	width: 55%;
+}
+.profile-sk--uid-mob {
+	height: 9px;
+}
+.profile-sk--bio-mob {
+	height: 10px;
+	width: 65%;
+}
+.profile-sk--stat-num-mob {
+	height: 16px;
+	width: 28px;
+}
+.profile-sk--stat-label-mob {
+	height: 8px;
+	width: 38px;
+}
+.profile-sk--tab-mob {
+	height: 30px;
+	border-radius: var(--radius-sm);
+	margin-right: 5px;
+}
+.profile-sk--track-cover-mob {
+	width: 36px;
+	height: 36px;
+	border-radius: 8px;
+	flex-shrink: 0;
+}
+.profile-sk--text-md-mob {
+	height: 11px;
+	width: 100%;
+}
+.profile-sk--text-sm-mob {
+	height: 8px;
+	width: 100%;
+}
+
+/* skeleton row */
+.profile-sk-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 5px 0;
+	pointer-events: none;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE — desktop side tabs ≥720px
+══════════════════════════════════════ */
+@media (min-width: 720px) {
+	.profile-cover {
+		height: 200px;
+	}
+	.profile-sk--cover {
+		height: 200px;
+	}
+
+	.profile-content {
+		display: grid;
+		grid-template-columns: 150px 1fr;
+	}
+	.profile-tabs {
+		flex-direction: column;
+		padding: 12px 10px;
+		border-bottom: none;
+		border-right: 1px solid var(--glass-border);
+		overflow-x: unset;
+		overflow-y: auto;
+		gap: 2px;
+	}
+	.profile-tab {
+		justify-content: flex-start;
+		border-bottom: none;
+		border-left: 2px solid transparent;
+		border-radius: var(--radius-sm);
+		margin-bottom: 0;
+		padding: 9px 12px;
+		flex: unset;
+	}
+	.profile-tab.active {
+		border-bottom-color: transparent;
+		border-left-color: var(--text-1);
+		background: var(--glass);
+	}
+	.profile-panel {
+		padding: 16px 20px;
+	}
+}
+
+@media (max-width: 480px) {
+	.profile-stat-num {
+		font-size: 0.88rem;
+	}
+	.profile-stat-label {
+		font-size: 0.48rem;
+	}
+}

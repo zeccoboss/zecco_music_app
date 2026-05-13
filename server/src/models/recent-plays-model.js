@@ -9,7 +9,7 @@ const RecentPlaySchema = new Schema(
 			index: true,
 			type: Schema.Types.ObjectId,
 		},
-		uuid: { type: String, required: true },
+		uuid: { type: String, required: true, unique: true, index: true },
 		audioIds: {
 			type: [{ type: Schema.Types.ObjectId, ref: "Audio" }],
 			default: [],

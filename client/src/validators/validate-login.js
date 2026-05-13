@@ -1,8 +1,8 @@
-import { buttonLoadingSpinner } from "../components/ButtonLoadingSpinner.js";
-import loadLoggedInUser from "../helpers/load-logged-in-user.js";
-import { showFormFeed } from "../helpers/show-form-feed.js";
-import { loginAccountService } from "../services/login-account-service.js";
-import CreateElement from "../utils/create-element.js";
+import { buttonLoadingSpinner } from "@zecco/components/ButtonLoadingSpinner.js";
+import loadLoggedInUser from "@zecco/helpers/load-logged-in-user.js";
+import { showFormFeed } from "@zecco/helpers/show-form-feed.js";
+import { loginAccountService } from "@zecco/services/login-account-service.js";
+import CreateElement from "@zecco/utils/dom/create-element";
 
 const validateLogin = (formInstance) => {
 	const loginForm = formInstance.getElement();
@@ -62,7 +62,7 @@ const validateLogin = (formInstance) => {
 			const user = { identifier, password: userPassword };
 			submitBtn.disabled = true;
 			submitBtn.appendChild(buttonLoadingSpinner.getElement());
-			const axiosDetails = await loginAccountService("auth/login", user); // Call service function to send request
+			const axiosDetails = await loginAccountService("href="/auth/login"", user); // Call service function to send request
 			setTimeout(() => {
 				submitBtn.disabled = false;
 				buttonLoadingSpinner.remove();

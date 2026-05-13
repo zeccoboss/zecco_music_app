@@ -9,6 +9,7 @@ const minioClient = new S3Client({
 		secretAccessKey: process.env.MINIO_SECRET_KEY,
 	},
 	forcePathStyle: true, // Required for MinIO — AWS uses subdomains, MinIO uses paths
+	tls: false,
 });
 
 module.exports = minioClient;

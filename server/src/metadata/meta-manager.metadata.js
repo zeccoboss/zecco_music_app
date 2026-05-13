@@ -1,15 +1,11 @@
 // services/meta-manager.service.js
 const { selectCover, parseBuffer } = require("music-metadata");
 const { v4: uuidv4 } = require("uuid");
-const {
-	storeAudio,
-	storeAudioCover,
-	BUCKETS,
-} = require("../services/minio.service");
+const { storeAudio, storeAudioCover } = require("../services/minio.service");
 const ImageModel = require("../models/image.model");
 const AudioModel = require("../models/audio.model");
 const sharp = require("sharp");
-
+const appConfig = require("../config/app.config");
 // ── Private helpers (plain functions — no class state needed) ──────────────────
 
 /**
@@ -20,7 +16,7 @@ const generateUniqueName = (prefix) => {
 	const now = new Date();
 	const date = now.toDateString().replace(/ /g, "-");
 	const time = now.toTimeString().slice(0, 8).replace(/:/g, "-");
-	return `ZeccoMusicApp-${prefix}-${uuidv4()}-${date}-${time}`;
+	return `${appConfig.appName}-${prefix}-${uuidv4()}-${date}-${time}`;
 };
 
 /**
@@ -90,8 +86,8 @@ const buildAudioPayload = (file, audioKey, coverId, metadata) => {
 	const { common, format } = metadata;
 
 	return {
-		uuid: uuidv4(), // ← was missing, schema requires it
-		size: String(file.size), // ← was missing, schema requires it
+		uuid: uuidv4(),
+		size: String(file.size),
 		name: file.originalname ?? null,
 		artist: common.artist ?? null,
 		artists: common.artists ?? [],

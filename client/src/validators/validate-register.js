@@ -1,10 +1,10 @@
-import { buttonLoadingSpinner } from "../components/ButtonLoadingSpinner.js";
-import promptsConfig from "../config/prompts-config.js";
-import { showFormFeed } from "../helpers/show-form-feed.js";
-import { overlayInstance } from "../layouts/Overlay.js";
-import { signupAccountService } from "../services/signup-account-service.js";
-import CreateElement from "../utils/create-element.js";
-import { PromptManager } from "../utils/prompt-manager.js";
+import { buttonLoadingSpinner } from "@zecco/components/ButtonLoadingSpinner.js";
+import promptsConfig from "@zecco/config/prompts-config.js";
+import { showFormFeed } from "@zecco/helpers/show-form-feed.js";
+import { overlayInstance } from "@zecco/layouts/Overlay/Overlay.js";
+import { signupAccountService } from "@zecco/services/signup-account-service.js";
+import CreateElement from "@zecco/utils/dom/create-element";
+import { PromptManager } from "@zecco/utils/prompt-manager.js";
 
 // overlayInstance.addClass("show_overlay");
 // const registerPrompt = new PromptManager();

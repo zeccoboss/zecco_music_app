@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
 	{
-		uuid: { type: String, required: true },
+		uuid: { type: String, required: true, unique: true, index: true },
 		fullname: { type: String, default: null },
 		username: { type: String, required: false },
 		email: {
@@ -33,12 +33,32 @@ const userSchema = new Schema(
 			type: [{ type: [Schema.Types.ObjectId], ref: "User" }],
 			default: [],
 		},
+		followersId: {
+			type: [{ type: [Schema.Types.ObjectId], ref: "User" }],
+			default: [],
+		},
+		authProviders: {
+			type: [String],
+			enum: ["local", "google", "github"],
+			default: ["local"],
+		},
+		uploadsTracksId: {
+			type: [Schema.Types.ObjectId],
+			ref: "Audio",
+			default: [],
+		},
+		likedTracksIds: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: "Audio",
+			},
+		],
 		// Will hold multi playlist ID's which are documents in the the Playlist collection
 		playlistIds: {
 			type: [{ type: [Schema.Types.ObjectId], ref: "Playlist" }],
 			default: [],
 		},
-		recentPlaysId: {
+		recentPlaysIds: {
 			type: [Schema.Types.ObjectId],
 			ref: "RecentPlay",
 			default: [],
@@ -53,7 +73,17 @@ const userSchema = new Schema(
 		passwordVerificationTokenExpiry: { type: Date, default: null },
 		lastPasswordVerificationSentAt: { type: Date, default: null },
 	},
-	{ timestamps: true },
+	{
+		timestamps: true,
+		toJSON: {
+			virtuals: true,
+			transform: (_doc, ret) => {
+				delete ret._id;
+				delete ret.__v;
+				return ret;
+			},
+		},
+	},
 );
 
 const UserModel = mongoose.model("User", userSchema);

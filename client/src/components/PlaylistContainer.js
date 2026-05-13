@@ -1,12 +1,17 @@
-// import { adjustPlaylistContainerSvg } from "../utils/adjustSvgSize.js";
+// import { adjustPlaylistContainerSvg } from "@zecco/utils/adjustSvgSize.js";
 import {
 	bigScreen,
 	largeScreen,
 	mobileScreen,
-} from "../core/screenBreakPoints.js";
-import CreateElement from "../utils/CreateElement.js";
-import { heartSvg, playCircleFill, threeDotMenu } from "../utils/SVG_ICONS.js";
-import musicImage from "../assets/images/favicon.png";
+} from "@zecco/core/screenBreakPoints.js";
+import CreateElement from "@zecco/utils/CreateElement.js";
+import {
+	heartSvg,
+	playCircleFill,
+	threeDotMenu,
+} from "@zecco/utils/SVG_ICONS.js";
+
+const TRACK_COVER = "@zecco/assets/images/track-cover.png";
 
 const PlaylistContainer = () => {
 	// Create element

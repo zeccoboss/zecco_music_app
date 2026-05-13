@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "node index.js",
+		"build": "node esbuild.config.js",
+		"start": "node dist/index.js",
 		"dev": "nodemon index.js",
 		"mongo:start": " sudo systemctl stop mongod  && sudo systemctl disable mongod podman && sudo systemctl start mongod",
 		"minio:start": "minio server ./data --console-address ':9001'",
@@ -17,7 +18,7 @@
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.965.0",
 		"@aws-sdk/s3-request-presigner": "^3.965.0",
-		"axios": "^1.13.2",
+		"axios": "^1.15.2",
 		"bcrypt": "^6.0.0",
 		"cookie-parser": "^1.4.7",
 		"cors": "^2.8.5",

@@ -1,58 +1,66 @@
-import { checkedSvg as ckSvg } from "../assets/svgs/svg-icons.js";
-import appConfig from "../config/app-config.js";
+import { appConfig } from "@zecco/config/app.config";
+import { getTag } from "@zecco/helpers/dom-helper";
 import {
-	getLocalStorageData,
-	setToLocalStorage,
-} from "../helpers/get-local-storage-data";
-import { getTag } from "../helpers/select-element";
+	readFromLocalStorage,
+	writeToLocalStorage,
+} from "@zecco/services/storage/local-storage";
 
 class ThemeManager {
-	#root = document.documentElement; // Get the root of the page
+	// Private fields to manage theme state, access DOM elements, and handle system theme changes. The constructor initializes these fields and sets up event listeners for system theme changes when the "System" theme is selected.
+	#root = document.documentElement;
 	#app = getTag("#app");
-	#storedTheme = getLocalStorageData("Theme");
-	#globalTheme = window.matchMedia("(prefers-color-scheme: dark)"); // Checks for dark mood
+	#storedTheme = readFromLocalStorage("Theme");
+	#globalTheme = window.matchMedia("(prefers-color-scheme: dark)");
 	#themes = appConfig.themes;
 
-	#systemDarkMood = () => this.#syncTheme("Dark", "System"); // Sync the changes to the page
-	#systemLightMood = () => this.#syncTheme("Light", "System"); // Sync the changes to the page
+	// Private methods to handle theme changes based on system preferences, apply themes, clear themes, synchronize themes, and render the current theme in the UI. These methods interact with the DOM to update styles and save the user's theme preference in local storage.
+	#systemDarkMood = () => this.#syncTheme("Dark", "System"); // Apply the dark theme when the system preference is for dark mode.
+	#systemLightMood = () => this.#syncTheme("Light", "System"); // Apply the light theme when the system preference is for light mode.
 
+	// Event handler for changes in the system theme preference. It checks if the new preference matches dark mode and applies the corresponding theme.
 	#changeThemeEvent = (e) => {
-		e.matches ? this.#systemDarkMood() : this.#systemLightMood(); // Apply theme due to the global theme
+		e.matches ? this.#systemDarkMood() : this.#systemLightMood();
 	};
 
+	// Apply the selected theme by setting CSS variables on the root element based on the theme's properties defined in the app configuration.
 	#applyTheme(name) {
-		const data = Object.entries(this.#themes[name]); // Covert object to arrays
-		// biome-ignore lint/suspicious/useIterableCallbackReturn: <Need to keep it short not returning values>
-		data.forEach(([key, value]) => this.#root.style.setProperty(key, value));
+		const data = Object.entries(this.#themes[name]);
+		data.forEach(([key, value]) => {
+			this.#root.style.setProperty(key, value);
+		});
 	}
 
-	// Clear all theme attribute from app
+	// Clear the theme by removing the data-theme attribute from the app element for the specified theme keys and clearing the stored theme in local storage.
 	#clearTheme(...keys) {
-		for (const key of keys) this.#app.removeAttribute("data-theme", key); // For the numbers of keys passed remove the attribute
-		setToLocalStorage("Theme", ""); // Clear saved theme
+		for (const key of keys) this.#app.removeAttribute("data-theme", key);
+		writeToLocalStorage("Theme", "");
 	}
 
-	// Call to clear all theme attr from page, add the required theme attr then save to local storage
+	// Synchronize the theme by applying the selected theme, clearing other themes, setting the data-theme attribute on the app element, saving the preference in local storage, and rendering the current theme in the UI. It also removes the event listener for system theme changes if a specific theme (Dark or Light) is selected without the "System" option.
 	#syncTheme(name, defaultTheme) {
-		this.#applyTheme(name); // Call to change the css variables
-		this.#clearTheme("Dark", "Light", "System"); // Clear the attr from the root element
-		this.#app.setAttribute("data-theme", defaultTheme ?? name); // Add the provided theme attr value
-		setToLocalStorage("Theme", defaultTheme ?? name); //  Save the provided theme
-		// Check and remover the event listener when it switches from system to dark or light mood
+		// Apply the selected theme and clear other themes to ensure only one theme is active at a time. Update the data-theme attribute on the app element and save the user's theme preference in local storage.
+		this.#applyTheme(name);
+		this.#clearTheme("Dark", "Light", "System");
+		this.#app.setAttribute("data-theme", defaultTheme ?? name);
+		writeToLocalStorage("Theme", defaultTheme ?? name);
+
+		// If the user selects a specific theme (Dark or Light) without the "System" option, remove the event listener for system theme changes to prevent automatic theme switching based on system preferences.
 		if (
 			(name === "Dark" && !defaultTheme) ||
 			(name === "Light" && !defaultTheme)
 		) {
+			// Remove the event listener for system theme changes to prevent automatic theme switching based on system preferences when a specific theme is selected.
 			this.#globalTheme.removeEventListener(
 				"change",
 				this.#changeThemeEvent,
 			);
 		}
 
-		// Default value is "System" pass it to the render method if available to render on page
+		// Render the current theme in the UI by updating the content of theme buttons and a placeholder element to reflect the selected theme.
 		this.#renderTheme(defaultTheme ?? name);
 	}
 
+	// Render the current theme in the UI by updating the content of theme buttons and a placeholder element to reflect the selected theme. It selects the relevant DOM elements for the theme buttons and placeholder, updates their content based on the current theme, and adds a checkmark icon to indicate the active theme.
 	#renderTheme(theme) {
 		// Select the required elements
 		const darkBtn = getTag(".theme_btn_dark");
@@ -60,57 +68,45 @@ class ThemeManager {
 		const systemBtn = getTag(".theme_btn_system");
 		const themePlaceholder = getTag("[data-theme-placeholder]");
 
-		themePlaceholder.innerHTML = theme; // Show current theme on page
-		const btnContent = () => `<span>${theme}</span>${ckSvg}`; // Add them value and checked icon on the page
+		// Update the theme placeholder with the current theme
+		themePlaceholder.innerHTML = theme;
+		const btnContent = () =>
+			`<span>${theme}</span><i class="bi bi-check"></i>`;
 
+		// Update the buttons to reflect the current theme selection, adding a checkmark icon to the active theme button.
 		darkBtn.innerHTML = theme === "Dark" ? btnContent() : "Dark";
 		lightBtn.innerHTML = theme === "Light" ? btnContent() : "Light";
 		systemBtn.innerHTML = theme === "System" ? btnContent() : "System";
 	}
 
-	// Initialize the theme on first app load use the return to break the flow in this method
+	// Initialize the theme manager by checking the stored theme preference and applying the corresponding theme. If the stored theme is "Dark", it applies the dark theme; if it's "Light", it applies the light theme; and if it's "System", it applies the system theme and sets up event listeners for changes in system theme preferences.
 	init() {
-		if (this.#storedTheme === "Dark") return this.setDark(); // Light mood
-		if (this.#storedTheme === "Light") return this.setLight(); // Light mood
-		if (this.#storedTheme === "System") return this.setSystem(); // Light mood
+		// Apply the dark theme if the stored theme preference is "Dark"
+		if (this.#storedTheme === "Dark") return this.setDark();
+
+		// Apply the light theme if the stored theme preference is "Light"
+		if (this.#storedTheme === "Light") return this.setLight();
+
+		// Apply the system theme and set up event listeners for changes in system theme preferences if the stored theme preference is "System"
+		if (this.#storedTheme === "System") return this.setSystem();
 	}
 
+	// Set the theme to match the system preference by checking if the system prefers dark mode and applying the corresponding theme. It also adds an event listener to handle changes in the system theme preference.
 	setSystem() {
-		const matchedDarkTheme = this.#globalTheme.matches; // Will match if its on dark theme
-		matchedDarkTheme ? this.#systemDarkMood() : this.#systemLightMood(); // Apply theme due to the global theme
-		this.#globalTheme.addEventListener("change", this.#changeThemeEvent); // Add Event when its on system mood
+		const matchedDarkTheme = this.#globalTheme.matches; // Check if the system prefers dark mode
+
+		// Apply the corresponding theme based on the system preference
+		matchedDarkTheme ? this.#systemDarkMood() : this.#systemLightMood();
+
+		// Add an event listener to handle changes in the system theme preference
+		this.#globalTheme.addEventListener("change", this.#changeThemeEvent);
 	}
-	setLight = () => this.#syncTheme(`Light`); // Sync the changes to the page  And set Light theme
-	setDark = () => this.#syncTheme("Dark"); // Sync the changes to the page And set Dark theme
+
+	// Set the theme to light mode by synchronizing the theme with the "Light" option.
+	setLight = () => this.#syncTheme(`Light`);
+
+	// Set the theme to dark mode by synchronizing the theme with the "Dark" option.
+	setDark = () => this.#syncTheme("Dark");
 }
 
 export const themeManager = new ThemeManager();
-
-`:root {
-  --cover-gradient-start: hsla(220, 20%, 16%, 0.95);
-  --cover-gradient-mid:   hsla(220, 14%, 12%, 0.92);
-  --cover-gradient-end:   hsla(220, 10%, 10%, 0.88);
-}
-
-/* Override in ThemeManager's #themes object */
-Dark: {
-  "--cover-gradient-start": "hsla(220, 20%, 16%, 0.95)",
-  "--cover-gradient-mid":   "hsla(220, 14%, 12%, 0.92)",
-  "--cover-gradient-end":   "hsla(220, 10%, 10%, 0.88)",
-},
-Light: {
-  "--cover-gradient-start": "hsla(213, 60%, 88%, 0.9)",
-  "--cover-gradient-mid":   "hsla(220, 40%, 92%, 0.85)",
-  "--cover-gradient-end":   "hsla(230, 30%, 94%, 0.8)",
-},
-
-/* Then in your CSS */
-.profile-cover-wrap,
-.featured {
-  background: linear-gradient(
-    135deg,
-    var(--cover-gradient-start) 0%,
-    var(--cover-gradient-mid)   50%,
-    var(--cover-gradient-end)   100%
-  );
-}`;

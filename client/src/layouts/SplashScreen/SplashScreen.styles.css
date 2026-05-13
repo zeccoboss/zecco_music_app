@@ -1,0 +1,228 @@
+/* ============================================================
+   SplashScreen.css
+   src/layouts/SplashScreen/SplashScreen.css
+   ============================================================ */
+
+/* ── Overlay ── */
+.splash-screen {
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	background: var(--bg-base, #0f1117);
+
+	/* Fade-out transition — triggered by .splash--dismissing */
+	opacity: 1;
+	transition: opacity 0.45s ease;
+
+	/* Prevent interaction bleed while transitioning */
+	pointer-events: all;
+}
+
+.splash-screen.splash--dismissing {
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* ── Inner layout ── */
+.splash-inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+}
+
+/* ── Logo ── */
+.splash-logo-wrap {
+	position: relative;
+	width: 80px;
+	height: 80px;
+	margin-bottom: 8px;
+}
+
+.splash-logo {
+	width: 80px;
+	height: 80px;
+	border-radius: 20px;
+	object-fit: cover;
+	border: 1.5px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+	display: block;
+	position: relative;
+	z-index: 1;
+
+	/* Subtle entrance animation */
+	animation: splash-logo-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes splash-logo-in {
+	from {
+		transform: scale(0.7);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+/* Ambient glow under the logo */
+.splash-logo-glow {
+	position: absolute;
+	inset: 8px;
+	border-radius: 50%;
+	background: radial-gradient(
+		circle,
+		hsla(213, 80%, 58%, 0.35) 0%,
+		transparent 70%
+	);
+	filter: blur(14px);
+	z-index: 0;
+	animation: splash-glow-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes splash-glow-pulse {
+	0%,
+	100% {
+		opacity: 0.5;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(1.15);
+	}
+}
+
+/* ── App name + tagline ── */
+.splash-app-name {
+	font-family: var(--font-head, "Inter", sans-serif);
+	font-size: 1.35rem;
+	font-weight: 800;
+	color: var(--text-1, #f1f5f9);
+	letter-spacing: -0.4px;
+	margin: 0;
+	animation: splash-text-in 0.5s 0.15s ease both;
+}
+
+.splash-tagline {
+	font-family: var(--font-body, "Inter", sans-serif);
+	font-size: 0.7rem;
+	color: var(--text-3, #6b7280);
+	margin: 0 0 14px;
+	letter-spacing: 0.3px;
+	animation: splash-text-in 0.5s 0.25s ease both;
+}
+
+@keyframes splash-text-in {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* ── Progress ── */
+.splash-progress {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	width: 200px;
+	animation: splash-text-in 0.5s 0.35s ease both;
+}
+
+.splash-bar {
+	width: 100%;
+	height: 3px;
+	border-radius: 99px;
+	background: var(--glass-border, rgba(255, 255, 255, 0.08));
+	overflow: hidden;
+}
+
+.splash-bar-fill {
+	height: 100%;
+	width: 0%;
+	border-radius: 99px;
+	background: linear-gradient(90deg, hsl(213, 80%, 58%), hsl(265, 70%, 65%));
+
+	/* Smooth progress step transitions */
+	transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+	/* Shimmer effect while loading */
+	position: relative;
+	overflow: hidden;
+}
+
+.splash-bar-fill::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		90deg,
+		transparent 0%,
+		rgba(255, 255, 255, 0.3) 50%,
+		transparent 100%
+	);
+	animation: splash-shimmer 1.2s infinite;
+}
+
+@keyframes splash-shimmer {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(100%);
+	}
+}
+
+.splash-status {
+	font-family: var(--font-body, "Inter", sans-serif);
+	font-size: 0.6rem;
+	color: var(--text-3, #6b7280);
+	margin: 0;
+	letter-spacing: 0.3px;
+
+	/* Smooth label swaps */
+	transition: opacity 0.2s ease;
+}
+
+/* ── Footer ── */
+.splash-footer {
+	position: absolute;
+	bottom: 20px;
+	font-family: var(--font-body, "Inter", sans-serif);
+	font-size: 0.55rem;
+	color: var(--text-3, #6b7280);
+	opacity: 0.5;
+	margin: 0;
+	letter-spacing: 0.5px;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+	.splash-logo {
+		animation: none;
+	}
+	.splash-logo-glow {
+		animation: none;
+		opacity: 0.6;
+	}
+	.splash-app-name,
+	.splash-tagline,
+	.splash-progress {
+		animation: none;
+	}
+	.splash-bar-fill::after {
+		animation: none;
+	}
+	.splash-screen {
+		transition: opacity 0.15s ease;
+	}
+}

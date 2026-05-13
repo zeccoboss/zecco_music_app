@@ -1,5 +1,5 @@
 {
-	"name": "zecco_music_app",
+	"name": "SoniqStream",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
@@ -15,6 +15,7 @@
 		"vite": "^7.2.4"
 	},
 	"dependencies": {
-		"axios": "^1.13.2"
+		"axios": "^1.13.2",
+		"bootstrap-icons": "^1.13.1"
 	}
 }

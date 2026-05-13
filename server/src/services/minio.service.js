@@ -156,6 +156,6 @@ module.exports = {
 	storeAudioCover,
 	storeAudio,
 	storeImage,
-	getPresignedUrl, // 👈 add this to existing exports
+	getPresignedUrl,
 	BUCKETS,
 };

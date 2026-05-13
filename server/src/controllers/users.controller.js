@@ -1,15 +1,65 @@
 const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require("uuid");
 const UserModel = require("../models/user.model");
 const { rolesList } = require("../config/roles-list.config");
 
+const SENSITIVE_FIELDS =
+	"-password -refreshToken -verificationToken -verificationTokenExpiry -passwordVerificationToken -passwordVerificationTokenExpiry -lastPasswordVerificationSentAt -lastUserVerificationSentAt";
+
 // ── GET /users ─────────────────────────────────────────────────────────────────
-// Admin only — enforced at route level with verifyRoles
-const getAllUsers = async (_req, res) => {
+const getAllUsers = async (req, res) => {
 	try {
-		const users = await UserModel.find().select(
-			"-password -refreshToken -verificationToken -verificationTokenExpiry -lastPasswordVerificationSentAt -lasUserVerificationSentAt",
-		);
-		res.status(200).json({ success: true, count: users.length, data: users });
+		const {
+			page = 1,
+			limit = 20,
+			verified,
+			search,
+			sortBy = "createdAt",
+			order = "desc",
+		} = req.query;
+
+		const pageNum = Math.max(1, parseInt(page));
+		const limitNum = Math.min(100, Math.max(1, parseInt(limit)));
+		const skip = (pageNum - 1) * limitNum;
+
+		const filter = {};
+		if (verified !== undefined) filter.verified = verified === "true";
+		if (search) {
+			const regex = { $regex: search, $options: "i" };
+			filter.$or = [
+				{ username: regex },
+				{ email: regex },
+				{ fullname: regex },
+			];
+		}
+
+		const SORTABLE = ["createdAt", "username", "email"];
+		const sortField = SORTABLE.includes(sortBy) ? sortBy : "createdAt";
+		const sortOrder = order === "asc" ? 1 : -1;
+
+		const [users, total] = await Promise.all([
+			UserModel.find(filter)
+				.select(SENSITIVE_FIELDS)
+				.sort({ [sortField]: sortOrder })
+				.skip(skip)
+				.limit(limitNum),
+			UserModel.countDocuments(filter),
+		]);
+
+		const totalPages = Math.ceil(total / limitNum);
+
+		return res.status(200).json({
+			success: true,
+			data: users,
+			pagination: {
+				total,
+				totalPages,
+				currentPage: pageNum,
+				limit: limitNum,
+				hasNextPage: pageNum < totalPages,
+				hasPrevPage: pageNum > 1,
+			},
+		});
 	} catch (err) {
 		console.error("[Users] getAllUsers:", err);
 		res.status(500).json({
@@ -19,18 +69,14 @@ const getAllUsers = async (_req, res) => {
 	}
 };
 
-// ── GET /users/:id ─────────────────────────────────────────────────────────────
-// Public profile for strangers, full profile for owner and admin
+// ── GET /users/:uuid ───────────────────────────────────────────────────────────
 const getUser = async (req, res) => {
 	try {
-		const { id } = req.params;
-		const requesterId = req.user._id.toString();
-		const isOwner = requesterId === id;
+		const { uuid } = req.params; // 👈 was destructuring {id} but using uuid
+		const isOwner = req.user.uuid === uuid;
 		const isAdmin = req.user.roles?.includes(rolesList.Admin);
 
-		const user = await UserModel.findById(id).select(
-			"-password -refreshToken -verificationToken -verificationTokenExpiry -passwordVerificationToken -passwordVerificationTokenExpiry -lastPasswordVerificationSentAt -lastUserVerificationSentAt",
-		);
+		const user = await UserModel.findOne({ uuid }).select(SENSITIVE_FIELDS);
 
 		if (!user) {
 			return res
@@ -38,12 +84,11 @@ const getUser = async (req, res) => {
 				.json({ success: false, message: "User not found" });
 		}
 
-		// Strangers get a stripped public profile
 		if (!isOwner && !isAdmin) {
 			return res.status(200).json({
 				success: true,
 				data: {
-					_id: user._id,
+					uuid: user.uuid,
 					username: user.username,
 					fullname: user.fullname,
 					bio: user.bio,
@@ -53,7 +98,6 @@ const getUser = async (req, res) => {
 			});
 		}
 
-		// Owner and admin get the full profile
 		return res.status(200).json({ success: true, data: user });
 	} catch (err) {
 		console.error("[Users] getUser:", err);
@@ -64,8 +108,39 @@ const getUser = async (req, res) => {
 	}
 };
 
+const getMe = async (req, res) => {
+	try {
+		const userId = req.user._id;
+
+		const user = await UserModel.findById(userId)
+			.select(SENSITIVE_FIELDS)
+			.populate(
+				"avatarImageId coverImageId",
+				"uuid name format dimensions storage.baseUrl storage.key",
+			);
+
+		if (!user) {
+			return res.status(404).json({
+				success: false,
+				message: "User not found",
+			});
+		}
+
+		return res.status(200).json({
+			success: true,
+			data: user,
+		});
+	} catch (err) {
+		console.error("[Users] getMe:", err);
+
+		return res.status(500).json({
+			success: false,
+			message: "Internal server error",
+		});
+	}
+};
+
 // ── POST /users ────────────────────────────────────────────────────────────────
-// Admin only — direct user creation bypassing verification
 const createUser = async (req, res) => {
 	try {
 		const { username, fullname, email, password } = req.body;
@@ -78,12 +153,14 @@ const createUser = async (req, res) => {
 		}
 
 		const user = await UserModel.create({
+			uuid: uuidv4(),
 			username,
 			fullname,
 			email,
 			password: await bcrypt.hash(password, 10),
 			roles: [rolesList.User],
 			verified: true,
+			authProviders: ["local"],
 			avatarImageId: null,
 			coverImageId: null,
 		});
@@ -91,7 +168,7 @@ const createUser = async (req, res) => {
 		return res.status(201).json({
 			success: true,
 			message: "User created successfully",
-			data: { _id: user._id, username: user.username, email: user.email },
+			data: { uuid: user.uuid, username: user.username, email: user.email },
 		});
 	} catch (err) {
 		console.error("[Users] createUser:", err);
@@ -103,13 +180,11 @@ const createUser = async (req, res) => {
 };
 
 // ── PUT /users/me ──────────────────────────────────────────────────────────────
-// Owner only — users update their own profile, never someone else's
 const updateUser = async (req, res) => {
 	try {
-		const userId = req.user._id; // always from token, never from params
-		const { username, fullname } = req.body;
+		const userId = req.user._id; // internal _id for DB lookup
+		const { username, fullname, bio } = req.body;
 
-		// Fetch the user to update
 		const user = await UserModel.findById(userId);
 		if (!user) {
 			return res
@@ -117,22 +192,20 @@ const updateUser = async (req, res) => {
 				.json({ success: false, message: "User not found" });
 		}
 
-		// Only update fields that were provided
 		if (username) user.username = username;
 		if (fullname) user.fullname = fullname;
-		if (req.body.bio !== undefined) user.bio = req.body.bio;
+		if (bio !== undefined) user.bio = bio;
 
-		// Avatar and cover image updates would be handled in separate endpoints that manage file uploads and set avatarImageId and coverImageId accordingly
 		await user.save();
 
-		// Return the updated profile
 		return res.status(200).json({
 			success: true,
 			message: "Profile updated",
 			data: {
-				_id: user._id,
+				uuid: user.uuid,
 				username: user.username,
 				fullname: user.fullname,
+				bio: user.bio,
 			},
 		});
 	} catch (err) {
@@ -144,19 +217,18 @@ const updateUser = async (req, res) => {
 	}
 };
 
-// ── DELETE /users/:id ──────────────────────────────────────────────────────────
-// Admin can delete anyone — user can only delete themselves
+// ── DELETE /users/:uuid ────────────────────────────────────────────────────────
 const deleteUser = async (req, res) => {
 	try {
-		const { id } = req.params;
-		const requesterId = req.user._id.toString();
-		const isAdmin = req.user.roles?.includes("Admin");
+		const { uuid } = req.params; // 👈 was {id} but using uuid
+		const isAdmin = req.user.roles?.includes(rolesList.Admin);
+		const isOwner = req.user.uuid === uuid; // 👈 compare uuids not _id vs id
 
-		if (!isAdmin && requesterId !== id) {
+		if (!isAdmin && !isOwner) {
 			return res.status(403).json({ success: false, message: "Forbidden" });
 		}
 
-		const user = await UserModel.findByIdAndDelete(id);
+		const user = await UserModel.findOneAndDelete({ uuid });
 		if (!user) {
 			return res
 				.status(404)
@@ -175,4 +247,11 @@ const deleteUser = async (req, res) => {
 	}
 };
 
-module.exports = { getAllUsers, getUser, createUser, updateUser, deleteUser };
+module.exports = {
+	getAllUsers,
+	getUser,
+	getMe,
+	createUser,
+	updateUser,
+	deleteUser,
+};

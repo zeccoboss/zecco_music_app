@@ -6,10 +6,9 @@ const audioSchema = new Schema(
 		ownerId: {
 			ref: "User",
 			required: true,
-			index: true,
 			type: Schema.Types.ObjectId,
 		},
-		uuid: { type: String, required: true },
+		uuid: { type: String, required: true, unique: true },
 		category: { type: String, default: "uploaded" },
 		codec: { type: String, default: null },
 		name: { type: String },
@@ -21,7 +20,7 @@ const audioSchema = new Schema(
 		sampleRate: { type: Number, default: null },
 		album: { type: String, default: null },
 		format: { type: String, required: true, default: "audio/mpeg" },
-		hasAudio: { type: Boolean, default: false, index: true },
+		hasAudio: { type: Boolean, default: false },
 		hasCover: { type: Boolean, default: false },
 		hasVideo: { type: Boolean, default: false },
 		size: { type: String, required: true },
@@ -34,7 +33,6 @@ const audioSchema = new Schema(
 		coverImageId: {
 			type: Schema.Types.ObjectId,
 			default: null,
-			index: true,
 			ref: "Image",
 		},
 		storage: {
@@ -52,10 +50,10 @@ const audioSchema = new Schema(
 			type: String,
 			enum: ["public", "private", "unlisted"],
 			default: "public",
-			index: true,
 			lowercase: true,
 			trim: true,
 		},
+		playCount: { type: Number, default: 0 },
 	},
 	{
 		timestamps: true,
@@ -64,6 +62,17 @@ const audioSchema = new Schema(
 		},
 	},
 );
+
+// --- INDEXES ---
+// Primary pagination index (matches your controller sort/filter)
+audioSchema.index({ visibility: 1, createdAt: -1, _id: -1 });
+
+// Fast lookups for owner collections
+audioSchema.index({ ownerId: 1, createdAt: -1 });
+
+// Search optimization
+audioSchema.index({ artist: 1 });
+audioSchema.index({ genre: 1 });
 
 const AudioModel = mongoose.model("Audio", audioSchema);
 module.exports = AudioModel;

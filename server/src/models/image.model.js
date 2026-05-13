@@ -14,7 +14,7 @@ const ImageSchema = new Schema(
 			index: true,
 			type: Schema.Types.ObjectId,
 		},
-		uuid: { type: String, required: true },
+		uuid: { type: String, required: true, unique: true, index: true },
 		name: { required: true, type: String },
 
 		category: {

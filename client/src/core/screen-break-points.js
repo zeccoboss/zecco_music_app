@@ -1,7 +1,7 @@
 const screenBreakPoints = {
-	mobileScreen: matchMedia("(min-width: 150px) and (max-width: 620px)"),
-	bigScreen: matchMedia("(min-width: 621px) and (max-width: 940px)"),
-	largeScreen: matchMedia("(min-width: 941px)"),
+	mobileScreen: matchMedia("(min-width: 150px) and (max-width: 680px)"),
+	bigScreen: matchMedia("(min-width: 681px) and (max-width: 940px)"),
+	largeScreen: matchMedia("(min-width: 941px) and (max-width: 1220px)"),
 };
 
 //  and (max-width: 1400px)

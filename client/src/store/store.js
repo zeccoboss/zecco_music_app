@@ -1,5 +1,8 @@
-// store/app-store.js
-import appConfig from "../config/app-config.js";
+import { appConfig } from "@zecco/config/app.config.js";
+import {
+	removeFromLocalStorage,
+	writeToLocalStorage,
+} from "@zecco/services/storage/local-storage";
 
 class AppStore {
 	// ── Auth ──────────────────────────────────────────────────────────
@@ -26,7 +29,7 @@ class AppStore {
 
 	// ── UI ────────────────────────────────────────────────────────────
 	#activePage = "home"; // "home" | "search" | "library" | "upload" | "settings" | "profile"
-	#activeFormPage = null; // "login" | "register" | "forgotPassword" | "verification" | null
+	// #activeFormPage = null; // "login" | "register" | "forgotPassword" | "verification" | null
 	#overlayOpen = false;
 	#isLoading = false;
 	#deepLinkTrackId = null;
@@ -69,11 +72,11 @@ class AppStore {
 	set token(value) {
 		if (!value || typeof value !== "string") {
 			console.error("[Store]: Invalid token.");
-			localStorage.removeItem(`${appConfig.app_name}-token`);
+			removeFromLocalStorage("token");
 			return;
 		}
 		this.#token = value;
-		localStorage.setItem(`${appConfig.app_name}-token`, value);
+		writeToLocalStorage(`token`, value);
 	}
 
 	get isLoggedIn() {
@@ -314,19 +317,19 @@ class AppStore {
 		this.#activePage = page;
 	}
 
-	get activeFormPage() {
-		return this.#activeFormPage;
-	}
+	// get activeFormPage() {
+	// 	return this.#activeFormPage;
+	// }
 
-	openFormPage(name) {
-		this.#activeFormPage = name;
-		this.#overlayOpen = true;
-	}
+	// openFormPage(name) {
+	// 	this.#activeFormPage = name;
+	// 	this.#overlayOpen = true;
+	// }
 
-	closeFormPage() {
-		this.#activeFormPage = null;
-		this.#overlayOpen = false;
-	}
+	// closeFormPage() {
+	// 	this.#activeFormPage = null;
+	// 	this.#overlayOpen = false;
+	// }
 
 	get overlayOpen() {
 		return this.#overlayOpen;
@@ -370,14 +373,14 @@ class AppStore {
 	clearAuth() {
 		this.#user = null;
 		this.#token = null;
-		localStorage.removeItem(`${appConfig.app_name}-token`);
+		localStorage.removeItem(`${appConfig.API_NAME}-token`);
 	}
 
 	clearAll() {
 		this.clearAuth();
 		this.clearPlayer();
 		this.#activePage = "home";
-		this.#activeFormPage = null;
+		// this.#activeFormPage = null;
 		this.#overlayOpen = false;
 		this.#isLoading = false;
 		this.#deepLinkTrackId = null;
@@ -388,7 +391,7 @@ class AppStore {
 	// ═════════════════════════════════════════════════════════════════
 
 	init() {
-		const token = localStorage.getItem(`${appConfig.app_name}-token`);
+		const token = localStorage.getItem(`${appConfig.API_NAME}-token`);
 		if (token) this.#token = token;
 
 		const trackId = this.captureDeepLink();
@@ -400,4 +403,4 @@ class AppStore {
 const store = new AppStore();
 store.init();
 
-export default store;
+export { store };

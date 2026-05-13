@@ -1,89 +1,45 @@
-import { initApp } from "./core/init-app.js";
+/** biome-ignore-all assist/source/organizeImports: <I know where they're from> */
 import {
 	bigScreen,
 	largeScreen,
 	mobileScreen,
-} from "./core/screen-break-points.js";
-import Aside from "./layouts/desktop/Aside.js";
-import { Footer } from "./layouts/desktop/Footer";
-import { Main } from "./layouts/desktop/Main.js";
-import { MobileFooter } from "./layouts/mobile/MobileFooter";
-import { MobileMain } from "./layouts/mobile/MobileMain";
-import { MiniPlayer } from "./layouts/mobile/MobileMiniPlayer.js";
-import { Overlay } from "./layouts/Overlay.js";
-import DesktopFullPlayer from "./pages/desktop/DesktopFullPlayer.js";
-import { DesktopLoginPage } from "./pages/desktop/DesktopLoginPage.js";
-import { DesktopPasswordPage } from "./pages/desktop/DesktopPasswordPage.js";
-import { DesktopRegisterPage } from "./pages/desktop/DesktopRegisterPage.js";
-import MobileFullPlayer from "./pages/mobile/MobileFullPlayer.js";
-import { MobileLoginPage } from "./pages/mobile/MobileLoginPage.js";
-import { MobilePasswordPage } from "./pages/mobile/MobilePasswordPage.js";
-import { MobileRegisterPage } from "./pages/mobile/MobileRegisterPage.js";
-import { NoResourcePage } from "./pages/NoResourcePage.js";
+} from "./core/screen-break-points";
+import { rebuildLayout, setCurrentScreen } from "./layouts/buildLayout";
+import { router } from "./routes/router";
+import { applyMiddleware } from "./middlewares";
+
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./styles/base.css";
 import "./styles/media.css";
+import "./styles/auth-shared.mobile.css";
+import "./styles/auth-shared.desktop.css";
 
-const renderApp = () => {
-	const app = document.querySelector("#app");
+const bootstrap = async () => {
+	const screen = mobileScreen.matches
+		? "mobile"
+		: bigScreen.matches
+			? "big"
+			: "large";
 
-	const clearApp = () => {
-		app.innerHTML = "";
+	setCurrentScreen(screen);
+
+	await rebuildLayout(screen);
+	// ── For middleware initialization and start up ───────────────────────────────────
+	applyMiddleware();
+
+	const onBreakpointChange = (newScreen) => async (e) => {
+		if (!e.matches) return;
+
+		setCurrentScreen(newScreen);
+
+		await rebuildLayout(newScreen);
+
+		router.replace(location.pathname + location.search);
 	};
 
-	const applyMobileContent = async (message) => {
-		clearApp();
-		app.append(
-			await MobileMain(),
-			MiniPlayer(),
-			MobileFooter(),
-			NoResourcePage(),
-			MobileLoginPage(),
-			MobileRegisterPage(),
-			MobileFullPlayer(),
-			MobilePasswordPage(),
-			// Overlay(),
-			// VerificationPage(),
-			// FormPage(),
-			// ForgotPasswordFormPage(),
-		);
-		console.warn(message);
-		initApp("Starting Application...");
-	};
-
-	const applyDesktopContent = async (message) => {
-		clearApp();
-		app.append(
-			Aside(),
-			await Main(),
-			Footer(),
-			NoResourcePage(),
-			DesktopFullPlayer(),
-			DesktopLoginPage(),
-			DesktopRegisterPage(),
-			DesktopPasswordPage(),
-			// Overlay(),
-			// VerificationPage(),
-			// FormPage(),
-			// ForgotPasswordFormPage(),
-		);
-		console.warn(message);
-		initApp("Starting Application...");
-	};
-
-	// Initial render
-	if (mobileScreen.matches) applyMobileContent("[Screen Size]: Mobile!");
-	else applyDesktopContent("[Screen Size]: Desktop!");
-
-	// Respond to screen size changes
-	mobileScreen.addEventListener("change", (e) => {
-		if (e.matches) applyMobileContent("[Screen]: Switched to mobile.");
-	});
-	bigScreen.addEventListener("change", (e) => {
-		if (e.matches) applyDesktopContent("[Screen]: Switched to big.");
-	});
-	largeScreen.addEventListener("change", (e) => {
-		if (e.matches) applyDesktopContent("[Screen]: Switched to large.");
-	});
+	mobileScreen.addEventListener("change", onBreakpointChange("mobile"));
+	bigScreen.addEventListener("change", onBreakpointChange("big"));
+	largeScreen.addEventListener("change", onBreakpointChange("large"));
 };
 
-renderApp();
+bootstrap();

@@ -327,6 +327,13 @@ const pencilSvg = `
 	</svg>
 `;
 
+const googleSvg = `
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+		<path d="M8.159 6.204c-.352-.002-.705-.002-1.057 0a2.15 2.15 0 1 0 .001 4.301c.352.002.705.002 1.057 0a2.15 2.15 0 1 0-.001-4.301"/>
+		<path fill-rule="evenodd" d="M8.159 1C4.134 1 .5 4.635.5 8.66s3.634 7.66 7.659 7.66c3.625 0 6.659-2.935 6.659-6.66 0-.45-.04-.89-.1-1.32H8.159v2.64h3.6c-.156.84-.63 1.55-1.34 2.02v1.68h2.17c1.274-1.17 2.01-2.9 2.01-4.72 0-3.63-2.94-6.57-6.57-6.57z"/>
+	</svg>
+`;
+
 export {
 	infoCircleSvg,
 	playSvg,
@@ -377,4 +384,5 @@ export {
 	lightSvg,
 	cameraSvg,
 	pencilSvg,
+	googleSvg,
 };

@@ -53,7 +53,7 @@ const initAdmin = async () => {
 			fullname: process.env.ADMIN_FULLNAME,
 			username: process.env.ADMIN_USERNAME,
 			email: process.env.ADMIN_EMAIL,
-			password: await bcrypt.hash(`${process.env.ADMIN_TEST_PASSWORD}`, 10),
+			password: await bcrypt.hash(`${process.env.ADMIN_PASSWORD}`, 10),
 			roles: rolesValues,
 			verified: true,
 			avatarImageId: null,
@@ -111,4 +111,4 @@ const initAdmin = async () => {
 	}
 };
 
-module.exports = initAdmin;
+module.exports = { initAdmin };
