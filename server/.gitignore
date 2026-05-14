@@ -1,6 +1,7 @@
 node_modules
 .env
-data/audios
+data/tracks
 data/images
 data/.minio.sys
 dist
+src/logs

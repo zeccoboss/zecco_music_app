@@ -100,7 +100,7 @@ export const ProfilePage = async (ctx) => {
 			// TODO: replace with real API calls
 			// const [profileData, tracksData, playlistsData] = await Promise.all([
 			//   userService.getProfile(targetUsername, { signal: controller.signal }),
-			//   audioService.getUserTracks(targetUsername, { signal: controller.signal }),
+			//   trackService.getUserTracks(targetUsername, { signal: controller.signal }),
 			//   userService.getUserPlaylists(targetUsername, { signal: controller.signal }),
 			// ]);
 

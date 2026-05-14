@@ -102,7 +102,7 @@ export const UploadPage = async (ctx) => {
 			controller = new AbortController();
 
 			// TODO: replace with real upload service call
-			// const result = await audioService.upload({
+			// const result = await trackService.upload({
 			//   file:       fileData.file,
 			//   genre:      fileData.genre,
 			//   visibility: fileData.visibility,

@@ -18,11 +18,11 @@ class AppStore {
 	#repeatMode = "none"; // "none" | "one" | "all"
 	#volume = 1; // 0.0 – 1.0
 
-	// ── Audio Engine ──────────────────────────────────────────────────
-	#audioContext = null;
-	#sourceNode = null; // AudioBufferSourceNode — recreated each play
+	// ── track Engine ──────────────────────────────────────────────────
+	#trackContext = null;
+	#sourceNode = null; // trackBufferSourceNode — recreated each play
 	#gainNode = null; // Controls volume
-	#audioBuffer = null; // Decoded audio data
+	#trackBuffer = null; // Decoded track data
 	#startedAt = 0; // AudioContext.currentTime when playback started
 	#pausedAt = 0; // How far into the track we paused
 	#isPlaying = false;
@@ -117,16 +117,16 @@ class AppStore {
 			return;
 		}
 		this.#volume = Math.min(1, Math.max(0, value));
-		// Apply to audio engine immediately if active
+		// Apply to track engine immediately if active
 		if (this.#gainNode) {
 			this.#gainNode.gain.value = this.#volume;
 		}
 	}
 
-	// Computed from audio context — not a stored value
+	// Computed from track context — not a stored value
 	get progress() {
-		if (!this.#audioContext || !this.#isPlaying) return this.#pausedAt;
-		return this.#audioContext.currentTime - this.#startedAt + this.#pausedAt;
+		if (!this.#trackContext || !this.#isPlaying) return this.#pausedAt;
+		return this.#trackContext.currentTime - this.#startedAt + this.#pausedAt;
 	}
 
 	// Load a single track and clear the queue
@@ -188,22 +188,22 @@ class AppStore {
 	}
 
 	play() {
-		if (!this.#audioBuffer || this.#isPlaying) return;
+		if (!this.#trackBuffer || this.#isPlaying) return;
 
 		// Resume suspended context (browser autoplay policy)
-		if (this.#audioContext.state === "suspended") {
-			this.#audioContext.resume();
+		if (this.#trackContext.state === "suspended") {
+			this.#trackContext.resume();
 		}
 
-		this.#sourceNode = this.#audioContext.createBufferSource();
-		this.#sourceNode.buffer = this.#audioBuffer;
+		this.#sourceNode = this.#trackContext.createBufferSource();
+		this.#sourceNode.buffer = this.#trackBuffer;
 		this.#sourceNode.connect(this.#gainNode);
 
 		// Handle repeat one
 		this.#sourceNode.loop = this.#repeatMode === "one";
 
 		this.#sourceNode.start(0, this.#pausedAt);
-		this.#startedAt = this.#audioContext.currentTime;
+		this.#startedAt = this.#trackContext.currentTime;
 		this.#isPlaying = true;
 
 		// Auto advance when track ends naturally
@@ -214,7 +214,7 @@ class AppStore {
 
 	pause() {
 		if (!this.#isPlaying) return;
-		this.#pausedAt += this.#audioContext.currentTime - this.#startedAt;
+		this.#pausedAt += this.#trackContext.currentTime - this.#startedAt;
 		this.#sourceNode?.stop();
 		this.#isPlaying = false;
 	}
@@ -260,19 +260,19 @@ class AppStore {
 
 	// Seek to a specific second in the track
 	seekTo(seconds) {
-		if (!this.#audioBuffer) return;
+		if (!this.#trackBuffer) return;
 		const wasPlaying = this.#isPlaying;
 
 		this.#sourceNode?.stop();
 		this.#isPlaying = false;
-		this.#pausedAt = Math.min(seconds, this.#audioBuffer.duration);
+		this.#pausedAt = Math.min(seconds, this.#trackBuffer.duration);
 
 		if (wasPlaying) this.play();
 	}
 
 	clearPlayer() {
 		this.#sourceNode?.stop();
-		this.#audioBuffer = null;
+		this.#trackBuffer = null;
 		this.#currentTrack = null;
 		this.#originalQueue = [];
 		this.#queue = [];
@@ -283,22 +283,22 @@ class AppStore {
 	}
 
 	// ═════════════════════════════════════════════════════════════════
-	// AUDIO ENGINE (private)
+	// track ENGINE (private)
 	// ═════════════════════════════════════════════════════════════════
 
 	async #prepare(trackId) {
 		// 1. Ask your backend for a presigned URL
-		const res = await fetch(`/api/media/audio/${trackId}/stream`, {
+		const res = await fetch(`/api/media/track/${trackId}/stream`, {
 			headers: { Authorization: `Bearer ${token}` },
 		});
 		const { data } = await res.json();
 
-		// 2. Fetch the actual audio directly from MinIO
-		const audioRes = await fetch(data.streamUrl);
-		const arrayBuffer = await audioRes.arrayBuffer();
+		// 2. Fetch the actual track directly from MinIO
+		const trackRes = await fetch(data.streamUrl);
+		const arrayBuffer = await trackRes.arrayBuffer();
 
 		// 3. Decode and store
-		this.#audioBuffer = await this.#audioContext.decodeAudioData(arrayBuffer);
+		this.#trackBuffer = await this.#trackContext.decodetrackData(arrayBuffer);
 	}
 
 	// ═════════════════════════════════════════════════════════════════

@@ -110,7 +110,7 @@ export const SettingsMobile = async ({ state, ctx }) => {
 							<span class="settings-mob-row-label">Notifications</span>
 							<i class="bi bi-chevron-right settings-mob-chevron"></i>
 						</button>
-						<button class="settings-mob-row" data-panel="audio" id="settings-mob-nav-audio">
+						<button class="settings-mob-row" data-panel="track" id="settings-mob-nav-track">
 							<span class="settings-mob-row-icon si-green"><i class="bi bi-volume-up-fill"></i></span>
 							<span class="settings-mob-row-label">Audio</span>
 							<i class="bi bi-chevron-right settings-mob-chevron"></i>
@@ -245,7 +245,7 @@ export const SettingsMobile = async ({ state, ctx }) => {
 				return skeletonState();
 		}
 	};
-console.log(getStateView(state));
+	console.log(getStateView(state));
 	// Always append detail panel — events file controls visibility
 	root.append(header(), getStateView(state), detailPanel());
 	return root.getElement();

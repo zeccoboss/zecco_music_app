@@ -3,81 +3,147 @@ import { buildNode } from "@zecco/utils/dom/build-node.js";
 import "./Login.styles.css";
 
 /**
- * LoginMobile — Mobile login view component
- * Full form, no brand side (renders into root outlet)
+ * LoginMobile — Mobile login view
+ *
+ * States:
+ *   idle     → default form
+ *   loading  → submit in progress
+ *   error    → invalid credentials or network failure
  *
  * @async
  * @param {Object} props
- * @param {string} props.state - "form" | "loading" | "error"
- * @param {Object} props.ctx - Router context (optional)
- * @returns {Promise<Element>} The login page element
+ * @param {string} props.state
+ * @param {string} props.error
+ * @param {Object} props.draft   — { email }
+ * @param {Object} props.ctx
+ * @returns {Promise<Element>}
  */
-export const LoginMobile = async ({ state, ctx }) => {
-	const root = new CreateElement("div");
-	root.addClass("login-page", "login-page-mobile").setId("login-page-mobile");
+export const LoginMobile = async ({
+	state = "idle",
+	error = "",
+	draft = {},
+	ctx,
+}) => {
+	const root = new CreateElement("section");
+	root.addClass("login-mob-page").setId("login-page-mobile");
 
-	const formContent = (() => {
-		switch (state) {
-			case "loading":
-				return buildNode(`
-					<div class="auth-loading-state">
-						<div class="auth-spinner"></div>
-						<p>Signing you in...</p>
+	root.append(
+		buildNode(`
+		<div class="login-mob-layout">
+
+			<!-- Top bar -->
+			<div class="login-mob-topbar">
+				<div class="login-mob-brand">
+					<div class="login-mob-brand-icon">
+						<i class="bi bi-music-note-beamed"></i>
 					</div>
-				`);
-			case "error":
-				return buildNode(`
-					<div class="auth-error-state">
-						<div class="error-icon"><i class="bi bi-exclamation-triangle-fill"></i></div>
-						<h3>Login failed</h3>
-						<p id="auth-error-msg-mobile">Check your credentials.</p>
-						<button class="btn-accent" id="auth-retry-btn-mobile">Try Again</button>
+					<span class="login-mob-brand-name">Zecco<span>Stream</span></span>
+				</div>
+				<a href="/" class="login-mob-home-link" data-replace>
+					<i class="bi bi-arrow-left"></i> Home
+				</a>
+			</div>
+
+			<!-- Form body -->
+			<div class="login-mob-form-body">
+
+				<div class="login-form-head">
+					<h2 class="login-heading">Welcome back</h2>
+					<p class="login-sub">Sign in to continue to your account.</p>
+				</div>
+
+				<!-- OAuth -->
+				<div class="login-oauth">
+					<button class="login-oauth-btn" id="login-mob-google-btn" type="button"
+						${state === "loading" ? "disabled" : ""}>
+						<i class="bi bi-google"></i> Continue with Google
+					</button>
+					<button class="login-oauth-btn" id="login-mob-github-btn" type="button"
+						${state === "loading" ? "disabled" : ""}>
+						<i class="bi bi-github"></i> Continue with GitHub
+					</button>
+				</div>
+
+				<div class="login-divider">
+					<span class="login-divider-line"></span>
+					<span class="login-divider-text">or with email</span>
+					<span class="login-divider-line"></span>
+				</div>
+
+				<!-- Form -->
+				<div class="login-form" id="login-mob-form">
+
+					<div class="login-field">
+						<label class="login-label" for="login-mob-email">Email address</label>
+						<input
+							class="login-input ${state === "error" ? "login-input--error" : ""}"
+							id="login-mob-email"
+							type="email"
+							placeholder="ada@example.com"
+							autocomplete="email"
+							value="${draft.email ?? ""}"
+							${state === "loading" ? "disabled" : ""}
+						/>
 					</div>
-				`);
-			default:
-				return buildNode(`
-					<div class="auth-form-card-mobile">
-						<div class="auth-mobile-logo">
-							<div class="auth-logo-icon"><i class="bi bi-music-note"></i></div>
-							<span class="auth-logo-text-mobile">Soniq<span>Stream</span></span>
+
+					<div class="login-field">
+						<div class="login-label-row">
+							<label class="login-label" for="login-mob-pwd">Password</label>
+							<a href="/auth/forgot-password" class="login-forgot">Forgot password?</a>
 						</div>
-						<h1 class="auth-form-heading-mobile">Welcome back</h1>
-						<p class="auth-form-sub-mobile">Sign in to continue</p>
-
-						<form id="login-form-mobile" class="auth-form-mobile">
-							<div class="form-group">
-								<label for="login-email-mobile">Email</label>
-								<input type="email" id="login-email-mobile" placeholder="your@email.com" required />
-							</div>
-							<div class="form-group">
-								<label for="login-password-mobile">Password</label>
-								<input type="password" id="login-password-mobile" placeholder="••••••••" required />
-							</div>
-							<button type="submit" class="btn-primary auth-submit-btn-mobile">Sign In</button>
-						</form>
-
-						<div class="auth-divider-mobile">Or</div>
-
-						<div class="auth-oauth-btns-mobile">
-							<button class="auth-oauth-btn-mobile" id="login-google-btn-mobile">
-								<i class="bi bi-google"></i>
-							</button>
-							<button class="auth-oauth-btn-mobile" id="login-github-btn-mobile">
-								<i class="bi bi-github"></i>
+						<div class="login-input-eye-wrap">
+							<input
+								class="login-input ${state === "error" ? "login-input--error" : ""}"
+								id="login-mob-pwd"
+								type="password"
+								placeholder="Enter your password"
+								autocomplete="current-password"
+								${state === "loading" ? "disabled" : ""}
+							/>
+							<button class="login-eye-btn" id="login-mob-eye-btn" type="button"
+								aria-label="Toggle password visibility">
+								<i class="bi bi-eye"></i>
 							</button>
 						</div>
-
-						<p class="auth-footer-mobile">
-							Don't have an account? <a href="/auth/register" class="auth-link">Sign up</a>
-						</p>
-						<p class="auth-footer-mobile">
-							<a href="/auth/forgot-password" class="auth-link">Forgot password?</a>
-						</p>
 					</div>
-				`);
-		}
-	})();
 
-	root.append(formContent);
+					<!-- Error message -->
+					<div class="login-error ${state === "error" && error ? "" : "hidden"}"
+						id="login-mob-error-msg" role="alert">
+						<i class="bi bi-exclamation-circle"></i>
+						<span>${error || ""}</span>
+					</div>
+
+					<!-- Submit -->
+					<button
+						class="login-submit-btn ${state === "loading" ? "login-submit-btn--loading" : ""}"
+						id="login-mob-submit-btn"
+						type="button"
+						${state === "loading" ? "disabled" : ""}
+					>
+						${
+							state === "loading"
+								? `<svg class="login-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none">
+									<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"
+										stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/>
+								</svg>
+								Signing in...`
+								: `Sign In <i class="bi bi-arrow-right"></i>`
+						}
+					</button>
+
+				</div>
+
+				<p class="login-switch">
+					Don't have an account?
+					<a href="/auth/register" data-replace>Create one</a>
+				</p>
+
+			</div>
+
+		</div>
+	`),
+	);
+
 	return root.getElement();
 };

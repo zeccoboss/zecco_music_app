@@ -3,153 +3,165 @@ import { buildNode } from "@zecco/utils/dom/build-node.js";
 import "./Login.styles.css";
 
 /**
- * LoginDesktop — Desktop login view component
- * Renders full viewport form with brand messaging
+ * LoginDesktop — Desktop login view
+ *
+ * States:
+ *   idle     → default form
+ *   loading  → submit in progress, button disabled
+ *   error    → invalid credentials or network failure
+ *
+ * Two-column layout matching Register:
+ *   Left  → branded panel (same visual identity)
+ *   Right → form panel
+ *
  * @async
  * @param {Object} props
- * @param {string} props.state - "form" | "loading" | "error"
- * @param {Object} props.ctx - Router context
- * @returns {Promise<Element>} The login page element
+ * @param {string} props.state   — "idle" | "loading" | "error"
+ * @param {string} props.error   — error message string
+ * @param {Object} props.draft   — { email } persisted from sessionStorage
+ * @param {Object} props.ctx
+ * @returns {Promise<Element>}
  */
-export const LoginDesktop = async ({ state, ctx }) => {
-	const root = new CreateElement("div");
-	root
-		.addClass("login-page", "desktop-form-page", "app-page")
-		.setId("login-page-desktop");
+export const LoginDesktop = async ({
+	state = "idle",
+	error = "",
+	draft = {},
+	ctx,
+}) => {
+	const root = new CreateElement("section");
+	root.addClass("login-page").setId("login-page");
 
-	// ── Brand side ──
-	const brandSide = () =>
+	root.append(
 		buildNode(`
-			<section class="brand-side">
-				<div class="brand-glow brand-glow--1"></div>
-				<div class="brand-glow brand-glow--2"></div>
-				<div class="brand-logo">
-					<div class="brand-logo-icon">
-						<i class="bi bi-music-note"></i>
+		<div class="login-layout">
+
+			<!-- ── Branded left panel ── -->
+			<div class="login-brand-panel">
+				<div class="login-brand-content">
+					<div class="login-brand-icon">
+						<i class="bi bi-music-note-beamed"></i>
 					</div>
-					<span class="brand-logo-text">Soniq<span>Stream</span></span>
-				</div>
-				<div class="brand-body">
-					<h2 class="brand-headline">Your music.<br>Your world.</h2>
-					<p class="brand-tagline">
-						Stream millions of tracks, upload your own music and follow the artists you love.
+					<h1 class="login-brand-name">Zecco<span>Stream</span></h1>
+					<p class="login-brand-tag">
+						Upload, discover and share African music
+						with a global community of artists and fans.
 					</p>
-					<div class="brand-features">
-						<div class="brand-feature">
-							<i class="bi bi-vinyl-fill"></i>
-							<span>Millions of tracks</span>
-						</div>
-						<div class="brand-feature">
-							<i class="bi bi-cloud-upload-fill"></i>
-							<span>Upload your music</span>
-						</div>
-						<div class="brand-feature">
-							<i class="bi bi-people-fill"></i>
-							<span>Follow artists</span>
-						</div>
+					<div class="login-brand-pills">
+						<span class="login-brand-pill"><i class="bi bi-cloud-upload"></i> Upload Tracks</span>
+						<span class="login-brand-pill"><i class="bi bi-people"></i> Follow Artists</span>
+						<span class="login-brand-pill"><i class="bi bi-heart"></i> Like &amp; Share</span>
+						<span class="login-brand-pill"><i class="bi bi-headphones"></i> Stream Free</span>
 					</div>
 				</div>
-			</section>
-		`);
+				<div class="login-vinyl" aria-hidden="true"></div>
+			</div>
 
-	// ── Form side ──
-	const formSide = () => {
-		const isLoading = state === "loading";
-		const isError = state === "error";
+			<!-- ── Form right panel ── -->
+			<div class="login-form-panel">
+				<a href="/" class="login-home-link" data-replace>
+					<i class="bi bi-arrow-left"></i> Home
+				</a>
 
-		return buildNode(`
-			<section class="form-side" id="login-form-side">
-				${
-					isLoading
-						? `
-					<div class="auth-loading-overlay" id="login-loading-overlay">
-						<svg width="28" height="28" fill="none" viewBox="0 0 24 24" class="auth-spinner">
-							<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/>
-						</svg>
-						<span>Signing you in...</span>
+				<div class="login-form-body" id="login-form-body">
+
+					<div class="login-form-head">
+						<h2 class="login-heading">Welcome back</h2>
+						<p class="login-sub">Sign in to continue to your account.</p>
 					</div>
-				`
-						: ""
-				}
-				<div class="form-scroll">
-					<div class="form-card">
-						<h1 class="form-heading">Welcome back</h1>
-						<p class="form-sub">Sign in to continue to your music</p>
 
-						${
-							isError
-								? `
-							<div class="form-error-banner" id="login-error-banner">
-								<i class="bi bi-exclamation-circle-fill"></i>
-								<span id="login-error-msg">Invalid email or password.</span>
-							</div>
-						`
-								: ""
-						}
+					<!-- OAuth -->
+					<div class="login-oauth">
+						<button class="login-oauth-btn" id="login-google-btn" type="button"
+							${state === "loading" ? "disabled" : ""}>
+							<i class="bi bi-google"></i> Continue with Google
+						</button>
+						<button class="login-oauth-btn" id="login-github-btn" type="button"
+							${state === "loading" ? "disabled" : ""}>
+							<i class="bi bi-github"></i> Continue with GitHub
+						</button>
+					</div>
 
-						<div class="oauth-btns">
-							<a href="/api/auth/google" class="oauth-btn" id="login-google-btn">
-								<i class="bi bi-google"></i>
-								Continue with Google
-							</a>
-							<a href="/api/auth/github" class="oauth-btn" id="login-github-btn">
-								<i class="bi bi-github"></i>
-								Continue with GitHub
-							</a>
+					<div class="login-divider">
+						<span class="login-divider-line"></span>
+						<span class="login-divider-text">or with email</span>
+						<span class="login-divider-line"></span>
+					</div>
+
+					<!-- Form -->
+					<div class="login-form" id="login-form">
+
+						<div class="login-field">
+							<label class="login-label" for="login-email">Email address</label>
+							<input
+								class="login-input ${state === "error" ? "login-input--error" : ""}"
+								id="login-email"
+								type="email"
+								placeholder="ada@example.com"
+								autocomplete="email"
+								value="${draft.email ?? ""}"
+								${state === "loading" ? "disabled" : ""}
+							/>
 						</div>
 
-						<div class="form-divider"><span>or sign in with email</span></div>
-
-						<div class="form-field">
-							<label class="form-field-label" for="login-email">Email address</label>
-							<div class="form-input-wrap">
-								<i class="bi bi-envelope form-input-icon"></i>
-								<input
-									type="email"
-									id="login-email"
-									class="form-input"
-									placeholder="youremail@example.com"
-									autocomplete="email"
-									${isLoading ? "disabled" : ""}
-								/>
+						<div class="login-field">
+							<div class="login-label-row">
+								<label class="login-label" for="login-pwd">Password</label>
+								<a href="/auth/forgot-password" class="login-forgot">Forgot password?</a>
 							</div>
-						</div>
-
-						<div class="form-field">
-							<div class="form-field-head">
-								<label class="form-field-label" for="login-password">Password</label>
-								<a href="/auth/forgot-password" class="form-forgot-link">Forgot password?</a>
-							</div>
-							<div class="form-input-wrap">
-								<i class="bi bi-lock form-input-icon"></i>
+							<div class="login-input-eye-wrap">
 								<input
+									class="login-input ${state === "error" ? "login-input--error" : ""}"
+									id="login-pwd"
 									type="password"
-									id="login-password"
-									class="form-input"
 									placeholder="Enter your password"
 									autocomplete="current-password"
-									${isLoading ? "disabled" : ""}
+									${state === "loading" ? "disabled" : ""}
 								/>
-								<button class="form-pwd-toggle" id="login-pwd-toggle" type="button" tabindex="-1">
-									<i class="bi bi-eye" id="login-pwd-icon"></i>
+								<button class="login-eye-btn" id="login-eye-btn" type="button"
+									aria-label="Toggle password visibility">
+									<i class="bi bi-eye"></i>
 								</button>
 							</div>
 						</div>
 
-						<button class="form-submit-btn" id="login-submit-btn" ${isLoading ? "disabled" : ""}>
-							${isLoading ? "Signing in..." : "Sign In"}
+						<!-- Error message -->
+						<div class="login-error ${state === "error" && error ? "" : "hidden"}"
+							id="login-error-msg" role="alert">
+							<i class="bi bi-exclamation-circle"></i>
+							<span>${error || ""}</span>
+						</div>
+
+						<!-- Submit -->
+						<button
+							class="login-submit-btn ${state === "loading" ? "login-submit-btn--loading" : ""}"
+							id="login-submit-btn"
+							type="button"
+							${state === "loading" ? "disabled" : ""}
+						>
+							${
+								state === "loading"
+									? `<svg class="login-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none">
+										<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"
+											stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/>
+									</svg>
+									Signing in...`
+									: `Sign In <i class="bi bi-arrow-right"></i>`
+							}
 						</button>
 
-						<p class="form-switch">
-							Don't have an account?
-							<a href="/auth/register" class="form-switch-link">Create one</a>
-						</p>
 					</div>
-				</div>
-			</section>
-		`);
-	};
 
-	root.append(brandSide(), formSide());
+					<p class="login-switch">
+						Don't have an account?
+						<a href="/auth/register" data-replace>Create one</a>
+					</p>
+
+				</div>
+			</div>
+
+		</div>
+	`),
+	);
+
 	return root.getElement();
 };

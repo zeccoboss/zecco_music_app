@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const mongoose = require("mongoose");
-const AudioModel = require("./src/models/audio.model");
+const TrackModel = require("./src/models/track.model");
 
 const seedTracks = async () => {
 	try {
@@ -8,7 +8,7 @@ const seedTracks = async () => {
 		const existingCoverId = new mongoose.Types.ObjectId(
 			"6a0371d9fdd1a8596eb67f6b",
 		);
-		const existingOwnerId = new mongoose.Types.ObjectId(
+		const existinguser = new mongoose.Types.ObjectId(
 			"6a0371abfdd1a8596eb67f68",
 		);
 
@@ -77,7 +77,7 @@ const seedTracks = async () => {
 				duration: duration,
 				bitrate: bitrate,
 				sampleRate: 44100,
-				format: "audio/mpeg",
+				format: "track/mpeg",
 				hasAudio: true,
 				hasCover: Math.random() > 0.05,
 				hasVideo: false,
@@ -86,10 +86,10 @@ const seedTracks = async () => {
 				genre: selectedGenres,
 				visibility: "public",
 				playCount: playCount,
-				ownerId: existingOwnerId,
+				user: existinguser,
 				coverImageId: existingCoverId,
 				storage: {
-					key: `audio/track_${i + 1}.mp3`,
+					key: `track/track_${i + 1}.mp3`,
 					baseUrl: "https://cdn.soniqstream.app/",
 					type: "s3",
 				},
@@ -105,7 +105,7 @@ const seedTracks = async () => {
 		const chunkSize = 100;
 		for (let i = 0; i < tracks.length; i += chunkSize) {
 			const chunk = tracks.slice(i, i + chunkSize);
-			await AudioModel.insertMany(chunk);
+			await TrackModel.insertMany(chunk);
 			console.log(`Seeded chunk ${i / chunkSize + 1}/10...`);
 		}
 

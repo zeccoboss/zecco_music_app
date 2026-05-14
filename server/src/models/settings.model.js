@@ -1,73 +1,71 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const { v4: uuidv4 } = require("uuid");
 
 const SettingsSchema = new Schema(
 	{
-		ownerId: {
+		user: {
 			ref: "User",
 			required: true,
 			index: true,
 			type: Schema.Types.ObjectId,
 		},
-		uuid: { type: String, required: true, unique: true, index: true },
+		uuid: {
+			type: String,
+			required: true,
+			unique: true,
+			default: () => uuidv4(),
+		},
+		// ── Appearance ──
 		theme: {
 			type: String,
 			enum: ["light", "dark", "system"],
 			default: "system",
 			lowercase: true,
-			trim: true,
 		},
+		accentColor: { type: String, default: "#1DB954" }, // SoniqStream Green
+
+		// ── Track/Video Quality ──
+		preferredTrackQuality: {
+			type: String,
+			enum: ["low", "normal", "high", "auto"],
+			default: "auto",
+		},
+		preferredVideoQuality: {
+			type: String,
+			enum: ["low", "normal", "high", "auto"],
+			default: "auto",
+		},
+
+		// ── Localization ──
+		region: { type: String, default: "Nigeria" },
+		language: { type: String, default: "English" },
+
+		// ── Privacy ──
 		visibility: {
 			type: String,
 			enum: ["public", "private"],
 			default: "public",
-			lowercase: true,
-			trim: true,
 		},
-		preferredAudioQuality: {
-			type: String,
-			enum: ["low", "medium", "high", "recommended"],
-			default: "high",
-			lowercase: true,
-			trim: true,
+		privacy: {
+			showProfilePicture: { type: Boolean, default: true },
+			showRecentPlays: { type: Boolean, default: true },
+			showPlaylists: { type: Boolean, default: true },
+			showListeningActivity: { type: Boolean, default: true },
 		},
-		preferredVideoQuality: {
-			type: String,
-			enum: ["low", "medium", "high", "recommended"],
-			default: "high",
-			lowercase: true,
-			trim: true,
+
+		// ── Social & Notifications ──
+		socialLinks: {
+			instagram: { type: String, default: "" },
+			x: { type: String, default: "" },
+			website: { type: String, default: "" },
 		},
-		region: { type: String, default: "Nigeria" },
-		language: { type: String, default: "English" },
 		notifications: {
 			email: { type: Boolean, default: true },
 			push: { type: Boolean, default: true },
 		},
-		socialLinks: {
-			type: Map,
-			of: String,
-			default: {},
-		},
-		privacy: {
-			showProfilePicture: { type: Boolean, default: true },
-			showPlaylists: { type: Boolean, default: true },
-			showRecentPlays: { type: Boolean, default: true },
-		},
-		appearance: {
-			accentColor: { type: String, default: "#1DB954" },
-			backgroundColor: { type: String, default: "#FFFFFF" },
-		},
-		otherPreferences: {
-			type: Map,
-			of: Schema.Types.Mixed,
-			default: {},
-		},
-		banned: { type: Boolean, default: false, index: true },
-		banReason: { type: String, default: null },
 	},
 	{ timestamps: true },
 );
 
-const SettingsModel = mongoose.model("Settings", SettingsSchema);
-module.exports = SettingsModel;
+module.exports = mongoose.model("Settings", SettingsSchema);

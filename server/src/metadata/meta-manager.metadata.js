@@ -1,9 +1,9 @@
 // services/meta-manager.service.js
 const { selectCover, parseBuffer } = require("music-metadata");
 const { v4: uuidv4 } = require("uuid");
-const { storeAudio, storeAudioCover } = require("../services/minio.service");
+const { storeTrack, storeTrackCover } = require("../services/minio.service");
 const ImageModel = require("../models/image.model");
-const AudioModel = require("../models/audio.model");
+const TrackModel = require("../models/track.model");
 const sharp = require("sharp");
 const appConfig = require("../config/app.config");
 // ── Private helpers (plain functions — no class state needed) ──────────────────
@@ -20,14 +20,14 @@ const generateUniqueName = (prefix) => {
 };
 
 /**
- * Upload the cover art embedded in audio metadata to MinIO,
+ * Upload the cover art embedded in track metadata to MinIO,
  * then create and return an ImageModel record.
  *
- * @param {import("mongoose").Types.ObjectId} ownerId
+ * @param {import("mongoose").Types.ObjectId} user
  * @param {object} common  - metadata.common from music-metadata
  * @returns {Promise<import("mongoose").Types.ObjectId|null>}
  */
-const processAudioCover = async (ownerId, common) => {
+const processTrackCover = async (user, common) => {
 	const cover = selectCover(common.picture);
 	if (!cover?.data) return null;
 
@@ -48,13 +48,13 @@ const processAudioCover = async (ownerId, common) => {
 	const coverName = generateUniqueName("Cover");
 	cover.fileName = coverName;
 
-	const storedKey = await storeAudioCover(cover);
+	const storedKey = await storeTrackCover(cover);
 	if (!storedKey) return null;
 
 	try {
 		const image = await ImageModel.create({
 			uuid: uuidv4(),
-			ownerId,
+			user,
 			name: coverName,
 			category: "cover",
 			format: cover.format ?? "image/jpeg",
@@ -74,15 +74,15 @@ const processAudioCover = async (ownerId, common) => {
 };
 
 /**
- * Shape raw music-metadata output into a clean AudioModel payload.
+ * Shape raw music-metadata output into a clean TrackModel payload.
  *
  * @param {Express.Multer.File} file
- * @param {string}              audioKey   - MinIO key returned from storeAudio
+ * @param {string}              trackKey   - MinIO key returned from storeTrack
  * @param {string|null}         coverId    - ImageModel _id or null
  * @param {object}              metadata   - Full music-metadata result
  * @returns {object}
  */
-const buildAudioPayload = (file, audioKey, coverId, metadata) => {
+const buildTrackPayload = (file, trackKey, coverId, metadata) => {
 	const { common, format } = metadata;
 
 	return {
@@ -101,11 +101,11 @@ const buildAudioPayload = (file, audioKey, coverId, metadata) => {
 		title: common.title ?? null,
 		sampleRate: format.sampleRate ?? null,
 		year: common.year ?? null,
-		format: file.mimetype ?? "audio/mpeg",
+		format: file.mimetype ?? "track/mpeg",
 		coverImageId: coverId ?? null,
 		videoId: null,
 		storage: {
-			key: audioKey,
+			key: trackKey,
 			baseUrl: process.env.MINIO_ENDPOINT,
 			type: "s3",
 		},
@@ -115,13 +115,13 @@ const buildAudioPayload = (file, audioKey, coverId, metadata) => {
 // ── Public API ─────────────────────────────────────────────────────────────────
 
 /**
- * Full pipeline: parse → upload cover → upload audio → save to DB.
+ * Full pipeline: parse → upload cover → upload track → save to DB.
  *
  * @param {import("mongoose").Types.ObjectId} userId
  * @param {Express.Multer.File}               file    - Multer memory-storage file
  * @returns {Promise<import("mongoose").Document|null>}
  */
-const processAudio = async (userId, file) => {
+const processTrack = async (userId, file) => {
 	if (!file || typeof file !== "object") {
 		console.error("[MetaManager] Invalid file object");
 		return null;
@@ -137,28 +137,28 @@ const processAudio = async (userId, file) => {
 	}
 
 	// ── 2. Upload cover art (non-blocking if absent) ───────────────────────────
-	const coverId = await processAudioCover(userId, metadata.common);
+	const coverId = await processTrackCover(userId, metadata.common);
 
-	// ── 3. Upload audio to MinIO ───────────────────────────────────────────────
-	const audioName = generateUniqueName("Audio");
-	const audioKey = await storeAudio(file, audioName);
+	// ── 3. Upload track to MinIO ───────────────────────────────────────────────
+	const trackName = generateUniqueName("Track");
+	const trackKey = await storetrack(file, trackName);
 
-	if (!audioKey) {
-		console.error("[MetaManager] Audio upload to MinIO failed — aborting");
+	if (!trackKey) {
+		console.error("[MetaManager] Track upload to MinIO failed — aborting");
 		return null;
 	}
 
 	// ── 4. Build payload and persist ──────────────────────────────────────────
-	const payload = buildAudioPayload(file, audioKey, coverId, metadata);
+	const payload = buildTrackPayload(file, trackKey, coverId, metadata);
 
 	try {
-		// ownerId attached separately — keeps buildAudioPayload pure/testable
-		const audio = await AudioModel.create({ ...payload, ownerId: userId });
-		return audio;
+		// user attached separately — keeps buildTrackPayload pure/testable
+		const track = await TrackModel.create({ ...payload, user: userId });
+		return track;
 	} catch (err) {
-		console.error("[MetaManager] AudioModel.create failed:", err);
+		console.error("[MetaManager] TrackModel.create failed:", err);
 		return null;
 	}
 };
 
-module.exports = { processAudio };
+module.exports = { processTrack };

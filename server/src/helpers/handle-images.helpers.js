@@ -37,7 +37,7 @@ function coverImage(config) {
 	// Create the image in DB and return the metadata
 	return ImageModel.create({
 		uuid: uuid,
-		name: `audio-cover-${uuid}`,
+		name: `track-cover-${uuid}`,
 		category: "cover",
 		...config,
 	});

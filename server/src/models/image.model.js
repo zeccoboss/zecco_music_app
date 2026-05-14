@@ -7,8 +7,7 @@ const ImageSchema = new Schema(
 			width: { type: Number, required: true },
 			height: { type: Number, required: true },
 		},
-
-		ownerId: {
+		user: {
 			ref: "User",
 			required: false,
 			index: true,

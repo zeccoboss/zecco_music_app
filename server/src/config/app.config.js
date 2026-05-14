@@ -42,7 +42,7 @@ class AppConfig {
 		return `${this.#appName}-${type}-${uuidV4()}-${date}`;
 	}
 
-	get audioName() {
+	get trackName() {
 		const time = new Date().toTimeString();
 		const date = `${new Date().toDateString()}-${time.slice(0, time.indexOf(" "))}`;
 		return `${this.#appName}-${uuidV4()}-${date}`;
@@ -53,7 +53,7 @@ class AppConfig {
 		bannerKey: "images/user-banner.jpg",
 		adminAvatarKey: "images/admin-avatar.png",
 		userAvatarKey: "images/user-avatar.png",
-		coverKey: "images/audio-cover.png",
+		coverKey: "images/track-cover.png",
 	};
 }
 

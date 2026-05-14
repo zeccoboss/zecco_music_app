@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const VideoSchema = new Schema(
 	{
-		ownerId: {
+		user: {
 			ref: "User",
 			required: true,
 			index: true,

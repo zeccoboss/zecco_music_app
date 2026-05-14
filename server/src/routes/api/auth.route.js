@@ -1,15 +1,16 @@
 const router = require("express").Router();
+const refreshTokenController = require("../../controllers/auth/refresh.controller");
 
 // Controllers
-const authController = require("../../controllers/users-auth.controller");
+const authController = require("../../controllers/auth/auth.controller");
 const {
 	handleVerifyEmail,
 	handleResendEmailVerification,
-} = require("../../controllers/auth-token.controller");
+} = require("../../controllers/verification/token.controller");
 const {
 	handleForgotPassword,
 	handleResetPassword,
-} = require("../../controllers/auth-password.controller");
+} = require("../../controllers/verification/password.controller");
 
 // Middlewares
 const { validate } = require("../../middlewares/validate.middleware");
@@ -37,6 +38,9 @@ router.post(
 	validate(registerSchema),
 	authController.handleRegister,
 );
+
+// Refresh token
+router.get("/refresh", refreshTokenController.handleRefreshToken);
 
 // Login
 router.post(

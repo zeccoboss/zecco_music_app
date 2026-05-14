@@ -70,7 +70,7 @@ export const UploadMobile = async ({ state, ctx, data = {} }) => {
 					<div class="upload-mob-dz-icon">
 						<i class="bi bi-cloud-arrow-up"></i>
 					</div>
-					<p class="upload-mob-dz-title">Tap to select audio</p>
+					<p class="upload-mob-dz-title">Tap to select track</p>
 					<p class="upload-mob-dz-sub">or drag and drop here</p>
 					<div class="upload-dz-formats">
 						<span class="upload-format-chip">MP3</span>
@@ -82,7 +82,7 @@ export const UploadMobile = async ({ state, ctx, data = {} }) => {
 					<input
 						type="file"
 						id="upload-mob-file-input"
-						accept=".mp3,.wav,.flac,.aac,.ogg,audio/*"
+						accept=".mp3,.wav,.flac,.aac,.ogg,track/*"
 						hidden
 					/>
 				</div>

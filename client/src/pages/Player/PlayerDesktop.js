@@ -176,7 +176,7 @@ const DesktopFullPlayer = () => {
 				<!-- Up next list -->
 				<div class="dfp-queue-list" id="dfp-queue-list">
 					<p class="dfp-queue-section-label dfp-queue-next-label">Up Next</p>
-					<!-- queue items injected by audio-service / render util -->
+					<!-- queue items injected by track-service / render util -->
 					<div class="dfp-queue-empty" id="dfp-queue-empty">
 						<i class="bi bi-music-note-list"></i>
 						<span>Nothing up next</span>

@@ -11,8 +11,6 @@ import { applyMiddleware } from "./middlewares";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./styles/base.css";
 import "./styles/media.css";
-import "./styles/auth-shared.mobile.css";
-import "./styles/auth-shared.desktop.css";
 
 const bootstrap = async () => {
 	const screen = mobileScreen.matches

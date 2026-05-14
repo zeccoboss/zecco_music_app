@@ -1,264 +1,330 @@
 import CreateElement from "@zecco/utils/dom/create-element";
 import { buildNode } from "@zecco/utils/dom/build-node.js";
 import "./Register.styles.css";
-import { appConfig } from "@zecco/config/app.config";
 
 /**
- * RegisterDesktop — Desktop registration view component
- * Multi-step form: Name/Username/Email → Password → Preferences
+ * RegisterDesktop — Desktop register view
+ *
+ * Two-column layout: branded left panel + form right panel.
+ * Step routing via URL: ?step=1 | 2 | 3
+ * Direction-aware slide animation injected by register.events.js
+ * via data-direction="forward" | "back" on the slide wrapper.
+ *
+ * Steps:
+ *   1 → name + username + email  (+ OAuth options)
+ *   2 → password + confirm + strength meter
+ *   3 → DOB + gender + country + genre picks + terms
+ *
  * @async
  * @param {Object} props
- * @param {string} props.state - "step1" | "step2" | "step3" | "loading" | "error" | "success"
- * @param {Object} props.ctx - Router context
- * @returns {Promise<Element>} The register page element
- */ 2;
-export const RegisterDesktop = async ({ state, ctx }) => {
-	const root = new CreateElement("div");
-	root
-		.addClass("register-page", "desktop-form-page", "app-page")
-		.setId("register-page-desktop");
+ * @param {number} props.step   — current step (1 | 2 | 3)
+ * @param {string} props.dir    — slide direction "forward" | "back"
+ * @param {Object} props.draft  — persisted form values from sessionStorage
+ * @param {Object} props.ctx
+ * @returns {Promise<Element>}
+ */
+export const RegisterDesktop = async ({
+	step = 1,
+	dir = "forward",
+	draft = {},
+	ctx,
+}) => {
+	const root = new CreateElement("section");
+	root.addClass("reg-page").setId("register-page");
 
-	// ── Brand side ──
-	const brandSide = () =>
-		buildNode(`
-			<section class="brand-side">
-				<div class="brand-glow brand-glow--1"></div>
-				<div class="brand-glow brand-glow--2"></div>
-				<div class="brand-logo">
-					<div class="brand-logo-icon">
-						<i class="bi bi-music-note"></i>
+	// ── Step indicator ───────────────────────────────────────
+	const stepIndicator = () => `
+		<div class="reg-steps" aria-label="Registration progress">
+			${[1, 2, 3]
+				.map(
+					(n) => `
+				<div class="reg-step ${n === step ? "active" : n < step ? "done" : ""}"
+					aria-label="Step ${n}"></div>
+			`,
+				)
+				.join("")}
+		</div>
+	`;
+
+	// ── Step 1 — Identity ────────────────────────────────────
+	const step1 = () => `
+		<div class="reg-slide" data-step="1">
+			<h2 class="reg-heading">Create your account</h2>
+			<p class="reg-sub">Join the community. Share your sound.</p>
+
+			<!-- OAuth -->
+			<div class="reg-oauth">
+				<button class="reg-oauth-btn" id="reg-google-btn" type="button">
+					<i class="bi bi-google"></i> Continue with Google
+				</button>
+				<button class="reg-oauth-btn" id="reg-github-btn" type="button">
+					<i class="bi bi-github"></i> Continue with GitHub
+				</button>
+			</div>
+
+			<div class="reg-divider">
+				<span class="reg-divider-line"></span>
+				<span class="reg-divider-text">or with email</span>
+				<span class="reg-divider-line"></span>
+			</div>
+
+			<div class="reg-form" id="reg-form-1">
+				<div class="reg-row">
+					<div class="reg-field">
+						<label class="reg-label" for="reg-firstname">First name</label>
+						<input class="reg-input" id="reg-firstname" type="text"
+							placeholder="Ada" autocomplete="given-name"
+							value="${draft.firstName ?? ""}" />
 					</div>
-					<span class="brand-logo-text">Soniq<span>Stream</span></span>
-				</div>
-				<div class="brand-body">
-					<h2 class="brand-headline">Join the<br>stream.</h2>
-					<p class="brand-tagline">
-						Create your free account and start listening, uploading and discovering new music today.
-					</p>
-					<div class="brand-features">
-						<div class="brand-feature">v
-							<i class="bi bi-headphones"></i>
-							<span>Stream for free</span>
-						</div>
-						<div class="brand-feature">
-							<i class="bi bi-cloud-upload-fill"></i>
-							<span>Upload your tracks</span>
-						</div>
-						<div class="brand-feature">
-							<i class="bi bi-heart-fill"></i>
-							<span>Build your library</span>
-						</div>
-					</div>
-				</div>
-			</section>
-		`);
-
-	// ── Form side with multi-step ──
-	const formSide = () => {
-		const isLoading = state === "loading";
-		const isStep1 = state === "step1" || !state;
-		const isStep2 = state === "step2";
-		const isStep3 = state === "step3";
-		const isError = state === "error";
-		const isSuccess = state === "success";
-
-		return buildNode(`
-			<section class="form-side" id="register-form-side">
-				${
-					isLoading
-						? `
-					<div class="auth-loading-overlay" id="register-loading-overlay">
-						<svg width="28" height="28" fill="none" viewBox="0 0 24 24" class="auth-spinner">
-							<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/>
-						</svg>
-						<span>Creating your account...</span>
-					</div>
-				`
-						: ""
-				}
-				<div class="form-scroll">
-					<div class="form-card">
-						<!-- Step indicator -->
-						<div class="form-steps" id="register-steps">
-							<div class="form-step ${isStep1 ? "active" : ""}" data-step="1"></div>
-							<div class="form-step ${isStep2 ? "active" : ""}" data-step="2"></div>
-							<div class="form-step ${isStep3 ? "active" : ""}" data-step="3"></div>
-						</div>
-
-						<!-- STEP 1: Who are you? -->
-						${
-							isStep1
-								? `
-							<h1 class="form-heading">Create account</h1>
-							<p class="form-sub">Step 1 of 3 — Start with your name</p>
-
-							<div class="oauth-btns">
-								<a href="${appConfig.API_BASE_URL}/oauth/google" class="oauth-btn"  target="_blank" rel="noopener noreferrer">
-									<i class="bi bi-google"></i>
-									Sign up with Google
-								</a>
-								<a href="${appConfig.API_BASE_URL}/oauth/github" class="oauth-btn" target="_blank" rel="noopener noreferrer">
-									<i class="bi bi-github"></i>
-									Sign up with GitHub
-								</a>
-							</div>
-
-							<div class="form-divider"><span>or continue with email</span></div>
-
-							${isError ? `<div class="form-error-banner"><i class="bi bi-exclamation-circle-fill"></i><span>Validation error</span></div>` : ""}
-
-							<div class="form-field">
-								<label class="form-field-label" for="reg-fullname">Full name</label>
-								<div class="form-input-wrap">
-									<i class="bi bi-person form-input-icon"></i>
-									<input type="text" id="reg-fullname" class="form-input" placeholder="Your full name" autocomplete="name" />
-								</div>
-							</div>
-
-							<div class="form-field">
-								<label class="form-field-label" for="reg-username">Username</label>
-								<div class="form-input-wrap">
-									<i class="bi bi-at form-input-icon"></i>
-									<input type="text" id="reg-username" class="form-input" placeholder="yourhandle" autocomplete="username" spellcheck="false" />
-								</div>
-								<span class="form-field-hint">Letters, numbers and underscores only</span>
-							</div>
-
-							<div class="form-field">
-								<label class="form-field-label" for="reg-email">Email address</label>
-								<div class="form-input-wrap">
-									<i class="bi bi-envelope form-input-icon"></i>
-									<input type="email" id="reg-email" class="form-input" placeholder="youremail@example.com" autocomplete="email" />
-								</div>
-							</div>
-
-							<button class="form-submit-btn" id="reg-s1-btn" ${isLoading ? "disabled" : ""}>
-								Continue <i class="bi bi-arrow-right"></i>
-							</button>
-
-							<p class="form-switch">
-								Already have an account?
-								<a href="/auth/login" class="form-switch-link">Sign in</a>
-							</p>
-						`
-								: ""
-						}
-
-						<!-- STEP 2: Secure account -->
-						${
-							isStep2
-								? `
-							<button class="form-back-btn" id="reg-s2-back" type="button">
-								<i class="bi bi-arrow-left"></i> Back
-							</button>
-
-							<h1 class="form-heading">Secure your account</h1>
-							<p class="form-sub">Step 2 of 3 — Create a strong password</p>
-
-							${isError ? `<div class="form-error-banner"><i class="bi bi-exclamation-circle-fill"></i><span>Password validation error</span></div>` : ""}
-
-							<div class="form-field">
-								<label class="form-field-label" for="reg-password">Password</label>
-								<div class="form-input-wrap">
-									<i class="bi bi-lock form-input-icon"></i>
-									<input type="password" id="reg-password" class="form-input" placeholder="Create a strong password" autocomplete="new-password" ${isLoading ? "disabled" : ""} />
-									<button class="form-pwd-toggle" id="reg-pwd-toggle" type="button" tabindex="-1">
-										<i class="bi bi-eye" id="reg-pwd-icon"></i>
-									</button>
-								</div>
-								<div class="form-pwd-strength" id="reg-pwd-strength">
-									<div class="form-pwd-bars">
-										<div class="form-pwd-bar"></div>
-										<div class="form-pwd-bar"></div>
-										<div class="form-pwd-bar"></div>
-										<div class="form-pwd-bar"></div>
-									</div>
-									<span class="form-pwd-label">Enter a password</span>
-								</div>
-							</div>
-
-							<div class="form-field">
-								<label class="form-field-label" for="reg-confirm">Confirm password</label>
-								<div class="form-input-wrap">
-									<i class="bi bi-lock-fill form-input-icon"></i>
-									<input type="password" id="reg-confirm" class="form-input" placeholder="Repeat your password" autocomplete="new-password" ${isLoading ? "disabled" : ""} />
-								</div>
-							</div>
-
-							<button class="form-submit-btn" id="reg-s2-btn" ${isLoading ? "disabled" : ""}>
-								Continue <i class="bi bi-arrow-right"></i>
-							</button>
-						`
-								: ""
-						}
-
-						<!-- STEP 3: Preferences -->
-						${
-							isStep3
-								? `
-							<button class="form-back-btn" id="reg-s3-back" type="button">
-								<i class="bi bi-arrow-left"></i> Back
-							</button>
-
-							<h1 class="form-heading">Almost done</h1>
-							<p class="form-sub">Step 3 of 3 — Personalise your experience</p>
-
-							<div class="form-field">
-								<label class="form-field-label" for="reg-dob">Date of birth</label>
-								<div class="form-input-wrap">
-									<i class="bi bi-calendar3 form-input-icon"></i>
-									<input type="date" id="reg-dob" class="form-input" />
-								</div>
-								<span class="form-field-hint">You must be at least 13 to use SoniqStream</span>
-							</div>
-
-							<div class="form-field">
-								<label class="form-field-label">Gender (optional)</label>
-								<div class="form-gender-row">
-									<button class="form-gender-btn" data-gender="male" type="button">
-										<i class="bi bi-gender-male"></i> Male
-									</button>
-									<button class="form-gender-btn" data-gender="female" type="button">
-										<i class="bi bi-gender-female"></i> Female
-									</button>
-									<button class="form-gender-btn" data-gender="other" type="button">
-										<i class="bi bi-three-dots"></i> Other
-									</button>
-								</div>
-							</div>
-
-							<div class="form-field">
-								<label class="form-field-label">
-									<input type="checkbox" id="reg-newsletter" class="form-checkbox" />
-									Send me news and special offers
-								</label>
-							</div>
-
-							<button class="form-submit-btn" id="reg-s3-btn" ${isLoading ? "disabled" : ""}>
-								${isLoading ? "Creating account..." : "Create Account"}
-							</button>
-						`
-								: ""
-						}
-
-						<!-- SUCCESS -->
-						${
-							isSuccess
-								? `
-							<div class="success-state">
-								<i class="bi bi-check-circle-fill"></i>
-								<h2>Account created!</h2>
-								<p>Welcome to SoniqStream. Redirecting...</p>
-							</div>
-						`
-								: ""
-						}
+					<div class="reg-field">
+						<label class="reg-label" for="reg-lastname">Last name</label>
+						<input class="reg-input" id="reg-lastname" type="text"
+							placeholder="Lovelace" autocomplete="family-name"
+							value="${draft.lastName ?? ""}" />
 					</div>
 				</div>
-			</section>
-		`);
+
+				<div class="reg-field">
+					<label class="reg-label" for="reg-username">Username</label>
+					<div class="reg-input-prefix-wrap">
+						<span class="reg-input-prefix">@</span>
+						<input class="reg-input reg-input--prefix" id="reg-username" type="text"
+							placeholder="adalovelace" autocomplete="username"
+							value="${draft.username ?? ""}" />
+					</div>
+				</div>
+
+				<div class="reg-field">
+					<label class="reg-label" for="reg-email">Email address</label>
+					<input class="reg-input" id="reg-email" type="email"
+						placeholder="ada@example.com" autocomplete="email"
+						value="${draft.email ?? ""}" />
+				</div>
+
+				<div class="reg-field-error hidden" id="reg-step1-error">
+					<i class="bi bi-exclamation-circle"></i>
+					<span id="reg-step1-error-msg"></span>
+				</div>
+
+				<button class="reg-submit-btn" id="reg-next-1" type="button">
+					Continue <i class="bi bi-arrow-right"></i>
+				</button>
+			</div>
+
+			<p class="reg-switch">
+				Already have an account? <a href="/auth/login" data-replace>Sign in</a>
+			</p>
+		</div>
+	`;
+
+	// ── Step 2 — Password ────────────────────────────────────
+	const step2 = () => `
+		<div class="reg-slide" data-step="2">
+			<button class="reg-back-btn" id="reg-back-2" type="button">
+				<i class="bi bi-arrow-left"></i> Back
+			</button>
+
+			<h2 class="reg-heading">Set your password</h2>
+			<p class="reg-sub">Make it strong. You can always reset it later.</p>
+
+			<div class="reg-form" id="reg-form-2">
+				<div class="reg-field">
+					<label class="reg-label" for="reg-pwd">Password</label>
+					<div class="reg-input-eye-wrap">
+						<input class="reg-input" id="reg-pwd" type="password"
+							placeholder="Create a password" autocomplete="new-password" />
+						<button class="reg-eye-btn" id="reg-pwd-eye" type="button"
+							aria-label="Toggle password visibility">
+							<i class="bi bi-eye"></i>
+						</button>
+					</div>
+					<!-- Strength meter -->
+					<div class="reg-strength" id="reg-strength">
+						<div class="reg-strength-bars">
+							<div class="reg-strength-bar" id="rsb-1"></div>
+							<div class="reg-strength-bar" id="rsb-2"></div>
+							<div class="reg-strength-bar" id="rsb-3"></div>
+							<div class="reg-strength-bar" id="rsb-4"></div>
+						</div>
+						<span class="reg-strength-label" id="reg-strength-label">Enter a password</span>
+					</div>
+				</div>
+
+				<div class="reg-field">
+					<label class="reg-label" for="reg-pwd-confirm">Confirm password</label>
+					<div class="reg-input-eye-wrap">
+						<input class="reg-input" id="reg-pwd-confirm" type="password"
+							placeholder="Repeat your password" autocomplete="new-password" />
+						<button class="reg-eye-btn" id="reg-pwd-confirm-eye" type="button"
+							aria-label="Toggle password visibility">
+							<i class="bi bi-eye"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="reg-field-error hidden" id="reg-step2-error">
+					<i class="bi bi-exclamation-circle"></i>
+					<span id="reg-step2-error-msg"></span>
+				</div>
+
+				<button class="reg-submit-btn" id="reg-next-2" type="button">
+					Continue <i class="bi bi-arrow-right"></i>
+				</button>
+			</div>
+		</div>
+	`;
+
+	// ── Step 3 — Profile preferences ────────────────────────
+	const GENRES = [
+		"Afrobeats",
+		"Highlife",
+		"Amapiano",
+		"Gospel",
+		"Hip-Hop",
+		"Afropop",
+		"R&B",
+		"Reggae",
+		"Jazz",
+		"Electronic",
+		"Classical",
+		"Rock",
+	];
+
+	const step3 = () => `
+		<div class="reg-slide" data-step="3">
+			<button class="reg-back-btn" id="reg-back-3" type="button">
+				<i class="bi bi-arrow-left"></i> Back
+			</button>
+
+			<h2 class="reg-heading">Almost there</h2>
+			<p class="reg-sub">Tell us a bit about yourself so we can personalise your experience.</p>
+
+			<div class="reg-form" id="reg-form-3">
+				<div class="reg-row">
+					<div class="reg-field">
+						<label class="reg-label" for="reg-dob">Date of birth</label>
+						<input class="reg-input" id="reg-dob" type="date"
+							value="${draft.dob ?? ""}" />
+					</div>
+					<div class="reg-field">
+						<label class="reg-label" for="reg-gender">Gender</label>
+						<select class="reg-input reg-select" id="reg-gender">
+							<option value="" disabled ${!draft.gender ? "selected" : ""}>Select</option>
+							<option value="male"   ${draft.gender === "male" ? "selected" : ""}>Male</option>
+							<option value="female" ${draft.gender === "female" ? "selected" : ""}>Female</option>
+							<option value="other"  ${draft.gender === "other" ? "selected" : ""}>Other</option>
+							<option value="prefer-not" ${draft.gender === "prefer-not" ? "selected" : ""}>Prefer not to say</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="reg-field">
+					<label class="reg-label" for="reg-country">Country</label>
+					<select class="reg-input reg-select" id="reg-country">
+						<option value="" disabled ${!draft.country ? "selected" : ""}>Select country</option>
+						<option value="NG" ${draft.country === "NG" ? "selected" : ""}>Nigeria</option>
+						<option value="GH" ${draft.country === "GH" ? "selected" : ""}>Ghana</option>
+						<option value="KE" ${draft.country === "KE" ? "selected" : ""}>Kenya</option>
+						<option value="ZA" ${draft.country === "ZA" ? "selected" : ""}>South Africa</option>
+						<option value="GB" ${draft.country === "GB" ? "selected" : ""}>United Kingdom</option>
+						<option value="US" ${draft.country === "US" ? "selected" : ""}>United States</option>
+						<option value="other" ${draft.country === "other" ? "selected" : ""}>Other</option>
+					</select>
+				</div>
+
+				<div class="reg-field">
+					<label class="reg-label">Favourite genres
+						<span class="reg-label-hint">(pick up to 5)</span>
+					</label>
+					<div class="reg-genre-grid" id="reg-genre-grid">
+						${GENRES.map(
+							(g) => `
+							<button type="button"
+								class="reg-genre-chip ${(draft.genres ?? []).includes(g) ? "selected" : ""}"
+								data-genre="${g}">${g}</button>
+						`,
+						).join("")}
+					</div>
+				</div>
+
+				<div class="reg-terms">
+					<input type="checkbox" id="reg-terms-check" class="reg-checkbox"
+						${draft.termsAccepted ? "checked" : ""} />
+					<label for="reg-terms-check" class="reg-terms-label">
+						I agree to the
+						<a href="/terms" target="_blank" class="reg-terms-link">Terms of Service</a>
+						and
+						<a href="/privacy" target="_blank" class="reg-terms-link">Privacy Policy</a>
+					</label>
+				</div>
+
+				<div class="reg-field-error hidden" id="reg-step3-error">
+					<i class="bi bi-exclamation-circle"></i>
+					<span id="reg-step3-error-msg"></span>
+				</div>
+
+				<button class="reg-submit-btn" id="reg-submit" type="button">
+					<i class="bi bi-check-lg"></i> Create Account
+				</button>
+			</div>
+		</div>
+	`;
+
+	const getStepContent = () => {
+		switch (step) {
+			case 2:
+				return step2();
+			case 3:
+				return step3();
+			default:
+				return step1();
+		}
 	};
 
-	root.append(brandSide(), formSide());
+	root.append(
+		buildNode(`
+		<div class="reg-layout">
+
+			<!-- ── Branded left panel ── -->
+			<div class="reg-brand-panel">
+				<div class="reg-brand-content">
+					<div class="reg-brand-icon">
+						<i class="bi bi-music-note-beamed"></i>
+					</div>
+					<h1 class="reg-brand-name">Zecco<span>Stream</span></h1>
+					<p class="reg-brand-tag">
+						Upload, discover and share African music
+						with a global community of artists and fans.
+					</p>
+					<div class="reg-brand-pills">
+						<span class="reg-brand-pill"><i class="bi bi-cloud-upload"></i> Upload Tracks</span>
+						<span class="reg-brand-pill"><i class="bi bi-people"></i> Follow Artists</span>
+						<span class="reg-brand-pill"><i class="bi bi-heart"></i> Like & Share</span>
+						<span class="reg-brand-pill"><i class="bi bi-headphones"></i> Stream Free</span>
+					</div>
+				</div>
+				<!-- Decorative spinning vinyl -->
+				<div class="reg-vinyl" aria-hidden="true"></div>
+			</div>
+
+			<!-- ── Form right panel ── -->
+			<div class="reg-form-panel">
+				<a href="/" class="reg-home-link" data-replace>
+					<i class="bi bi-arrow-left"></i> Home
+				</a>
+
+				${stepIndicator()}
+
+				<!-- Slide container — direction class added by register.events.js -->
+				<div class="reg-slide-container" id="reg-slide-container"
+					data-step="${step}" data-dir="${dir}">
+					${getStepContent()}
+				</div>
+			</div>
+
+		</div>
+	`),
+	);
+
 	return root.getElement();
 };

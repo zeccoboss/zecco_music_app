@@ -6,7 +6,7 @@ const {
 	getDiscover,
 	getExplore,
 	getForYou,
-} = require("../../controllers/feeds.controller");
+} = require("../../controllers/users/feeds.controller");
 
 router.get("/discover", getDiscover);
 router.get("/explore", getExplore);

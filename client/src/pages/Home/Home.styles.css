@@ -1001,6 +1001,7 @@
 		opacity 0.2s,
 		transform 0.2s;
 	align-self: flex-start;
+	/* align-self: center; */
 }
 .home-cta-btn:hover {
 	opacity: 0.9;

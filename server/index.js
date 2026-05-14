@@ -31,16 +31,19 @@ app.use(cookieParser());
 // Server html page
 app.use("/", require("./src/routes/root.route"));
 
-// API routes
-app.use("/api/v1/auth", require("./src/routes/api/auth.route"));
-app.use("/api/v1/oauth", require("./src/routes/api/oauth.route"));
-app.use("/api/v1/auth/refresh", require("./src/routes/refresh.route")); // Routes
-app.use("/api/v1/users", verifyJWT, require("./src/routes/api/users.route")); // Users routes
-app.use("/api/v1/images", verifyJWT, require("./src/routes/api/images.route")); //
-app.use("/api/v1/tracks", require("./src/routes/api/audios.route")); // Music routes
-app.use("/api/v1/feeds", require("./src/routes/api/feeds.route"));
+// API routes - Note: Routes that require authentication should use the verifyJWT middleware
+app.use("/api/v1/auth", require("./src/routes/api/auth.route")); // Authentication routes (Registration, Login, Logout, Token Refresh)
+app.use("/api/v1/oauth", require("./src/routes/api/oauth.route")); // OAuth routes (Google, GitHub, etc.)
+app.use("/api/v1/users", require("./src/routes/api/users.route")); // Admin user management
+app.use("/api/v1/me", require("./src/routes/api/me.route")); // Current user context routes (Profile, Settings, etc.)
+app.use("/api/v1/images", require("./src/routes/api/images.route")); // Image upload routes (avatar, banner, etc.)
+app.use("/api/v1/tracks", require("./src/routes/api/tracks.route")); // Music routes (Upload, Stream, Edit, Delete)
+app.use("/api/v1/feeds", require("./src/routes/api/feeds.route")); // Feeds routes (Discover, Explore, For You, etc.)
+app.use("/api/v1/admin", require("./src/routes/api/admin.route")); // Admin routes (Protected by Admin role middleware)
+app.use("/api/v1/search", require("./src/routes/api/search.route")); // Search routes
+app.use("/api/v1/playlists", require("./src/routes/api/playlist.route")); // Playlist routes (Create, Edit, Delete, Add/Remove Tracks)
 
-// Serve 404 page
+// Catch-all for undefined routes (404)
 app.use((_, res) => {
 	const filePath = path.join(__dirname, "public", "views", "no-resource.html");
 	res.status(404).sendFile(filePath);
@@ -49,9 +52,9 @@ app.use((_, res) => {
 // Logs all errors
 app.use(errorLogger);
 
+// Start server after successful DB connection
 mongoose.connection.once("open", () => {
 	console.log("Connected to mongoDB");
-
 	// seedTracks();
 
 	// Create admin on server start
@@ -60,6 +63,5 @@ mongoose.connection.once("open", () => {
 	// Listen for request on port
 	app.listen(PORT, () => {
 		console.log(`🔥 Server running on "http://localhost:${PORT}"`);
-		console.log("");
 	});
 });

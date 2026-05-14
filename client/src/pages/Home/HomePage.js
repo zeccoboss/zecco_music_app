@@ -3,7 +3,7 @@ import { HomeDesktop } from "./HomeDesktop.js";
 import { HomeMobile } from "./HomeMobile.js";
 import { homeEvents } from "@zecco/features/home/home.events.js";
 import { store } from "@zecco/store/store.js";
-import { audioService } from "@zecco/services/api/audio.service.js";
+import { trackService } from "@zecco/services/api/track.service.js";
 
 /**
  * HomePage — Home page orchestrator
@@ -183,17 +183,17 @@ export const HomePage = async (ctx) => {
 
 			const [exploreResult, discoverResult, forYouResult] =
 				await Promise.allSettled([
-					audioService.getExploreFeed({
+					trackService.getExploreFeed({
 						limit: FEED_LIMIT,
 						signal,
 					}),
 
-					audioService.getDiscoverFeed({
+					trackService.getDiscoverFeed({
 						limit: FEED_LIMIT,
 						signal,
 					}),
 
-					audioService.getForYouFeed({
+					trackService.getForYouFeed({
 						userId: store?.user?.id ?? null,
 						signal,
 					}),

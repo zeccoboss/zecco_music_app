@@ -71,7 +71,7 @@ export const SettingsDesktop = async ({ state, ctx }) => {
 						<span class="settings-nav-icon si-yellow"><i class="bi bi-bell-fill"></i></span>
 						Notifications
 					</button>
-					<button class="settings-nav-item" data-panel="audio" id="settings-nav-audio">
+					<button class="settings-nav-item" data-panel="track" id="settings-nav-track">
 						<span class="settings-nav-icon si-green"><i class="bi bi-volume-up-fill"></i></span>
 						Audio
 					</button>
@@ -284,11 +284,11 @@ export const SettingsDesktop = async ({ state, ctx }) => {
 					</div>
 
 					<!-- PANEL: Audio -->
-					<div class="settings-panel" id="settings-panel-audio" data-panel="audio">
+					<div class="settings-panel" id="settings-panel-track" data-panel="track">
 						<div class="settings-panel-title">Audio</div>
 						<div class="settings-group-label">Streaming quality</div>
 						<div class="settings-select-wrap">
-							<select class="settings-select" id="settings-audio-quality">
+							<select class="settings-select" id="settings-track-quality">
 								<option value="auto">Auto (recommended)</option>
 								<option value="low">Low — 96 kbps</option>
 								<option value="normal">Normal — 160 kbps</option>

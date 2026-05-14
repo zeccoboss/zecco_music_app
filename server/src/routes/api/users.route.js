@@ -1,40 +1,27 @@
-const { rolesList } = require("../../config/roles-list.config");
-const usersControllers = require("../../controllers/users.controller");
-const { verifyRoles } = require("../../middlewares/verify-roles.middleware");
 const router = require("express").Router();
+const usersControllers = require("../../controllers/users/users.controller");
+const { rolesList } = require("../../config/roles-list.config");
+const { verifyRoles } = require("../../middlewares/verify-roles.middleware");
+const { validate } = require("../../middlewares/validate.middleware"); // Added
+const { createUserSchema } = require("../../validators/user.validator");
 const verifyJWT = require("../../middlewares/verify-jwt.middleware");
 
-const { validate } = require("../../middlewares/validate.middleware");
-const { updateUserSchema } = require("../../validators/user.validator");
-const createUserSchema =
-	require("../../validators/user.validator").createUserSchema;
+// ── PUBLIC ROUTES ───────────────────────────────────────────
+// Accessible by anyone (guests and logged-in users)
+router.route("/profile/:identifier").get(usersControllers.getUserProfile);
 
-// Users (Admin only)
-router.get("/", verifyRoles(rolesList.Admin), usersControllers.getAllUsers);
+// ── PROTECTED ROUTES ────────────────────────────────────────
+// Everything below this requires a valid login
+router.use(verifyJWT);
 
-router.post(
-	"/",
-	verifyRoles(rolesList.Admin),
-	validate(createUserSchema),
-	usersControllers.createUser,
-);
+// ── ADMIN ONLY ROUTES ───────────────────────────────────────
+router.use(verifyRoles(rolesList.Admin));
 
-// Current logged-in user
-router.get("/me", verifyJWT, usersControllers.getMe);
+router
+	.route("/")
+	.get(usersControllers.getAllUsers)
+	.post(validate(createUserSchema), usersControllers.createUser);
 
-router.put(
-	"/me",
-	verifyJWT,
-	validate(updateUserSchema),
-	usersControllers.updateUser,
-);
+router.route("/:uuid").delete(usersControllers.deleteUser);
 
-// User by ID (Admin only)
-router.get("/:uuid", verifyRoles(rolesList.Admin), usersControllers.getUser);
-
-router.delete(
-	"/:uuid",
-	verifyRoles(rolesList.Admin),
-	usersControllers.deleteUser,
-);
 module.exports = router;

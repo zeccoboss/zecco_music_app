@@ -5,13 +5,13 @@ const minioClient = require("../config/minio.config");
 
 const BUCKETS = {
 	images: "images",
-	audios: "audios",
+	tracks: "tracks",
 };
 
 /**
  * Upload a buffer to MinIO.
  * @param {object} opts
- * @param {"images"|"audios"} opts.bucket
+ * @param {"images"|"tracks"} opts.bucket
  * @param {string}  opts.key        - Object key (filename/path inside bucket)
  * @param {Buffer}  opts.buffer     - File data
  * @param {string}  opts.mimeType   - e.g. "image/jpeg"
@@ -41,7 +41,7 @@ const uploadObject = async ({ bucket, key, buffer, mimeType }) => {
 /**
  * Delete an object from MinIO.
  * @param {object} opts
- * @param {"images"|"audios"} opts.bucket
+ * @param {"images"|"tracks"} opts.bucket
  * @param {string} opts.key
  * @returns {Promise<boolean>}
  */
@@ -61,13 +61,13 @@ const deleteObject = async ({ bucket, key }) => {
 };
 
 /**
- * Store an audio cover image.
+ * Store an track cover image.
  * @param {{ data: Buffer, format: string, fileName: string }} cover
  * @returns {Promise<string|null>} Stored key or null
  */
-const storeAudioCover = async (cover) => {
+const storetrackCover = async (cover) => {
 	if (!cover || typeof cover !== "object") {
-		console.error("[MinIO] Invalid audio cover object");
+		console.error("[MinIO] Invalid track cover object");
 		return null;
 	}
 
@@ -83,25 +83,25 @@ const storeAudioCover = async (cover) => {
 };
 
 /**
- * Store an audio file.
+ * Store an track file.
  * @param {Express.Multer.File} file  - Multer file object (memory storage)
- * @param {string} audioName          - Generated unique name for the file
+ * @param {string} trackName          - Generated unique name for the file
  * @returns {Promise<string|null>} Stored key or null
  */
-const storeAudio = async (file, audioName) => {
+const storetrack = async (file, trackName) => {
 	if (!file || typeof file !== "object") {
-		console.error("[MinIO] Invalid audio file object");
+		console.error("[MinIO] Invalid track file object");
 		return null;
 	}
 
 	const ext = file.originalname.slice(file.originalname.lastIndexOf(".") + 1);
-	const key = `${audioName}.${ext}`;
+	const key = `${trackName}.${ext}`;
 
 	return uploadObject({
-		bucket: BUCKETS.audios,
+		bucket: BUCKETS.tracks,
 		key,
 		buffer: file.buffer,
-		mimeType: file.mimetype ?? "audio/mpeg",
+		mimeType: file.mimetype ?? "track/mpeg",
 	});
 };
 
@@ -153,8 +153,8 @@ const getPresignedUrl = async ({ bucket, key, expiresIn = 60 }) => {
 module.exports = {
 	uploadObject,
 	deleteObject,
-	storeAudioCover,
-	storeAudio,
+	storetrackCover,
+	storetrack,
 	storeImage,
 	getPresignedUrl,
 	BUCKETS,

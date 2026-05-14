@@ -88,7 +88,7 @@ export const UploadDesktop = async ({ state, ctx, data = {} }) => {
 					<div class="upload-dz-icon">
 						<i class="bi bi-cloud-arrow-up"></i>
 					</div>
-					<p class="upload-dz-title">Drop your audio file here</p>
+					<p class="upload-dz-title">Drop your track file here</p>
 					<p class="upload-dz-sub">
 						Drag and drop your track or click to browse.<br/>
 						Max file size: 50MB
@@ -107,7 +107,7 @@ export const UploadDesktop = async ({ state, ctx, data = {} }) => {
 					<input
 						type="file"
 						id="upload-file-input"
-						accept=".mp3,.wav,.flac,.aac,.ogg,audio/*"
+						accept=".mp3,.wav,.flac,.aac,.ogg,track/*"
 						hidden
 					/>
 				</div>

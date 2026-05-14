@@ -13,6 +13,7 @@ const {
 	getLocalMediaSize,
 	getLocalImageDimensions,
 } = require("../helpers/media.helpers");
+const SettingsModel = require("../models/settings.model");
 
 const initAdmin = async () => {
 	try {
@@ -66,7 +67,7 @@ const initAdmin = async () => {
 
 		// Prepare the configuration for the admin avatar and banner images using the retrieved dimensions and sizes
 		const avatarConfig = {
-			ownerId: admin._id,
+			user: admin._id,
 			format: `image/${getImageExtension(adminAvatarKey)}`,
 			size: getLocalMediaSize(adminAvatarKey),
 			dimensions: adminAvatarDimensions,
@@ -77,7 +78,7 @@ const initAdmin = async () => {
 			},
 		};
 		const bannerConfig = {
-			ownerId: admin._id,
+			user: admin._id,
 			format: `image/${getImageExtension(adminBannerKey)}`,
 			size: getLocalMediaSize(adminBannerKey),
 			dimensions: adminBannerDimensions,
@@ -97,6 +98,10 @@ const initAdmin = async () => {
 		// add the missing id to the admin field
 		admin.coverImageId = banner._id;
 		admin.avatarImageId = avatar._id;
+
+		// Create default settings for the new user
+		const newSettings = await SettingsModel.create({ user: admin._id });
+		admin.settingsId = newSettings._id;
 
 		// Save the updated field
 		await admin.save();

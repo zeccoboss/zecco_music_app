@@ -1,6 +1,6 @@
 import { appConfig } from "@zecco/config/app.config";
 
-const appName = appConfig.API_NAME;
+const appName = appConfig.APP_NAME;
 
 const titles = {
 	"/": `Home — ${appName}`,
@@ -8,6 +8,7 @@ const titles = {
 	"/search": `Search — ${appName}`,
 	"/upload": `Upload — ${appName}`,
 	"/settings": `Settings — ${appName}`,
+	"/dashboard": `Dashboard — ${appName}`,
 };
 
 export const titleUpdater = async (ctx, next) => {

@@ -3,15 +3,15 @@ const { Schema } = mongoose;
 
 const RecentPlaySchema = new Schema(
 	{
-		ownerId: {
+		user: {
 			ref: "User",
 			required: true,
 			index: true,
 			type: Schema.Types.ObjectId,
 		},
 		uuid: { type: String, required: true, unique: true, index: true },
-		audioIds: {
-			type: [{ type: Schema.Types.ObjectId, ref: "Audio" }],
+		trackIds: {
+			type: [{ type: Schema.Types.ObjectId, ref: "Track" }],
 			default: [],
 		},
 		name: { required: true, type: String },

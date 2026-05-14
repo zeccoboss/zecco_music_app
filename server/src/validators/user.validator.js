@@ -50,4 +50,18 @@ const createUserSchema = z.object({
 		.regex(/[0-9]/, "Must contain a number"),
 });
 
-module.exports = { updateUserSchema, createUserSchema };
+const updateSettingsSchema = z.object({
+	theme: z.enum(["light", "dark", "system"]).optional(),
+	preferredTrackQuality: z.enum(["low", "normal", "high", "auto"]).optional(),
+	region: z.string().optional(),
+	privacy: z
+		.object({
+			showRecentPlays: z.boolean().optional(),
+			showProfilePicture: z.boolean().optional(),
+			showPlaylists: z.boolean().optional(),
+			showListeningActivity: z.boolean().optional(),
+		})
+		.optional(),
+});
+
+module.exports = { updateSettingsSchema, updateUserSchema, createUserSchema };

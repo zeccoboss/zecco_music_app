@@ -20,13 +20,29 @@ const userSchema = new Schema(
 		bio: { type: String, default: null },
 		verified: { type: Boolean, required: true, default: false, index: true },
 		refreshToken: { default: null, type: String },
+		isActive: { type: Boolean, default: true },
+		playerState: {
+			currentTrack: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Track",
+				default: null,
+			},
+			progressMs: { type: Number, default: 0 },
+			isPlaying: { type: Boolean, default: false },
+			lastUpdated: { type: Date, default: Date.now },
+		},
 		avatarImageId: {
 			type: Schema.Types.ObjectId,
 			ref: "Image",
 		},
-		coverImageId: {
+		bannerImageId: {
 			type: Schema.Types.ObjectId,
 			ref: "Image",
+		},
+		settingsId: {
+			type: Schema.Types.ObjectId,
+			ref: "Settings",
+			default: null,
 		},
 		// Will hold multi Users ID's which are documents in the the Playlist collection
 		followingId: {
@@ -44,13 +60,13 @@ const userSchema = new Schema(
 		},
 		uploadsTracksId: {
 			type: [Schema.Types.ObjectId],
-			ref: "Audio",
+			ref: "Track",
 			default: [],
 		},
 		likedTracksIds: [
 			{
 				type: Schema.Types.ObjectId,
-				ref: "Audio",
+				ref: "Track",
 			},
 		],
 		// Will hold multi playlist ID's which are documents in the the Playlist collection

@@ -9,23 +9,30 @@ import { router } from "@zecco/routes/router";
 export const layoutSwitcher = async (ctx, next) => {
 	const root = getTag("#app");
 
-	// 1. Find the target outlet for this path
+	// 1. Determine the target outlet
+	// We check the router match first. If null, we assume "root" (404 state).
 	const match = router.match(ctx.path);
-	const leaf = match?.stack.at(-1);
-	const outlet = leaf?.outlet ?? "main";
+	let outlet = "root";
 
-	// 2. Clear out any old layout classes
+	if (match) {
+		const leaf = match.stack.at(-1);
+		outlet = leaf?.outlet ?? "main";
+	}
+
+	// 2. Clean up previous layout states
 	root.classList.remove("layout-main", "layout-root", "layout-mobile");
 
+	// 3. Apply the new layout class
 	if (mobileScreen.matches) {
-		// If it's a full-screen root page (like login) on mobile, use layout-root.
-		// Otherwise, use layout-mobile for the standard shell.
+		// On mobile, "root" pages (Login/404) get layout-root.
+		// Everything else gets the standard mobile shell class.
 		const activeClass = outlet === "root" ? "layout-root" : "layout-mobile";
 		root.classList.add(activeClass);
 	} else {
-		// Desktop / Tablet layouts
+		// On Desktop/Tablet, we follow the outlet name directly (layout-main or layout-root)
 		root.classList.add(`layout-${outlet}`);
 	}
 
+	// 4. Critical: Proceed to the next middleware/render pipeline
 	await next();
 };

@@ -4,7 +4,7 @@ const {
 	googleCallback,
 	gitHubRedirect,
 	gitHubCallback,
-} = require("../../controllers/oauth.controller");
+} = require("../../controllers/oauth/oauth.controller");
 
 // Google
 router.get("/google", googleRedirect);

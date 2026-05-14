@@ -18,7 +18,7 @@ export const ENDPOINTS = {
 	},
 
 	// ==================================================
-	// Audio
+	// track
 	// ==================================================
 
 	TRACKS: {
@@ -78,7 +78,7 @@ export const ENDPOINTS = {
 	// ==================================================
 
 	UPLOAD: {
-		AUDIO: "/upload/audio",
+		track: "/upload/track",
 		IMAGE: "/upload/image",
 	},
 

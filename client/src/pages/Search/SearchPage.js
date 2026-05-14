@@ -18,6 +18,19 @@ export const SearchPage = async (ctx) => {
 	let isMounted = true;
 	let controller = null; // For request cancellation
 
+	// TODO: Implement real search logic in performSearch()
+	// // Inside SearchPage.js -> performSearch()
+	// const response = await fetch(
+	// 	`/api/v1/search?q=${encodeURIComponent(query)}&filter=${activeFilter}`,
+	// );
+	// const result = await response.json();
+
+	// if (result.success) {
+	// 	state = result.state; // "results" or "no-results"
+	// 	// Pass result.data into your UI components
+	// 	await renderView(result.data);
+	// }
+
 	/**
 	 * Render the appropriate UI based on screen size
 	 */
