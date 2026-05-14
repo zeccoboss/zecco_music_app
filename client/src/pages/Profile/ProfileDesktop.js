@@ -247,7 +247,7 @@ export const ProfileDesktop = async ({ state, ctx, data = {} }) => {
 								${
 									isOwner
 										? `
-									<a href="/upload" class="profile-btn-accent">
+									<a href="/uploads" class="profile-btn-accent">
 										<i class="bi bi-upload"></i> Upload a Track
 									</a>
 								`

@@ -3,169 +3,279 @@ import { buildNode } from "@zecco/utils/dom/build-node.js";
 import "./Password.styles.css";
 
 /**
- * PasswordMobile — Mobile forgot password view component
+ * PasswordMobile — Mobile forgot password view
+ *
+ * Same 5 steps as desktop, single-column full viewport.
+ *
  * @async
  * @param {Object} props
- * @param {string} props.state - "email" | "code" | "reset" | "loading" | "success" | "error"
- * @param {Object} props.ctx - Router context
- * @returns {Promise<Element>} The password reset page element
+ * @param {number} props.step
+ * @param {string} props.dir
+ * @param {string} props.state
+ * @param {string} props.error
+ * @param {Object} props.draft
+ * @param {Object} props.ctx
+ * @returns {Promise<Element>}
  */
-export const PasswordMobile = async ({ state, ctx }) => {
-	const root = new CreateElement("div");
-	root
-		.addClass("password-page", "mobile-form-page", "app-page")
-		.setId("password-page-mobile");
+export const PasswordMobile = async ({
+	step = 1,
+	dir = "forward",
+	state = "idle",
+	error = "",
+	draft = {},
+	ctx,
+}) => {
+	const root = new CreateElement("section");
+	root.addClass("pwd-mob-page").setId("password-page-mobile");
 
-	const isLoading = state === "loading";
-	const isEmail = state === "email" || !state;
-	const isCode = state === "code";
-	const isReset = state === "reset";
-	const isSuccess = state === "success";
-	const isError = state === "error";
-
-	const formContent = buildNode(`
-		<section class="form-side-mobile" id="password-form-side-mobile">
-			${
-				isLoading
-					? `
-				<div class="auth-loading-overlay" id="password-loading-overlay">
-					<svg width="28" height="28" fill="none" viewBox="0 0 24 24" class="auth-spinner">
-						<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/>
-					</svg>
-					<span>Processing...</span>
-				</div>
-			`
-					: ""
-			}
-			<div class="form-scroll">
-				<div class="form-card">
-
-					<!-- Progress -->
-					<div class="form-steps-mobile">
-						<div class="form-step-mobile ${isEmail ? "active" : ""}"></div>
-						<div class="form-step-mobile ${isCode ? "active" : ""}"></div>
-						<div class="form-step-mobile ${isReset ? "active" : ""}"></div>
-					</div>
-
-					<!-- Email step -->
-					${
-						isEmail
-							? `
-						<div class="form-header-mobile">
-							<i class="bi bi-key" style="font-size: 2rem; color: var(--accent);"></i>
-							<h1 class="form-heading">Forgot password?</h1>
-							<p class="form-sub">Enter your email</p>
-						</div>
-
-						${isError ? `<div class="form-error-banner"><i class="bi bi-exclamation-circle-fill"></i><span>Error</span></div>` : ""}
-
-						<div class="form-field">
-							<label class="form-field-label" for="pwd-email-mobile">Email</label>
-							<div class="form-input-wrap">
-								<i class="bi bi-envelope form-input-icon"></i>
-								<input type="email" id="pwd-email-mobile" class="form-input" placeholder="you@example.com" autocomplete="email" />
-							</div>
-						</div>
-
-						<button class="form-submit-btn" id="pwd-email-btn-mobile" ${isLoading ? "disabled" : ""}>
-							Send code
-						</button>
-
-						<p class="form-switch">
-							<a href="/auth/login" class="form-switch-link">Back to sign in</a>
-						</p>
-					`
-							: ""
-					}
-
-					<!-- Code step -->
-					${
-						isCode
-							? `
-						<button class="form-back-btn" id="pwd-back-code-mobile" type="button">
-							<i class="bi bi-arrow-left"></i> Back
-						</button>
-
-						<h1 class="form-heading">Verify code</h1>
-						<p class="form-sub">Check your email</p>
-
-						${isError ? `<div class="form-error-banner"><i class="bi bi-exclamation-circle-fill"></i><span>Invalid</span></div>` : ""}
-
-						<div class="form-field">
-							<label class="form-field-label" for="pwd-code-mobile">Code</label>
-							<div class="form-input-wrap">
-								<i class="bi bi-check-circle form-input-icon"></i>
-								<input type="text" id="pwd-code-mobile" class="form-input" placeholder="000000" maxlength="6" inputmode="numeric" />
-							</div>
-						</div>
-
-						<button class="form-submit-btn" id="pwd-code-btn-mobile" ${isLoading ? "disabled" : ""}>
-							Verify
-						</button>
-
-						<p class="form-resend">
-							<button class="form-resend-btn" id="pwd-resend-btn-mobile" type="button">Resend</button>
-						</p>
-					`
-							: ""
-					}
-
-					<!-- Reset step -->
-					${
-						isReset
-							? `
-						<button class="form-back-btn" id="pwd-back-reset-mobile" type="button">
-							<i class="bi bi-arrow-left"></i> Back
-						</button>
-
-						<h1 class="form-heading">New password</h1>
-						<p class="form-sub">Make it strong</p>
-
-						${isError ? `<div class="form-error-banner"><i class="bi bi-exclamation-circle-fill"></i><span>Error</span></div>` : ""}
-
-						<div class="form-field">
-							<label class="form-field-label" for="pwd-new-mobile">Password</label>
-							<div class="form-input-wrap">
-								<i class="bi bi-lock form-input-icon"></i>
-								<input type="password" id="pwd-new-mobile" class="form-input" placeholder="Strong password" autocomplete="new-password" ${isLoading ? "disabled" : ""} />
-								<button class="form-pwd-toggle" id="pwd-new-toggle-mobile" type="button" tabindex="-1">
-									<i class="bi bi-eye"></i>
-								</button>
-							</div>
-						</div>
-
-						<div class="form-field">
-							<label class="form-field-label" for="pwd-confirm-mobile">Confirm</label>
-							<div class="form-input-wrap">
-								<i class="bi bi-lock-fill form-input-icon"></i>
-								<input type="password" id="pwd-confirm-mobile" class="form-input" placeholder="Repeat" autocomplete="new-password" ${isLoading ? "disabled" : ""} />
-							</div>
-						</div>
-
-						<button class="form-submit-btn" id="pwd-reset-btn-mobile" ${isLoading ? "disabled" : ""}>
-							${isLoading ? "Resetting..." : "Reset"}
-						</button>
-					`
-							: ""
-					}
-
-					<!-- Success -->
-					${
-						isSuccess
-							? `
-						<div class="success-state">
-							<i class="bi bi-check-circle-fill"></i>
-							<h2>Done!</h2>
-							<p>Redirecting to login...</p>
-						</div>
-					`
-							: ""
-					}
-				</div>
+	const stepIndicator = () => {
+		if (step >= 4) return "";
+		return `
+			<div class="pwd-steps" aria-label="Password reset progress">
+				${[1, 2, 3]
+					.map(
+						(n) => `
+					<div class="pwd-step ${n === step ? "active" : n < step ? "done" : ""}"
+						aria-label="Step ${n}"></div>
+				`,
+					)
+					.join("")}
 			</div>
-		</section>
-	`);
+		`;
+	};
 
-	root.append(formContent);
+	// ── Step 1 ───────────────────────────────────────────────
+	const step1 = () => `
+		<div class="pwd-slide" data-step="1">
+			<div class="pwd-step-icon pwd-step-icon--blue">
+				<i class="bi bi-envelope"></i>
+			</div>
+			<h2 class="pwd-heading">Forgot your password?</h2>
+			<p class="pwd-sub">
+				Enter your email and we'll send you a reset link.
+			</p>
+
+			<div class="pwd-form" id="pwd-mob-form-1">
+				<div class="pwd-field">
+					<label class="pwd-label" for="pwd-mob-email">Email address</label>
+					<input
+						class="pwd-input ${state === "error" ? "pwd-input--error" : ""}"
+						id="pwd-mob-email"
+						type="email"
+						placeholder="ada@example.com"
+						autocomplete="email"
+						value="${draft.email ?? ""}"
+						${state === "loading" ? "disabled" : ""}
+					/>
+				</div>
+
+				<div class="pwd-field-error ${state === "error" && error ? "" : "hidden"}"
+					id="pwd-mob-step1-error" role="alert">
+					<i class="bi bi-exclamation-circle"></i>
+					<span>${error || ""}</span>
+				</div>
+
+				<button class="pwd-submit-btn" id="pwd-mob-send-btn" type="button"
+					${state === "loading" ? "disabled" : ""}>
+					${
+						state === "loading"
+							? `<svg class="pwd-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none">
+								<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"
+									stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/>
+							</svg> Sending...`
+							: `Send Reset Link <i class="bi bi-arrow-right"></i>`
+					}
+				</button>
+			</div>
+
+			<p class="pwd-switch">
+				Remember your password? <a href="/auth/login" data-replace>Sign in</a>
+			</p>
+		</div>
+	`;
+
+	// ── Step 2 ───────────────────────────────────────────────
+	const step2 = () => `
+		<div class="pwd-slide" data-step="2">
+			<div class="pwd-step-icon pwd-step-icon--green">
+				<i class="bi bi-send-check"></i>
+			</div>
+			<h2 class="pwd-heading">Check your inbox</h2>
+			<p class="pwd-sub">
+				We sent a reset link to
+				<strong class="pwd-email-highlight">${draft.email ?? "your email"}</strong>.
+				It expires in 15 minutes.
+			</p>
+
+			<div class="pwd-inbox-actions">
+				<p class="pwd-resend-note">Didn't get it? Check your spam or</p>
+				<button class="pwd-resend-btn" id="pwd-mob-resend-btn" type="button">
+					<i class="bi bi-arrow-clockwise"></i>
+					Resend email
+					<span class="pwd-countdown hidden" id="pwd-mob-countdown">(60s)</span>
+				</button>
+			</div>
+
+			<button class="pwd-ghost-btn" id="pwd-mob-back-to-email" type="button">
+				<i class="bi bi-arrow-left"></i> Use a different email
+			</button>
+		</div>
+	`;
+
+	// ── Step 3 ───────────────────────────────────────────────
+	const step3 = () => `
+		<div class="pwd-slide" data-step="3">
+			<div class="pwd-step-icon pwd-step-icon--purple">
+				<i class="bi bi-lock"></i>
+			</div>
+			<h2 class="pwd-heading">Create new password</h2>
+			<p class="pwd-sub">Choose a strong password for your account.</p>
+
+			<div class="pwd-form" id="pwd-mob-form-3">
+				<div class="pwd-field">
+					<label class="pwd-label" for="pwd-mob-new">New password</label>
+					<div class="pwd-input-eye-wrap">
+						<input
+							class="pwd-input"
+							id="pwd-mob-new"
+							type="password"
+							placeholder="Create a new password"
+							autocomplete="new-password"
+							${state === "loading" ? "disabled" : ""}
+						/>
+						<button class="pwd-eye-btn" id="pwd-mob-new-eye" type="button"
+							aria-label="Toggle visibility">
+							<i class="bi bi-eye"></i>
+						</button>
+					</div>
+					<div class="pwd-strength" id="pwd-mob-strength">
+						<div class="pwd-strength-bars">
+							<div class="pwd-strength-bar" id="psb-mob-1"></div>
+							<div class="pwd-strength-bar" id="psb-mob-2"></div>
+							<div class="pwd-strength-bar" id="psb-mob-3"></div>
+							<div class="pwd-strength-bar" id="psb-mob-4"></div>
+						</div>
+						<span class="pwd-strength-label" id="pwd-mob-strength-label">Enter a password</span>
+					</div>
+				</div>
+
+				<div class="pwd-field">
+					<label class="pwd-label" for="pwd-mob-confirm">Confirm password</label>
+					<div class="pwd-input-eye-wrap">
+						<input
+							class="pwd-input"
+							id="pwd-mob-confirm"
+							type="password"
+							placeholder="Repeat your password"
+							autocomplete="new-password"
+							${state === "loading" ? "disabled" : ""}
+						/>
+						<button class="pwd-eye-btn" id="pwd-mob-confirm-eye" type="button"
+							aria-label="Toggle visibility">
+							<i class="bi bi-eye"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="pwd-field-error ${state === "error" && error ? "" : "hidden"}"
+					id="pwd-mob-step3-error" role="alert">
+					<i class="bi bi-exclamation-circle"></i>
+					<span>${error || ""}</span>
+				</div>
+
+				<button class="pwd-submit-btn" id="pwd-mob-update-btn" type="button"
+					${state === "loading" ? "disabled" : ""}>
+					${
+						state === "loading"
+							? `<svg class="pwd-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none">
+								<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"
+									stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/>
+							</svg> Updating...`
+							: `Update Password <i class="bi bi-check-lg"></i>`
+					}
+				</button>
+			</div>
+		</div>
+	`;
+
+	// ── Step 4 ───────────────────────────────────────────────
+	const step4 = () => `
+		<div class="pwd-slide pwd-slide--centered" data-step="4">
+			<div class="pwd-success-ring">
+				<i class="bi bi-check-lg"></i>
+			</div>
+			<h2 class="pwd-heading">Password updated!</h2>
+			<p class="pwd-sub">
+				Your password has been changed. You can now sign in.
+			</p>
+			<a href="/auth/login" class="pwd-submit-btn" data-replace>
+				Go to Login <i class="bi bi-arrow-right"></i>
+			</a>
+		</div>
+	`;
+
+	// ── Step 5 ───────────────────────────────────────────────
+	const step5 = () => `
+		<div class="pwd-slide pwd-slide--centered" data-step="5">
+			<div class="pwd-expired-icon">
+				<i class="bi bi-clock-history"></i>
+			</div>
+			<h2 class="pwd-heading">Link expired</h2>
+			<p class="pwd-sub">
+				This reset link has expired or already been used.
+				Request a new one below.
+			</p>
+			<button class="pwd-submit-btn" id="pwd-mob-request-new-btn" type="button">
+				<i class="bi bi-arrow-clockwise"></i> Request New Link
+			</button>
+			<p class="pwd-switch">
+				<a href="/auth/login" data-replace>Back to Login</a>
+			</p>
+		</div>
+	`;
+
+	const getStepContent = () => {
+		switch (step) {
+			case 2:
+				return step2();
+			case 3:
+				return step3();
+			case 4:
+				return step4();
+			case 5:
+				return step5();
+			default:
+				return step1();
+		}
+	};
+
+	root.append(
+		buildNode(`
+		<div class="pwd-mob-layout">
+
+			<!-- Top bar -->
+			<div class="pwd-mob-topbar">
+				<div class="pwd-mob-brand">
+					<div class="pwd-mob-brand-icon">
+						<i class="bi bi-music-note-beamed"></i>
+					</div>
+					<span class="pwd-mob-brand-name">Zecco<span>Stream</span></span>
+				</div>
+				<a href="/auth/login" class="pwd-mob-back-link" data-replace>
+					<i class="bi bi-arrow-left"></i> Login
+				</a>
+			</div>
+
+			${stepIndicator()}
+
+			<div class="pwd-slide-container" id="pwd-mob-slide-container"
+				data-step="${step}" data-dir="${dir}">
+				${getStepContent()}
+			</div>
+
+		</div>
+	`),
+	);
+
 	return root.getElement();
 };

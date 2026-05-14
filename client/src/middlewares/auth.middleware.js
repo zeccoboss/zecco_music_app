@@ -1,12 +1,18 @@
+//
+
+import { router } from "@zecco/routes/router";
+import { readFromLocalStorage } from "@zecco/services/storage/local-storage";
+
+// auth.middleware.js
 export const authRedirect = async (ctx, next) => {
-	const protectedRoutes = ["/upload", "/settings", "/profile"];
+	const protectedRoutes = ["/uploads", "/settings", "/profile"]; // Corrected path
 	const isProtected = protectedRoutes.some((r) => ctx.path.startsWith(r));
-	const getUser = () => null;
+	const getUser = () => readFromLocalStorage("user");
 
 	if (isProtected && !getUser()) {
-		// save where they were trying to go
-		// router.navigate(`/auth/login?redirect=${ctx.path}`); // TODO: Uncomment this line later
-		return; // don't call next() — blocks navigation
+		// Instead of just returning, trigger a replacement to login
+		router.replace(`/auth/login?redirect=${ctx.path}`);
+		return; // Exit this specific chain execution
 	}
 	await next();
 };

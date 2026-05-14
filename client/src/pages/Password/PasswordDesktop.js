@@ -1,203 +1,308 @@
 import CreateElement from "@zecco/utils/dom/create-element";
 import { buildNode } from "@zecco/utils/dom/build-node.js";
 import "./Password.styles.css";
-import { appConfig } from "@zecco/config/app.config";
 
 /**
- * PasswordDesktop — Desktop forgot password view component
- * Multi-step: Email → Code verification → Reset form
+ * PasswordDesktop — Desktop forgot password view
+ *
+ * Steps via ?step=1|2|3|4|5:
+ *   1 → email input
+ *   2 → check inbox + resend + countdown
+ *   3 → new password + confirm (arrived via email link with token)
+ *   4 → success
+ *   5 → token expired
+ *
+ * Same two-column layout as Login/Register.
+ *
  * @async
  * @param {Object} props
- * @param {string} props.state - "email" | "code" | "reset" | "loading" | "success" | "error"
- * @param {Object} props.ctx - Router context
- * @returns {Promise<Element>} The password reset page element
+ * @param {number} props.step
+ * @param {string} props.dir      — "forward" | "back"
+ * @param {string} props.state    — "idle" | "loading" | "error"
+ * @param {string} props.error
+ * @param {Object} props.draft    — { email, token }
+ * @param {Object} props.ctx
+ * @returns {Promise<Element>}
  */
-export const PasswordDesktop = async ({ state, ctx }) => {
-	const root = new CreateElement("div");
-	root
-		.addClass("password-page", "desktop-form-page", "app-page")
-		.setId("password-page-desktop");
+export const PasswordDesktop = async ({
+	step = 1,
+	dir = "forward",
+	state = "idle",
+	error = "",
+	draft = {},
+	ctx,
+}) => {
+	const root = new CreateElement("section");
+	root.addClass("pwd-page").setId("password-page");
 
-	// ── Brand side ──
-	const brandSide = () =>
-		buildNode(`
-			<section class="brand-side">
-				<div class="brand-glow brand-glow--1"></div>
-				<div class="brand-glow brand-glow--2"></div>
-				<div class="brand-logo">
-					<div class="brand-logo-icon">
-						<i class="bi bi-music-note"></i>
-					</div>
-					<span class="brand-logo-text">Soniq<span>Stream</span></span>
-				</div>
-				<div class="brand-body">
-					<h2 class="brand-headline">Need help?</h2>
-					<p class="brand-tagline">
-						Reset your password to regain access to your music account.
-					</p>
-					<div class="brand-features">
-						<div class="brand-feature">
-							<i class="bi bi-shield-check"></i>
-							<span>Secure process</span>
-						</div>
-						<div class="brand-feature">
-							<i class="bi bi-lightning"></i>
-							<span>Quick recovery</span>
-						</div>
-						<div class="brand-feature">
-							<i class="bi bi-key"></i>
-							<span>New password</span>
-						</div>
-					</div>
-				</div>
-			</section>
-		`);
-
-	// ── Form side ──
-	const formSide = () => {
-		const isLoading = state === "loading";
-		const isEmail = state === "email" || !state;
-		const isCode = state === "code";
-		const isReset = state === "reset";
-		const isSuccess = state === "success";
-		const isError = state === "error";
-
-		return buildNode(`
-			<section class="form-side" id="password-form-side">
-				${
-					isLoading
-						? `
-					<div class="auth-loading-overlay" id="password-loading-overlay">
-						<svg width="28" height="28" fill="none" viewBox="0 0 24 24" class="auth-spinner">
-							<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/>
-						</svg>
-						<span>Processing...</span>
-					</div>
-				`
-						: ""
-				}
-				<div class="form-scroll">
-					<div class="form-card">
-
-						<!-- STEP 1: Email -->
-						${
-							isEmail
-								? `
-							<h1 class="form-heading">Forgot password?</h1>
-							<p class="form-sub">Enter your email address and we'll send you a reset code</p>
-
-							${isError ? `<div class="form-error-banner"><i class="bi bi-exclamation-circle-fill"></i><span>Error sending reset code</span></div>` : ""}
-
-							<div class="form-field">
-								<label class="form-field-label" for="pwd-email">Email address</label>
-								<div class="form-input-wrap">
-									<i class="bi bi-envelope form-input-icon"></i>
-									<input type="email" id="pwd-email" class="form-input" placeholder="youremail@example.com" autocomplete="email" />
-								</div>
-							</div>
-
-							<button class="form-submit-btn" id="pwd-email-btn" ${isLoading ? "disabled" : ""}>
-								Send reset code
-							</button>
-
-							<p class="form-switch">
-								<a href="/auth/login" class="form-switch-link">Back to sign in</a>
-							</p>
-						`
-								: ""
-						}
-
-						<!-- STEP 2: Code verification -->
-						${
-							isCode
-								? `
-							<button class="form-back-btn" id="pwd-back-code" type="button">
-								<i class="bi bi-arrow-left"></i> Back
-							</button>
-
-							<h1 class="form-heading">Verify code</h1>
-							<p class="form-sub">Enter the code we sent to your email</p>
-
-							${isError ? `<div class="form-error-banner"><i class="bi bi-exclamation-circle-fill"></i><span>Invalid code</span></div>` : ""}
-
-							<div class="form-field">
-								<label class="form-field-label" for="pwd-code">Reset code</label>
-								<div class="form-input-wrap">
-									<i class="bi bi-check-circle form-input-icon"></i>
-									<input type="text" id="pwd-code" class="form-input" placeholder="000000" maxlength="6" inputmode="numeric" />
-								</div>
-								<span class="form-field-hint">6-digit code</span>
-							</div>
-
-							<button class="form-submit-btn" id="pwd-code-btn" ${isLoading ? "disabled" : ""}>
-								Verify code
-							</button>
-
-							<p class="form-resend">
-								Didn't receive it?
-								<button class="form-resend-btn" id="pwd-resend-btn" type="button">Resend code</button>
-							</p>
-						`
-								: ""
-						}
-
-						<!-- STEP 3: Reset password -->
-						${
-							isReset
-								? `
-							<button class="form-back-btn" id="pwd-back-reset" type="button">
-								<i class="bi bi-arrow-left"></i> Back
-							</button>
-
-							<h1 class="form-heading">Create new password</h1>
-							<p class="form-sub">Make it strong and unique</p>
-
-							${isError ? `<div class="form-error-banner"><i class="bi bi-exclamation-circle-fill"></i><span>Password reset failed</span></div>` : ""}
-
-							<div class="form-field">
-								<label class="form-field-label" for="pwd-new">New password</label>
-								<div class="form-input-wrap">
-									<i class="bi bi-lock form-input-icon"></i>
-									<input type="password" id="pwd-new" class="form-input" placeholder="Create a strong password" autocomplete="new-password" ${isLoading ? "disabled" : ""} />
-									<button class="form-pwd-toggle" id="pwd-new-toggle" type="button" tabindex="-1">
-										<i class="bi bi-eye"></i>
-									</button>
-								</div>
-							</div>
-
-							<div class="form-field">
-								<label class="form-field-label" for="pwd-confirm">Confirm password</label>
-								<div class="form-input-wrap">
-									<i class="bi bi-lock-fill form-input-icon"></i>
-									<input type="password" id="pwd-confirm" class="form-input" placeholder="Repeat password" autocomplete="new-password" ${isLoading ? "disabled" : ""} />
-								</div>
-							</div>
-
-							<button class="form-submit-btn" id="pwd-reset-btn" ${isLoading ? "disabled" : ""}>
-								${isLoading ? "Resetting..." : "Reset password"}
-							</button>
-						`
-								: ""
-						}
-
-						<!-- SUCCESS -->
-						${
-							isSuccess
-								? `
-							<div class="success-state">
-								<i class="bi bi-check-circle-fill"></i>
-								<h2>Password reset!</h2>
-								<p>Your password has been updated. Redirecting to login...</p>
-							</div>
-						`
-								: ""
-						}
-					</div>
-				</div>
-			</section>
-		`);
+	// ── Step indicator (steps 1–3 only, not shown on 4/5) ───
+	const stepIndicator = () => {
+		if (step >= 4) return "";
+		return `
+			<div class="pwd-steps" aria-label="Password reset progress">
+				${[1, 2, 3]
+					.map(
+						(n) => `
+					<div class="pwd-step ${n === step ? "active" : n < step ? "done" : ""}"
+						aria-label="Step ${n}"></div>
+				`,
+					)
+					.join("")}
+			</div>
+		`;
 	};
 
-	root.append(brandSide(), formSide());
+	// ── Step 1 — Email ───────────────────────────────────────
+	const step1 = () => `
+		<div class="pwd-slide" data-step="1">
+			<div class="pwd-step-icon pwd-step-icon--blue">
+				<i class="bi bi-envelope"></i>
+			</div>
+			<h2 class="pwd-heading">Forgot your password?</h2>
+			<p class="pwd-sub">
+				No worries. Enter your email and we'll send you a reset link.
+			</p>
+
+			<div class="pwd-form" id="pwd-form-1">
+				<div class="pwd-field">
+					<label class="pwd-label" for="pwd-email">Email address</label>
+					<input
+						class="pwd-input ${state === "error" ? "pwd-input--error" : ""}"
+						id="pwd-email"
+						type="email"
+						placeholder="ada@example.com"
+						autocomplete="email"
+						value="${draft.email ?? ""}"
+						${state === "loading" ? "disabled" : ""}
+					/>
+				</div>
+
+				<div class="pwd-field-error ${state === "error" && error ? "" : "hidden"}"
+					id="pwd-step1-error" role="alert">
+					<i class="bi bi-exclamation-circle"></i>
+					<span>${error || ""}</span>
+				</div>
+
+				<button class="pwd-submit-btn" id="pwd-send-btn" type="button"
+					${state === "loading" ? "disabled" : ""}>
+					${
+						state === "loading"
+							? `<svg class="pwd-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none">
+								<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"
+									stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/>
+							</svg> Sending...`
+							: `Send Reset Link <i class="bi bi-arrow-right"></i>`
+					}
+				</button>
+			</div>
+
+			<p class="pwd-switch">
+				Remember your password? <a href="/auth/login" data-replace>Sign in</a>
+			</p>
+		</div>
+	`;
+
+	// ── Step 2 — Check inbox ─────────────────────────────────
+	const step2 = () => `
+		<div class="pwd-slide" data-step="2">
+			<div class="pwd-step-icon pwd-step-icon--green">
+				<i class="bi bi-send-check"></i>
+			</div>
+			<h2 class="pwd-heading">Check your inbox</h2>
+			<p class="pwd-sub">
+				We sent a password reset link to
+				<strong class="pwd-email-highlight">${draft.email ?? "your email"}</strong>.
+				It expires in 15 minutes.
+			</p>
+
+			<div class="pwd-inbox-actions">
+				<p class="pwd-resend-note">
+					Didn't get it? Check your spam folder or
+				</p>
+				<button class="pwd-resend-btn" id="pwd-resend-btn" type="button">
+					<i class="bi bi-arrow-clockwise"></i>
+					Resend email
+					<span class="pwd-countdown hidden" id="pwd-countdown">(60s)</span>
+				</button>
+			</div>
+
+			<button class="pwd-ghost-btn" id="pwd-back-to-email" type="button">
+				<i class="bi bi-arrow-left"></i> Use a different email
+			</button>
+		</div>
+	`;
+
+	// ── Step 3 — New password ────────────────────────────────
+	const step3 = () => `
+		<div class="pwd-slide" data-step="3">
+			<div class="pwd-step-icon pwd-step-icon--purple">
+				<i class="bi bi-lock"></i>
+			</div>
+			<h2 class="pwd-heading">Create new password</h2>
+			<p class="pwd-sub">
+				Choose a strong password for your account.
+			</p>
+
+			<div class="pwd-form" id="pwd-form-3">
+				<div class="pwd-field">
+					<label class="pwd-label" for="pwd-new">New password</label>
+					<div class="pwd-input-eye-wrap">
+						<input
+							class="pwd-input"
+							id="pwd-new"
+							type="password"
+							placeholder="Create a new password"
+							autocomplete="new-password"
+							${state === "loading" ? "disabled" : ""}
+						/>
+						<button class="pwd-eye-btn" id="pwd-new-eye" type="button"
+							aria-label="Toggle visibility">
+							<i class="bi bi-eye"></i>
+						</button>
+					</div>
+					<div class="pwd-strength" id="pwd-strength">
+						<div class="pwd-strength-bars">
+							<div class="pwd-strength-bar" id="psb-1"></div>
+							<div class="pwd-strength-bar" id="psb-2"></div>
+							<div class="pwd-strength-bar" id="psb-3"></div>
+							<div class="pwd-strength-bar" id="psb-4"></div>
+						</div>
+						<span class="pwd-strength-label" id="pwd-strength-label">Enter a password</span>
+					</div>
+				</div>
+
+				<div class="pwd-field">
+					<label class="pwd-label" for="pwd-confirm">Confirm password</label>
+					<div class="pwd-input-eye-wrap">
+						<input
+							class="pwd-input"
+							id="pwd-confirm"
+							type="password"
+							placeholder="Repeat your password"
+							autocomplete="new-password"
+							${state === "loading" ? "disabled" : ""}
+						/>
+						<button class="pwd-eye-btn" id="pwd-confirm-eye" type="button"
+							aria-label="Toggle visibility">
+							<i class="bi bi-eye"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="pwd-field-error ${state === "error" && error ? "" : "hidden"}"
+					id="pwd-step3-error" role="alert">
+					<i class="bi bi-exclamation-circle"></i>
+					<span>${error || ""}</span>
+				</div>
+
+				<button class="pwd-submit-btn" id="pwd-update-btn" type="button"
+					${state === "loading" ? "disabled" : ""}>
+					${
+						state === "loading"
+							? `<svg class="pwd-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none">
+								<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"
+									stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/>
+							</svg> Updating...`
+							: `Update Password <i class="bi bi-check-lg"></i>`
+					}
+				</button>
+			</div>
+		</div>
+	`;
+
+	// ── Step 4 — Success ─────────────────────────────────────
+	const step4 = () => `
+		<div class="pwd-slide pwd-slide--centered" data-step="4">
+			<div class="pwd-success-ring">
+				<i class="bi bi-check-lg"></i>
+			</div>
+			<h2 class="pwd-heading">Password updated!</h2>
+			<p class="pwd-sub">
+				Your password has been changed successfully.
+				You can now sign in with your new password.
+			</p>
+			<a href="/auth/login" class="pwd-submit-btn" data-replace>
+				Go to Login <i class="bi bi-arrow-right"></i>
+			</a>
+		</div>
+	`;
+
+	// ── Step 5 — Token expired ───────────────────────────────
+	const step5 = () => `
+		<div class="pwd-slide pwd-slide--centered" data-step="5">
+			<div class="pwd-expired-icon">
+				<i class="bi bi-clock-history"></i>
+			</div>
+			<h2 class="pwd-heading">Link expired</h2>
+			<p class="pwd-sub">
+				This password reset link has expired or already been used.
+				Request a new one and try again.
+			</p>
+			<button class="pwd-submit-btn" id="pwd-request-new-btn" type="button">
+				<i class="bi bi-arrow-clockwise"></i> Request New Link
+			</button>
+			<p class="pwd-switch">
+				<a href="/auth/login" data-replace>Back to Login</a>
+			</p>
+		</div>
+	`;
+
+	const getStepContent = () => {
+		switch (step) {
+			case 2:
+				return step2();
+			case 3:
+				return step3();
+			case 4:
+				return step4();
+			case 5:
+				return step5();
+			default:
+				return step1();
+		}
+	};
+
+	root.append(
+		buildNode(`
+		<div class="pwd-layout">
+
+			<!-- ── Branded left panel ── -->
+			<div class="pwd-brand-panel">
+				<div class="pwd-brand-content">
+					<div class="pwd-brand-icon">
+						<i class="bi bi-music-note-beamed"></i>
+					</div>
+					<h1 class="pwd-brand-name">Zecco<span>Stream</span></h1>
+					<p class="pwd-brand-tag">
+						Upload, discover and share African music
+						with a global community of artists and fans.
+					</p>
+					<div class="pwd-brand-pills">
+						<span class="pwd-brand-pill"><i class="bi bi-shield-check"></i> Secure accounts</span>
+						<span class="pwd-brand-pill"><i class="bi bi-envelope-check"></i> Email verified</span>
+						<span class="pwd-brand-pill"><i class="bi bi-lock"></i> Encrypted data</span>
+					</div>
+				</div>
+				<div class="pwd-vinyl" aria-hidden="true"></div>
+			</div>
+
+			<!-- ── Form right panel ── -->
+			<div class="pwd-form-panel">
+				<a href="/auth/login" class="pwd-back-link" data-replace>
+					<i class="bi bi-arrow-left"></i> Back to Login
+				</a>
+
+				${stepIndicator()}
+
+				<div class="pwd-slide-container" id="pwd-slide-container"
+					data-step="${step}" data-dir="${dir}">
+					${getStepContent()}
+				</div>
+			</div>
+
+		</div>
+	`),
+	);
+
 	return root.getElement();
 };

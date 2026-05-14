@@ -6,7 +6,7 @@ const titles = {
 	"/": `Home — ${appName}`,
 	"/library": `Library — ${appName}`,
 	"/search": `Search — ${appName}`,
-	"/upload": `Upload — ${appName}`,
+	"/uploads": `Upload — ${appName}`,
 	"/settings": `Settings — ${appName}`,
 	"/dashboard": `Dashboard — ${appName}`,
 };

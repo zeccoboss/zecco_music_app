@@ -185,7 +185,7 @@ const discoverEmptyState = () => `
 		<p class="home-discover-empty-sub">
 			The platform is quiet. Be the first to upload and start the community.
 		</p>
-		<a href="/upload" class="home-cta-btn">
+		<a href="/uploads" class="home-cta-btn">
 			<i class="bi bi-cloud-upload"></i> Upload a Track
 		</a>
 	</div>

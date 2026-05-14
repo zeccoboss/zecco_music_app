@@ -52,7 +52,7 @@ export const routes = [
 	// ── Auth-guarded pages ───────────────────────────────────
 
 	{
-		path: "/upload",
+		path: "/uploads",
 		component: UploadPage,
 		// guard: "auth",
 	},

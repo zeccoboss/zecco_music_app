@@ -39,7 +39,7 @@ const Aside = () => {
 				</a>
 			</div>
 			<div class="nav-item">
-				<a href="/upload" id="upload-nav-link" data-nav-link="/upload" class="nav-links">
+				<a href="/uploads" id="upload-nav-link" data-nav-link="/uploads" class="nav-links">
 					<i class="bi bi-cloud-upload-fill nav-icons"></i>
 					<span>Upload</span>
 				</a>
