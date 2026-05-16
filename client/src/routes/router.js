@@ -15,6 +15,7 @@ export class Router {
 	#outlets = new Map();
 	#notFound = null;
 	#authChecker = null;
+	#onGuardReject = null; // ← FIX: Declared private field here!
 
 	#scrollPositions = new Map();
 	#prefetched = new Set();
@@ -100,6 +101,15 @@ export class Router {
 	 */
 	setAuthChecker(fn) {
 		this.#authChecker = fn;
+		return this;
+	}
+
+	/**
+	 * Register a callback function when a route guard fails.
+	 * @param {Function} fn - ({ path }) => void
+	 */
+	setGuardRejectHandler(fn) {
+		this.#onGuardReject = fn;
 		return this;
 	}
 
@@ -205,7 +215,7 @@ export class Router {
 	//  INTERNAL — GUARDS
 	// ============================================================
 
-	#runGuards(stack) {
+	async #runGuards(stack) {
 		const user = this.#authChecker?.();
 		for (const route of stack) {
 			if (!route.guard) continue;
@@ -431,8 +441,17 @@ export class Router {
 		};
 
 		// ── Guards ───────────────────────────────────────────────
-		if (!this.#runGuards(match.stack)) {
-			this.#isNavigating = false; // Turn lock off prior to redirect initialization
+		// FIX: Check boolean outcome directly here, trigger hook, then redirect cleanly!
+		const passedGuards = await this.#runGuards(match.stack);
+		if (!passedGuards) {
+			this.#isNavigating = false;
+
+			try {
+				this.#onGuardReject?.({ path });
+			} catch (err) {
+				console.error("[Router] Error inside onGuardReject handler:", err);
+			}
+
 			const targetUrl = path + fullUrl.search;
 			await this.#navigate(
 				`/auth/login?redirect=${encodeURIComponent(targetUrl)}`,

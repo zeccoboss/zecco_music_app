@@ -12,6 +12,7 @@ import { layoutSwitcher } from "./layout.middleware";
 import { router } from "@zecco/routes/router.js";
 import { buildLayout, getCurrentScreen } from "@zecco/layouts/buildLayout";
 import { activeLinkSwitcher } from "./navigation.middleware";
+import { toast } from "@zecco/components/Toast/Toast.js";
 
 export const applyMiddleware = () => {
 	router
@@ -19,6 +20,13 @@ export const applyMiddleware = () => {
 		.setNotFound(notFound)
 		.use(networkGuard)
 		.setAuthChecker(() => readFromLocalStorage("user"))
+		.setGuardRejectHandler(({ path }) => {
+			toast({
+				message: "You need to be logged in to access that page.",
+				type: "warning",
+				duration: 4000,
+			});
+		})
 		.addOutlet("root", getTag("#app"))
 		.setLayoutBuilder(() => buildLayout(getCurrentScreen()))
 		.use(activeLinkSwitcher)
@@ -28,6 +36,7 @@ export const applyMiddleware = () => {
 		.use(scrollRestoration)
 		.use(titleUpdater)
 		.use(analyticsLogger)
+
 		.init();
 };
 

@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const mongoose = require("mongoose");
-const TrackModel = require("./src/models/track.model");
+const TrackModel = require("../models/track.model");
 
 const seedTracks = async () => {
 	try {
@@ -8,7 +8,7 @@ const seedTracks = async () => {
 		const existingCoverId = new mongoose.Types.ObjectId(
 			"6a06cc0a05d11ffe6649a351",
 		);
-		const existinguser = new mongoose.Types.ObjectId(
+		const existingUser = new mongoose.Types.ObjectId(
 			"6a06c63a5cae47378ef3e9a4",
 		);
 
@@ -86,7 +86,7 @@ const seedTracks = async () => {
 				genre: selectedGenres,
 				visibility: "public",
 				playCount: playCount,
-				user: existinguser,
+				user: existingUser,
 				cover: existingCoverId,
 				storage: {
 					key: `track/track_${i + 1}.mp3`,

@@ -12,7 +12,7 @@ const { credentials } = require("./src/middlewares/credentials.middleware");
 const { connectDB } = require("./src/config/db.config");
 const mongoose = require("mongoose");
 const appConfig = require("./src/config/app.config");
-const { seedTracks } = require("./seed-tracks");
+const { seedTracks } = require("./src/services/seed.service");
 
 connectDB(); // Connect to mongodb
 const app = express(); // Create App
