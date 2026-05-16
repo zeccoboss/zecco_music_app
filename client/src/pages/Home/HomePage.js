@@ -180,7 +180,6 @@ export const HomePage = async (ctx) => {
 			// ==================================================
 
 			const FEED_LIMIT = 10; // fetch 10 items per feed for now — adjust as needed
-
 			const [exploreResult, discoverResult, forYouResult] =
 				await Promise.allSettled([
 					trackService.getExploreFeed({
@@ -199,6 +198,8 @@ export const HomePage = async (ctx) => {
 					}),
 				]);
 
+			console.log(discoverResult);
+
 			// ── Explore Feed ────────────────────────────────
 			if (exploreResult.status === "fulfilled") {
 				const exploreRes = exploreResult.value;
@@ -216,21 +217,26 @@ export const HomePage = async (ctx) => {
 
 			// ── Discover Feed ───────────────────────────────
 			if (discoverResult.status === "fulfilled") {
-				const discoverRes = discoverResult.value;
+				// actual API payload
+				const discoverPayload = discoverResult.value?.value;
 
-				// If using section-based response:
-				const discoverSections = discoverRes.sections ?? [];
+				if (discoverPayload?.success) {
+					const discoverSections = discoverPayload.sections ?? [];
 
-				const discoverMap = Object.fromEntries(
-					discoverSections.map((section) => [section.type, section.items]),
-				);
+					const discoverMap = Object.fromEntries(
+						discoverSections.map((section) => [
+							section.type,
+							section.items ?? [],
+						]),
+					);
 
-				data.newUploads = discoverMap.newUploads ?? [];
-				data.trending = discoverMap.trending ?? [];
-				data.topTracks = discoverMap.topTracks ?? [];
-				data.popularRightNow = discoverMap.popular ?? [];
+					data.newUploads = discoverMap.newUploads ?? [];
+					data.trending = discoverMap.trending ?? [];
+					data.topTracks = discoverMap.topTracks ?? [];
+					data.popularRightNow = discoverMap.popular ?? [];
 
-				data.activeGenre = "all";
+					data.activeGenre = "all";
+				}
 			} else {
 				console.error(
 					"[HomePage] Discover feed failed:",
@@ -245,6 +251,7 @@ export const HomePage = async (ctx) => {
 				data.recentPlays = forYouRes.recentPlays ?? [];
 				data.liked = forYouRes.liked ?? [];
 				data.genreRecs = forYouRes.genreRecs ?? [];
+
 				data.popularRightNow =
 					forYouRes.popularRightNow ?? data.popularRightNow;
 
@@ -257,7 +264,6 @@ export const HomePage = async (ctx) => {
 					forYouResult.reason,
 				);
 			}
-
 			if (!isMounted) return;
 
 			state = "content";

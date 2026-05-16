@@ -132,15 +132,16 @@ class CreateElement {
 	}
 
 	set innerHTML(html) {
-		if (!html || typeof html !== "string") return;
-		this.element.innerHTML = html;
+		if (!html || typeof html !== "string") return; // Basic validation to ensure html is a non-empty string
+		this.element.innerHTML = html; // Set the inner HTML of the element
 	}
 
 	get outerHTML() {
-		return this.element.outerHTML;
+		return this.element.outerHTML; // Return the HTML string representation of the element
 	}
 
 	style(key, value) {
+		// Basic validation
 		if (
 			!key ||
 			!value ||
@@ -150,6 +151,7 @@ class CreateElement {
 			console.warn("Invalid style");
 			return;
 		}
+		// Set style
 		this.element.style[key] = value;
 		return this;
 	}

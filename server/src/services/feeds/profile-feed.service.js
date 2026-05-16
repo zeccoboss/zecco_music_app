@@ -16,14 +16,14 @@ const getPublicProfile = async (identifier) => {
 
 		const profile = await User.findOne(query)
 			.select(
-				"fullname username bio followersId followingId avatarImageId coverImageId bannerImageId uploadsTracksId playlistIds",
+				"fullname username bio followersId followingId avatar cover banner uploadsTracksId playlistIds",
 			)
-			.populate("avatarImageId coverImageId bannerImageId")
+			.populate("avatar cover banner")
 			.populate({
 				path: "uploadsTracksId",
-				select: "title artist duration coverImageId uuid",
+				select: "title artist duration cover uuid",
 				match: { visibility: "public" }, // Only show public uploads
-				populate: { path: "coverImageId", select: "storage name" },
+				populate: { path: "cover", select: "storage name" },
 			})
 			.populate({
 				path: "playlistIds",
@@ -41,9 +41,9 @@ const getPublicProfile = async (identifier) => {
 				fullname: profile.fullname,
 				username: profile.username,
 				bio: profile.bio,
-				avatar: profile.avatarImageId?.url || null,
-				cover: profile.coverImageId?.url || null,
-				banner: profile.bannerImageId?.url || null,
+				avatar: profile.avatar?.url || null,
+				cover: profile.cover?.url || null,
+				banner: profile.banner?.url || null,
 			},
 			stats: {
 				followersCount: profile.followersId?.length || 0,

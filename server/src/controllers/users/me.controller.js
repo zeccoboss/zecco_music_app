@@ -13,7 +13,7 @@ const getMe = async (req, res) => {
 	try {
 		// req.user comes from verifyJWT middleware (decoded.UserInfo)
 		const user = await UserModel.findOne({ uuid: req.user.uuid })
-			.populate("avatarImageId coverImageId bannerImageId settingsId")
+			.populate("avatar cover banner settingsId")
 			.select("-password -refreshToken");
 
 		if (!user)

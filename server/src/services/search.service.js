@@ -18,8 +18,8 @@ const getGlobalSearch = async (query, filter = "all") => {
 			searchTasks.push(
 				Track.find({ title: searchRegex, visibility: "public" })
 					.limit(10)
-					.populate("user", "username fullname avatarImageId")
-					.populate("coverImageId")
+					.populate("user", "username fullname avatar")
+					.populate("cover")
 					.lean(),
 			);
 		} else {
@@ -33,7 +33,7 @@ const getGlobalSearch = async (query, filter = "all") => {
 					$or: [{ username: searchRegex }, { fullname: searchRegex }],
 				})
 					.limit(8)
-					.populate("avatarImageId")
+					.populate("avatar")
 					.lean(),
 			);
 		} else {

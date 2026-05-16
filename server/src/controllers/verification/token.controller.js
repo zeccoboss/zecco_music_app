@@ -77,8 +77,8 @@ const handleVerifyEmail = async (req, res) => {
 				}),
 			]);
 
-			user.avatarImageId = avatar._id;
-			user.coverImageId = banner._id;
+			user.avatar = avatar._id;
+			user.cover = banner._id;
 		} else {
 			// Don't block verification if image creation fails
 			console.error(

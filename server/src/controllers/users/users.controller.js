@@ -95,8 +95,8 @@ const getUser = async (req, res) => {
 					username: user.username,
 					fullname: user.fullname,
 					bio: user.bio,
-					avatarImageId: user.avatarImageId,
-					coverImageId: user.coverImageId,
+					avatar: user.avatar,
+					cover: user.cover,
 				},
 			});
 		}
@@ -142,8 +142,8 @@ const createUser = async (req, res) => {
 			roles: [rolesList.User],
 			verified: true,
 			authProviders: ["local"],
-			avatarImageId: null,
-			coverImageId: null,
+			avatar: null,
+			cover: null,
 		});
 
 		return res.status(201).json({

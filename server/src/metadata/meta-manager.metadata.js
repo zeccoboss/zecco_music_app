@@ -102,7 +102,7 @@ const buildTrackPayload = (file, trackKey, coverId, metadata) => {
 		sampleRate: format.sampleRate ?? null,
 		year: common.year ?? null,
 		format: file.mimetype ?? "track/mpeg",
-		coverImageId: coverId ?? null,
+		cover: coverId ?? null,
 		videoId: null,
 		storage: {
 			key: trackKey,
@@ -141,7 +141,7 @@ const processTrack = async (userId, file) => {
 
 	// ── 3. Upload track to MinIO ───────────────────────────────────────────────
 	const trackName = generateUniqueName("Track");
-	const trackKey = await storetrack(file, trackName);
+	const trackKey = await storeTrack(file, trackName);
 
 	if (!trackKey) {
 		console.error("[MetaManager] Track upload to MinIO failed — aborting");

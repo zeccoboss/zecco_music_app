@@ -1,9 +1,11 @@
 import CreateElement from "@zecco/utils/dom/create-element";
+import "./Overlay.styles.css";
 
-// Create element
-const overlayInstance = new CreateElement("div");
-overlayInstance.addClass("overlay");
+const Overlay = () => {
+	const root = new CreateElement("div");
+	root.addClass("overlay", "overlay--hidden").setId("overlay");
+	//  "overlay--show";
+	return root.getElement();
+};
 
-const Overlay = () => overlayInstance.getElement();
-
-export { Overlay, overlayInstance };
+export { Overlay, Overlay as default };

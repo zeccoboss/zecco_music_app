@@ -76,8 +76,8 @@ const createDefaultImages = async (user) => {
 		}),
 	]);
 
-	user.avatarImageId = avatar._id;
-	user.coverImageId = banner._id;
+	user.avatar = avatar._id;
+	user.cover = banner._id;
 	await user.save();
 };
 
@@ -104,8 +104,8 @@ const findOrCreateUser = async ({ email, fullname, username, provider }) => {
 		roles: [rolesList.User],
 		verified: true,
 		authProviders: [provider],
-		avatarImageId: null,
-		coverImageId: null,
+		avatar: null,
+		cover: null,
 	});
 
 	// Create default settings for the new user

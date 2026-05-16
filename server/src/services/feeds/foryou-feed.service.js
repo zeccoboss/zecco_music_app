@@ -8,12 +8,12 @@ const {
 } = require("../../helpers/feed-transformers.helper");
 
 const IMAGE_POPULATE = {
-	path: "coverImageId",
+	path: "cover",
 	select: "storage",
 };
 
 const AVATAR_POPULATE = {
-	path: "avatarImageId",
+	path: "avatar",
 	select: "storage",
 };
 
@@ -25,7 +25,7 @@ const getForYouFeed = async (userId) => {
 		})
 			.sort({ playCount: -1 })
 			.limit(10)
-			.populate("coverImageId");
+			.populate("cover");
 
 		return {
 			isLoggedIn: false,
@@ -50,7 +50,7 @@ const getForYouFeed = async (userId) => {
 		.populate({
 			path: "TrackId",
 			populate: {
-				path: "coverImageId",
+				path: "cover",
 			},
 		});
 
@@ -60,7 +60,7 @@ const getForYouFeed = async (userId) => {
 	const user = await UserModel.findById(userId).populate({
 		path: "likedTracksIds",
 		populate: {
-			path: "coverImageId",
+			path: "cover",
 		},
 	});
 
@@ -91,7 +91,7 @@ const getForYouFeed = async (userId) => {
 		})
 			.sort({ playCount: -1 })
 			.limit(10)
-			.populate("coverImageId");
+			.populate("cover");
 	}
 
 	// ── Popular Fallback ─────────────────────────
@@ -100,7 +100,7 @@ const getForYouFeed = async (userId) => {
 	})
 		.sort({ playCount: -1 })
 		.limit(10)
-		.populate("coverImageId");
+		.populate("cover");
 
 	return {
 		isLoggedIn: true,

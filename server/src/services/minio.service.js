@@ -65,7 +65,7 @@ const deleteObject = async ({ bucket, key }) => {
  * @param {{ data: Buffer, format: string, fileName: string }} cover
  * @returns {Promise<string|null>} Stored key or null
  */
-const storetrackCover = async (cover) => {
+const storeTrackCover = async (cover) => {
 	if (!cover || typeof cover !== "object") {
 		console.error("[MinIO] Invalid track cover object");
 		return null;
@@ -88,7 +88,7 @@ const storetrackCover = async (cover) => {
  * @param {string} trackName          - Generated unique name for the file
  * @returns {Promise<string|null>} Stored key or null
  */
-const storetrack = async (file, trackName) => {
+const storeTrack = async (file, trackName) => {
 	if (!file || typeof file !== "object") {
 		console.error("[MinIO] Invalid track file object");
 		return null;
@@ -153,8 +153,8 @@ const getPresignedUrl = async ({ bucket, key, expiresIn = 60 }) => {
 module.exports = {
 	uploadObject,
 	deleteObject,
-	storetrackCover,
-	storetrack,
+	storeTrackCover,
+	storeTrack,
 	storeImage,
 	getPresignedUrl,
 	BUCKETS,

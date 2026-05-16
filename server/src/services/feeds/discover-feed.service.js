@@ -8,12 +8,12 @@ const {
 } = require("../../helpers/feed-transformers.helper");
 
 const IMAGE_POPULATE = {
-	path: "coverImageId",
+	path: "cover",
 	select: "storage",
 };
 
 const AVATAR_POPULATE = {
-	path: "avatarImageId",
+	path: "avatar",
 	select: "storage",
 };
 

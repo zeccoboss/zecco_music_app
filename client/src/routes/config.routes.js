@@ -47,6 +47,7 @@ export const routes = [
 	{
 		path: "/library",
 		component: LibraryPage,
+		guard: "auth",
 	},
 
 	// ── Auth-guarded pages ───────────────────────────────────
@@ -54,18 +55,18 @@ export const routes = [
 	{
 		path: "/uploads",
 		component: UploadPage,
-		// guard: "auth",
+		guard: "auth",
 	},
 	{
 		path: "/settings",
 		component: SettingsPage,
-		// guard: "auth",
+		guard: "auth",
 	},
 	{
 		// /profile/zeccoboss → ctx.params.username = "zeccoboss"
 		path: "/profile",
 		component: ProfilePage,
-		// guard: "auth",
+		guard: "auth",
 	},
 
 	// ── Auth pages — rendered into #app root ─────────────────
@@ -94,7 +95,15 @@ export const routes = [
 	{
 		// Shared verification page — handles both email verify
 		// and password reset tokens via ?type=register|reset query param.
-		path: "/auth/verify",
+		path: "/auth/verify-reset",
+		component: VerificationPage,
+		outlet: "root",
+	},
+
+	{
+		// Shared verification page — handles both email verify
+		// and password reset tokens via ?type=register|reset query param.
+		path: "/auth/verify-email",
 		component: VerificationPage,
 		outlet: "root",
 	},

@@ -57,8 +57,8 @@ const initAdmin = async () => {
 			password: await bcrypt.hash(`${process.env.ADMIN_PASSWORD}`, 10),
 			roles: rolesValues,
 			verified: true,
-			avatarImageId: null,
-			coverImageId: null,
+			avatar: null,
+			cover: null,
 			verificationToken: "",
 			verificationTokenExpiry: undefined,
 			lasUserVerificationSentAt: undefined,
@@ -96,8 +96,8 @@ const initAdmin = async () => {
 		]);
 
 		// add the missing id to the admin field
-		admin.coverImageId = banner._id;
-		admin.avatarImageId = avatar._id;
+		admin.cover = banner._id;
+		admin.avatar = avatar._id;
 
 		// Create default settings for the new user
 		const newSettings = await SettingsModel.create({ user: admin._id });

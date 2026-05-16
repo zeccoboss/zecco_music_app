@@ -31,11 +31,11 @@ const userSchema = new Schema(
 			isPlaying: { type: Boolean, default: false },
 			lastUpdated: { type: Date, default: Date.now },
 		},
-		avatarImageId: {
+		avatar: {
 			type: Schema.Types.ObjectId,
 			ref: "Image",
 		},
-		bannerImageId: {
+		banner: {
 			type: Schema.Types.ObjectId,
 			ref: "Image",
 		},

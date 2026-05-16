@@ -26,6 +26,7 @@ import FooterMobile from "./Footer/FooterMobile";
 import MainDesktop from "./Main/MainDesktop";
 import { MainMobile } from "./Main/MainMobile";
 import { MiniPlayer } from "./MniPlayer/MiniPlayer";
+import Overlay from "./Overlay/Overlay";
 
 // import { MainDesktop } from "./Main/MainDesktop.js";
 // import { MainMobile } from "./Main/MainMobile.js";
@@ -94,8 +95,6 @@ const buildMobileLayout = async () => {
  * @returns {Promise<{ shell: DocumentFragment, main: Element }>}
  */
 export const buildLayout = async (screen) => {
-	console.log("[BuildLayout]: ", screen);
-
 	try {
 		return screen === "mobile"
 			? await buildMobileLayout()
@@ -113,11 +112,11 @@ export const buildLayout = async (screen) => {
 };
 
 export const rebuildLayout = async (screen) => {
-	console.log("[RebuildLayout]: ", screen);
+	const overlay = Overlay();
 
 	const app = document.getElementById("app");
 	const { shell, main } = await buildLayout(screen);
-	app.replaceChildren(shell);
+	app.replaceChildren(overlay, shell);
 	router.addOutlet("main", main);
 };
 

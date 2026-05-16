@@ -272,7 +272,7 @@ export const PasswordDesktop = async ({
 					<div class="pwd-brand-icon">
 						<i class="bi bi-music-note-beamed"></i>
 					</div>
-					<h1 class="pwd-brand-name">Zecco<span>Stream</span></h1>
+					<h1 class="pwd-brand-name">Soniq<span>Stream</span></h1>
 					<p class="pwd-brand-tag">
 						Upload, discover and share African music
 						with a global community of artists and fans.

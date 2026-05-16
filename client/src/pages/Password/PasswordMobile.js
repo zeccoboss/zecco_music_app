@@ -259,7 +259,7 @@ export const PasswordMobile = async ({
 					<div class="pwd-mob-brand-icon">
 						<i class="bi bi-music-note-beamed"></i>
 					</div>
-					<span class="pwd-mob-brand-name">Zecco<span>Stream</span></span>
+					<span class="pwd-mob-brand-name">Soniq<span>Stream</span></span>
 				</div>
 				<a href="/auth/login" class="pwd-mob-back-link" data-replace>
 					<i class="bi bi-arrow-left"></i> Login

@@ -24,10 +24,10 @@ const getFollowingFeed = async (userId, lastTimestamp, limit = 10) => {
 			.limit(limit)
 			.populate({
 				path: "user",
-				select: "username fullname avatarImageId",
-				populate: { path: "avatarImageId", select: "storage name" },
+				select: "username fullname avatar",
+				populate: { path: "avatar", select: "storage name" },
 			})
-			.populate({ path: "coverImageId", select: "storage name" });
+			.populate({ path: "cover", select: "storage name" });
 
 		return {
 			tracks,

@@ -58,7 +58,7 @@ export const SettingsPage = async (ctx) => {
 			const user = JSON.parse(localStorage.getItem("user") || "null");
 			if (!user) {
 				state = "auth";
-				setState("skeleton"); // TODO: remove later
+				setState("content"); // TODO: remove later
 
 				await render();
 				return;

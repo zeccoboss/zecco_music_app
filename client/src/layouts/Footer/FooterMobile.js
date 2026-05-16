@@ -29,12 +29,12 @@ const FooterMobile = () => {
 					</a>
 				</li>
 
-				<li id="/profile" class="profile">
+				<!-- <li id="/profile" class="profile">
 					<a href="/profile" data-nav-link="/profile" class="nav-links  mobile-nav-links">
 						<i class="bi bi-person-circle nav-icons"></i>
 						<span class="mobile-nav-label">Profile</span>
 					</a>
-				</li>
+				</li> -->
 
 				<li id="library" class="library">
 					<a href="/library"  id="lib-nav-link" data-nav-link="/library" class="nav-links  mobile-nav-links">

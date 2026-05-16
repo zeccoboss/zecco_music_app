@@ -14,8 +14,8 @@ const VALID_TYPES = ["avatar", "cover"];
 
 // Map route type → user field name
 const USER_IMAGE_FIELD = {
-	avatar: "avatarImageId",
-	cover: "coverImageId",
+	avatar: "avatar",
+	cover: "cover",
 };
 
 /**

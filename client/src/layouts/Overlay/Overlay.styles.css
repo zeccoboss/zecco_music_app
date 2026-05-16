@@ -1,0 +1,19 @@
+.overlay {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--overlay-bg);
+	z-index: 50;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.overlay.overlay--hidden {
+	display: none;
+}
+
+.overlay.overlay--show {
+	display: flex;
+}

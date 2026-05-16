@@ -291,7 +291,7 @@ export const RegisterDesktop = async ({
 					<div class="reg-brand-icon">
 						<i class="bi bi-music-note-beamed"></i>
 					</div>
-					<h1 class="reg-brand-name">Zecco<span>Stream</span></h1>
+					<h1 class="reg-brand-name">Soniq<span>Stream</span></h1>
 					<p class="reg-brand-tag">
 						Upload, discover and share African music
 						with a global community of artists and fans.

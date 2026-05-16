@@ -30,7 +30,7 @@ const trackSchema = new Schema(
 			type: [String],
 			default: [],
 		},
-		coverImageId: {
+		cover: {
 			type: Schema.Types.ObjectId,
 			default: null,
 			ref: "Image",

@@ -37,7 +37,7 @@ export const LoginMobile = async ({
 					<div class="login-mob-brand-icon">
 						<i class="bi bi-music-note-beamed"></i>
 					</div>
-					<span class="login-mob-brand-name">Zecco<span>Stream</span></span>
+					<span class="login-mob-brand-name">Soniq<span>Stream</span></span>
 				</div>
 				<a href="/" class="login-mob-home-link" data-replace>
 					<i class="bi bi-arrow-left"></i> Home

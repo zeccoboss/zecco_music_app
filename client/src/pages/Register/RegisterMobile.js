@@ -284,7 +284,7 @@ export const RegisterMobile = async ({
 					<div class="reg-mob-brand-icon">
 						<i class="bi bi-music-note-beamed"></i>
 					</div>
-					<span class="reg-mob-brand-name">Zecco<span>Stream</span></span>
+					<span class="reg-mob-brand-name">Soniq<span>Stream</span></span>
 				</div>
 				<a href="/" class="reg-mob-home-link" data-replace>
 					<i class="bi bi-arrow-left"></i> Home

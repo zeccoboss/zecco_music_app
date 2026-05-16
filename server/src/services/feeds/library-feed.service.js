@@ -15,9 +15,9 @@ const getLibraryFeed = async (userId) => {
 			.select("likedTracksIds playlistIds uploadsTracksId")
 			.populate({
 				path: "likedTracksIds",
-				select: "title artist duration coverImageId uuid",
+				select: "title artist duration cover uuid",
 				populate: {
-					path: "coverImageId",
+					path: "cover",
 					select: "storage name dimensions", // Virtual 'url' will be included
 				},
 			})
@@ -28,9 +28,9 @@ const getLibraryFeed = async (userId) => {
 			})
 			.populate({
 				path: "uploadsTracksId",
-				select: "title artist duration format size coverImageId uuid",
+				select: "title artist duration format size cover uuid",
 				populate: {
-					path: "coverImageId",
+					path: "cover",
 					select: "storage name",
 				},
 			});

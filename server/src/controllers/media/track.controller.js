@@ -98,7 +98,7 @@ const getAllTracks = async (req, res) => {
 		// 3. Database Query
 		const Tracks = await TrackModel.find(filter)
 			.populate(
-				"coverImageId",
+				"cover",
 				"uuid name format dimensions storage.baseUrl storage.key",
 			)
 			.select("-__v")
@@ -142,7 +142,7 @@ const getTrack = async (req, res) => {
 	try {
 		const Track = await TrackModel.findOne({
 			uuid: req.params.uuid,
-		}).populate("coverImageId", "storage dimensions format uuid");
+		}).populate("cover", "storage dimensions format uuid");
 
 		if (!Track) {
 			return res
@@ -165,6 +165,13 @@ const uploadTrack = async (req, res) => {
 			.status(400)
 			.json({ success: false, message: "No file uploaded" });
 	}
+
+	console.log("Received file upload request:", {
+		originalName: req.file.originalname,
+		mimeType: req.file.mimetype,
+		size: req.file.size,
+		userId: req.user._id,
+	});
 
 	const userId = req.user._id;
 
@@ -291,15 +298,15 @@ const deleteTrack = async (req, res) => {
 		await deleteObject({ bucket: BUCKETS.tracks, key: track.storage.key });
 
 		// ── 2. Delete cover art if it exists ──────────────────────────────────
-		if (track.coverImageId) {
+		if (track.cover) {
 			try {
-				const coverImage = await ImageModel.findById(track.coverImageId);
+				const coverImage = await ImageModel.findById(track.cover);
 				if (coverImage) {
 					await deleteObject({
 						bucket: BUCKETS.images,
 						key: coverImage.storage.key,
 					});
-					await ImageModel.findByIdAndDelete(track.coverImageId);
+					await ImageModel.findByIdAndDelete(track.cover);
 				}
 			} catch (err) {
 				// Don't block the delete if cover cleanup fails

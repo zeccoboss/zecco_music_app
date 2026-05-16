@@ -8,12 +8,12 @@ const {
 } = require("../../helpers/feed-transformers.helper");
 
 const IMAGE_POPULATE = {
-	path: "coverImageId",
+	path: "cover",
 	select: "storage",
 };
 
 const AVATAR_POPULATE = {
-	path: "avatarImageId",
+	path: "avatar",
 	select: "storage",
 };
 
@@ -46,7 +46,7 @@ const getExploreFeed = async () => {
 		UserModel.find({})
 			.sort({ uploadsCount: -1 })
 			.limit(10)
-			.select("username username uploadsCount avatarImageId")
+			.select("username username uploadsCount avatar")
 			.populate(AVATAR_POPULATE)
 			.lean({ virtuals: true }),
 

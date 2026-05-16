@@ -1,0 +1,301 @@
+/* ══════════════════════════════════════
+   VERIFICATION — Shared styles
+   Covers: VerificationDesktop + VerificationMobile
+   outlet: "root" — full viewport, no layout shell
+   Opens in a new tab from the email link
+══════════════════════════════════════ */
+
+.verify-page-root {
+	display: contents;
+}
+.verify-page,
+.verify-mob-page {
+	display: contents;
+}
+
+/* ══════════════════════════════════════
+   LAYOUT — full viewport centered
+   Same glow + gradient pattern as 404
+══════════════════════════════════════ */
+.verify-layout,
+.verify-mob-layout {
+	min-height: 100dvh;
+	width: 100%;
+	background: var(--bg-base);
+	background-image: linear-gradient(var(--bg-gradient));
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 40px 24px;
+	position: relative;
+	overflow: hidden;
+}
+
+/* ── Background glows ── */
+.verify-glow {
+	position: absolute;
+	border-radius: 50%;
+	pointer-events: none;
+	filter: blur(80px);
+	opacity: 0.06;
+}
+.verify-glow--1 {
+	width: 500px;
+	height: 500px;
+	background: var(--accent);
+	top: -120px;
+	left: -100px;
+}
+.verify-glow--2 {
+	width: 400px;
+	height: 400px;
+	background: hsl(265, 80%, 60%);
+	bottom: -80px;
+	right: -80px;
+}
+
+/* ── Logo ── */
+.verify-logo {
+	position: absolute;
+	top: 28px;
+	left: 32px;
+	font-family: var(--font-head);
+	font-size: 1rem;
+	font-weight: 800;
+	letter-spacing: -0.3px;
+	color: var(--text-1);
+	text-decoration: none;
+	transition: opacity 0.2s;
+}
+.verify-logo:hover {
+	opacity: 0.75;
+}
+.verify-logo span {
+	color: var(--accent);
+}
+
+/* ══════════════════════════════════════
+   CARD — shared content container
+   Desktop and mobile share the same card
+   classes, mobile card is slightly smaller
+══════════════════════════════════════ */
+.verify-card,
+.verify-mob-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 14px;
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	max-width: 400px;
+	padding: 40px 36px;
+	background: var(--glass);
+	border: 1px solid var(--glass-border);
+	border-radius: var(--radius-xl);
+	animation: verify-card-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.verify-mob-card {
+	max-width: 360px;
+	padding: 32px 24px;
+	border-radius: var(--radius-lg);
+}
+
+@keyframes verify-card-in {
+	from {
+		transform: translateY(16px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+/* ══════════════════════════════════════
+   VERIFYING STATE — spinner
+══════════════════════════════════════ */
+.verify-spinner-wrap {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	background: var(--glass);
+	border: 1px solid var(--glass-border);
+	display: grid;
+	place-items: center;
+	color: var(--text-2);
+	margin-bottom: 4px;
+}
+.verify-spinner {
+	animation: verify-spin 1s linear infinite;
+}
+@keyframes verify-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* ══════════════════════════════════════
+   SUCCESS STATE
+══════════════════════════════════════ */
+.verify-success-ring {
+	width: 72px;
+	height: 72px;
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+	font-size: 1.8rem;
+	margin-bottom: 4px;
+	background: rgba(74, 222, 128, 0.1);
+	border: 1px solid rgba(74, 222, 128, 0.25);
+	color: var(--success);
+	animation: verify-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+/* reset type — purple instead of green */
+.verify-success-ring--purple {
+	background: hsla(265, 80%, 60%, 0.1);
+	border-color: hsla(265, 80%, 60%, 0.25);
+	color: hsl(265, 80%, 70%);
+}
+
+@keyframes verify-pop {
+	from {
+		transform: scale(0.5);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+.verify-close-note {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	font-size: 0.58rem;
+	color: var(--text-3);
+	padding: 7px 14px;
+	border-radius: 50px;
+	background: var(--glass);
+	border: 1px solid var(--glass-border);
+	margin-top: 4px;
+}
+
+/* ══════════════════════════════════════
+   ERROR STATE
+══════════════════════════════════════ */
+.verify-error-icon {
+	width: 68px;
+	height: 68px;
+	border-radius: 50%;
+	background: rgba(255, 74, 74, 0.08);
+	border: 1px solid rgba(255, 74, 74, 0.18);
+	display: grid;
+	place-items: center;
+	font-size: 1.6rem;
+	color: var(--error);
+	margin-bottom: 4px;
+}
+.verify-title--error {
+	color: var(--error);
+}
+
+.verify-error-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	width: 100%;
+	margin-top: 4px;
+}
+
+/* ══════════════════════════════════════
+   TYPOGRAPHY — shared
+══════════════════════════════════════ */
+.verify-title {
+	font-family: var(--font-head);
+	font-size: 1.1rem;
+	font-weight: 800;
+	color: var(--text-1);
+	letter-spacing: -0.2px;
+	line-height: 1.2;
+}
+.verify-mob-card .verify-title {
+	font-size: 1rem;
+}
+
+.verify-sub {
+	font-size: 0.66rem;
+	color: var(--text-3);
+	line-height: 1.65;
+	max-width: 280px;
+}
+
+/* ══════════════════════════════════════
+   BUTTONS — shared
+══════════════════════════════════════ */
+.verify-btn-accent {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 7px;
+	width: 100%;
+	padding: 11px 20px;
+	border-radius: 50px;
+	background: var(--accent);
+	color: white;
+	font-size: 0.7rem;
+	font-weight: 700;
+	font-family: var(--font-body);
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+	transition:
+		opacity 0.2s,
+		transform 0.2s;
+}
+.verify-btn-accent:hover {
+	opacity: 0.88;
+	transform: translateY(-1px);
+}
+
+.verify-btn-ghost {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 7px;
+	width: 100%;
+	padding: 10px 20px;
+	border-radius: 50px;
+	background: var(--glass);
+	border: 1px solid var(--glass-border);
+	color: var(--text-1);
+	font-size: 0.7rem;
+	font-weight: 500;
+	font-family: var(--font-body);
+	cursor: pointer;
+	transition: background 0.2s;
+}
+.verify-btn-ghost:hover {
+	background: var(--glass-hover);
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media (max-width: 480px) {
+	.verify-logo {
+		top: 20px;
+		left: 20px;
+	}
+	.verify-layout {
+		padding: 80px 16px 40px;
+	}
+	.verify-card {
+		padding: 28px 20px;
+		border-radius: var(--radius-lg);
+	}
+}
