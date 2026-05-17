@@ -268,8 +268,12 @@
 ══════════════════════════════════════ */
 .reg-slide-container {
 	flex: 1;
-	overflow: hidden;
+	overflow: auto;
 	position: relative;
+	scrollbar-width: none;
+}
+.reg-slide-container::-webkit-scrollbar {
+	display: none;
 }
 /* Mobile */
 .reg-mob-layout .reg-slide-container {

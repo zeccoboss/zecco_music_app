@@ -42,19 +42,9 @@
 	gap: 10px;
 	padding: 12px 14px;
 	border-radius: var(--radius-md);
-
-	/* ── FIX: Use a solid background color ── */
-	/* If your app is dark themed, use #1e1e1e or #222. If light themed, use #ffffff */
-	background: #1e1e1e;
-
-	/* Or, if you want to keep using a CSS variable, make sure it points to a completely solid tone: */
-	/* background: var(--bg-surface-solid, #1e1e1e); */
-
+	background: var(--bg-surface-solid, #1e1e1e);
 	border: 1px solid var(--glass-border);
-	box-shadow:
-		0 4px 16px rgba(0, 0, 0, 0.35),
-		0 1px 4px rgba(0, 0, 0, 0.2);
-	pointer-events: all; /* toasts themselves are interactive */
+	pointer-events: all;
 	animation: toast-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
 	will-change: transform, opacity;
 	min-width: 0;
