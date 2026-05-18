@@ -154,10 +154,18 @@
 /* ── Action buttons ── */
 .nf-actions {
 	display: flex;
-	gap: 8px;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.7rem;
 	flex-wrap: wrap;
 	justify-content: center;
 	margin-top: 4px;
+}
+.nf-actions-divider {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 0 4px;
 }
 .nf-btn-primary {
 	display: inline-flex;

@@ -1,5 +1,5 @@
-import { appConfig } from "@zecco/config/app.config.js";
 import {
+	readFromLocalStorage,
 	removeFromLocalStorage,
 	writeToLocalStorage,
 } from "@zecco/services/storage/local-storage";
@@ -54,6 +54,7 @@ class AppStore {
 			avatar: data.avatar ?? null,
 			isVerified: data.isVerified ?? false,
 			isAdmin: data.isAdmin ?? false,
+			...data,
 		};
 	}
 
@@ -373,7 +374,7 @@ class AppStore {
 	clearAuth() {
 		this.#user = null;
 		this.#token = null;
-		localStorage.removeItem(`${appConfig.API_NAME}-token`);
+		removeFromLocalStorage("token");
 	}
 
 	clearAll() {
@@ -391,7 +392,7 @@ class AppStore {
 	// ═════════════════════════════════════════════════════════════════
 
 	init() {
-		const token = localStorage.getItem(`${appConfig.API_NAME}-token`);
+		const token = readFromLocalStorage("token");
 		if (token) this.#token = token;
 
 		const trackId = this.captureDeepLink();
@@ -400,7 +401,4 @@ class AppStore {
 	}
 }
 
-const store = new AppStore();
-store.init();
-
-export { store };
+export const store = new AppStore();

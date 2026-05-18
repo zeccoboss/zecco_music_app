@@ -1,5 +1,3 @@
-// middlewares/scroll.middleware.js
-
 import { getTag } from "@zecco/helpers/dom-helper";
 
 // Local map to store { "/path": scrollTopValue }

@@ -12,37 +12,25 @@ import { layoutSwitcher } from "./layout.middleware";
 import { router } from "@zecco/routes/router.js";
 import { buildLayout, getCurrentScreen } from "@zecco/layouts/buildLayout";
 import { activeLinkSwitcher } from "./navigation.middleware";
-import { toast } from "@zecco/components/Toast/Toast.js";
+import { rejectMiddleware } from "./reject.middleware";
+import { notFound } from "./not-found.middleware";
 
+// This function sets up all the middleware and configurations for the router. It should be called once during the app initialization to apply all the middleware globally.
 export const applyMiddleware = () => {
 	router
-		.register(routes)
-		.setNotFound(notFound)
-		.use(networkGuard)
-		.setAuthChecker(() => readFromLocalStorage("user"))
-		.setGuardRejectHandler(({ path }) => {
-			toast({
-				message: "You need to be logged in to access that page.",
-				type: "warning",
-				duration: 4000,
-			});
-		})
-		.addOutlet("root", getTag("#app"))
+		.setGuardRejectHandler(rejectMiddleware) // Handle guard rejections globally (e.g., show toast on auth failure)
+		.addOutlet("root", getTag("#app")) // Set root outlet for rendering pages
+		.register(routes) // Register routes from config
+		.setNotFound(notFound) // Handle unmatched routes with a 404 page
+		.use(networkGuard) // Global guard to check network status before route changes
+		.setAuthChecker(() => readFromLocalStorage("user")) // Simple auth check for protected routes
 		.setLayoutBuilder(() => buildLayout(getCurrentScreen()))
-		.use(activeLinkSwitcher)
-		.use(layoutSwitcher)
-		.use(authRedirect)
-		.use(loadingIndicator)
-		.use(scrollRestoration)
-		.use(titleUpdater)
-		.use(analyticsLogger)
-
-		.init();
-};
-
-const notFound = async (ctx) => {
-	const { NotFoundPage } =
-		await import("@zecco/pages/NotFound/NotFoundPage.js");
-
-	return NotFoundPage(ctx);
+		.use(activeLinkSwitcher) // Middleware to switch active link in navigation based on current route
+		.use(layoutSwitcher) // Middleware to switch layouts based on route or screen size
+		.use(authRedirect) // Middleware to redirect unauthenticated users trying to access protected routes to the login page
+		.use(loadingIndicator) // Middleware to show a loading indicator during route changes
+		.use(scrollRestoration) // Middleware to restore scroll position on navigation
+		.use(titleUpdater) // Middleware to update document title based on route metadata
+		.use(analyticsLogger) // Middleware to log page views and route changes for analytics
+		.init(); // Initialize the router with all configurations and middleware
 };

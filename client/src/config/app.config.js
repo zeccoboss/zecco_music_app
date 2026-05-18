@@ -9,6 +9,10 @@ class AppConfig {
 		document.title = title;
 	}
 
+	get PROTECTED_ROUTES() {
+		return ["/uploads", "/dashboard", "/profile", "/settings", "/admin"];
+	}
+
 	get API_BASE_URL() {
 		return this.#apiBaseUrl ?? this.#apiDevUrl;
 	}

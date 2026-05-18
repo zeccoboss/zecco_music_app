@@ -56,18 +56,21 @@ export const NotFoundPage = async (ctx) => {
 
 				<!-- Actions -->
 				<div class="nf-actions">
-					<a href="/" class="nf-btn-ghost" data-fallback="/" data-back data-replace>
-						<i class="bi bi-arrow-left"></i> Go Back
-						<!-- data-back: tries history.back(), falls back to "/" if no history -->
-						<!-- This is better UX than always going home, because if they got here via a broken link within the app, they can just go back to where they were instead of losing their place -->
-						<!-- If they came from an external site, history.back() will just take them back there, which is also fine because they can try to find the correct link there -->
-					</a>
 					<a href="/" class="nf-btn-primary" data-replace>
 						<i class="bi bi-house-fill"></i> Go Home
 					</a>
-					<a href="/search" class="nf-btn-ghost">
-						<i class="bi bi-search"></i> Search
-					</a>
+
+					<div class="nf-actions-divider" aria-hidden="true">
+						<a href="/" class="nf-btn-ghost" data-fallback="/" data-back data-replace>
+							<i class="bi bi-arrow-left"></i> Go Back
+							<!-- data-back: tries history.back(), falls back to "/" if no history -->
+							<!-- This is better UX than always going home, because if they got here via a broken link within the app, they can just go back to where they were instead of losing their place -->
+							<!-- If they came from an external site, history.back() will just take them back there, which is also fine because they can try to find the correct link there -->
+						</a>
+						<a href="/search" class="nf-btn-ghost">
+							<i class="bi bi-search"></i> Search
+						</a>
+					</div>
 				</div>
 
 				<!-- Quick nav -->
