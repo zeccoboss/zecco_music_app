@@ -18,35 +18,20 @@
 //    The module is not loaded until the user first visits.
 // ============================================================
 
-// ── Regular pages ────────────────────────────────────────────
-import { HomePage } from "@zecco/pages/Home/HomePage.js";
-import { LibraryPage } from "@zecco/pages/Library/LibraryPage.js";
-import { SearchPage } from "@zecco/pages/Search/SearchPage.js";
-import { UploadPage } from "@zecco/pages/Upload/UploadPage.js";
-import { SettingsPage } from "@zecco/pages/Settings/SettingsPage.js";
-import { ProfilePage } from "@zecco/pages/Profile/ProfilePage.js";
-
-// ── Auth pages (outlet: "root") ──────────────────────────────
-import { LoginPage } from "@zecco/pages/Login/LoginPage.js";
-import { RegisterPage } from "@zecco/pages/Register/RegisterPage.js";
-import { PasswordPage } from "@zecco/pages/Password/PasswordPage.js";
-import { VerificationPage } from "@zecco/pages/Verification/VerificationPage.js";
-
 export const routes = [
 	// ── Public pages — rendered into <main> ──────────────────
-
 	{
 		path: "/",
-		component: HomePage,
+		component: import("@zecco/pages/Home/HomePage.js"),
 		// outlet: "main" is the default — no need to specify
 	},
 	{
 		path: "/search",
-		component: SearchPage,
+		component: import("@zecco/pages/Search/SearchPage.js"),
 	},
 	{
 		path: "/library",
-		component: LibraryPage,
+		component: import("@zecco/pages/Library/LibraryPage.js"),
 		guard: "auth",
 	},
 
@@ -54,18 +39,18 @@ export const routes = [
 
 	{
 		path: "/uploads",
-		component: UploadPage,
+		component: import("@zecco/pages/Upload/UploadPage.js"),
 		guard: "auth",
 	},
 	{
 		path: "/settings",
-		component: SettingsPage,
+		component: import("@zecco/pages/Settings/SettingsPage.js"),
 		guard: "auth",
 	},
 	{
 		// /profile/zeccoboss → ctx.params.username = "zeccoboss"
 		path: "/profile",
-		component: ProfilePage,
+		component: import("@zecco/pages/Profile/ProfilePage.js"),
 		guard: "auth",
 	},
 
@@ -76,35 +61,35 @@ export const routes = [
 
 	{
 		path: "/auth/login",
-		component: LoginPage,
+		component: import("@zecco/pages/Login/LoginPage.js"),
 		outlet: "root",
 	},
 	{
 		// Register is a single page that manages its own 3-step flow
 		// internally — no child routes needed.
 		path: "/auth/register",
-		component: RegisterPage,
+		component: import("@zecco/pages/Register/RegisterPage.js"),
 		outlet: "root",
 	},
 	{
 		// Forgot password — manages its own 5-step flow internally.
 		path: "/auth/forgot-password",
-		component: PasswordPage,
+		component: import("@zecco/pages/Password/PasswordPage.js"),
 		outlet: "root",
 	},
 	{
 		// Shared verification page — handles both email verify
 		// and password reset tokens via ?type=register|reset query param.
 		path: "/auth/verify-reset",
-		component: VerificationPage,
+		component: import("@zecco/pages/Verification/VerificationPage.js"),
 		outlet: "root",
 	},
 
 	{
 		// Shared verification page — handles both email verify
 		// and password reset tokens via ?type=register|reset query param.
-		path: "/auth/verify-email",
-		component: VerificationPage,
+		path: "/auth/verify",
+		component: import("@zecco/pages/Verification/VerificationPage.js"),
 		outlet: "root",
 	},
 
